@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>cgroups(7) — Linux manual pages</title>
+  <link rel="stylesheet" type="text/css" href="../stylesheet/manpages.css" />
+  
+  <link rel="home" href="../index.html" title="cgroups(7) — Linux manual pages" />
+  <script type="text/javascript" src="../stylesheet/manpages.js" xml:space="preserve">
+  </script>
+  <link rel="icon" href="../stylesheet/icon.gif" type="image/gif" />
+</head>
+<body onload="javascript:init()">
+  <div class="navheader">
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td style="width: 33%" rowspan="1" colspan="1"><a href="../index.html" shape="rect">Linux
+          manual pages</a></td>
+          <th rowspan="1" colspan="1"><a href="../index7.html" shape="rect">Section 7</a></th>
+          <td style="width: 33%" rowspan="1" colspan="1"> </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+  </div>
+  <div class="refentry">
+    <a id="cgroups.7" name="cgroups.7" shape="rect"> </a>
+    <div class="titlepage"> </div>
+    <div class="refnamediv">
+      <h2>Name</h2>
+      <p>cgroups — Linux control groups</p>
+    </div>
+    <div class="refsect1">
+      <a id="cgroups-7_sect1" name="cgroups-7_sect1" shape="rect"> </a>
+      <h2>DESCRIPTION</h2>
+      <p>Control cgroups, usually referred to as cgroups, are a
+      Linux kernel feature which provides for grouping of tasks and
+      resource tracking and limitations for those groups. While
+      several systems have been introduced to help in configuring
+      and managing cgroups, the kernel's cgroup interface is
+      provided through a pseudo-filesystem called cgroupfs. Task
+      grouping is implemented in the core cgroup kernel code, while
+      resource tracking and limits are implemented in a set of
+      per-resource-type subsystems (memory, CPU, and so on) which
+      may be enabled as separate hierarchies, or joined into
+      comounted hierarchies.</p>
+      <p>Each hierarchy constitutes a separate mount of the cgroup
+      filesystem, with the subsystems enabled in that hierarchy
+      listed in the mount options. For each mounted hierarchy, the
+      directory tree mirrors the control group hierarchy. Each
+      control group is represented by a directory, with each of its
+      child control cgroups represented as a child directory. For
+      instance, <code class="filename">/user/joe/1.session</code>
+      represents control group <em class="replaceable"><code>1.session</code></em>, which is a child
+      of cgroup <em class="replaceable"><code>joe</code></em>,
+      which is a child of <code class="filename">/user</code>.
+      Under each cgroup directory is a set of files which can be
+      read or written to, reflecting resource limits and a few
+      general cgroup properties.</p>
+      <p>In general, cgroup limits are hierarchical, meaning that
+      the limits placed on <code class="filename">/user/joe</code>
+      cannot be exceeded by <code class="filename">/usr/joe/1.session</code>. There are currently
+      exceptions to this rule, but stricter adherence is a goal as
+      cgroups are being largely reworked.</p>
+      <p>In addition, cgroups can be mounted with no bound
+      subsystem, in which case they serve only to track processes.
+      An example of this is the <em class="replaceable"><code>name=systemd</code></em> cgroup which is
+      used by <span class="citerefentry"><span class="refentrytitle">systemd</span>(1)</span> to track services
+      and user sessions.</p>
+      <div class="refsect2">
+        <a id="cgroups-7_sect2" name="cgroups-7_sect2" shape="rect"> </a>
+        <h3>Terminology</h3>
+        <p>A <em class="replaceable"><code>cgroup</code></em> is a
+        collection of processes that are bound to a set of limits
+        or parameters defined via the cgroup filesystem.</p>
+        <p>A <em class="replaceable"><code>subsystem</code></em> is
+        a kernel component that modifies the behavior of the
+        processes in a cgroup. Various subsystems have been
+        implemented, making it possible to do things such as
+        limiting the amount of CPU time and memory available to a
+        cgroup, accounting for the CPU time used by a cgroup, and
+        freezing and resuming execution of the processes in a
+        cgroup. Subsystems are sometimes also known as <span class="emphasis"><em>resource controllers</em></span> (or simply,
+        controllers).</p>
+        <p>The cgroups for a subsystem are arranged in a <em class="replaceable"><code>hierarchy</code></em>. This hierarchy
+        is defined by creating, removing, and renaming
+        subdirectories within the cgroup filesystem. At each level
+        of the hierarchy, attributes (e.g., limits) can be defined;
+        these attributes may govern or propagate to child cgroups
+        and their descendants in the hierarchy.</p>
+      </div>
+      <div class="refsect2">
+        <a id="cgroups-7_sect3" name="cgroups-7_sect3" shape="rect"> </a>
+        <h3>Cgroups version 1 and version 2</h3>
+        <p>The initial release of the cgroups implementation was in
+        Linux 2.6.24. Over time, various cgroup subsystems have
+        been added to allow the management of various types of
+        resources. However, the development of these subsystems was
+        largely uncoordinated, with the result that many
+        inconsistencies arose between subsystems and management of
+        the cgroup hierarchies became rather complex. (A longer
+        description of these problems can be found in the kernel
+        source file <code class="filename">Documentation/cgroup−v2.txt</code>.)</p>
+        <p>Because of the problems with the initial cgroups
+        implementation (cgroups version 1), starting in Linux 3.10,
+        work began on a new, orthogonal implementation to remedy
+        these problems. Initially marked experimental, and hidden
+        behind the <code class="option">−o
+        __DEVEL__sane_behavior</code> mount option, the new version
+        (cgroups version 2) was eventually made official with the
+        release of Linux 4.5. Differences between the two versions
+        are described in the text below.</p>
+        <p>Although cgroups v2 is intended as a replacement for
+        cgroups v1, the older system continues to exist (and for
+        compatibility reasons is unlikely to be removed).
+        Currently, cgroups v2 implements only a subset of the
+        controllers available in cgroups v1. The two systems are
+        implemented so that both v1 controllers and v2 controllers
+        can be mounted on the same system. Thus, for example, it is
+        possible to use those controllers that are supported under
+        version 2, while also using version 1 controllers where
+        version 2 does not yet support those controllers.</p>
+      </div>
+      <div class="refsect2">
+        <a id="cgroups-7_sect4" name="cgroups-7_sect4" shape="rect"> </a>
+        <h3>Tasks versus processes</h3>
+        <p>In cgroups v1, a distinction is drawn between <em class="replaceable"><code>processes</code></em> and <em class="replaceable"><code>tasks</code></em>. In this view, a
+        process can consist of multiple tasks (more commonly called
+        threads, from a user-space perspective). In cgroups v1, it
+        is possible independently manipulate the cgroup memberships
+        of the tasks in a process. Because this ability caused
+        certain problems, the ability to independently manipulate
+        the cgroup memberships of the tasks in a process has been
+        removed in cgroups v2. Cgroups v2 allows manipulation of
+        cgroup membership only for processes (which has the effect
+        of changing the cgroup membership of all tasks in the
+        process).</p>
+      </div>
+      <div class="refsect2">
+        <a id="cgroups-7_sect5" name="cgroups-7_sect5" shape="rect"> </a>
+        <h3>Mounting</h3>
+        <p>To be available, a given cgroup subsystem must be
+        compiled into the kernel. Since they are exposed through a
+        virtual filesystem, subsystems must be mounted before they
+        can be controlled. The usual place for this is under
+        <code class="filename">/sys/fs/cgroup</code>. If all the
+        desired subsystems can be comounted, then one can do so
+        with the following command:</p>
+        <p>mount −t cgroup −o all cgroup
+        /sys/fs/cgroup</p>
+        <p>(One can achieve the same result by omitting
+        <code class="option">−o all</code>, since it is the
+        default if subsystems are explicitly specified.)</p>
+        <p>If multiple, separately mounted subsystems are desired,
+        then this is usually done in per-subsystem subdirectories.
+        This requires first mounting a tmpfs under <code class="filename">/sys/fs/cgroup</code> so that subdirectories can
+        be created. For instance, one could mount <em class="replaceable"><code>cpu</code></em>, <em class="replaceable"><code>memory</code></em>, and <em class="replaceable"><code>devices</code></em> cgroups as
+        follows:</p>
+        <div class="blockquote">
+          <blockquote class="blockquote">
+            <div class="informalexample">
+              <pre class="programlisting" xml:space="preserve">
+mount −t tmpfs −o size=100000,mode=755 cgroups /sys/fs/cgroup
+for s in cpu memory devices; do
+    mkdir /sys/fs/cgroup/$s
+    mount −t cgroup −o $s $s /sys/fs/cgroup/$s
+done
+</pre>
+            </div>
+          </blockquote>
+        </div>
+        <p>Comounting subsystems has the effect that a task is in
+        the same cgroup for all comounted subsystems. Separately
+        mounting subsystems allows a task to be in cgroup
+        <code class="filename">/foo1</code> for one subsystem while
+        being in <code class="filename">/foo2/foo3</code> for
+        another.</p>
+      </div>
+      <div class="refsect2">
+        <a id="cgroups-7_sect6" name="cgroups-7_sect6" shape="rect"> </a>
+        <h3>Introspection</h3>
+        <p>The list of subsystems compiled into the kernel can be
+        seen in the file <code class="filename">/proc/cgroups</code>. The file <code class="filename">/proc/pid/cgroup</code> lists the task's current
+        cgroup membership for each mounted hierarchy.</p>
+      </div>
+      <div class="refsect2">
+        <a id="cgroups-7_sect7" name="cgroups-7_sect7" shape="rect"> </a>
+        <h3>Creating cgroups and moving tasks</h3>
+        <p>The system begins with a single root cgroup (per
+        hierarchy), '/', which all tasks belong to. A new cgroup is
+        created by creating a directory in the cgroup
+        filesystem:</p>
+        <p>mkdir /sys/fs/cgroup/cpu/cg1</p>
+        <p>This creates a new empty cgroup. Tasks may be moved to
+        this cgroup by writing their PIDs into the cgroup's
+        <em class="replaceable"><code>cgroup.procs</code></em> or
+        <em class="replaceable"><code>tasks</code></em>
+        (deprecated) file:</p>
+        <p>echo $$ &gt; /sys/fs/cgroup/cpu/cg1/cgroup.procs</p>
+        <p>The same file can be read to obtain a list of the
+        processes currently in <em class="replaceable"><code>cg1</code></em>. By using the
+        <em class="replaceable"><code>cgroup.procs</code></em> file
+        instead of the <em class="replaceable"><code>tasks</code></em> file, all tasks in
+        the thread group are moved into the new cgroup at once.</p>
+        <p>On <a class="link" href="../htmlman2/fork.2.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">fork</span>(2)</span></a>, the new child is
+        created as a member of the parent's cgroup, leading to
+        implicit grouping of process hierarchies.</p>
+        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <table border="0" summary="Note">
+            <tr>
+              <td rowspan="2" align="center" valign="top" width="25" colspan="1"><img alt="[Note]" src="../stylesheet/note.png" /></td>
+              <th align="left" rowspan="1" colspan="1">Note</th>
+            </tr>
+            <tr>
+              <td align="left" valign="top" rowspan="1" colspan="1">
+                <p>In the upcoming unified hierarchy, a new
+                restriction is imposed such that tasks may exist
+                only in leaf cgroups. For instance, if cgroup
+                <code class="filename">/cg1/cg2</code> exists, then
+                a task may exist in <code class="filename">/cg1/cg2</code>, but not in <code class="filename">/cg1</code>. This is to avoid the
+                current ambiguity in the delegation of resources
+                between tasks in <code class="filename">/cg1</code>
+                and its child cgroups. The recommended workaround
+                is to create a subdirectory called <em class="replaceable"><code>leaf</code></em> for any
+                non-leaf cgroup which should contain tasks, and
+                make sure not to create child cgroups of it. In the
+                above example, tasks which previously would have
+                gone into <code class="filename">/cg1</code> would
+                now go into <code class="filename">/cg1/leaf</code>. This has the advantage
+                of making explicit the relationship between tasks
+                in <code class="filename">/cg1/leaf</code> and
+                <code class="filename">/cg1</code>'s other
+                children.</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="refsect2">
+        <a id="cgroups-7_sect8" name="cgroups-7_sect8" shape="rect"> </a>
+        <h3>Removing cgroups</h3>
+        <p>To remove a cgroup, it must first have no child cgroups
+        and contain no tasks. So long as that is the case, one can
+        simply remove the corresponding directory pathname. Note
+        that files in a cgroup directory cannot and need not be
+        removed.</p>
+        <p>A special file in each cgroup hierarchy, <em class="replaceable"><code>release_agent</code></em>, can be used
+        to register a program to handle cgroups which become newly
+        empty. The program will be called each time a cgroup marked
+        for autoremove becomes empty and childless. The cgroup path
+        will be provided as the first command-line argument. The
+        cgroup must be marked as eligible for autoremove by writing
+        '1' into its <em class="replaceable"><code>notify_on_release</code></em> file;
+        this value is inherited by newly created child cgroups.</p>
+        <p>A new feature in cgroups v2 is the <em class="replaceable"><code>cgroup.populated</code></em> file. This
+        reads 0 if there are no tasks in the cgroup or its
+        descendants, and 1 otherwise. It can be watched for changes
+        using <a class="link" href="../htmlman7/inotify.7.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">inotify</span>(7)</span></a>. This allows
+        user-space applications to efficiently watch cgroups for
+        autoremove conditions.</p>
+      </div>
+      <div class="refsect2">
+        <a id="cgroups-7_sect9" name="cgroups-7_sect9" shape="rect"> </a>
+        <h3>Cgroups version 2</h3>
+        <p>In cgroups v2, all mounted controllers reside in a
+        single unified hierarchy. While (different) controllers may
+        be simultaneously mounted under the v1 and v2 hierarchies,
+        it is not possible to mount the same controller
+        simultaneously under both the v1 and the v2
+        hierarchies.</p>
+        <p>The new behaviors in cgroups v2 are summarized
+        below:</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt><span class="term">1. Tasks only in leaf
+            nodes</span></dt>
+            <dd>
+              <p>With the exception of the root cgroup, tasks may
+              reside only in leaf nodes. This avoids the need to
+              decide how to partition resources between tasks which
+              are members of cgroup A and tasks in child cgroups of
+              A.</p>
+            </dd>
+            <dt><span class="term">2. Active cgroups must be
+            specified</span></dt>
+            <dd>
+              <p>The unified hierarchy presents two new files,
+              <em class="replaceable"><code>cgroup.controllers</code></em>
+              and <em class="replaceable"><code>cgroup.subtree_control</code></em>.
+              When a cgroup <em class="replaceable"><code>A/b</code></em> is created, its
+              <em class="replaceable"><code>cgroup.controllers</code></em>
+              file contains the list of controllers which were
+              active in its parent, A. This is the list of
+              controllers which are available to this cgroup. No
+              controllers are active until they are enabled through
+              the <em class="replaceable"><code>cgroup.subtree_control</code></em>
+              file, by writing the list of space-delimited names of
+              the controllers, each preceded by '+' (to enable) or
+              '−' (to disable). If the <em class="replaceable"><code>freezer</code></em> controller is
+              not enabled in <code class="filename">/A/B</code>,
+              then it cannot be enabled in <code class="filename">/A/B/C</code>.</p>
+            </dd>
+            <dt><span class="term">3. No "tasks" or
+            "cgroup.clone_children" files</span></dt>
+            <dd></dd>
+            <dt><span class="term">4. Empty cgroup
+            notification</span></dt>
+            <dd>
+              <p>A new file, <em class="replaceable"><code>cgroup.populated</code></em>,
+              under each cgroup contains '0' when the cgroup is
+              empty, and 1 when it is populated. It therefore may
+              be watched to detect when a cgroup becomes
+              (non-)empty. This replaces the original
+              notify-on-release mechanism.</p>
+              <p>For more changes, please see the <code class="filename">Documentation/cgroups/unified-hierarchy</code>
+              file in the kernel source.</p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="refsect2">
+        <a id="cgroups-7_sect10" name="cgroups-7_sect10" shape="rect"> </a>
+        <h3>Cgroups version 1 subsystems</h3>
+        <p>Each of the cgroups version 1 subsystems is governed by
+        a kernel configuration option (listed below). Additionally,
+        the availability of the cgroups feature is governed by the
+        <code class="constant">CONFIG_CGROUPS</code> kernel
+        configuration option.</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt><span class="term"><em class="replaceable"><code>cpu</code></em> (since Linux
+            2.6.24; <em class="replaceable"><code><code class="constant">CONFIG_CGROUP_SCHED</code></code></em>)</span></dt>
+            <dd>
+              <p>Cgroups can be guaranteed a minimum number of "CPU
+              shares" when a system is busy. This does not limit a
+              cgroup's CPU usage if the CPUs are not busy.</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/scheduler/sched−bwc.txt</code>.</p>
+            </dd>
+            <dt><span class="term"><em class="replaceable"><code>cpuacct</code></em> (since Linux
+            2.6.24; <em class="replaceable"><code><code class="constant">CONFIG_CGROUP_CPUACCT</code></code></em>)</span></dt>
+            <dd>
+              <p>This provides accounting for CPU usage by groups
+              of tasks.</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/cgroup−v1/cpuacct.txt</code>.</p>
+            </dd>
+            <dt><span class="term"><em class="replaceable"><code>cpuset</code></em> (since Linux
+            2.6.24; <em class="replaceable"><code><code class="constant">CONFIG_CPUSETS</code></code></em>)</span></dt>
+            <dd>
+              <p>This cgroup can be used to bind the tasks in a
+              cgroup to a specified set of CPUs and NUMA nodes.</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/cgroup−v1/cpusets.txt</code>.</p>
+            </dd>
+            <dt><span class="term"><em class="replaceable"><code>memory</code></em> (since Linux
+            2.6.25; <em class="replaceable"><code><code class="constant">CONFIG_MEMCG</code></code></em>)</span></dt>
+            <dd>
+              <p>The memory controller supports reporting and
+              limiting of process memory, kernel memory, and swap
+              used by cgroups.</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/cgroup−v1/memory.txt</code>.</p>
+            </dd>
+            <dt><span class="term"><em class="replaceable"><code>devices</code></em> (since Linux
+            2.6.26; <em class="replaceable"><code><code class="constant">CONFIG_CGROUP_DEVICE</code></code></em>)</span></dt>
+            <dd>
+              <p>This supports controlling which tasks may create
+              (mknod) devices as well as open them for reading or
+              writing. The policies may be specified as whitelists
+              and blacklists. Hierarchy is enforced, so new rules
+              must not violate existing rules for the target or
+              ancestor cgroups.</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/cgroup-v1/devices.txt</code>.</p>
+            </dd>
+            <dt><span class="term"><em class="replaceable"><code>freezer</code></em> (since Linux
+            2.6.28; <em class="replaceable"><code><code class="constant">CONFIG_CGROUP_FREEZER</code></code></em>)</span></dt>
+            <dd>
+              <p>The <em class="replaceable"><code>freezer</code></em> cgroup can
+              suspend and restore (resume) all tasks in a cgroup.
+              Freezing a cgroup <code class="filename">/A</code>
+              also causes its children, for example, tasks in
+              <code class="filename">/A/B</code>, to be frozen.</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/cgroup-v1/freezer-subsystem.txt</code>.</p>
+            </dd>
+            <dt><span class="term"><em class="replaceable"><code>net_cls</code></em> (since Linux
+            2.6.29; <em class="replaceable"><code><code class="constant">CONFIG_CGROUP_NET_CLASSID</code></code></em>)</span></dt>
+            <dd>
+              <p>This places a classid, specified for the cgroup,
+              on network packets created by a cgroup. These
+              classids can then be used in firewall rules, as well
+              as used to shape traffic using <span class="citerefentry"><span class="refentrytitle">tc</span>(8)</span>. This applies
+              only to packets leaving the cgroup, not to traffic
+              arriving at the cgroup.</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/cgroup-v1/net_cls.txt</code>.</p>
+            </dd>
+            <dt><span class="term"><em class="replaceable"><code>blkio</code></em> (since Linux
+            2.6.33; <em class="replaceable"><code><code class="constant">CONFIG_BLK_CGROUP</code></code></em>)</span></dt>
+            <dd>
+              <p>The <em class="replaceable"><code>blkio</code></em> cgroup controls
+              and limits access to specified block devices by
+              applying IO control in the form of throttling and
+              upper limits against leaf nodes and intermediate
+              nodes in the storage hierarchy.</p>
+              <p>Two policies are available. The first is a
+              proportional-weight time-based division of disk
+              implemented with CFQ. This is in effect for leaf
+              nodes using CFQ. The second is a throttling policy
+              which specifies upper I/O rate limits on a
+              device.</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/cgroup-v1/blkio-controller.txt</code>.</p>
+            </dd>
+            <dt><span class="term"><em class="replaceable"><code>perf_event</code></em> (since Linux
+            2.6.39; <em class="replaceable"><code><code class="constant">CONFIG_CGROUP_PERF</code></code></em>)</span></dt>
+            <dd>
+              <p>This controller allows <em class="replaceable"><code>perf</code></em> monitoring of
+              the set of processes grouped in a cgroup.</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/perf-record.txt</code>.</p>
+            </dd>
+            <dt><span class="term"><em class="replaceable"><code>net_prio</code></em> (since Linux
+            3.3; <em class="replaceable"><code><code class="constant">CONFIG_CGROUP_NET_PRIO</code></code></em>)</span></dt>
+            <dd>
+              <p>This allows priorities to be specified, per
+              network interface, for cgroups.</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/cgroup-v1/net_prio.txt</code>.</p>
+            </dd>
+            <dt><span class="term"><em class="replaceable"><code>hugetlb</code></em> (since Linux
+            3.5; <em class="replaceable"><code><code class="constant">CONFIG_CGROUP_HUGETLB</code></code></em>)</span></dt>
+            <dd>
+              <p>This supports limiting the use of huge pages by
+              cgroups.</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/cgroup-v1/hugetlb.txt</code>.</p>
+            </dd>
+            <dt><span class="term"><em class="replaceable"><code>pids</code></em> (since Linux 4.3;
+            <em class="replaceable"><code><code class="constant">CONFIG_CGROUP_PIDS</code></code></em>)</span></dt>
+            <dd>
+              <p>This controller permits limiting the number of
+              process that may be created in a cgroup (and its
+              descendants).</p>
+              <p>Further information can be found in the kernel
+              source file <code class="filename">Documentation/cgroup-v1/pids.txt</code>.</p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="refsect2">
+        <a id="cgroups-7_sect11" name="cgroups-7_sect11" shape="rect"> </a>
+        <h3>/proc files</h3>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt><span class="term"><code class="filename">/proc/cgroups</code> (since Linux
+            2.6.24)</span></dt>
+            <dd>
+              <p>This file contains information about the
+              controllers that are available on the system. An
+              example of the contents of this file (reformatted for
+              readability) is the following:</p>
+              <div class="blockquote">
+                <blockquote class="blockquote">
+                  <div class="informalexample">
+                    <pre class="programlisting" xml:space="preserve">
+#subsys_name     hierarchy        num_cgroups      enabled
+cpuset           4                1                1
+cpu              8                1                1
+cpuacct          8                1                1
+blkio            6                1                1
+memory           3                1                1
+devices          10               84               1
+freezer          7                1                1
+net_cls          9                1                1
+perf_event       5                1                1
+net_prio         9                1                1
+hugetlb          0                1                0
+pids             2                1                1
+</pre>
+                  </div>
+                </blockquote>
+              </div>
+              <p>The fields in this file are, from left to
+              right:</p>
+              <div class="blockquote">
+                <blockquote class="blockquote">
+                  <div class="orderedlist">
+                    <ol class="orderedlist" type="1">
+                      <li class="listitem">
+                        <p>The name of the controller.</p>
+                      </li>
+                      <li class="listitem">
+                        <p>The unique ID of the cgroup hierarchy on
+                        which this controller is mounted. If
+                        multiple cgroups v1 controllers are bound
+                        to the same hierarchy, then each will show
+                        the same hierarchy ID in this field. The
+                        value in this field will be 0 if:</p>
+                        <div class="blockquote">
+                          <blockquote class="blockquote">
+                            <div class="orderedlist">
+                              <ol class="orderedlist" type="a">
+                                <li class="listitem">
+                                  <p>the controller is not mounted
+                                  on a cgroups v1 hierarchy;</p>
+                                </li>
+                                <li class="listitem">
+                                  <p>the controller is bound to the
+                                  cgroups v2 single unified
+                                  hierarchy; or</p>
+                                </li>
+                                <li class="listitem">
+                                  <p>the controller is disabled
+                                  (see below).</p>
+                                </li>
+                              </ol>
+                            </div>
+                          </blockquote>
+                        </div>
+                      </li>
+                      <li class="listitem">
+                        <p>The number of control groups in this
+                        hierarchy using this controller.</p>
+                      </li>
+                      <li class="listitem">
+                        <p>This field contains the value 1 if this
+                        controller is enabled, or 0 if it has been
+                        disabled (via the <em class="replaceable"><code>cgroup_disable</code></em>
+                        kernel command-line boot parameter).</p>
+                      </li>
+                    </ol>
+                  </div>
+                </blockquote>
+              </div>
+            </dd>
+            <dt><span class="term"><code class="filename">/proc/[pid]/cgroup</code> (since Linux
+            2.6.24)</span></dt>
+            <dd>
+              <p>This file describes control groups to which the
+              process with the corresponding PID belongs. The
+              displayed information differs for cgroups version 1
+              and version 2 hierarchies.</p>
+              <p>For each cgroup hierarchy of which the process is
+              a member, there is one entry containing three
+              colon-separated fields of the form:</p>
+              <p>hierarchy-ID:subsystem-list:cgroup-path</p>
+              <p>For example:</p>
+              <div class="informalexample">
+                <pre class="programlisting" xml:space="preserve">
+    5:cpuacct,cpu,cpuset:/daemons
+</pre>
+              </div>
+              <p>The colon-separated fields are, from left to
+              right:</p>
+              <div class="blockquote">
+                <blockquote class="blockquote">
+                  <div class="orderedlist">
+                    <ol class="orderedlist" type="1">
+                      <li class="listitem">
+                        <p>For cgroups version 1 hierarchies, this
+                        field contains a unique hierarchy ID number
+                        that can be matched to a hierarchy ID in
+                        <code class="filename">/proc/cgroups</code>. For the
+                        cgroups version 2 hierarchy, this field
+                        contains the value 0.</p>
+                      </li>
+                      <li class="listitem">
+                        <p>For cgroups version 1 hierarchies, this
+                        field contains a comma-separated list of
+                        the subsystems bound to the hierarchy. For
+                        the cgroups version 2 hierarchy, this field
+                        is empty.</p>
+                      </li>
+                      <li class="listitem">
+                        <p>This field contains the pathname of the
+                        control group in the hierarchy to which the
+                        process belongs. This pathname is relative
+                        to the mount point of the hierarchy.</p>
+                      </li>
+                    </ol>
+                  </div>
+                </blockquote>
+              </div>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="refsect1">
+      <a id="cgroups-7_sect12" name="cgroups-7_sect12" shape="rect"> </a>
+      <h2>ERRORS</h2>
+      <p>The following errors can occur for <a class="link" href="../htmlman2/mount.2.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">mount</span>(2)</span></a>:</p>
+      <div class="variablelist">
+        <dl class="variablelist">
+          <dt><span class="term"><span class="errorname">EBUSY</span></span></dt>
+          <dd>
+            <p>An attempt to mount a cgroup version 1 filesystem
+            specified neither the <em class="replaceable"><code>name=</code></em> option (to mount
+            a named hierarchy) nor a controller name (or <em class="replaceable"><code>all</code></em>)</p>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="refsect1">
+      <a id="cgroups-7_sect13" name="cgroups-7_sect13" shape="rect"> </a>
+      <h2>SEE ALSO</h2>
+      <p><a class="link" href="../htmlman1/prlimit.1.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">prlimit</span>(1)</span></a>, <span class="citerefentry"><span class="refentrytitle">systemd</span>(1)</span>, <a class="link" href="../htmlman2/clone.2.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">clone</span>(2)</span></a>, <a class="link" href="../htmlman2/ioprio_set.2.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">ioprio_set</span>(2)</span></a>, <a class="link" href="../htmlman2/perf_event_open.2.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">perf_event_open</span>(2)</span></a>,
+      <a class="link" href="../htmlman2/getrlimit.2.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">setrlimit</span>(2)</span></a>, <a class="link" href="../htmlman7/cgroup_namespaces.7.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">cgroup_namespaces</span>(7)</span></a>,
+      <a class="link" href="../htmlman7/cpuset.7.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">cpuset</span>(7)</span></a>, <a class="link" href="../htmlman7/namespaces.7.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">namespaces</span>(7)</span></a>, <a class="link" href="../htmlman7/sched.7.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">sched</span>(7)</span></a>, <a class="link" href="../htmlman7/user_namespaces.7.html" target="_top" shape="rect"><span class="citerefentry"><span class="refentrytitle">user_namespaces</span>(7)</span></a></p>
+    </div>
+    <div class="colophon">
+      <a id="cgroups-7_sect14" name="cgroups-7_sect14" shape="rect"> </a>
+      <h2>COLOPHON</h2>
+      <p>This page is part of release 4.07 of the Linux <em class="replaceable"><code>man-pages</code></em> project. A
+      description of the project, information about reporting bugs,
+      and the latest version of this page, can be found at
+      https://www.kernel.org/doc/man−pages/.</p>
+      <div class="license">
+        <table style="border-collapse: collapse;">
+          <colgroup span="1">
+            <col span="1" />
+          </colgroup>
+          <tbody>
+            <tr>
+              <td style="" rowspan="1" colspan="1">
+                <div class="literallayout">
+                  <br />
+                    Copyright (C) 2015 Serge Hallyn &lt;serge<script type="text/javascript">document.write('@');</script><noscript>(@)</noscript>hallyn.com&gt;<br />
+
+                  and Copyright (C) 2016 Michael Kerrisk &lt;mtk.manpages<script type="text/javascript">document.write('@');</script><noscript>(@)</noscript>gmail.com&gt;<br />
+
+                  <br />
+                  %%%LICENSE_START(VERBATIM)<br />
+                  Permission is granted to make and distribute verbatim copies of this<br />
+
+                  manual provided the copyright notice and this permission notice are<br />
+
+                  preserved on all copies.<br />
+                  <br />
+                  Permission is granted to copy and distribute modified versions of this<br />
+
+                  manual under the conditions for verbatim copying, provided that the<br />
+
+                  entire resulting derived work is distributed under the terms of a<br />
+
+                  permission notice identical to this one.<br />
+
+                  <br />
+                  Since the Linux kernel and libraries are constantly changing, this<br />
+
+                  manual page may be incorrect or out-of-date.  The author(s) assume no<br />
+
+                  responsibility for errors or omissions, or for damages resulting from<br />
+
+                  the use of the information contained herein.  The author(s) may not<br />
+
+                  have taken the same level of care in the production of this manual,<br />
+
+                  which is licensed free of charge, as they might when working<br />
+
+                  professionally.<br />
+                  <br />
+                  Formatted or processed versions of this manual, if unaccompanied by<br />
+
+                  the source, must acknowledge the copyright and authors of this work.<br />
+
+                  %%%LICENSE_END<br />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
