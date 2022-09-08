@@ -1,0 +1,117 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:42:18 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>File::IconTheme</title>
+
+</head>
+<body>
+
+<h1 align="center">File::IconTheme</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#VERSION">VERSION</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#INTERFACE">INTERFACE</a><br>
+<a href="#EXPORTS">EXPORTS</a><br>
+<a href="#CONFIGURATION AND ENVIRONMENT">CONFIGURATION AND ENVIRONMENT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">File::IconTheme
+- find icon directories</p>
+
+<h2>VERSION
+<a name="VERSION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This document
+describes File::IconTheme.</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">use
+File::IconTheme qw(xdg_icon_theme_search_dirs); <br>
+print join &quot;\n&quot;, xdg_icon_theme_search_dirs;</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This module can
+be used to find directories as specified by the
+Freedesktop.org Icon Theme Specification. Currently only a
+tiny (but most useful) part of the specification is
+implemented.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In case you
+want to <b>store</b> an icon theme, use the directory
+returned by:</p>
+
+<p style="margin-left:11%; margin-top: 1em">use
+File::BaseDir qw(data_dirs); <br>
+print scalar data_dirs('icons');</p>
+
+<h2>INTERFACE
+<a name="INTERFACE"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">&quot;xdg_icon_theme_search_dirs&quot;</p>
+
+<p style="margin-left:17%;">Returns a list of the base
+directories of icon themes.</p>
+
+<h2>EXPORTS
+<a name="EXPORTS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">None by
+default, but the method can be exported on demand.</p>
+
+<h2>CONFIGURATION AND ENVIRONMENT
+<a name="CONFIGURATION AND ENVIRONMENT"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">$XDG_DATA_HOME,
+$XDG_DATA_DIRS</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">&lt;http://standards.freedesktop.org/icon-theme-spec/&gt;</p>
+<hr>
+</body>
+</html>

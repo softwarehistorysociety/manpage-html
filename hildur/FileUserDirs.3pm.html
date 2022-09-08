@@ -1,0 +1,194 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:42:21 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>File::UserDirs</title>
+
+</head>
+<body>
+
+<h1 align="center">File::UserDirs</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#VERSION">VERSION</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#INTERFACE">INTERFACE</a><br>
+<a href="#EXPORTS">EXPORTS</a><br>
+<a href="#DIAGNOSTICS">DIAGNOSTICS</a><br>
+<a href="#CONFIGURATION AND ENVIRONMENT">CONFIGURATION AND ENVIRONMENT</a><br>
+<a href="#DEPENDENCIES">DEPENDENCIES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">File::UserDirs
+- find extra media and documents directories</p>
+
+<h2>VERSION
+<a name="VERSION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This document
+describes File::UserDirs version 0.04.</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">use
+File::UserDirs qw(:all); <br>
+print xdg_desktop_dir; # e.g. /home/user/Desktop</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This module can
+be used to find directories as informally specified by the
+Freedesktop.org xdg-user-dirs software. This gives a
+mechanism to locate extra directories for media and
+documents files.</p>
+
+<h2>INTERFACE
+<a name="INTERFACE"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">&quot;xdg_desktop_dir&quot;</p>
+
+<p style="margin-left:17%;">Returns the desktop directory.
+Unless changed by the user, this is the directory
+<i>Desktop</i> in the home directory.</p>
+
+
+<p style="margin-left:11%;">&quot;xdg_documents_dir&quot;</p>
+
+<p style="margin-left:17%;">Returns the documents
+directory. Unless changed by the user, this is the home
+directory.</p>
+
+
+<p style="margin-left:11%;">&quot;xdg_download_dir&quot;</p>
+
+<p style="margin-left:17%;">Returns the download directory.
+Unless changed by the user, this is the home directory.</p>
+
+<p style="margin-left:11%;">&quot;xdg_music_dir&quot;</p>
+
+<p style="margin-left:17%;">Returns the music directory.
+Unless changed by the user, this is the home directory.</p>
+
+
+<p style="margin-left:11%;">&quot;xdg_pictures_dir&quot;</p>
+
+<p style="margin-left:17%;">Returns the pictures directory.
+Unless changed by the user, this is the home directory.</p>
+
+
+<p style="margin-left:11%;">&quot;xdg_publicshare_dir&quot;</p>
+
+<p style="margin-left:17%;">Returns the public share
+directory. Unless changed by the user, this is the home
+directory.</p>
+
+
+<p style="margin-left:11%;">&quot;xdg_templates_dir&quot;</p>
+
+<p style="margin-left:17%;">Returns the templates
+directory. Unless changed by the user, this is the home
+directory.</p>
+
+<p style="margin-left:11%;">&quot;xdg_videos_dir&quot;</p>
+
+<p style="margin-left:17%;">Returns the videos directory.
+Unless changed by the user, this is the home directory.</p>
+
+<h2>EXPORTS
+<a name="EXPORTS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">None by
+default, but any method can be exported on demand. Also the
+group &quot;:all&quot; is defined which exports all
+methods.</p>
+
+<h2>DIAGNOSTICS
+<a name="DIAGNOSTICS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">&quot;&quot;xdg-user-dir&quot;
+failed to start: %s&quot;</p>
+
+<p style="margin-left:17%;">The executable
+&quot;xdg-user-dir&quot; could not be run, most likely
+because it was not installed. See &quot;
+<small>DEPENDENCIES&quot;</small> .</p>
+
+<h2>CONFIGURATION AND ENVIRONMENT
+<a name="CONFIGURATION AND ENVIRONMENT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The location of
+the directories can be specified by the user in the file
+<i>$XDG_CONFIG_HOME/user-dirs.dirs</i>. It is a shell file
+setting a number of environment variables. To find the exact
+pathname from Perl, run:</p>
+
+<p style="margin-left:11%; margin-top: 1em">use
+File::BaseDir qw(config_home); <br>
+print config_home('user-dirs.dirs');</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Example
+customised</b> <i>user-dirs.dirs</i> <br>
+XDG_DESKTOP_DIR=&quot;$HOME/Workspace&quot; <br>
+XDG_DOCUMENTS_DIR=&quot;$HOME/Files&quot; <br>
+XDG_DOWNLOAD_DIR=&quot;$HOME/Files/Downloads&quot; <br>
+XDG_MUSIC_DIR=&quot;$HOME/Files/Audio&quot; <br>
+XDG_PICTURES_DIR=&quot;$HOME/Files/Images&quot; <br>
+XDG_PUBLICSHARE_DIR=&quot;$HOME/public_html&quot; <br>
+XDG_TEMPLATES_DIR=&quot;$HOME/Files/Document templates&quot;
+<br>
+XDG_VIDEOS_DIR=&quot;$HOME/Files/Video&quot;</p>
+
+<h2>DEPENDENCIES
+<a name="DEPENDENCIES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This module
+requires the executable <i>xdg-user-dir</i> from the package
+&quot;xdg-user-dirs&quot;. Source code is available from
+&lt;http://cgit.freedesktop.org/xdg/xdg-user-dirs/&gt;.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+<hr>
+</body>
+</html>
