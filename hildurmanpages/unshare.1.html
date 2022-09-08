@@ -1,0 +1,439 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:11:44 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>UNSHARE</title>
+
+</head>
+<body>
+
+<h1 align="center">UNSHARE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">unshare - run
+program with some namespaces unshared from parent</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>unshare</b>
+[options] [<i>program</i> [<i>arguments</i>]]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Unshares the
+indicated namespaces from the parent process and then
+executes the specified <i>program</i>. If <i>program</i> is
+not given, then &rsquo;&rsquo;${SHELL}&rsquo;&rsquo; is run
+(default: /bin/sh).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The namespaces
+can optionally be made persistent by bind mounting
+/proc/<i>pid</i>/ns/<i>type</i> files to a filesystem path
+and entered with <b>nsenter</b>(1) even after the
+<i>program</i> terminates (except PID namespaces where
+permanently running init process is required). Once a
+persistent namespace is no longer needed, it can be
+unpersisted with <b>umount</b>(8). See the <b>EXAMPLES</b>
+section for more details.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The namespaces
+to be unshared are indicated via options. Unshareable
+namespaces are: <b><br>
+mount namespace</b></p>
+
+<p style="margin-left:22%;">Mounting and unmounting
+filesystems will not affect the rest of the system, except
+for filesystems which are explicitly marked as shared (with
+<b>mount --make-shared</b>; see <i>/proc/self/mountinfo</i>
+or <b>findmnt -o+PROPAGATION</b> for the <b>shared</b>
+flags). For further details, see <b>mount_namespaces</b>(7)
+and the discussion of the <b>CLONE_NEWNS</b> flag in
+<b>clone</b>(2).</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>unshare</b>
+since util-linux version 2.27 automatically sets propagation
+to <b>private</b> in a new mount namespace to make sure that
+the new namespace is really unshared. It&rsquo;s possible to
+disable this feature with option <b>--propagation
+unchanged</b>. Note that <b>private</b> is the kernel
+default.</p>
+
+<p style="margin-left:11%;"><b>UTS namespace</b></p>
+
+<p style="margin-left:22%;">Setting hostname or domainname
+will not affect the rest of the system. For further details,
+see <b>namespaces</b>(7) and the discussion of the
+<b>CLONE_NEWUTS</b> flag in <b>clone</b>(2).</p>
+
+<p style="margin-left:11%;"><b>IPC namespace</b></p>
+
+<p style="margin-left:22%;">The process will have an
+independent namespace for POSIX message queues as well as
+System V message queues, semaphore sets and shared memory
+segments. For further details, see <b>namespaces</b>(7) and
+the discussion of the <b>CLONE_NEWIPC</b> flag in
+<b>clone</b>(2).</p>
+
+<p style="margin-left:11%;"><b>network namespace</b></p>
+
+<p style="margin-left:22%;">The process will have
+independent IPv4 and IPv6 stacks, IP routing tables,
+firewall rules, the <i>/proc/net</i> and
+<i>/sys/class/net</i> directory trees, sockets, etc. For
+further details, see <b>namespaces</b>(7) and the discussion
+of the <b>CLONE_NEWNET</b> flag in <b>clone</b>(2).</p>
+
+<p style="margin-left:11%;"><b>PID namespace</b></p>
+
+<p style="margin-left:22%;">Children will have a distinct
+set of PID-to-process mappings from their parent. For
+further details, see <b>pid_namespaces</b>(7) and the
+discussion of the <b>CLONE_NEWPID</b> flag in
+<b>clone</b>(2).</p>
+
+<p style="margin-left:11%;"><b>cgroup namespace</b></p>
+
+<p style="margin-left:22%;">The process will have a
+virtualized view of <i>/proc/self/cgroup</i>, and new cgroup
+mounts will be rooted at the namespace cgroup root. For
+further details, see <b>cgroup_namespaces</b>(7) and the
+discussion of the <b>CLONE_NEWCGROUP</b> flag in
+<b>clone</b>(2).</p>
+
+<p style="margin-left:11%;"><b>user namespace</b></p>
+
+<p style="margin-left:22%;">The process will have a
+distinct set of UIDs, GIDs and capabilities. For further
+details, see <b>user_namespaces</b>(7) and the discussion of
+the <b>CLONE_NEWUSER</b> flag in <b>clone</b>(2).</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-i</b>,
+<b>--ipc</b>[<b>=</b><i>file</i>]</p>
+
+<p style="margin-left:22%;">Unshare the IPC namespace. If
+<i>file</i> is specified, then a persistent namespace is
+created by a bind mount.</p>
+
+<p style="margin-left:11%;"><b>-m</b>,
+<b>--mount</b>[<b>=</b><i>file</i>]</p>
+
+<p style="margin-left:22%;">Unshare the mount namespace. If
+<i>file</i> is specified, then a persistent namespace is
+created by a bind mount. Note that <i>file</i> has to be
+located on a filesystem with the propagation flag set to
+<b>private</b>. Use the command <b>findmnt
+-o+PROPAGATION</b> when not sure about the current setting.
+See also the examples below.</p>
+
+<p style="margin-left:11%;"><b>-n</b>,
+<b>--net</b>[<b>=</b><i>file</i>]</p>
+
+<p style="margin-left:22%;">Unshare the network namespace.
+If <i>file</i> is specified, then a persistent namespace is
+created by a bind mount.</p>
+
+<p style="margin-left:11%;"><b>-p</b>,
+<b>--pid</b>[<b>=</b><i>file</i>]</p>
+
+<p style="margin-left:22%;">Unshare the PID namespace. If
+<i>file</i> is specified then persistent namespace is
+created by a bind mount. See also the <b>--fork</b> and
+<b>--mount-proc</b> options.</p>
+
+<p style="margin-left:11%;"><b>-u</b>,
+<b>--uts</b>[<b>=</b><i>file</i>]</p>
+
+<p style="margin-left:22%;">Unshare the UTS namespace. If
+<i>file</i> is specified, then a persistent namespace is
+created by a bind mount.</p>
+
+<p style="margin-left:11%;"><b>-U</b>,
+<b>--user</b>[<b>=</b><i>file</i>]</p>
+
+<p style="margin-left:22%;">Unshare the user namespace. If
+<i>file</i> is specified, then a persistent namespace is
+created by a bind mount.</p>
+
+<p style="margin-left:11%;"><b>-C</b>,
+<b>--cgroup</b>[=<i>file</i>]</p>
+
+<p style="margin-left:22%;">Unshare the cgroup namespace.
+If <i>file</i> is specified then persistent namespace is
+created by bind mount.</p>
+
+<p style="margin-left:11%;"><b>-f</b>, <b>--fork</b></p>
+
+<p style="margin-left:22%;">Fork the specified
+<i>program</i> as a child process of <b>unshare</b> rather
+than running it directly. This is useful when creating a new
+PID namespace.</p>
+
+
+<p style="margin-left:11%;"><b>--kill-child</b>[<b>=</b><i>signame</i>]</p>
+
+<p style="margin-left:22%;">When <b>unshare</b> terminates,
+have <i>signame</i> be sent to the forked child process.
+Combined with <b>--pid</b> this allows for an easy and
+reliable killing of the entire process tree below
+<b>unshare</b>. If not given, <i>signame</i> defaults to
+<b>SIGKILL</b>. This option implies <b>--fork</b>.</p>
+
+
+<p style="margin-left:11%;"><b>--mount-proc</b>[<b>=</b><i>mountpoint</i>]</p>
+
+<p style="margin-left:22%;">Just before running the
+program, mount the proc filesystem at <i>mountpoint</i>
+(default is /proc). This is useful when creating a new PID
+namespace. It also implies creating a new mount namespace
+since the /proc mount would otherwise mess up existing
+programs on the system. The new proc filesystem is
+explicitly mounted as private (with MS_PRIVATE|MS_REC).</p>
+
+<p style="margin-left:11%;"><b>-r</b>,
+<b>--map-root-user</b></p>
+
+<p style="margin-left:22%;">Run the program only after the
+current effective user and group IDs have been mapped to the
+superuser UID and GID in the newly created user namespace.
+This makes it possible to conveniently gain capabilities
+needed to manage various aspects of the newly created
+namespaces (such as configuring interfaces in the network
+namespace or mounting filesystems in the mount namespace)
+even when run unprivileged. As a mere convenience feature,
+it does not support more sophisticated use cases, such as
+mapping multiple ranges of UIDs and GIDs. This option
+implies <b>--setgroups=deny</b>.</p>
+
+<p style="margin-left:11%;"><b>--propagation
+private</b>|<b>shared</b>|<b>slave</b>|<b>unchanged</b></p>
+
+<p style="margin-left:22%;">Recursively set the mount
+propagation flag in the new mount namespace. The default is
+to set the propagation to <i>private</i>. It is possible to
+disable this feature with the argument <b>unchanged</b>. The
+option is silently ignored when the mount namespace
+(<b>--mount</b>) is not requested.</p>
+
+<p style="margin-left:11%;"><b>--setgroups
+allow</b>|<b>deny</b></p>
+
+<p style="margin-left:22%;">Allow or deny the
+<b>setgroups</b>(2) system call in a user namespace.</p>
+
+<p style="margin-left:22%; margin-top: 1em">To be able to
+call <b>setgroups</b>(2), the calling process must at least
+have CAP_SETGID. But since Linux 3.19 a further restriction
+applies: the kernel gives permission to call
+<b>setgroups</b>(2) only after the GID map
+(<b>/proc/</b><i>pid</i><b>/gid_map</b>) has been set. The
+GID map is writable by root when <b>setgroups</b>(2) is
+enabled (i.e. <b>allow</b>, the default), and the GID map
+becomes writable by unprivileged processes when
+<b>setgroups</b>(2) is permanently disabled (with
+<b>deny</b>).</p>
+
+
+<p style="margin-left:11%;"><b>-R,</b>--root=<i>dir</i></p>
+
+<p style="margin-left:22%;">run the command with root
+directory set to <i>dir</i>.</p>
+
+<p style="margin-left:11%;"><b>-w,</b>--wd=<i>dir</i></p>
+
+<p style="margin-left:22%;">change working directory to
+<i>dir</i>.</p>
+
+<p style="margin-left:11%;"><b>-S,</b>--setuid
+<i>uid</i></p>
+
+<p style="margin-left:22%;">Set the user ID which will be
+used in the entered namespace.</p>
+
+<p style="margin-left:11%;"><b>-G,</b>--setgid
+<i>gid</i></p>
+
+<p style="margin-left:22%;">Set the group ID which will be
+used in the entered namespace and drop supplementary
+groups.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The proc and
+sysfs filesystems mounting as root in a user namespace have
+to be restricted so that a less privileged user can not get
+more access to sensitive files that a more privileged user
+made unavailable. In short the rule for proc and sysfs is as
+close to a bind mount as possible.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b># unshare
+--fork --pid --mount-proc readlink /proc/self</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>1</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>Establish a PID namespace, ensure we&rsquo;re PID 1 in
+it against a newly mounted procfs instance.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>$ unshare --map-root-user
+--user sh -c whoami</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p>root</p></td>
+<td width="5%"></td>
+<td width="78%">
+
+
+<p>Establish a user namespace as an unprivileged user with
+a root user within it.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b># touch /root/uts-ns <br>
+# unshare --uts=/root/uts-ns hostname FOO <br>
+# nsenter --uts=/root/uts-ns hostname</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>FOO</p></td>
+<td width="85%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b># umount
+/root/uts-ns</b></p>
+
+<p style="margin-left:22%;">Establish a persistent UTS
+namespace, and modify the hostname. The namespace is then
+entered with <b>nsenter</b>. The namespace is destroyed by
+unmounting the bind reference.</p>
+
+<p style="margin-left:11%;"><b># mount --bind
+/root/namespaces /root/namespaces <br>
+# mount --make-private /root/namespaces <br>
+# touch /root/namespaces/mnt <br>
+# unshare --mount=/root/namespaces/mnt</b></p>
+
+<p style="margin-left:22%;">Establish a persistent mount
+namespace referenced by the bind mount /root/namespaces/mnt.
+This example shows a portable solution, because it makes
+sure that the bind mount is created on a shared
+filesystem.</p>
+
+<p style="margin-left:11%;"><b># unshare -pf --kill-child
+-- bash -c (sleep 999 &amp;) &amp;&amp; sleep 1000 &amp;
+<br>
+# pid=$! <br>
+# kill $pid</b></p>
+
+<p style="margin-left:22%;">Reliable killing of
+subprocesses of the <i>program</i>. When <b>unshare</b> gets
+killed, everything below it gets killed as well. Without it,
+the children of <i>program</i> would have orphaned and been
+re-parented to PID 1.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>clone</b>(2),
+<b>unshare</b>(2), <b>namespaces</b>(7), <b>mount</b>(8)</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><a href="dottedmag@dottedmag.net">Mikhail
+Gusarov</a> <br>
+<a href="kzak@redhat.com">Karel Zak</a></p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The unshare
+command is part of the util-linux package and is available
+from https://www.kernel.org/pub/linux/utils/util-linux/.</p>
+<hr>
+</body>
+</html>

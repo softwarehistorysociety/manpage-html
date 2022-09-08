@@ -1,0 +1,324 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:06:41 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>sos</title>
+
+</head>
+<body>
+
+<h1 align="center">sos</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#COMPONENTS">COMPONENTS</a><br>
+<a href="#GLOBAL OPTIONS">GLOBAL OPTIONS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#MAINTAINER">MAINTAINER</a><br>
+<a href="#AUTHORS &amp; CONTRIBUTORS">AUTHORS &amp; CONTRIBUTORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">sos - A unified
+tool for collecting system logs and other debug
+information</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sos</b>
+component [options]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sos</b> is a
+diagnostic data collection utility, used by system
+administrators, support representatives, and the like to
+assist in troubleshooting issues with a system or group of
+systems.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The most well
+known function is <b>sos report</b> or <b>sosreport</b> as
+it was previously known.</p>
+
+<p style="margin-left:11%; margin-top: 1em">An sos archive
+is typically requested by support organizations to collect
+baseline configuration and system data from which to begin
+the troubleshooting process.</p>
+
+<h2>COMPONENTS
+<a name="COMPONENTS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">sos supports
+several subcommands or components. Each provides a different
+set of information for the user. Supported components are as
+follows</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>report</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Report generates an archive of system information
+including configuration files and command output.
+Information included in the report is based upon plugins
+that are activated automatically when certain criteria, such
+as installed packages, files, services, or system
+architecture is detected.</p></td></tr>
+</table>
+
+<p style="margin-left:22%; margin-top: 1em">See <b>sos
+report --help</b> and <b>man sos-report</b> for more
+information.</p>
+
+<p style="margin-left:22%; margin-top: 1em">May also be
+invoked via the alias <b>rep</b> or the deprecated command
+<b>sosreport</b>.</p>
+
+<p style="margin-left:11%;"><b>collect</b></p>
+
+<p style="margin-left:22%;">Collect is used to capture
+reports on multiple systems simultaneously. These systems
+can either be defined by the user at the command line and/or
+defined by clustering software that exists either on the
+local system or on a &quot;primary&quot; system that is able
+to inform about other nodes in the cluster.</p>
+
+<p style="margin-left:22%; margin-top: 1em">When running
+collect, sos report will be run on the remote nodes, and
+then the resulting archives will be copied from those nodes
+to the local system running sos collect. Archives are then
+removed from the remote systems.</p>
+
+<p style="margin-left:22%; margin-top: 1em">See <b>sos
+collect --help</b> and <b>man sos-collect</b> for more
+information.</p>
+
+<p style="margin-left:22%; margin-top: 1em">May also be
+invoked via the alias <b>sos collector</b> or the deprecated
+command <b>sos-collector</b>.</p>
+
+<p style="margin-left:11%;"><b>clean|cleaner|mask</b></p>
+
+<p style="margin-left:22%;">This subcommand takes input of
+either 1) an sosreport tarball, 2) a collection of sosreport
+tarballs such as from <b>collect</b>, or 3) the unpackaged
+directory of an sosreport and obfuscates potentially
+sensitive system information that is not covered by the
+standard postprocessing of <b>sos report</b>.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Such data
+includes IP addresses, networks, MAC addresses, and more.
+Data obfuscated by this command will remain consistent
+throughout the report and across reports provided in the
+same invocation. Additionally, care is taken to maintain
+network topology relationships between matched data
+items.</p>
+
+<p style="margin-left:22%; margin-top: 1em">See <b>sos
+clean --help</b> and <b>man sos-clean</b> for more
+information.</p>
+
+<p style="margin-left:22%; margin-top: 1em">May be invoked
+via either <b>sos clean</b>, <b>sos cleaner</b>, <b>sos
+mask</b>, or via the <b>--clean</b>, <b>--cleaner</b> or
+<b>--mask</b> options for <b>report</b> and
+<b>collect</b>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>help</b></p></td>
+<td width="5%"></td>
+<td width="78%">
+
+
+<p>This subcommand is used to retrieve more detailed
+information on the various SoS commands and components than
+is directly available in either other manpages or --help
+output.</p> </td></tr>
+</table>
+
+<p style="margin-left:22%; margin-top: 1em">See <b>sos help
+--help</b> and <b>man sos-help</b> for more information.</p>
+
+<h2>GLOBAL OPTIONS
+<a name="GLOBAL OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">sos components
+provide their own set of options, however the following are
+available to be set across all components.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>--batch</b>
+Do not prompt interactively, user will not be prompted for
+any data <b><br>
+--encrypt-key KEY</b></p>
+
+<p style="margin-left:22%;">Encrypts the resulting archive
+that sosreport produces using GPG. KEY must be an existing
+key in the user&rsquo;s keyring as GPG does not allow for
+keyfiles. KEY can be any value accepted by gpg&rsquo;s
+&rsquo;recipient&rsquo; option.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that the
+user running sosreport must match the user owning the
+keyring from which keys will be obtained. In particular this
+means that if sudo is used to run sosreport, the keyring
+must also be set up using sudo (or direct shell access to
+the account).</p>
+
+<p style="margin-left:22%; margin-top: 1em">Users should be
+aware that encrypting the final archive will result in sos
+using double the amount of temporary disk space - the
+encrypted archive must be written as a separate, rather than
+replacement, file within the temp directory that sos writes
+the archive to. However, since the encrypted archive will be
+the same size as the original archive, there is no
+additional space consumption once the temporary directory is
+removed at the end of execution.</p>
+
+<p style="margin-left:22%; margin-top: 1em">This means that
+only the encrypted archive is present on disk after sos
+finishes running.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If encryption
+fails for any reason, the original unencrypted archive is
+preserved instead.</p>
+
+<p style="margin-left:11%;"><b>--encrypt-pass PASS</b></p>
+
+<p style="margin-left:22%;">The same as --encrypt-key, but
+use the provided PASS for symmetric encryption rather than
+key-pair encryption.</p>
+
+<p style="margin-left:11%;"><b>--config-file CONFIG</b></p>
+
+<p style="margin-left:22%;">Specify alternate configuration
+file.</p>
+
+<p style="margin-left:11%;"><b>-s, --sysroot
+SYSROOT</b></p>
+
+<p style="margin-left:22%;">Specify an alternate root file
+system path.</p>
+
+<p style="margin-left:11%;"><b>--tmp-dir DIRECTORY</b></p>
+
+<p style="margin-left:22%;">Specify alternate temporary
+directory to copy data during execution.</p>
+
+<p style="margin-left:11%;"><b>--threads THREADS</b></p>
+
+<p style="margin-left:22%;">Specify the number of threads
+sosreport will use for concurrency. Defaults to 4.</p>
+
+<p style="margin-left:11%;"><b>-v, --verbose</b></p>
+
+<p style="margin-left:22%;">Increase logging verbosity. May
+be specified multiple times to enable additional debugging
+messages.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The following
+table summarizes the effects of different verbosity
+levels:</p>
+
+<p style="margin-left:22%; margin-top: 1em">1 (-v) : Enable
+debug messages for sos.log. Show individual plugins
+starting. <br>
+2 (-vv) : Also print debug messages to console. <br>
+3 (-vvv) : Enable debug messages for archive file
+operations. Note this will dramatically <br>
+increase the amount of logging.</p>
+
+<p style="margin-left:11%;"><b>-q, --quiet</b></p>
+
+<p style="margin-left:22%;">Only log fatal errors to
+stderr.</p>
+
+<p style="margin-left:11%;"><b>-z, --compression-type
+{auto|xz|gzip}</b></p>
+
+<p style="margin-left:22%;">Compression type to use when
+compression the final archive output</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--help</b></p></td>
+<td width="2%"></td>
+<td width="33%">
+
+
+<p>Display usage message.</p></td>
+<td width="45%">
+</td></tr>
+</table>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sos.conf</b>(5)</p>
+
+<h2>MAINTAINER
+<a name="MAINTAINER"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Jake Hunsaker
+&lt;jhunsake@redhat.com&gt;</p>
+
+<h2>AUTHORS &amp; CONTRIBUTORS
+<a name="AUTHORS &amp; CONTRIBUTORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">See
+<b>AUTHORS</b> file in the package documentation.</p>
+<hr>
+</body>
+</html>

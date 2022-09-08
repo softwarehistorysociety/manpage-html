@@ -1,0 +1,570 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:33:04 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>BROTLI</title>
+
+</head>
+<body>
+
+<h1 align="center">BROTLI</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#BUGS">BUGS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>brotli</b> -
+brotli, unbrotli - compress or decompress files</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>brotli</b>
+[<i>OPTION|FILE</i>]...</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>unbrotli</b>
+is equivalent to <b>brotli --decompress</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>brotli</b>
+is a generic-purpose lossless compression algorithm that
+compresses data using a combination of a modern variant of
+the <b>LZ77</b> algorithm, Huffman coding and 2-nd order
+context modeling, with a compression ratio comparable to the
+best currently available general-purpose compression
+methods. It is similar in speed with deflate but offers more
+dense compression.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>brotli</b>
+command line syntax similar to <b>gzip (1)</b> and <b>zstd
+(1)</b>. Unlike <b>gzip (1)</b>, source files are preserved
+by default. It is possible to remove them after processing
+by using the <b>--rm</b> <i>option</i>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Arguments that
+look like &quot;<b>--name</b>&quot; or
+&quot;<b>--name=value</b>&quot; are <i>options</i>. Every
+<i>option</i> has a short form &quot;<b>-x</b>&quot; or
+&quot;<b>-x value</b>&quot;. Multiple short form
+<i>options</i> could be coalesced:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="81%">
+
+
+<p>&quot;<b>--decompress --stdout --suffix=.b</b>&quot;
+works the same as</p></td>
+<td width="5%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="81%">
+
+
+<p>&quot;<b>-d -s -S .b</b>&quot; and</p></td>
+<td width="5%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="81%">
+
+
+<p>&quot;<b>-dsS .b</b>&quot;</p></td>
+<td width="5%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em"><b>brotli</b>
+has 3 operation modes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em">default mode is compression;</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>--decompress</b> option activates decompression
+mode;</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>--test</b> option switches to integrity test mode;
+this option is equivalent to &quot;<b>--decompress
+--stdout</b>&quot; except that the decompressed data is
+discarded instead of being written to standard output.</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Every
+non-option argument is a <i>file</i> entry. If no
+<i>files</i> are given or <i>file</i> is
+&quot;<b>-</b>&quot;, <b>brotli</b> reads from standard
+input. All arguments after &quot;<b>--</b>&quot; are
+<i>file</i> entries.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Unless
+<b>--stdout</b> or <b>--output</b> is specified,
+<i>files</i> are written to a new file whose name is derived
+from the source <i>file</i> name:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em">when compressing, a suffix is
+appended to the source filename to get the target
+filename</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>when decompressing, a suffix is removed from the source
+filename to get the target filename</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Default suffix
+is <b>.br</b>, but it could be specified with
+<b>--suffix</b> option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Conflicting or
+duplicate <i>options</i> are not allowed.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="4%">
+
+
+<p style="margin-top: 1em"><b>-#</b>:</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">compression level (0-9); bigger
+values cause denser, but slower compression</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="20%">
+
+
+<p style="margin-top: 1em"><b>-c</b>, <b>--stdout</b>:</p></td>
+<td width="66%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">write on standard output</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="26%">
+
+
+<p style="margin-top: 1em"><b>-d</b>,
+<b>--decompress</b>:</p> </td>
+<td width="60%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">decompress mode</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="18%">
+
+
+<p style="margin-top: 1em"><b>-f</b>, <b>--force</b>:</p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">force output file overwrite</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="17%">
+
+
+<p style="margin-top: 1em"><b>-h</b>, <b>--help</b>:</p></td>
+<td width="69%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">display this help and exit</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="14%">
+
+
+<p style="margin-top: 1em"><b>-j</b>, <b>--rm</b>:</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">remove source file(s); <b>gzip
+(1)</b>-like behaviour</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="17%">
+
+
+<p style="margin-top: 1em"><b>-k</b>, <b>--keep</b>:</p></td>
+<td width="69%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">keep source file(s); <b>zstd
+(1)</b>-like behaviour</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="29%">
+
+
+<p style="margin-top: 1em"><b>-n</b>,
+<b>--no-copy-stat</b>:</p> </td>
+<td width="57%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">do not copy source file(s)
+attributes</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="34%">
+
+
+<p style="margin-top: 1em"><b>-o FILE</b>,
+<b>--output=FILE</b></p> </td>
+<td width="52%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">output file; valid only if
+there is a single input entry</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="34%">
+
+
+<p style="margin-top: 1em"><b>-q NUM</b>,
+<b>--quality=NUM</b>:</p> </td>
+<td width="52%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">compression level (0-11);
+bigger values cause denser, but slower compression</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="17%">
+
+
+<p style="margin-top: 1em"><b>-t</b>, <b>--test</b>:</p></td>
+<td width="69%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">test file integrity mode</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="21%">
+
+
+<p style="margin-top: 1em"><b>-v</b>, <b>--verbose</b>:</p></td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">increase output verbosity</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="31%">
+
+
+<p style="margin-top: 1em"><b>-w NUM</b>,
+<b>--lgwin=NUM</b>:</p> </td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">set LZ77 window size (0, 10-24)
+(default: 22); window size is <b><br>
+(2**NUM - 16)</b>; 0 lets compressor decide over the optimal
+value; bigger <br>
+windows size improve density; decoder might require up to
+window size <br>
+memory to operate</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="32%">
+
+
+<p style="margin-top: 1em"><b>-S SUF</b>,
+<b>--suffix=SUF</b>:</p> </td>
+<td width="54%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">output file suffix (default:
+<b>.br</b>)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="21%">
+
+
+<p style="margin-top: 1em"><b>-V</b>, <b>--version</b>:</p></td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">display version and exit</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="17%">
+
+
+<p style="margin-top: 1em"><b>-Z</b>, <b>--best</b>:</p></td>
+<td width="69%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%;">use best compression level
+(default); same as &quot;<b>-q 11</b>&quot;</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>brotli</b>
+file format is defined in RFC 7932
+<i>https://www.ietf.org/rfc/rfc7932.txt</i>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>brotli</b>
+is open-sourced under the MIT License
+<i>https://opensource.org/licenses/MIT</i>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Mailing list:
+https://groups.google.com/forum/#!forum/brotli</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Report bugs at:
+https://github.com/google/brotli/issues</p>
+<hr>
+</body>
+</html>

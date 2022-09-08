@@ -1,0 +1,184 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:58:01 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>PAM_CAP</title>
+
+</head>
+<body>
+
+<h1 align="center">PAM_CAP</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#MODULE TYPES PROVIDED">MODULE TYPES PROVIDED</a><br>
+<a href="#RETURN VALUES">RETURN VALUES</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">pam_cap - PAM
+module to set inheritable capabilities</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="80%">
+
+
+<p style="margin-top: 1em"><b>pam_cap.so</b>
+[config=<i>/path/to/capability.conf</i>] [debug]</p></td>
+<td width="9%">
+</td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The pam_cap PAM
+module sets the current process&rsquo; inheritable
+capabilities.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Capabilities
+are read from the /etc/security/capability.conf config file,
+or alternate file specified with the config= option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The module must
+not be called by a multithreaded application.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>config=</b><i>/path/to/capability.conf</i></p>
+
+<p style="margin-left:17%;">Indicate an alternative
+capability.conf style configuration file to override the
+default.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>debug</b></p>
+
+<p style="margin-left:17%;">Print debug information.</p>
+
+<h2>MODULE TYPES PROVIDED
+<a name="MODULE TYPES PROVIDED"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Only the
+<b>authentication</b> module type is provided.</p>
+
+<h2>RETURN VALUES
+<a name="RETURN VALUES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">PAM_AUTH_ERR</p>
+
+<p style="margin-left:17%;">The user is not known to the
+system.</p>
+
+<p style="margin-left:11%; margin-top: 1em">PAM_IGNORE</p>
+
+<p style="margin-left:17%;">No capabilities found for this
+user.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">PAM_INCOMPLETE</p>
+
+<p style="margin-left:17%;">Indicates a PAM-Conversation
+failure.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">PAM_SUCCESS</p>
+
+<p style="margin-left:17%;">Capabilities were set.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/security/capability.conf</p>
+
+<p style="margin-left:17%;">Default configuration file</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Nearly all
+applications/daemons which use PAM for authentication
+contain a configuration line: <i>@include common-auth</i>.
+Thus, to set inheritable capabilities in <b>all</b> of these
+applications, add the following as the last line to
+/etc/pam.d/common-auth</p>
+
+<p style="margin-left:17%; margin-top: 1em">auth optional
+pam_cap.so</p>
+
+<p style="margin-left:11%; margin-top: 1em">To set
+inheritable capabilities for a user in a <b>specific</b>
+application, or in application(s) which do not @include
+common-auth, add the line below to the application-specific
+file; e.g. /etc/pam.d/myapp</p>
+
+<p style="margin-left:17%; margin-top: 1em">auth optional
+pam_cap.so</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>capability.conf</b>(5),
+<b>pam.d</b>(5), <b>pam</b>(7).</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">pam_cap was
+initially written by Andrew G. Morgan
+&lt;morgan@kernel.org&gt;</p>
+<hr>
+</body>
+</html>

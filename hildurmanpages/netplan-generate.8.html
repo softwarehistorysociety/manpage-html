@@ -1,0 +1,256 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:56:38 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>netplan-generate</title>
+
+</head>
+<body>
+
+<h1 align="center">netplan-generate</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#HANDLING MULTIPLE FILES">HANDLING MULTIPLE FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">netplan-generate
+- generate backend configuration from netplan YAML files</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>
+[&ndash;debug] <b>generate</b> -h | &ndash;help</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>
+[&ndash;debug] <b>generate</b> [&ndash;root-dir
+<i>ROOT_DIR</i>] [&ndash;mapping <i>MAPPING</i>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">netplan
+generate converts netplan YAML into configuration files
+understood by the backends (<b>systemd-networkd</b>(8) or
+<b>NetworkManager</b>(8)). It <i>does not</i> apply the
+generated configuration.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You will not
+normally need to run this directly as it is run by
+<b>netplan apply</b>, <b>netplan try</b>, or at boot.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Only if
+executed during the systemd <tt>initializing</tt> phase
+(i.e.&nbsp;&ldquo;Early bootup, before <tt>basic.target</tt>
+is reached&rdquo;), will it attempt to start/apply the newly
+created service units. <b>Requires feature:
+generate-just-in-time</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">For details of
+the configuration file format, see <b>netplan</b>(5).</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h,
+&ndash;help</b></p>
+
+<p style="margin-left:22%;">Print basic help.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>&ndash;debug</b></p></td>
+<td width="2%"></td>
+<td width="64%">
+
+
+<p>Print debugging output during the process.</p></td>
+<td width="14%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>&ndash;root-dir</b>
+<i>ROOT_DIR</i></p>
+
+<p style="margin-left:22%;">Instead of looking in
+/{lib,etc,run}/netplan, look in
+/<i>ROOT_DIR</i>/{lib,etc,run}/netplan</p>
+
+<p style="margin-left:11%;"><b>&ndash;mapping</b>
+<i>MAPPING</i></p>
+
+<p style="margin-left:22%;">Instead of generating output
+files, parse the configuration files and print some internal
+information about the device specified in
+<i>MAPPING</i>.</p>
+
+<h2>HANDLING MULTIPLE FILES
+<a name="HANDLING MULTIPLE FILES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">There are 3
+locations that netplan generate considers:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="29%">
+
+
+<p>/lib/netplan/*.yaml</p></td>
+<td width="57%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="29%">
+
+
+<p>/etc/netplan/*.yaml</p></td>
+<td width="57%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="29%">
+
+
+<p>/run/netplan/*.yaml</p></td>
+<td width="57%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">If there are
+multiple files with exactly the same name, then only one
+will be read. A file in /run/netplan will shadow -
+completely replace - a file with the same name in
+/etc/netplan. A file in /etc/netplan will itself shadow a
+file in /lib/netplan.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Or in other
+words, /run/netplan is top priority, then /etc/netplan, with
+/lib/netplan having the lowest priority.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If there are
+files with different names, then they are considered in
+lexicographical order - regardless of the directory they are
+in. Later files add to or override earlier files. For
+example, /run/netplan/10-foo.yaml would be updated by
+/lib/netplan/20-abc.yaml.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you have two
+files with the same key/setting, the following rules
+apply:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em">If the values are YAML boolean
+or scalar values (numbers and strings) the old value is
+overwritten by the new value.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>If the values are sequences, the sequences are
+concatenated - the new values are appended to the old
+list.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>If the values are mappings, netplan will examine the
+elements of the mappings in turn using these rules.</p></td></tr>
+</table>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>(5),
+<b>netplan-apply</b>(8), <b>netplan-try</b>(8),
+<b>systemd-networkd</b>(8), <b>NetworkManager</b>(8)</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Daniel Axtens
+(&lt;daniel.axtens@canonical.com&gt;).</p>
+<hr>
+</body>
+</html>

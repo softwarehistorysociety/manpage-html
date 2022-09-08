@@ -1,0 +1,197 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:12:42 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>VMWARE-XFERLOGS</title>
+
+</head>
+<body>
+
+<h1 align="center">VMWARE-XFERLOGS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#HOMEPAGE">HOMEPAGE</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">vmware-xferlogs
+- dump vm-support output to vmx logfile</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>vmware-xferlogs</b>
+<i>OPTIONS FILE</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">vmware-xferlogs
+is a simple console application and can be run as any user.
+It is based on rpctool to dump the vm-support output to the
+vmx log file base64 encoded. It can dump any file supplied
+on the commandline to the vmx log. It also does the decoding
+part of it. It can read the vmware.log file decode and write
+the encoded files in the directory it was invoked.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Example of a
+transfer found in the vmx log file:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%">
+</td>
+<td width="85%">
+
+
+<p>Aug 24 18:48:09: vcpu-0| Guest: &gt;Logfile Begins :
+/root/install.log: ver - 1</p></td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="85%">
+
+
+<p>Aug 24 18:48:09: vcpu-0| Guest:
+&gt;SW5zdGFsbGluZyA0NDEgcGFja2FnZXMKCkluc3RhbGxpbmcgZ2xpYmMtY29tbW9uLTIuMi41LTM0</p> </td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="85%">
+
+
+<p>Aug 24 18:48:09: vcpu-0| Guest:
+&gt;LgpJbnN0YWxsaW5nIGh3ZGF0YS0wLjE0LTEuCkluc3RhbGxpbmcgaW5kZXhodG1sLTcuMy0zLgpJ</p> </td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="85%">
+
+
+<p>Aug 24 18:48:09: vcpu-0| Guest:
+&gt;bnN0YWxsaW5nIG1haWxjYXAtMi4xLjktMi4KSW5zdGFsbGluZyBtYW4tcGFnZXMtMS40OC0yLgpJ</p> </td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="85%">
+
+
+<p>....</p></td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="85%">
+
+
+<p>....</p></td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="85%">
+
+
+<p>Aug 24 18:48:10: vcpu-0| Guest: &gt;Mi4K</p></td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="85%">
+
+
+<p>Aug 24 18:48:10: vcpu-0| Guest: &gt;Logfile Ends</p></td></tr>
+</table>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p style="margin-top: 1em">enc</p></td>
+<td width="85%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>dec</p></td>
+<td width="85%">
+</td></tr>
+</table>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>vmware-checkvm</i>(1)
+<i><br>
+vmware-toolbox-cmd</i>(1) <i><br>
+libguestlib</i>(3) <i><br>
+libvmtools</i>(3) <i><br>
+vmware-user-suid-wrapper</i>(1)</p>
+
+<h2>HOMEPAGE
+<a name="HOMEPAGE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">More
+information about vmware-xferlogs and the Open VM Tools can
+be found at
+&lt;<i>http://open-vm-tools.sourceforge.net/</i>&gt;.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Open VM Tools
+were written by VMware, Inc.
+&lt;<i>http://www.vmware.com/</i>&gt;.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This manual
+page was put together from homepage materials by Daniel
+Baumann &lt;<i>mail@daniel-baumann.ch</i>&gt;, for the
+Debian project (but may be used by others).</p>
+<hr>
+</body>
+</html>

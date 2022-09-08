@@ -1,0 +1,185 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:53:42 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>LSNS</title>
+
+</head>
+<body>
+
+<h1 align="center">LSNS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">lsns - list
+namespaces</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lsns</b>
+[options] [<i>namespace</i>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lsns</b>
+lists information about all the currently accessible
+namespaces or about the given <i>namespace</i>. The
+<i>namespace</i> identifier is an inode number.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The default
+output is subject to change. So whenever possible, you
+should avoid using default outputs in your scripts. Always
+explicitly define expected columns by using the
+<b>--output</b> option together with a columns list in
+environments where a stable output is required.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>NSFS</b>
+column, printed when <b>net</b> is specified for
+<b>--type</b> option, is special; it uses multi-line cells.
+Use the option <b>--nowrap</b> is for switching to
+&quot;,&quot; separated single-line representation.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+<b>lsns</b> reads information directly from the /proc
+filesystem and for non-root users it may return incomplete
+information. The current /proc filesystem may be unshared
+and affected by a PID namespace (see <b>unshare
+--mount-proc</b> for more details). <b>lsns</b> is not able
+to see persistent namespaces without processes where the
+namespace instance is held by a bind mount to
+/proc/<i>pid</i>/ns/<i>type</i>.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-J</b>,
+<b>--json</b></p>
+
+<p style="margin-left:22%;">Use JSON output format.</p>
+
+<p style="margin-left:11%;"><b>-l</b>, <b>--list</b></p>
+
+<p style="margin-left:22%;">Use list output format.</p>
+
+<p style="margin-left:11%;"><b>-n</b>,
+<b>--noheadings</b></p>
+
+<p style="margin-left:22%;">Do not print a header line.</p>
+
+<p style="margin-left:11%;"><b>-o</b>, <b>--output</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Specify which output columns to
+print. Use <b>--help</b> to get a list of all supported
+columns.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The default
+list of columns may be extended if <i>list</i> is specified
+in the format <b>+</b><i>list</i> <b>(e.g. lsns -o
++PATH).</b></p>
+
+<p style="margin-left:11%;"><b>--output-all</b></p>
+
+<p style="margin-left:22%;">Output all available
+columns.</p>
+
+<p style="margin-left:11%;"><b>-p</b>, <b>--task</b>
+<i>pid</i></p>
+
+<p style="margin-left:22%;">Display only the namespaces
+held by the process with this <i>pid</i>.</p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--raw</b></p>
+
+<p style="margin-left:22%;">Use the raw output format.</p>
+
+<p style="margin-left:11%;"><b>-t</b>, <b>--type</b>
+<i>type</i></p>
+
+<p style="margin-left:22%;">Display the specified
+<i>type</i> of namespaces only. The supported types are
+<b>mnt</b>, <b>net</b>, <b>ipc</b>, <b>user</b>, <b>pid</b>,
+<b>uts</b> and <b>cgroup</b>. This option may be given more
+than once.</p>
+
+<p style="margin-left:11%;"><b>-u</b>,
+<b>--notruncate</b></p>
+
+<p style="margin-left:22%;">Do not truncate text in
+columns.</p>
+
+<p style="margin-left:11%;"><b>-W</b>, <b>--nowrap</b></p>
+
+<p style="margin-left:22%;">Do not use multi-line text in
+columns.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Karel Zak
+&lt;kzak@redhat.com&gt;</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>nsenter</b>(1),
+<b>unshare</b>(1), <b>clone</b>(2), <b>namespaces</b>(7)</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The lsns
+command is part of the util-linux package and is available
+from https://www.kernel.org/pub/linux/utils/util-linux/.</p>
+<hr>
+</body>
+</html>

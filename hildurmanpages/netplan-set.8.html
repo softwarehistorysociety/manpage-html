@@ -1,0 +1,129 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:56:39 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>netplan-set</title>
+
+</head>
+<body>
+
+<h1 align="center">netplan-set</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">netplan-set -
+write netplan YAML configuration snippets to file</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>
+[&ndash;debug] <b>set</b> -h | &ndash;help</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>
+[&ndash;debug] <b>set</b> [&ndash;root-dir=ROOT_DIR]
+[&ndash;origin-hint=ORIGIN_HINT] [key=value]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan set
+[key=value]</b> writes a given key/value pair or YAML
+subtree into a YAML file in <tt>/etc/netplan/</tt> and
+validates its format.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can specify
+a single value as:
+<tt>&quot;[network.]ethernets.eth0.dhcp4=[1.2.3.4/24,
+5.6.7.8/24]&quot;</tt> or a full subtree as:
+<tt>&quot;[network.]ethernets.eth0={dhcp4: true, dhcp6:
+true}&quot;</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For details of
+the configuration file format, see <b>netplan</b>(5).</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h,
+&ndash;help</b></p>
+
+<p style="margin-left:22%;">Print basic help.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>&ndash;debug</b></p></td>
+<td width="2%"></td>
+<td width="64%">
+
+
+<p>Print debugging output during the process.</p></td>
+<td width="14%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>&ndash;root-dir</b></p>
+
+<p style="margin-left:22%;">Write YAML files into this root
+instead of /</p>
+
+<p style="margin-left:11%;"><b>&ndash;origin-hint</b></p>
+
+<p style="margin-left:22%;">Specify a name for the config
+file, e.g.: <tt>70-netplan-set</tt> =&gt;
+<tt>/etc/netplan/70-netplan-set.yaml</tt></p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt><b>netplan</b></tt>(5),
+<b>netplan-get</b>(8), <b>netplan-dbus</b>(8)</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Lukas
+M&auml;rdian (lukas.maerdian@canonical.com).</p>
+<hr>
+</body>
+</html>

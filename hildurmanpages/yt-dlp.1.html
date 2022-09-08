@@ -1,0 +1,6547 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:15:34 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>yt-dlp</title>
+
+</head>
+<body>
+
+<h1 align="center">yt-dlp</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#CONFIGURATION">CONFIGURATION</a><br>
+<a href="#OUTPUT TEMPLATE">OUTPUT TEMPLATE</a><br>
+<a href="#FORMAT SELECTION">FORMAT SELECTION</a><br>
+<a href="#MODIFYING METADATA">MODIFYING METADATA</a><br>
+<a href="#EXTRACTOR ARGUMENTS">EXTRACTOR ARGUMENTS</a><br>
+<a href="#INSTALLATION">INSTALLATION</a><br>
+<a href="#PLUGINS">PLUGINS</a><br>
+<a href="#EMBEDDING YT-DLP">EMBEDDING YT-DLP</a><br>
+<a href="#NEW FEATURES">NEW FEATURES</a><br>
+<a href="#DEPRECATED OPTIONS">DEPRECATED OPTIONS</a><br>
+<a href="#CONTRIBUTING">CONTRIBUTING</a><br>
+<a href="#MORE">MORE</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">yt-dlp - A
+youtube-dl fork with additional features and patches</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>yt-dlp</b>
+[OPTIONS] URL [URL...]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">yt-dlp is a
+youtube-dl (https://github.com/ytdl-org/youtube-dl) fork
+based on the now inactive youtube-dlc
+(https://github.com/blackjack4494/yt-dlc). The main focus of
+this project is adding new features and patches while also
+keeping up to date with the original project</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>General
+Options: <br>
+-h, --help</b></p>
+
+<p style="margin-left:22%;">Print this help text and
+exit</p>
+
+<p style="margin-left:11%;"><b>--version</b></p>
+
+<p style="margin-left:22%;">Print program version and
+exit</p>
+
+<p style="margin-left:11%;"><b>-i, --ignore-errors</b></p>
+
+<p style="margin-left:22%;">Ignore download and
+postprocessing errors. The download will be considered
+successful even if the postprocessing fails</p>
+
+<p style="margin-left:11%;"><b>--no-abort-on-error</b></p>
+
+<p style="margin-left:22%;">Continue with next video on
+download errors; e.g. to skip unavailable videos in a
+playlist (default)</p>
+
+<p style="margin-left:11%;"><b>--abort-on-error</b></p>
+
+<p style="margin-left:22%;">Abort downloading of further
+videos if an error occurs (Alias: --no-ignore-errors)</p>
+
+<p style="margin-left:11%;"><b>--dump-user-agent</b></p>
+
+<p style="margin-left:22%;">Display the current user-agent
+and exit</p>
+
+<p style="margin-left:11%;"><b>--list-extractors</b></p>
+
+<p style="margin-left:22%;">List all supported extractors
+and exit</p>
+
+
+<p style="margin-left:11%;"><b>--extractor-descriptions</b></p>
+
+<p style="margin-left:22%;">Output descriptions of all
+supported extractors and exit</p>
+
+
+<p style="margin-left:11%;"><b>--force-generic-extractor</b></p>
+
+<p style="margin-left:22%;">Force extraction to use the
+generic extractor</p>
+
+<p style="margin-left:11%;"><b>--default-search</b>
+<i>PREFIX</i></p>
+
+<p style="margin-left:22%;">Use this prefix for unqualified
+URLs. For example &quot;gvsearch2:&quot; downloads two
+videos from google videos for the search term &quot;large
+apple&quot;. Use the value &quot;auto&quot; to let yt-dlp
+guess (&quot;auto_warning&quot; to emit a warning when
+guessing). &quot;error&quot; just throws an error. The
+default value &quot;fixup_error&quot; repairs broken URLs,
+but emits an error if this is not possible instead of
+searching</p>
+
+<p style="margin-left:11%;"><b>--ignore-config</b></p>
+
+<p style="margin-left:22%;">Don't load any more
+configuration files except those given by
+--config-locations. For backward compatibility, if this
+option is found inside the system configuration file, the
+user configuration is not loaded. (Alias: --no-config)</p>
+
+
+<p style="margin-left:11%;"><b>--no-config-locations</b></p>
+
+<p style="margin-left:22%;">Do not load any custom
+configuration files (default). When given inside a
+configuration file, ignore all previous --config-locations
+defined in the current file</p>
+
+<p style="margin-left:11%;"><b>--config-locations</b>
+<i>PATH</i></p>
+
+<p style="margin-left:22%;">Location of the main
+configuration file; either the path to the config or its
+containing directory. Can be used multiple times and inside
+other configuration files</p>
+
+<p style="margin-left:11%;"><b>--flat-playlist</b></p>
+
+<p style="margin-left:22%;">Do not extract the videos of a
+playlist, only list them</p>
+
+<p style="margin-left:11%;"><b>--no-flat-playlist</b></p>
+
+<p style="margin-left:22%;">Extract the videos of a
+playlist</p>
+
+<p style="margin-left:11%;"><b>--live-from-start</b></p>
+
+<p style="margin-left:22%;">Download livestreams from the
+start. Currently only supported for YouTube
+(Experimental)</p>
+
+
+<p style="margin-left:11%;"><b>--no-live-from-start</b></p>
+
+<p style="margin-left:22%;">Download livestreams from the
+current time (default)</p>
+
+<p style="margin-left:11%;"><b>--wait-for-video</b>
+<i>MIN[-MAX]</i></p>
+
+<p style="margin-left:22%;">Wait for scheduled streams to
+become available. Pass the minimum number of seconds (or
+range) to wait between retries</p>
+
+<p style="margin-left:11%;"><b>--no-wait-for-video</b></p>
+
+<p style="margin-left:22%;">Do not wait for scheduled
+streams (default)</p>
+
+<p style="margin-left:11%;"><b>--mark-watched</b></p>
+
+<p style="margin-left:22%;">Mark videos watched (even with
+--simulate). Currently only supported for YouTube</p>
+
+<p style="margin-left:11%;"><b>--no-mark-watched</b></p>
+
+<p style="margin-left:22%;">Do not mark videos watched
+(default)</p>
+
+<p style="margin-left:11%;"><b>--no-colors</b></p>
+
+<p style="margin-left:22%;">Do not emit color codes in
+output</p>
+
+<p style="margin-left:11%;"><b>--compat-options</b>
+<i>OPTS</i></p>
+
+<p style="margin-left:22%;">Options that can help keep
+compatibility with youtube-dl or youtube-dlc configurations
+by reverting some of the changes made in yt-dlp. See
+&quot;Differences in default behavior&quot; for details</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Network
+Options: <br>
+--proxy</b> <i>URL</i></p>
+
+<p style="margin-left:22%;">Use the specified
+HTTP/HTTPS/SOCKS proxy. To enable SOCKS proxy, specify a
+proper scheme. For example
+socks5://user:pass@127.0.0.1:1080/. Pass in an empty string
+(--proxy &quot;&quot;) for direct connection</p>
+
+<p style="margin-left:11%;"><b>--socket-timeout</b>
+<i>SECONDS</i></p>
+
+<p style="margin-left:22%;">Time to wait before giving up,
+in seconds</p>
+
+<p style="margin-left:11%;"><b>--source-address</b>
+<i>IP</i></p>
+
+<p style="margin-left:22%;">Client-side IP address to bind
+to</p>
+
+<p style="margin-left:11%;"><b>-4, --force-ipv4</b></p>
+
+<p style="margin-left:22%;">Make all connections via
+IPv4</p>
+
+<p style="margin-left:11%;"><b>-6, --force-ipv6</b></p>
+
+<p style="margin-left:22%;">Make all connections via
+IPv6</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Geo-restriction:
+<br>
+--geo-verification-proxy</b> <i>URL</i></p>
+
+<p style="margin-left:22%;">Use this proxy to verify the IP
+address for some geo-restricted sites. The default proxy
+specified by --proxy (or none, if the option is not present)
+is used for the actual downloading</p>
+
+<p style="margin-left:11%;"><b>--geo-bypass</b></p>
+
+<p style="margin-left:22%;">Bypass geographic restriction
+via faking X-Forwarded-For HTTP header (default)</p>
+
+<p style="margin-left:11%;"><b>--no-geo-bypass</b></p>
+
+<p style="margin-left:22%;">Do not bypass geographic
+restriction via faking X-Forwarded-For HTTP header</p>
+
+<p style="margin-left:11%;"><b>--geo-bypass-country</b>
+<i>CODE</i></p>
+
+<p style="margin-left:22%;">Force bypass geographic
+restriction with explicitly provided two-letter ISO 3166-2
+country code</p>
+
+<p style="margin-left:11%;"><b>--geo-bypass-ip-block</b>
+<i>IP_BLOCK</i></p>
+
+<p style="margin-left:22%;">Force bypass geographic
+restriction with explicitly provided IP block in CIDR
+notation</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Video
+Selection: <br>
+--playlist-start</b> <i>NUMBER</i></p>
+
+<p style="margin-left:22%;">Playlist video to start at
+(default is 1)</p>
+
+<p style="margin-left:11%;"><b>--playlist-end</b>
+<i>NUMBER</i></p>
+
+<p style="margin-left:22%;">Playlist video to end at
+(default is last)</p>
+
+<p style="margin-left:11%;"><b>--playlist-items</b>
+<i>ITEM_SPEC</i></p>
+
+<p style="margin-left:22%;">Playlist video items to
+download. Specify indices of the videos in the playlist
+separated by commas like: &quot;--playlist-items
+1,2,5,8&quot; if you want to download videos indexed 1, 2,
+5, 8 in the playlist. You can specify range:
+&quot;--playlist-items 1-3,7,10-13&quot;, it will download
+the videos at index 1, 2, 3, 7, 10, 11, 12 and 13</p>
+
+<p style="margin-left:11%;"><b>--min-filesize</b>
+<i>SIZE</i></p>
+
+<p style="margin-left:22%;">Do not download any videos
+smaller than SIZE (e.g. 50k or 44.6m)</p>
+
+<p style="margin-left:11%;"><b>--max-filesize</b>
+<i>SIZE</i></p>
+
+<p style="margin-left:22%;">Do not download any videos
+larger than SIZE (e.g. 50k or 44.6m)</p>
+
+<p style="margin-left:11%;"><b>--date</b> <i>DATE</i></p>
+
+<p style="margin-left:22%;">Download only videos uploaded
+on this date. The date can be &quot;YYYYMMDD&quot; or in the
+format
+&quot;(now|today)[+-][0-9](day|week|month|year)(s)?&quot;</p>
+
+<p style="margin-left:11%;"><b>--datebefore</b>
+<i>DATE</i></p>
+
+<p style="margin-left:22%;">Download only videos uploaded
+on or before this date. The date formats accepted is the
+same as --date</p>
+
+<p style="margin-left:11%;"><b>--dateafter</b>
+<i>DATE</i></p>
+
+<p style="margin-left:22%;">Download only videos uploaded
+on or after this date. The date formats accepted is the same
+as --date</p>
+
+<p style="margin-left:11%;"><b>--match-filter</b>
+<i>FILTER</i></p>
+
+<p style="margin-left:22%;">Generic video filter. Any field
+(see &quot;OUTPUT TEMPLATE&quot;) can be compared with a
+number or a string using the operators defined in
+&quot;Filtering formats&quot;. You can also simply specify a
+field to match if the field is present and
+&quot;!field&quot; to check if the field is not present. In
+addition, Python style regular expression matching can be
+done using &quot;~=&quot;, and multiple filters can be
+checked with &quot;&amp;&quot;. Use a &quot;&quot; to escape
+&quot;&amp;&quot; or quotes if needed. Eg: --match-filter
+&quot;!is_live &amp; like_count&gt;?100 &amp;
+description~='(?i)&amp; dogs&quot; matches only videos that
+are not live, has a like count more than 100 (or the like
+field is not available), and also has a description that
+contains the phrase &quot;cats &amp; dogs&quot; (ignoring
+case)</p>
+
+<p style="margin-left:11%;"><b>--no-match-filter</b></p>
+
+<p style="margin-left:22%;">Do not use generic video filter
+(default)</p>
+
+<p style="margin-left:11%;"><b>--no-playlist</b></p>
+
+<p style="margin-left:22%;">Download only the video, if the
+URL refers to a video and a playlist</p>
+
+<p style="margin-left:11%;"><b>--yes-playlist</b></p>
+
+<p style="margin-left:22%;">Download the playlist, if the
+URL refers to a video and a playlist</p>
+
+<p style="margin-left:11%;"><b>--age-limit</b>
+<i>YEARS</i></p>
+
+<p style="margin-left:22%;">Download only videos suitable
+for the given age</p>
+
+<p style="margin-left:11%;"><b>--download-archive</b>
+<i>FILE</i></p>
+
+<p style="margin-left:22%;">Download only videos not listed
+in the archive file. Record the IDs of all downloaded videos
+in it</p>
+
+
+<p style="margin-left:11%;"><b>--no-download-archive</b></p>
+
+<p style="margin-left:22%;">Do not use archive file
+(default)</p>
+
+<p style="margin-left:11%;"><b>--max-downloads</b>
+<i>NUMBER</i></p>
+
+<p style="margin-left:22%;">Abort after downloading NUMBER
+files</p>
+
+<p style="margin-left:11%;"><b>--break-on-existing</b></p>
+
+<p style="margin-left:22%;">Stop the download process when
+encountering a file that is in the archive</p>
+
+<p style="margin-left:11%;"><b>--break-on-reject</b></p>
+
+<p style="margin-left:22%;">Stop the download process when
+encountering a file that has been filtered out</p>
+
+<p style="margin-left:11%;"><b>--break-per-input</b></p>
+
+<p style="margin-left:22%;">Make --break-on-existing and
+--break-on- reject act only on the current input URL</p>
+
+
+<p style="margin-left:11%;"><b>--no-break-per-input</b></p>
+
+<p style="margin-left:22%;">--break-on-existing and
+--break-on-reject terminates the entire download queue</p>
+
+
+<p style="margin-left:11%;"><b>--skip-playlist-after-errors</b>
+<i>N</i></p>
+
+<p style="margin-left:22%;">Number of allowed failures
+until the rest of the playlist is skipped</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Download
+Options: <br>
+-N, --concurrent-fragments</b> <i>N</i></p>
+
+<p style="margin-left:22%;">Number of fragments of a
+dash/hlsnative video that should be downloaded concurrently
+(default is 1)</p>
+
+<p style="margin-left:11%;"><b>-r, --limit-rate</b>
+<i>RATE</i></p>
+
+<p style="margin-left:22%;">Maximum download rate in bytes
+per second (e.g. 50K or 4.2M)</p>
+
+<p style="margin-left:11%;"><b>--throttled-rate</b>
+<i>RATE</i></p>
+
+<p style="margin-left:22%;">Minimum download rate in bytes
+per second below which throttling is assumed and the video
+data is re-extracted (e.g. 100K)</p>
+
+<p style="margin-left:11%;"><b>-R, --retries</b>
+<i>RETRIES</i></p>
+
+<p style="margin-left:22%;">Number of retries (default is
+10), or &quot;infinite&quot;</p>
+
+<p style="margin-left:11%;"><b>--file-access-retries</b>
+<i>RETRIES</i></p>
+
+<p style="margin-left:22%;">Number of times to retry on
+file access error (default is 10), or
+&quot;infinite&quot;</p>
+
+<p style="margin-left:11%;"><b>--fragment-retries</b>
+<i>RETRIES</i></p>
+
+<p style="margin-left:22%;">Number of retries for a
+fragment (default is 10), or &quot;infinite&quot; (DASH,
+hlsnative and ISM)</p>
+
+
+<p style="margin-left:11%;"><b>--skip-unavailable-fragments</b></p>
+
+<p style="margin-left:22%;">Skip unavailable fragments for
+DASH, hlsnative and ISM (default) (Alias:
+--no-abort-on-unavailable-fragment)</p>
+
+
+<p style="margin-left:11%;"><b>--abort-on-unavailable-fragment
+* Abort downloading if a fragment is <br>
+unavailable*</b></p>
+
+<p style="margin-left:22%;">(Alias:
+--no-skip-unavailable-fragments)</p>
+
+<p style="margin-left:11%;"><b>--keep-fragments</b></p>
+
+<p style="margin-left:22%;">Keep downloaded fragments on
+disk after downloading is finished</p>
+
+<p style="margin-left:11%;"><b>--no-keep-fragments</b></p>
+
+<p style="margin-left:22%;">Delete downloaded fragments
+after downloading is finished (default)</p>
+
+<p style="margin-left:11%;"><b>--buffer-size</b>
+<i>SIZE</i></p>
+
+<p style="margin-left:22%;">Size of download buffer (e.g.
+1024 or 16K) (default is 1024)</p>
+
+<p style="margin-left:11%;"><b>--resize-buffer</b></p>
+
+<p style="margin-left:22%;">The buffer size is
+automatically resized from an initial value of --buffer-size
+(default)</p>
+
+<p style="margin-left:11%;"><b>--no-resize-buffer</b></p>
+
+<p style="margin-left:22%;">Do not automatically adjust the
+buffer size</p>
+
+<p style="margin-left:11%;"><b>--http-chunk-size</b>
+<i>SIZE</i></p>
+
+<p style="margin-left:22%;">Size of a chunk for chunk-based
+HTTP downloading (e.g. 10485760 or 10M) (default is
+disabled). May be useful for bypassing bandwidth throttling
+imposed by a webserver (experimental)</p>
+
+<p style="margin-left:11%;"><b>--playlist-reverse</b></p>
+
+<p style="margin-left:22%;">Download playlist videos in
+reverse order</p>
+
+
+<p style="margin-left:11%;"><b>--no-playlist-reverse</b></p>
+
+<p style="margin-left:22%;">Download playlist videos in
+default order (default)</p>
+
+<p style="margin-left:11%;"><b>--playlist-random</b></p>
+
+<p style="margin-left:22%;">Download playlist videos in
+random order</p>
+
+
+<p style="margin-left:11%;"><b>--xattr-set-filesize</b></p>
+
+<p style="margin-left:22%;">Set file xattribute
+ytdl.filesize with expected file size</p>
+
+<p style="margin-left:11%;"><b>--hls-use-mpegts</b></p>
+
+<p style="margin-left:22%;">Use the mpegts container for
+HLS videos; allowing some players to play the video while
+downloading, and reducing the chance of file corruption if
+download is interrupted. This is enabled by default for live
+streams</p>
+
+<p style="margin-left:11%;"><b>--no-hls-use-mpegts</b></p>
+
+<p style="margin-left:22%;">Do not use the mpegts container
+for HLS videos. This is default when not downloading live
+streams</p>
+
+<p style="margin-left:11%;"><b>--downloader</b>
+<i>[PROTO:]NAME</i></p>
+
+<p style="margin-left:22%;">Name or path of the external
+downloader to use (optionally) prefixed by the protocols
+(http, ftp, m3u8, dash, rstp, rtmp, mms) to use it for.
+Currently supports native, aria2c, avconv, axel, curl,
+ffmpeg, httpie, wget (Recommended: aria2c). You can use this
+option multiple times to set different downloaders for
+different protocols. For example, --downloader aria2c
+--downloader &quot;dash,m3u8:native&quot; will use aria2c
+for http/ftp downloads, and the native downloader for
+dash/m3u8 downloads (Alias: --external-downloader)</p>
+
+<p style="margin-left:11%;"><b>--downloader-args</b>
+<i>NAME:ARGS</i></p>
+
+<p style="margin-left:22%;">Give these arguments to the
+external downloader. Specify the downloader name and the
+arguments separated by a colon &quot;:&quot;. For ffmpeg,
+arguments can be passed to different positions using the
+same syntax as --postprocessor-args. You can use this option
+multiple times to give different arguments to different
+downloaders (Alias: --external-downloader-args)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Filesystem
+Options: <br>
+-a, --batch-file</b> <i>FILE</i></p>
+
+<p style="margin-left:22%;">File containing URLs to
+download (&quot;-&quot; for stdin), one URL per line. Lines
+starting with &quot;#&quot;, &quot;;&quot; or &quot;]&quot;
+are considered as comments and ignored</p>
+
+<p style="margin-left:11%;"><b>--no-batch-file</b></p>
+
+<p style="margin-left:22%;">Do not read URLs from batch
+file (default)</p>
+
+<p style="margin-left:11%;"><b>-P, --paths</b>
+<i>[TYPES:]PATH</i></p>
+
+<p style="margin-left:22%;">The paths where the files
+should be downloaded. Specify the type of file and the path
+separated by a colon &quot;:&quot;. All the same TYPES as
+--output are supported. Additionally, you can also provide
+&quot;home&quot; (default) and &quot;temp&quot; paths. All
+intermediary files are first downloaded to the temp path and
+then the final files are moved over to the home path after
+download is finished. This option is ignored if --output is
+an absolute path</p>
+
+<p style="margin-left:11%;"><b>-o, --output</b>
+<i>[TYPES:]TEMPLATE</i></p>
+
+<p style="margin-left:22%;">Output filename template; see
+&quot;OUTPUT TEMPLATE&quot; for details</p>
+
+<p style="margin-left:11%;"><b>--output-na-placeholder</b>
+<i>TEXT</i></p>
+
+<p style="margin-left:22%;">Placeholder value for
+unavailable meta fields in output filename template
+(default: &quot;NA&quot;)</p>
+
+
+<p style="margin-left:11%;"><b>--restrict-filenames</b></p>
+
+<p style="margin-left:22%;">Restrict filenames to only
+ASCII characters, and avoid &quot;&amp;&quot; and spaces in
+filenames</p>
+
+
+<p style="margin-left:11%;"><b>--no-restrict-filenames</b></p>
+
+<p style="margin-left:22%;">Allow Unicode characters,
+&quot;&amp;&quot; and spaces in filenames (default)</p>
+
+<p style="margin-left:11%;"><b>--windows-filenames</b></p>
+
+<p style="margin-left:22%;">Force filenames to be
+Windows-compatible</p>
+
+
+<p style="margin-left:11%;"><b>--no-windows-filenames</b></p>
+
+<p style="margin-left:22%;">Make filenames
+Windows-compatible only if using Windows (default)</p>
+
+<p style="margin-left:11%;"><b>--trim-filenames</b>
+<i>LENGTH</i></p>
+
+<p style="margin-left:22%;">Limit the filename length
+(excluding extension) to the specified number of
+characters</p>
+
+<p style="margin-left:11%;"><b>-w, --no-overwrites</b></p>
+
+<p style="margin-left:22%;">Do not overwrite any files</p>
+
+<p style="margin-left:11%;"><b>--force-overwrites</b></p>
+
+<p style="margin-left:22%;">Overwrite all video and
+metadata files. This option includes --no-continue</p>
+
+
+<p style="margin-left:11%;"><b>--no-force-overwrites</b></p>
+
+<p style="margin-left:22%;">Do not overwrite the video, but
+overwrite related files (default)</p>
+
+<p style="margin-left:11%;"><b>-c, --continue</b></p>
+
+<p style="margin-left:22%;">Resume partially downloaded
+files/fragments (default)</p>
+
+<p style="margin-left:11%;"><b>--no-continue</b></p>
+
+<p style="margin-left:22%;">Do not resume partially
+downloaded fragments. If the file is not fragmented, restart
+download of the entire file</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--part</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Use .part files instead of writing directly into output
+file (default)</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>--no-part</b></p>
+
+<p style="margin-left:22%;">Do not use .part files - write
+directly into output file</p>
+
+<p style="margin-left:11%;"><b>--mtime</b></p>
+
+<p style="margin-left:22%;">Use the Last-modified header to
+set the file modification time (default)</p>
+
+<p style="margin-left:11%;"><b>--no-mtime</b></p>
+
+<p style="margin-left:22%;">Do not use the Last-modified
+header to set the file modification time</p>
+
+<p style="margin-left:11%;"><b>--write-description</b></p>
+
+<p style="margin-left:22%;">Write video description to a
+.description file</p>
+
+
+<p style="margin-left:11%;"><b>--no-write-description</b></p>
+
+<p style="margin-left:22%;">Do not write video description
+(default)</p>
+
+<p style="margin-left:11%;"><b>--write-info-json</b></p>
+
+<p style="margin-left:22%;">Write video metadata to a
+.info.json file (this may contain personal information)</p>
+
+
+<p style="margin-left:11%;"><b>--no-write-info-json</b></p>
+
+<p style="margin-left:22%;">Do not write video metadata
+(default)</p>
+
+
+<p style="margin-left:11%;"><b>--write-playlist-metafiles</b></p>
+
+<p style="margin-left:22%;">Write playlist metadata in
+addition to the video metadata when using --write-info-json,
+--write-description etc. (default)</p>
+
+
+<p style="margin-left:11%;"><b>--no-write-playlist-metafiles</b></p>
+
+<p style="margin-left:22%;">Do not write playlist metadata
+when using --write-info-json, --write-description etc.</p>
+
+<p style="margin-left:11%;"><b>--clean-info-json</b></p>
+
+<p style="margin-left:22%;">Remove some private fields such
+as filenames from the infojson. Note that it could still
+contain some personal information (default)</p>
+
+
+<p style="margin-left:11%;"><b>--no-clean-info-json</b></p>
+
+<p style="margin-left:22%;">Write all fields to the
+infojson</p>
+
+<p style="margin-left:11%;"><b>--write-comments</b></p>
+
+<p style="margin-left:22%;">Retrieve video comments to be
+placed in the infojson. The comments are fetched even
+without this option if the extraction is known to be quick
+(Alias: --get-comments)</p>
+
+<p style="margin-left:11%;"><b>--no-write-comments</b></p>
+
+<p style="margin-left:22%;">Do not retrieve video comments
+unless the extraction is known to be quick (Alias:
+--no-get-comments)</p>
+
+<p style="margin-left:11%;"><b>--load-info-json</b>
+<i>FILE</i></p>
+
+<p style="margin-left:22%;">JSON file containing the video
+information (created with the &quot;--write-info-json&quot;
+option)</p>
+
+<p style="margin-left:11%;"><b>--cookies</b>
+<i>FILE</i></p>
+
+<p style="margin-left:22%;">Netscape formatted file to read
+cookies from and dump cookie jar in</p>
+
+<p style="margin-left:11%;"><b>--no-cookies</b></p>
+
+<p style="margin-left:22%;">Do not read/dump cookies
+from/to file (default)</p>
+
+<p style="margin-left:11%;"><b>--cookies-from-browser</b>
+<i>BROWSER[+KEYRING][:PROFILE]</i></p>
+
+<p style="margin-left:22%;">The name of the browser and
+(optionally) the name/path of the profile to load cookies
+from, separated by a &quot;:&quot;. Currently supported
+browsers are: brave, chrome, chromium, edge, firefox, opera,
+safari, vivaldi. By default, the most recently accessed
+profile is used. The keyring used for decrypting Chromium
+cookies on Linux can be (optionally) specified after the
+browser name separated by a &quot;+&quot;. Currently
+supported keyrings are: basictext, gnomekeyring, kwallet</p>
+
+
+<p style="margin-left:11%;"><b>--no-cookies-from-browser</b></p>
+
+<p style="margin-left:22%;">Do not load cookies from
+browser (default)</p>
+
+<p style="margin-left:11%;"><b>--cache-dir</b>
+<i>DIR</i></p>
+
+<p style="margin-left:22%;">Location in the filesystem
+where youtube-dl can store some downloaded information (such
+as client ids and signatures) permanently. By default
+$XDG_CACHE_HOME/yt-dlp or ~/.cache/yt-dlp</p>
+
+<p style="margin-left:11%;"><b>--no-cache-dir</b></p>
+
+<p style="margin-left:22%;">Disable filesystem caching</p>
+
+<p style="margin-left:11%;"><b>--rm-cache-dir</b></p>
+
+<p style="margin-left:22%;">Delete all filesystem cache
+files</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Thumbnail
+Options: <br>
+--write-thumbnail</b></p>
+
+<p style="margin-left:22%;">Write thumbnail image to
+disk</p>
+
+
+<p style="margin-left:11%;"><b>--no-write-thumbnail</b></p>
+
+<p style="margin-left:22%;">Do not write thumbnail image to
+disk (default)</p>
+
+
+<p style="margin-left:11%;"><b>--write-all-thumbnails</b></p>
+
+<p style="margin-left:22%;">Write all thumbnail image
+formats to disk</p>
+
+<p style="margin-left:11%;"><b>--list-thumbnails</b></p>
+
+<p style="margin-left:22%;">List available thumbnails of
+each video. Simulate unless --no-simulate is used</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Internet
+Shortcut Options: <br>
+--write-link</b></p>
+
+<p style="margin-left:22%;">Write an internet shortcut
+file, depending on the current platform (.url, .webloc or
+.desktop). The URL may be cached by the OS</p>
+
+<p style="margin-left:11%;"><b>--write-url-link</b></p>
+
+<p style="margin-left:22%;">Write a .url Windows internet
+shortcut. The OS caches the URL based on the file path</p>
+
+<p style="margin-left:11%;"><b>--write-webloc-link</b></p>
+
+<p style="margin-left:22%;">Write a .webloc macOS internet
+shortcut</p>
+
+
+<p style="margin-left:11%;"><b>--write-desktop-link</b></p>
+
+<p style="margin-left:22%;">Write a .desktop Linux internet
+shortcut</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Verbosity
+and Simulation Options: <br>
+-q, --quiet</b></p>
+
+<p style="margin-left:22%;">Activate quiet mode. If used
+with --verbose, print the log to stderr</p>
+
+<p style="margin-left:11%;"><b>--no-warnings</b></p>
+
+<p style="margin-left:22%;">Ignore warnings</p>
+
+<p style="margin-left:11%;"><b>-s, --simulate</b></p>
+
+<p style="margin-left:22%;">Do not download the video and
+do not write anything to disk</p>
+
+<p style="margin-left:11%;"><b>--no-simulate</b></p>
+
+<p style="margin-left:22%;">Download the video even if
+printing/listing options are used</p>
+
+
+<p style="margin-left:11%;"><b>--ignore-no-formats-error</b></p>
+
+<p style="margin-left:22%;">Ignore &quot;No video
+formats&quot; error. Useful for extracting metadata even if
+the videos are not actually available for download
+(experimental)</p>
+
+
+<p style="margin-left:11%;"><b>--no-ignore-no-formats-error</b></p>
+
+<p style="margin-left:22%;">Throw error when no
+downloadable video formats are found (default)</p>
+
+<p style="margin-left:11%;"><b>--skip-download</b></p>
+
+<p style="margin-left:22%;">Do not download the video but
+write all related files (Alias: --no-download)</p>
+
+<p style="margin-left:11%;"><b>-O, --print</b>
+<i>[WHEN:]TEMPLATE</i></p>
+
+<p style="margin-left:22%;">Field name or output template
+to print to screen, optionally prefixed with when to print
+it, separated by a &quot;:&quot;. Supported values of
+&quot;WHEN&quot; are the same as that of
+--use-postprocessor, and &quot;video&quot; (default).
+Implies --quiet and --simulate (unless --no-simulate is
+used). This option can be used multiple times</p>
+
+<p style="margin-left:11%;"><b>--print-to-file</b>
+<i>[WHEN:]TEMPLATE FILE</i></p>
+
+<p style="margin-left:22%;">Append given template to the
+file. The values of WHEN and TEMPLATE are same as that of
+--print. FILE uses the same syntax as the output template.
+This option can be used multiple times</p>
+
+<p style="margin-left:11%;"><b>-j, --dump-json</b></p>
+
+<p style="margin-left:22%;">Quiet, but print JSON
+information for each video. Simulate unless --no-simulate is
+used. See &quot;OUTPUT TEMPLATE&quot; for a description of
+available keys</p>
+
+<p style="margin-left:11%;"><b>-J,
+--dump-single-json</b></p>
+
+<p style="margin-left:22%;">Quiet, but print JSON
+information for each url or infojson passed. Simulate unless
+--no-simulate is used. If the URL refers to a playlist, the
+whole playlist information is dumped in a single line</p>
+
+
+<p style="margin-left:11%;"><b>--force-write-archive</b></p>
+
+<p style="margin-left:22%;">Force download archive entries
+to be written as far as no errors occur, even if -s or
+another simulation option is used (Alias:
+--force-download-archive)</p>
+
+<p style="margin-left:11%;"><b>--newline</b></p>
+
+<p style="margin-left:22%;">Output progress bar as new
+lines</p>
+
+<p style="margin-left:11%;"><b>--no-progress</b></p>
+
+<p style="margin-left:22%;">Do not print progress bar</p>
+
+<p style="margin-left:11%;"><b>--progress</b></p>
+
+<p style="margin-left:22%;">Show progress bar, even if in
+quiet mode</p>
+
+<p style="margin-left:11%;"><b>--console-title</b></p>
+
+<p style="margin-left:22%;">Display progress in console
+titlebar</p>
+
+<p style="margin-left:11%;"><b>--progress-template</b>
+<i>[TYPES:]TEMPLATE</i></p>
+
+<p style="margin-left:22%;">Template for progress outputs,
+optionally prefixed with one of &quot;download:&quot;
+(default), &quot;download-title:&quot; (the console title),
+&quot;postprocess:&quot;, or &quot;postprocess-title:&quot;.
+The video's fields are accessible under the &quot;info&quot;
+key and the progress attributes are accessible under
+&quot;progress&quot; key. E.g.: --console-title
+--progress-template
+&quot;download-title:%(info.id)s-%(progress.eta)s&quot;</p>
+
+<p style="margin-left:11%;"><b>-v, --verbose</b></p>
+
+<p style="margin-left:22%;">Print various debugging
+information</p>
+
+<p style="margin-left:11%;"><b>--dump-pages</b></p>
+
+<p style="margin-left:22%;">Print downloaded pages encoded
+using base64 to debug problems (very verbose)</p>
+
+<p style="margin-left:11%;"><b>--write-pages</b></p>
+
+<p style="margin-left:22%;">Write downloaded intermediary
+pages to files in the current directory to debug
+problems</p>
+
+<p style="margin-left:11%;"><b>--print-traffic</b></p>
+
+<p style="margin-left:22%;">Display sent and read HTTP
+traffic</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Workarounds:
+<br>
+--encoding</b> <i>ENCODING</i></p>
+
+<p style="margin-left:22%;">Force the specified encoding
+(experimental)</p>
+
+
+<p style="margin-left:11%;"><b>--legacy-server-connect</b></p>
+
+<p style="margin-left:22%;">Explicitly allow HTTPS
+connection to servers that do not support RFC 5746 secure
+renegotiation</p>
+
+
+<p style="margin-left:11%;"><b>--no-check-certificates</b></p>
+
+<p style="margin-left:22%;">Suppress HTTPS certificate
+validation</p>
+
+<p style="margin-left:11%;"><b>--prefer-insecure</b></p>
+
+<p style="margin-left:22%;">Use an unencrypted connection
+to retrieve information about the video (Currently supported
+only for YouTube)</p>
+
+<p style="margin-left:11%;"><b>--add-header</b>
+<i>FIELD:VALUE</i></p>
+
+<p style="margin-left:22%;">Specify a custom HTTP header
+and its value, separated by a colon &quot;:&quot;. You can
+use this option multiple times</p>
+
+<p style="margin-left:11%;"><b>--bidi-workaround</b></p>
+
+<p style="margin-left:22%;">Work around terminals that lack
+bidirectional text support. Requires bidiv or fribidi
+executable in PATH</p>
+
+<p style="margin-left:11%;"><b>--sleep-requests</b>
+<i>SECONDS</i></p>
+
+<p style="margin-left:22%;">Number of seconds to sleep
+between requests during data extraction</p>
+
+<p style="margin-left:11%;"><b>--sleep-interval</b>
+<i>SECONDS</i></p>
+
+<p style="margin-left:22%;">Number of seconds to sleep
+before each download. This is the minimum time to sleep when
+used along with --max-sleep-interval (Alias:
+--min-sleep-interval)</p>
+
+<p style="margin-left:11%;"><b>--max-sleep-interval</b>
+<i>SECONDS</i></p>
+
+<p style="margin-left:22%;">Maximum number of seconds to
+sleep. Can only be used along with --min-sleep-interval</p>
+
+<p style="margin-left:11%;"><b>--sleep-subtitles</b>
+<i>SECONDS</i></p>
+
+<p style="margin-left:22%;">Number of seconds to sleep
+before each subtitle download</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Video Format
+Options: <br>
+-f, --format</b> <i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Video format code, see
+&quot;FORMAT SELECTION&quot; for more details</p>
+
+<p style="margin-left:11%;"><b>-S, --format-sort</b>
+<i>SORTORDER</i></p>
+
+<p style="margin-left:22%;">Sort the formats by the fields
+given, see &quot;Sorting Formats&quot; for more details</p>
+
+<p style="margin-left:11%;"><b>--S-force,
+--format-sort-force</b></p>
+
+<p style="margin-left:22%;">Force user specified sort order
+to have precedence over all fields, see &quot;Sorting
+Formats&quot; for more details</p>
+
+
+<p style="margin-left:11%;"><b>--no-format-sort-force</b></p>
+
+<p style="margin-left:22%;">Some fields have precedence
+over the user specified sort order (default), see
+&quot;Sorting Formats&quot; for more details</p>
+
+
+<p style="margin-left:11%;"><b>--video-multistreams</b></p>
+
+<p style="margin-left:22%;">Allow multiple video streams to
+be merged into a single file</p>
+
+
+<p style="margin-left:11%;"><b>--no-video-multistreams</b></p>
+
+<p style="margin-left:22%;">Only one video stream is
+downloaded for each output file (default)</p>
+
+
+<p style="margin-left:11%;"><b>--audio-multistreams</b></p>
+
+<p style="margin-left:22%;">Allow multiple audio streams to
+be merged into a single file</p>
+
+
+<p style="margin-left:11%;"><b>--no-audio-multistreams</b></p>
+
+<p style="margin-left:22%;">Only one audio stream is
+downloaded for each output file (default)</p>
+
+
+<p style="margin-left:11%;"><b>--prefer-free-formats</b></p>
+
+<p style="margin-left:22%;">Prefer video formats with free
+containers over non-free ones of same quality. Use with
+&quot;-S ext&quot; to strictly prefer free containers
+irrespective of quality</p>
+
+
+<p style="margin-left:11%;"><b>--no-prefer-free-formats</b></p>
+
+<p style="margin-left:22%;">Don't give any special
+preference to free containers (default)</p>
+
+<p style="margin-left:11%;"><b>--check-formats</b></p>
+
+<p style="margin-left:22%;">Check that the selected formats
+are actually downloadable</p>
+
+<p style="margin-left:11%;"><b>--check-all-formats</b></p>
+
+<p style="margin-left:22%;">Check all formats for whether
+they are actually downloadable</p>
+
+<p style="margin-left:11%;"><b>--no-check-formats</b></p>
+
+<p style="margin-left:22%;">Do not check that the formats
+are actually downloadable</p>
+
+<p style="margin-left:11%;"><b>-F, --list-formats</b></p>
+
+<p style="margin-left:22%;">List available formats of each
+video. Simulate unless --no-simulate is used</p>
+
+<p style="margin-left:11%;"><b>--merge-output-format</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">If a merge is required (e.g.
+bestvideo+bestaudio), output to given container format. One
+of mkv, mp4, ogg, webm, flv. Ignored if no merge is
+required</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Subtitle
+Options: <br>
+--write-subs</b></p>
+
+<p style="margin-left:22%;">Write subtitle file</p>
+
+<p style="margin-left:11%;"><b>--no-write-subs</b></p>
+
+<p style="margin-left:22%;">Do not write subtitle file
+(default)</p>
+
+<p style="margin-left:11%;"><b>--write-auto-subs</b></p>
+
+<p style="margin-left:22%;">Write automatically generated
+subtitle file (Alias: --write-automatic-subs)</p>
+
+
+<p style="margin-left:11%;"><b>--no-write-auto-subs</b></p>
+
+<p style="margin-left:22%;">Do not write auto-generated
+subtitles (default) (Alias: --no-write-automatic-subs)</p>
+
+<p style="margin-left:11%;"><b>--list-subs</b></p>
+
+<p style="margin-left:22%;">List available subtitles of
+each video. Simulate unless --no-simulate is used</p>
+
+<p style="margin-left:11%;"><b>--sub-format</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Subtitle format, accepts
+formats preference, for example: &quot;srt&quot; or
+&quot;ass/srt/best&quot;</p>
+
+<p style="margin-left:11%;"><b>--sub-langs</b>
+<i>LANGS</i></p>
+
+<p style="margin-left:22%;">Languages of the subtitles to
+download (can be regex) or &quot;all&quot; separated by
+commas. (Eg: --sub-langs &quot;en.*,ja&quot;) You can prefix
+the language code with a &quot;-&quot; to exempt it from the
+requested languages. (Eg: --sub-langs all,-live_chat) Use
+--list-subs for a list of available language tags</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Authentication
+Options: <br>
+-u, --username</b> <i>USERNAME</i></p>
+
+<p style="margin-left:22%;">Login with this account ID</p>
+
+<p style="margin-left:11%;"><b>-p, --password</b>
+<i>PASSWORD</i></p>
+
+<p style="margin-left:22%;">Account password. If this
+option is left out, yt-dlp will ask interactively</p>
+
+<p style="margin-left:11%;"><b>-2, --twofactor</b>
+<i>TWOFACTOR</i></p>
+
+<p style="margin-left:22%;">Two-factor authentication
+code</p>
+
+<p style="margin-left:11%;"><b>-n, --netrc</b></p>
+
+<p style="margin-left:22%;">Use .netrc authentication
+data</p>
+
+<p style="margin-left:11%;"><b>--netrc-location</b>
+<i>PATH</i></p>
+
+<p style="margin-left:22%;">Location of .netrc
+authentication data; either the path or its containing
+directory. Defaults to ~/.netrc</p>
+
+<p style="margin-left:11%;"><b>--video-password</b>
+<i>PASSWORD</i></p>
+
+<p style="margin-left:22%;">Video password (vimeo,
+youku)</p>
+
+<p style="margin-left:11%;"><b>--ap-mso</b> <i>MSO</i></p>
+
+<p style="margin-left:22%;">Adobe Pass multiple-system
+operator (TV provider) identifier, use --ap-list-mso for a
+list of available MSOs</p>
+
+<p style="margin-left:11%;"><b>--ap-username</b>
+<i>USERNAME</i></p>
+
+<p style="margin-left:22%;">Multiple-system operator
+account login</p>
+
+<p style="margin-left:11%;"><b>--ap-password</b>
+<i>PASSWORD</i></p>
+
+<p style="margin-left:22%;">Multiple-system operator
+account password. If this option is left out, yt-dlp will
+ask interactively</p>
+
+<p style="margin-left:11%;"><b>--ap-list-mso</b></p>
+
+<p style="margin-left:22%;">List all supported
+multiple-system operators</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Post-Processing
+Options: <br>
+-x, --extract-audio</b></p>
+
+<p style="margin-left:22%;">Convert video files to
+audio-only files (requires ffmpeg and ffprobe)</p>
+
+<p style="margin-left:11%;"><b>--audio-format</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Specify audio format to convert
+the audio to when -x is used. Currently supported formats
+are: best (default) or one of
+best|aac|flac|mp3|m4a|opus|vorbis|wav|alac</p>
+
+<p style="margin-left:11%;"><b>--audio-quality</b>
+<i>QUALITY</i></p>
+
+<p style="margin-left:22%;">Specify ffmpeg audio quality,
+insert a value between 0 (best) and 10 (worst) for VBR or a
+specific bitrate like 128K (default 5)</p>
+
+<p style="margin-left:11%;"><b>--remux-video</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Remux the video into another
+container if necessary (currently supported: mp4|mkv|flv
+|webm|mov|avi|mp3|mka|m4a|ogg|opus). If target container
+does not support the video/audio codec, remuxing will fail.
+You can specify multiple rules; Eg.
+&quot;aac&gt;m4a/mov&gt;mp4/mkv&quot; will remux aac to m4a,
+mov to mp4 and anything else to mkv.</p>
+
+<p style="margin-left:11%;"><b>--recode-video</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Re-encode the video into
+another format if re-encoding is necessary. The syntax and
+supported formats are the same as --remux-video</p>
+
+<p style="margin-left:11%;"><b>--postprocessor-args</b>
+<i>NAME:ARGS</i></p>
+
+<p style="margin-left:22%;">Give these arguments to the
+postprocessors. Specify the postprocessor/executable name
+and the arguments separated by a colon &quot;:&quot; to give
+the argument to the specified postprocessor/executable.
+Supported PP are: Merger, ModifyChapters, SplitChapters,
+ExtractAudio, VideoRemuxer, VideoConvertor, Metadata,
+EmbedSubtitle, EmbedThumbnail, SubtitlesConvertor,
+ThumbnailsConvertor, FixupStretched, FixupM4a, FixupM3u8,
+FixupTimestamp and FixupDuration. The supported executables
+are: AtomicParsley, FFmpeg and FFprobe. You can also specify
+&quot;PP+EXE:ARGS&quot; to give the arguments to the
+specified executable only when being used by the specified
+postprocessor. Additionally, for ffmpeg/ffprobe,
+&quot;_i&quot;/&quot;_o&quot; can be appended to the prefix
+optionally followed by a number to pass the argument before
+the specified input/output file. Eg: --ppa
+&quot;Merger+ffmpeg_i1:-v quiet&quot;. You can use this
+option multiple times to give different arguments to
+different postprocessors. (Alias: --ppa)</p>
+
+<p style="margin-left:11%;"><b>-k, --keep-video</b></p>
+
+<p style="margin-left:22%;">Keep the intermediate video
+file on disk after post-processing</p>
+
+<p style="margin-left:11%;"><b>--no-keep-video</b></p>
+
+<p style="margin-left:22%;">Delete the intermediate video
+file after post-processing (default)</p>
+
+<p style="margin-left:11%;"><b>--post-overwrites</b></p>
+
+<p style="margin-left:22%;">Overwrite post-processed files
+(default)</p>
+
+
+<p style="margin-left:11%;"><b>--no-post-overwrites</b></p>
+
+<p style="margin-left:22%;">Do not overwrite post-processed
+files</p>
+
+<p style="margin-left:11%;"><b>--embed-subs</b></p>
+
+<p style="margin-left:22%;">Embed subtitles in the video
+(only for mp4, webm and mkv videos)</p>
+
+<p style="margin-left:11%;"><b>--no-embed-subs</b></p>
+
+<p style="margin-left:22%;">Do not embed subtitles
+(default)</p>
+
+<p style="margin-left:11%;"><b>--embed-thumbnail</b></p>
+
+<p style="margin-left:22%;">Embed thumbnail in the video as
+cover art</p>
+
+
+<p style="margin-left:11%;"><b>--no-embed-thumbnail</b></p>
+
+<p style="margin-left:22%;">Do not embed thumbnail
+(default)</p>
+
+<p style="margin-left:11%;"><b>--embed-metadata</b></p>
+
+<p style="margin-left:22%;">Embed metadata to the video
+file. Also embeds chapters/infojson if present unless
+--no-embed-chapters/--no-embed-info-json are used (Alias:
+--add-metadata)</p>
+
+<p style="margin-left:11%;"><b>--no-embed-metadata</b></p>
+
+<p style="margin-left:22%;">Do not add metadata to file
+(default) (Alias: --no-add-metadata)</p>
+
+<p style="margin-left:11%;"><b>--embed-chapters</b></p>
+
+<p style="margin-left:22%;">Add chapter markers to the
+video file (Alias: --add-chapters)</p>
+
+<p style="margin-left:11%;"><b>--no-embed-chapters</b></p>
+
+<p style="margin-left:22%;">Do not add chapter markers
+(default) (Alias: --no-add-chapters)</p>
+
+<p style="margin-left:11%;"><b>--embed-info-json</b></p>
+
+<p style="margin-left:22%;">Embed the infojson as an
+attachment to mkv/mka video files</p>
+
+
+<p style="margin-left:11%;"><b>--no-embed-info-json</b></p>
+
+<p style="margin-left:22%;">Do not embed the infojson as an
+attachment to the video file</p>
+
+<p style="margin-left:11%;"><b>--parse-metadata</b>
+<i>FROM:TO</i></p>
+
+<p style="margin-left:22%;">Parse additional metadata like
+title/artist from other fields; see &quot;MODIFYING
+METADATA&quot; for details</p>
+
+<p style="margin-left:11%;"><b>--replace-in-metadata</b>
+<i>FIELDS REGEX REPLACE</i></p>
+
+<p style="margin-left:22%;">Replace text in a metadata
+field using the given regex. This option can be used
+multiple times</p>
+
+<p style="margin-left:11%;"><b>--xattrs</b></p>
+
+<p style="margin-left:22%;">Write metadata to the video
+file's xattrs (using dublin core and xdg standards)</p>
+
+<p style="margin-left:11%;"><b>--concat-playlist</b>
+<i>POLICY</i></p>
+
+<p style="margin-left:22%;">Concatenate videos in a
+playlist. One of &quot;never&quot;, &quot;always&quot;, or
+&quot;multi_video&quot; (default; only when the videos form
+a single show). All the video files must have same codecs
+and number of streams to be concatable. The
+&quot;pl_video:&quot; prefix can be used with
+&quot;--paths&quot; and &quot;--output&quot; to set the
+output filename for the split files. See &quot;OUTPUT
+TEMPLATE&quot; for details</p>
+
+<p style="margin-left:11%;"><b>--fixup</b>
+<i>POLICY</i></p>
+
+<p style="margin-left:22%;">Automatically correct known
+faults of the file. One of never (do nothing), warn (only
+emit a warning), detect_or_warn (the default; fix file if we
+can, warn otherwise), force (try fixing even if file already
+exists)</p>
+
+<p style="margin-left:11%;"><b>--ffmpeg-location</b>
+<i>PATH</i></p>
+
+<p style="margin-left:22%;">Location of the ffmpeg binary;
+either the path to the binary or its containing
+directory</p>
+
+<p style="margin-left:11%;"><b>--exec</b>
+<i>[WHEN:]CMD</i></p>
+
+<p style="margin-left:22%;">Execute a command, optionally
+prefixed with when to execute it (after_move if
+unspecified), separated by a &quot;:&quot;. Supported values
+of &quot;WHEN&quot; are the same as that of
+--use-postprocessor. Same syntax as the output template can
+be used to pass any field as arguments to the command. After
+download, an additional field &quot;filepath&quot; that
+contains the final path of the downloaded file is also
+available, and if no fields are passed, %(filepath)q is
+appended to the end of the command. This option can be used
+multiple times</p>
+
+<p style="margin-left:11%;"><b>--no-exec</b></p>
+
+<p style="margin-left:22%;">Remove any previously defined
+--exec</p>
+
+<p style="margin-left:11%;"><b>--convert-subs</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Convert the subtitles to
+another format (currently supported: srt|vtt|ass|lrc)
+(Alias: --convert-subtitles)</p>
+
+<p style="margin-left:11%;"><b>--convert-thumbnails</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Convert the thumbnails to
+another format (currently supported: jpg|png|webp)</p>
+
+<p style="margin-left:11%;"><b>--split-chapters</b></p>
+
+<p style="margin-left:22%;">Split video into multiple files
+based on internal chapters. The &quot;chapter:&quot; prefix
+can be used with &quot;--paths&quot; and
+&quot;--output&quot; to set the output filename for the
+split files. See &quot;OUTPUT TEMPLATE&quot; for details</p>
+
+<p style="margin-left:11%;"><b>--no-split-chapters</b></p>
+
+<p style="margin-left:22%;">Do not split video based on
+chapters (default)</p>
+
+<p style="margin-left:11%;"><b>--remove-chapters</b>
+<i>REGEX</i></p>
+
+<p style="margin-left:22%;">Remove chapters whose title
+matches the given regular expression. Time ranges prefixed
+by a &quot;<i>&quot; can also be used in place of chapters
+to remove the specified range. Eg: --remove-chapters
+&quot;</i>10:15-15:00&quot; --remove-chapters
+&quot;intro&quot;. This option can be used multiple
+times</p>
+
+
+<p style="margin-left:11%;"><b>--no-remove-chapters</b></p>
+
+<p style="margin-left:22%;">Do not remove any chapters from
+the file (default)</p>
+
+
+<p style="margin-left:11%;"><b>--force-keyframes-at-cuts</b></p>
+
+<p style="margin-left:22%;">Force keyframes around the
+chapters before removing/splitting them. Requires a
+re-encode and thus is very slow, but the resulting video may
+have fewer artifacts around the cuts</p>
+
+
+<p style="margin-left:11%;"><b>--no-force-keyframes-at-cuts</b></p>
+
+<p style="margin-left:22%;">Do not force keyframes around
+the chapters when cutting/splitting (default)</p>
+
+<p style="margin-left:11%;"><b>--use-postprocessor</b>
+<i>NAME[:ARGS]</i></p>
+
+<p style="margin-left:22%;">The (case sensitive) name of
+plugin postprocessors to be enabled, and (optionally)
+arguments to be passed to it, separated by a colon
+&quot;:&quot;. ARGS are a semicolon &quot;;&quot; delimited
+list of NAME=VALUE. The &quot;when&quot; argument determines
+when the postprocessor is invoked. It can be one of
+&quot;pre_process&quot; (after video extraction),
+&quot;after_filter&quot; (after video passes filter),
+&quot;before_dl&quot; (before each video download),
+&quot;post_process&quot; (after each video download;
+default), &quot;after_move&quot; (after moving video file to
+it's final locations), &quot;after_video&quot; (after
+downloading and processing all formats of a video), or
+&quot;playlist&quot; (at end of playlist). This option can
+be used multiple times to add different postprocessors</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>SponsorBlock
+Options:</b> <br>
+Make chapter entries for, or remove various segments
+(sponsor, introductions, etc.) from downloaded YouTube
+videos using the SponsorBlock API (https://sponsor.ajay.app)
+<b><br>
+--sponsorblock-mark</b> <i>CATS</i></p>
+
+<p style="margin-left:22%;">SponsorBlock categories to
+create chapters for, separated by commas. Available
+categories are all, default(=all), sponsor, intro, outro,
+selfpromo, preview, filler, interaction, music_offtopic,
+poi_highlight. You can prefix the category with a
+&quot;-&quot; to exempt it. See [1] for description of the
+categories. Eg: --sponsorblock-mark all,-preview [1]
+https://wiki.sponsor.ajay.app/w/Segment_Categories</p>
+
+<p style="margin-left:11%;"><b>--sponsorblock-remove</b>
+<i>CATS</i></p>
+
+<p style="margin-left:22%;">SponsorBlock categories to be
+removed from the video file, separated by commas. If a
+category is present in both mark and remove, remove takes
+precedence. The syntax and available categories are the same
+as for --sponsorblock-mark except that &quot;default&quot;
+refers to &quot;all,-filler&quot; and poi_highlight is not
+available</p>
+
+
+<p style="margin-left:11%;"><b>--sponsorblock-chapter-title</b>
+<i>TEMPLATE</i></p>
+
+<p style="margin-left:22%;">The title template for
+SponsorBlock chapters created by --sponsorblock-mark. The
+same syntax as the output template is used, but the only
+available fields are start_time, end_time, category,
+categories, name, category_names. Defaults to
+&quot;[SponsorBlock]: %(category_names)l&quot;</p>
+
+<p style="margin-left:11%;"><b>--no-sponsorblock</b></p>
+
+<p style="margin-left:22%;">Disable both
+--sponsorblock-mark and --sponsorblock-remove</p>
+
+<p style="margin-left:11%;"><b>--sponsorblock-api</b>
+<i>URL</i></p>
+
+<p style="margin-left:22%;">SponsorBlock API location,
+defaults to https://sponsor.ajay.app</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Extractor
+Options: <br>
+--extractor-retries</b> <i>RETRIES</i></p>
+
+<p style="margin-left:22%;">Number of retries for known
+extractor errors (default is 3), or &quot;infinite&quot;</p>
+
+<p style="margin-left:11%;"><b>--allow-dynamic-mpd</b></p>
+
+<p style="margin-left:22%;">Process dynamic DASH manifests
+(default) (Alias: --no-ignore-dynamic-mpd)</p>
+
+
+<p style="margin-left:11%;"><b>--ignore-dynamic-mpd</b></p>
+
+<p style="margin-left:22%;">Do not process dynamic DASH
+manifests (Alias: --no-allow-dynamic-mpd)</p>
+
+
+<p style="margin-left:11%;"><b>--hls-split-discontinuity</b></p>
+
+<p style="margin-left:22%;">Split HLS playlists to
+different formats at discontinuities such as ad breaks</p>
+
+
+<p style="margin-left:11%;"><b>--no-hls-split-discontinuity</b></p>
+
+<p style="margin-left:22%;">Do not split HLS playlists to
+different formats at discontinuities such as ad breaks
+(default)</p>
+
+<p style="margin-left:11%;"><b>--extractor-args</b>
+<i>KEY:ARGS</i></p>
+
+<p style="margin-left:22%;">Pass these arguments to the
+extractor. See &quot;EXTRACTOR ARGUMENTS&quot; for details.
+You can use this option multiple times to give arguments for
+different extractors</p>
+
+<h2>CONFIGURATION
+<a name="CONFIGURATION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">You can
+configure yt-dlp by placing any supported command line
+option to a configuration file. The configuration is loaded
+from the following locations:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>1.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p><b>Main Configuration</b>: The file given by
+<tt>--config-location</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>2.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p><b>Portable Configuration</b>: <tt>yt-dlp.conf</tt> in
+the same directory as the bundled binary. If you are running
+from source-code (<tt>&lt;root
+dir&gt;/yt_dlp/__main__.py</tt>), the root directory is used
+instead.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>3.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p><b>Home Configuration</b>: <tt>yt-dlp.conf</tt> in the
+home path given by <tt>-P</tt>, or in the current directory
+if no such path is given</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>4.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p><b>User Configuration</b>:</p></td></tr>
+</table>
+
+<p style="margin-left:17%; margin-top: 1em">&bull;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%"></td>
+<td width="2%"></td>
+<td width="80%">
+
+
+
+<p style="margin-top: 1em"><tt>%XDG_CONFIG_HOME%/yt-dlp/config</tt>
+(recommended on Linux/macOS)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="80%">
+
+
+<p><tt>%XDG_CONFIG_HOME%/yt-dlp.conf</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="80%">
+
+
+<p><tt>%APPDATA%/yt-dlp/config</tt> (recommended on
+Windows)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="80%">
+
+
+<p><tt>%APPDATA%/yt-dlp/config.txt</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="80%">
+
+
+<p><tt>~/yt-dlp.conf</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="80%">
+
+
+<p><tt>~/yt-dlp.conf.txt %XDG_CONFIG_HOME%</tt> defaults to
+<tt>~/.config</tt> if undefined. On windows,
+<tt>%APPDATA%</tt> generally points to <tt>C:\Users\&lt;user
+name&gt;\AppData\Roaming</tt> and <tt>~</tt> points to
+<tt>%HOME%</tt> if present, <tt>%USERPROFILE%</tt>
+(generally <tt>C:\Users\&lt;user name&gt;</tt>), or
+<tt>%HOMEDRIVE%%HOMEPATH%</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p>5.</p></td>
+<td width="2%"></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:15%; margin-top: 1em"><b>System
+Configuration</b>: <tt>/etc/yt-dlp.conf</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">For example,
+with the following configuration file yt-dlp will always
+extract the audio, not copy the mtime, use a proxy and save
+all videos under <tt>YouTube</tt> directory in your home
+directory:</p>
+<pre style="margin-left:22%; margin-top: 1em"># Lines starting with # are comments
+
+# Always extract audio
+-x
+
+# Do not copy the mtime
+--no-mtime
+
+# Use this proxy
+--proxy 127.0.0.1:3128
+
+
+# Save all videos under YouTube directory in your home directory
+-o ~/YouTube/%(title)s.%(ext)s</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+options in configuration file are just the same options aka
+switches used in regular command line calls; thus there
+<b>must be no whitespace</b> after <tt>-</tt> or
+<tt>--</tt>, e.g. <tt>-o</tt> or <tt>--proxy</tt> but not
+<tt>- o</tt> or <tt>-- proxy</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can use
+<tt>--ignore-config</tt> if you want to disable all
+configuration files for a particular yt-dlp run. If
+<tt>--ignore-config</tt> is found inside any configuration
+file, no further configuration will be loaded. For example,
+having the option in the portable configuration file
+prevents loading of home, user, and system configurations.
+Additionally, (for backward compatibility) if
+<tt>--ignore-config</tt> is found inside the system
+configuration file, the user configuration is not
+loaded.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Authentication
+with</b> <tt>.netrc</tt> file <br>
+You may also want to configure automatic credentials storage
+for extractors that support authentication (by providing
+login and password with <tt>--username</tt> and
+<tt>--password</tt>) in order not to pass credentials as
+command line arguments on every yt-dlp execution and prevent
+tracking plain text passwords in the shell command history.
+You can achieve this using a <tt>.netrc</tt> file
+(https://stackoverflow.com/tags/.netrc/info) on a per
+extractor basis. For that you will need to create a
+<tt>.netrc</tt> file in <tt>--netrc-location</tt> and
+restrict permissions to read/write by only you:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">touch $HOME/.netrc
+chmod a-rwx,u+rw $HOME/.netrc</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">After that you
+can add credentials for an extractor in the following
+format, where <i>extractor</i> is the name of the extractor
+in lowercase:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">machine &lt;extractor&gt; login &lt;username&gt; password &lt;password&gt;</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">For
+example:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">machine youtube login myaccount@gmail.com password my_youtube_password
+machine twitch login my_twitch_account_name password my_twitch_password</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">To activate
+authentication with the <tt>.netrc</tt> file you should pass
+<tt>--netrc</tt> to yt-dlp or place it in the configuration
+file.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The default
+location of the .netrc file is <tt>$HOME</tt> (<tt>~</tt>)
+in UNIX. On Windows, it is <tt>%HOME%</tt> if present,
+<tt>%USERPROFILE%</tt> (generally <tt>C:\Users\&lt;user
+name&gt;</tt>) or <tt>%HOMEDRIVE%%HOMEPATH%</tt></p>
+
+<h2>OUTPUT TEMPLATE
+<a name="OUTPUT TEMPLATE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The <tt>-o</tt>
+option is used to indicate a template for the output file
+names while <tt>-P</tt> option is used to specify the path
+each type of file should be saved to.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The simplest
+usage of <tt>-o</tt> is not to set any template arguments
+when downloading a single file, like in <tt>yt-dlp -o
+funny_video.flv &quot;https://some/video&quot;</tt>
+(hard-coding file extension like this is <i>not</i>
+recommended and could break some post-processing).</p>
+
+<p style="margin-left:11%; margin-top: 1em">It may however
+also contain special sequences that will be replaced when
+downloading each video. The special sequences may be
+formatted according to Python string formatting operations
+(https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting).
+For example, <tt>%(NAME)s</tt> or <tt>%(NAME)05d</tt>. To
+clarify, that is a percent symbol followed by a name in
+parentheses, followed by formatting operations.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The field names
+themselves (the part inside the parenthesis) can also have
+some special formatting: 1. <b>Object traversal</b>: The
+dictionaries and lists available in metadata can be
+traversed by using a <tt>.</tt> (dot) separator. You can
+also do python slicing using <tt>:</tt>. Eg:
+<tt>%(tags.0)s</tt>, <tt>%(subtitles.en.-1.ext)s</tt>,
+<tt>%(id.3:7:-1)s</tt>, <tt>%(formats.:.format_id)s</tt>.
+<tt>%()s</tt> refers to the entire infodict. Note that all
+the fields that become available using this method are not
+listed below. Use <tt>-j</tt> to see such fields</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p style="margin-top: 1em"><b>Addition</b>: Addition and
+subtraction of numeric fields can be done using <tt>+</tt>
+and <tt>-</tt> respectively. Eg:
+<tt>%(playlist_index+10)03d</tt>,
+<tt>%(n_entries+1-playlist_index)d</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>2.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p><b>Date/time Formatting</b>: Date/time fields can be
+formatted according to strftime formatting
+(https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes)
+by specifying it separated from the field name using a
+<tt>&gt;</tt>. Eg: <tt>%(duration&gt;%H-%M-%S)s</tt>,
+<tt>%(upload_date&gt;%Y-%m-%d)s</tt>,
+<tt>%(epoch-3600&gt;%H-%M-%S)s</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>3.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p><b>Alternatives</b>: Alternate fields can be specified
+separated with a <tt>,</tt>. Eg:
+<tt>%(release_date&gt;%Y,upload_date&gt;%Y|Unknown)s</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>4.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p><b>Replacement</b>: A replacement value can specified
+using a <tt>&amp;</tt> separator. If the field is <i>not</i>
+empty, this replacement value will be used instead of the
+actual field content. This is done after alternate fields
+are considered; thus the replacement is used if <i>any</i>
+of the alternative fields is <i>not</i> empty.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>5.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p><b>Default</b>: A literal default value can be specified
+for when the field is empty using a <tt>|</tt> separator.
+This overrides <tt>--output-na-template</tt>. Eg:
+<tt>%(uploader|Unknown)s</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>6.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p><b>More Conversions</b>: In addition to the normal
+format types <tt>diouxXeEfFgGcrs</tt>, <tt>B</tt>,
+<tt>j</tt>, <tt>l</tt>, <tt>q</tt>, <tt>D</tt>, <tt>S</tt>
+can be used for converting to <b>B</b>ytes, <b>j</b>son
+(flag <tt>#</tt> for pretty-printing), a comma separated
+<b>l</b>ist (flag <tt>#</tt> for <tt>\n</tt>
+newline-separated), a string <b>q</b>uoted for the terminal
+(flag <tt>#</tt> to split a list into different arguments),
+to add <b>D</b>ecimal suffixes (Eg: 10M) (flag <tt>#</tt> to
+use 1024 as factor), and to <b>S</b>anitize as filename
+(flag <tt>#</tt> for restricted), respectively</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>7.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p><b>Unicode normalization</b>: The format type <tt>U</tt>
+can be used for NFC unicode normalization
+(https://docs.python.org/3/library/unicodedata.html#unicodedata.normalize).
+The alternate form flag (<tt>#</tt>) changes the
+normalization to NFD and the conversion flag <tt>+</tt> can
+be used for NFKC/NFKD compatibility equivalence
+normalization. Eg: <tt>%(title)+.100U</tt> is NFKC</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">To summarize,
+the general syntax for a field is:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">%(name[.keys][addition][&gt;strf][,alternate][&amp;replacement][|default])[flags][width][.precision][length]type</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Additionally,
+you can set different output templates for the various
+metadata files separately from the general output template
+by specifying the type of file followed by the template
+separated by a colon <tt>:</tt>. The different file types
+supported are <tt>subtitle</tt>, <tt>thumbnail</tt>,
+<tt>description</tt>, <tt>annotation</tt> (deprecated),
+<tt>infojson</tt>, <tt>link</tt>, <tt>pl_thumbnail</tt>,
+<tt>pl_description</tt>, <tt>pl_infojson</tt>,
+<tt>chapter</tt>, <tt>pl_video</tt>. For example, <tt>-o
+&quot;%(title)s.%(ext)s&quot; -o
+&quot;thumbnail:%(title)s\%(title)s.%(ext)s&quot;</tt> will
+put the thumbnails in a folder with the same name as the
+video. If any of the templates is empty, that type of file
+will not be written. Eg: <tt>--write-thumbnail -o
+&quot;thumbnail:&quot;</tt> will write thumbnails only for
+playlists and not for video.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The available
+fields are:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>id</tt> (string): Video
+identifier</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>title</tt> (string): Video title</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>fulltitle</tt> (string): Video title ignoring live
+timestamp and generic title</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>url</tt> (string): Video URL</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>ext</tt> (string): Video filename extension</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>alt_title</tt> (string): A secondary title of the
+video</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>description</tt> (string): The description of the
+video</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>display_id</tt> (string): An alternative identifier
+for the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>uploader</tt> (string): Full name of the video
+uploader</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>license</tt> (string): License name the video is
+licensed under</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>creator</tt> (string): The creator of the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>timestamp</tt> (numeric): UNIX timestamp of the
+moment the video became available</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>upload_date</tt> (string): Video upload date
+(YYYYMMDD)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>release_timestamp</tt> (numeric): UNIX timestamp of
+the moment the video was released</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>release_date</tt> (string): The date (YYYYMMDD) when
+the video was released</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>modified_timestamp</tt> (numeric): UNIX timestamp of
+the moment the video was last modified</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>modified_date</tt> (string): The date (YYYYMMDD)
+when the video was last modified</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>uploader_id</tt> (string): Nickname or id of the
+video uploader</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>channel</tt> (string): Full name of the channel the
+video is uploaded on</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>channel_id</tt> (string): Id of the channel</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>channel_follower_count</tt> (numeric): Number of
+followers of the channel</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>location</tt> (string): Physical location where the
+video was filmed</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>duration</tt> (numeric): Length of the video in
+seconds</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>duration_string</tt> (string): Length of the video
+(HH:mm:ss)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>view_count</tt> (numeric): How many users have
+watched the video on the platform</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>like_count</tt> (numeric): Number of positive
+ratings of the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>dislike_count</tt> (numeric): Number of negative
+ratings of the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>repost_count</tt> (numeric): Number of reposts of
+the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>average_rating</tt> (numeric): Average rating give
+by users, the scale used depends on the webpage</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>comment_count</tt> (numeric): Number of comments on
+the video (For some extractors, comments are only downloaded
+at the end, and so this field cannot be used)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>age_limit</tt> (numeric): Age restriction for the
+video (years)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>live_status</tt> (string): One of
+&quot;is_live&quot;, &quot;was_live&quot;,
+&quot;is_upcoming&quot;, &quot;not_live&quot;</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>is_live</tt> (boolean): Whether this video is a live
+stream or a fixed-length video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>was_live</tt> (boolean): Whether this video was
+originally a live stream</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playable_in_embed</tt> (string): Whether this video
+is allowed to play in embedded players on other sites</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>availability</tt> (string): Whether the video is
+&quot;private&quot;, &quot;premium_only&quot;,
+&quot;subscriber_only&quot;, &quot;needs_auth&quot;,
+&quot;unlisted&quot; or &quot;public&quot;</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>start_time</tt> (numeric): Time in seconds where the
+reproduction should start, as specified in the URL</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>end_time</tt> (numeric): Time in seconds where the
+reproduction should end, as specified in the URL</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>format</tt> (string): A human-readable description
+of the format</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>format_id</tt> (string): Format code specified by
+<tt>--format</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>format_note</tt> (string): Additional info about the
+format</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>width</tt> (numeric): Width of the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>height</tt> (numeric): Height of the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>resolution</tt> (string): Textual description of
+width and height</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>tbr</tt> (numeric): Average bitrate of audio and
+video in KBit/s</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>abr</tt> (numeric): Average audio bitrate in
+KBit/s</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>acodec</tt> (string): Name of the audio codec in
+use</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>asr</tt> (numeric): Audio sampling rate in Hertz</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>vbr</tt> (numeric): Average video bitrate in
+KBit/s</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>fps</tt> (numeric): Frame rate</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>dynamic_range</tt> (string): The dynamic range of
+the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>vcodec</tt> (string): Name of the video codec in
+use</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>container</tt> (string): Name of the container
+format</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>filesize</tt> (numeric): The number of bytes, if
+known in advance</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>filesize_approx</tt> (numeric): An estimate for the
+number of bytes</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>protocol</tt> (string): The protocol that will be
+used for the actual download</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>extractor</tt> (string): Name of the extractor</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>extractor_key</tt> (string): Key name of the
+extractor</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>epoch</tt> (numeric): Unix epoch of when the
+information extraction was completed</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>autonumber</tt> (numeric): Number that will be
+increased with each download, starting at
+<tt>--autonumber-start</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>video_autonumber</tt> (numeric): Number that will be
+increased with each video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>n_entries</tt> (numeric): Total number of extracted
+items in the playlist</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_id</tt> (string): Identifier of the
+playlist that contains the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_title</tt> (string): Name of the playlist
+that contains the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist</tt> (string): <tt>playlist_id</tt> or
+<tt>playlist_title</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_count</tt> (numeric): Total number of items
+in the playlist. May not be known if entire playlist is not
+extracted</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_index</tt> (numeric): Index of the video in
+the playlist padded with leading zeros according the final
+index</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_autonumber</tt> (numeric): Position of the
+video in the playlist download queue padded with leading
+zeros according to the total length of the playlist</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_uploader</tt> (string): Full name of the
+playlist uploader</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_uploader_id</tt> (string): Nickname or id
+of the playlist uploader</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>webpage_url</tt> (string): A URL to the video
+webpage which if given to yt-dlp should allow to get the
+same result again</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>webpage_url_basename</tt> (string): The basename of
+the webpage URL</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>webpage_url_domain</tt> (string): The domain of the
+webpage URL</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>original_url</tt> (string): The URL given by the
+user (or same as <tt>webpage_url</tt> for playlist
+entries)</p> </td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Available for
+the video that belongs to some logical chapter or
+section:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>chapter</tt> (string): Name
+or title of the chapter the video belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>chapter_number</tt> (numeric): Number of the chapter
+the video belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>chapter_id</tt> (string): Id of the chapter the
+video belongs to</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Available for
+the video that is an episode of some series or
+programme:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>series</tt> (string): Title
+of the series or programme the video episode belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>season</tt> (string): Title of the season the video
+episode belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>season_number</tt> (numeric): Number of the season
+the video episode belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>season_id</tt> (string): Id of the season the video
+episode belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>episode</tt> (string): Title of the video
+episode</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>episode_number</tt> (numeric): Number of the video
+episode within a season</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>episode_id</tt> (string): Id of the video
+episode</p> </td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Available for
+the media that is a track or a part of a music album:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>track</tt> (string): Title
+of the track</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>track_number</tt> (numeric): Number of the track
+within an album or a disc</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>track_id</tt> (string): Id of the track</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>artist</tt> (string): Artist(s) of the track</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>genre</tt> (string): Genre(s) of the track</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>album</tt> (string): Title of the album the track
+belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>album_type</tt> (string): Type of the album</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>album_artist</tt> (string): List of all artists
+appeared on the album</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>disc_number</tt> (numeric): Number of the disc or
+other physical medium the track belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>release_year</tt> (numeric): Year (YYYY) when the
+album was released</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Available for
+<tt>chapter:</tt> prefix when using
+<tt>--split-chapters</tt> for videos with internal
+chapters:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>section_title</tt> (string):
+Title of the chapter</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>section_number</tt> (numeric): Number of the chapter
+within the file</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>section_start</tt> (numeric): Start time of the
+chapter in seconds</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>section_end</tt> (numeric): End time of the chapter
+in seconds</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Available only
+when used in <tt>--print</tt>:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>urls</tt> (string): The URLs
+of all requested formats, one in each line</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>filename</tt> (string): Name of the video file. Note
+that the actual filename may be different due to
+post-processing. Use <tt>--exec echo</tt> to get the name
+after all postprocessing is complete</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>formats_table</tt> (table): The video format table
+as printed by <tt>--list-formats</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>thumbnails_table</tt> (table): The thumbnail format
+table as printed by <tt>--list-thumbnails</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>subtitles_table</tt> (table): The subtitle format
+table as printed by <tt>--list-subs</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>automatic_captions_table</tt> (table): The automatic
+subtitle format table as printed by <tt>--list-subs</tt></p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Available only
+in <tt>--sponsorblock-chapter-title</tt>:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>start_time</tt> (numeric):
+Start time of the chapter in seconds</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>end_time</tt> (numeric): End time of the chapter in
+seconds</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>categories</tt> (list): The SponsorBlock categories
+the chapter belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>category</tt> (string): The smallest SponsorBlock
+category the chapter belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>category_names</tt> (list): Friendly names of the
+categories</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>name</tt> (string): Friendly name of the smallest
+category</p> </td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Each
+aforementioned sequence when referenced in an output
+template will be replaced by the actual value corresponding
+to the sequence name. For example for <tt>-o
+%(title)s-%(id)s.%(ext)s</tt> and an mp4 video with title
+<tt>yt-dlp test video</tt> and id <tt>BaW_jenozKc</tt>, this
+will result in a <tt>yt-dlp test video-BaW_jenozKc.mp4</tt>
+file created in the current directory.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that some
+of the sequences are not guaranteed to be present since they
+depend on the metadata obtained by a particular extractor.
+Such sequences will be replaced with placeholder value
+provided with <tt>--output-na-placeholder</tt> (<tt>NA</tt>
+by default).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Tip</b>:
+Look at the <tt>-j</tt> output to identify which fields are
+available for the particular URL</p>
+
+<p style="margin-left:11%; margin-top: 1em">For numeric
+sequences you can use numeric related formatting
+(https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting),
+for example, <tt>%(view_count)05d</tt> will result in a
+string with view count padded with zeros up to 5 characters,
+like in <tt>00042</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Output
+templates can also contain arbitrary hierarchical path, e.g.
+<tt>-o &quot;%(playlist)s/%(playlist_index)s -
+%(title)s.%(ext)s&quot;</tt> which will result in
+downloading each video in a directory corresponding to this
+path template. Any missing directory will be automatically
+created for you.</p>
+
+<p style="margin-left:11%; margin-top: 1em">To use percent
+literals in an output template use <tt>%%</tt>. To output to
+stdout use <tt>-o -</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The current
+default template is <tt>%(title)s [%(id)s].%(ext)s</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In some cases,
+you don't want special characters such as &#20013; , spaces,
+or &amp;, such as when transferring the downloaded filename
+to a Windows system or the filename through an 8bit-unsafe
+channel. In these cases, add the
+<tt>--restrict-filenames</tt> flag to get a shorter
+title.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Output
+template examples</b></p>
+<pre style="margin-left:22%;">$ yt-dlp --get-filename -o &quot;test video.%(ext)s&quot; BaW_jenozKc
+test video.webm    # Literal name with correct extension
+
+$ yt-dlp --get-filename -o &quot;%(title)s.%(ext)s&quot; BaW_jenozKc
+youtube-dl test video ''_&auml;&#8621;&#120144;.webm    # All kinds of weird characters
+
+$ yt-dlp --get-filename -o &quot;%(title)s.%(ext)s&quot; BaW_jenozKc --restrict-filenames
+youtube-dl_test_video_.webm    # Restricted file name
+
+# Download YouTube playlist videos in separate directory indexed by video order in a playlist
+$ yt-dlp -o &quot;%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s&quot; &quot;https://www.youtube.com/playlist?list=PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re&quot;
+
+# Download YouTube playlist videos in separate directories according to their uploaded year
+$ yt-dlp -o &quot;%(upload_date&gt;%Y)s/%(title)s.%(ext)s&quot; &quot;https://www.youtube.com/playlist?list=PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re&quot;
+
+# Prefix playlist index with &quot; - &quot; separator, but only if it is available
+$ yt-dlp -o '%(playlist_index|)s%(playlist_index&amp; - |)s%(title)s.%(ext)s' BaW_jenozKc &quot;https://www.youtube.com/user/TheLinuxFoundation/playlists&quot;
+
+# Download all playlists of YouTube channel/user keeping each playlist in separate directory:
+$ yt-dlp -o &quot;%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s&quot; &quot;https://www.youtube.com/user/TheLinuxFoundation/playlists&quot;
+
+# Download Udemy course keeping each chapter in separate directory under MyVideos directory in your home
+$ yt-dlp -u user -p password -P &quot;~/MyVideos&quot; -o &quot;%(playlist)s/%(chapter_number)s - %(chapter)s/%(title)s.%(ext)s&quot; &quot;https://www.udemy.com/java-tutorial&quot;
+
+# Download entire series season keeping each series and each season in separate directory under C:/MyVideos
+$ yt-dlp -P &quot;C:/MyVideos&quot; -o &quot;%(series)s/%(season_number)s - %(season)s/%(episode_number)s - %(episode)s.%(ext)s&quot; &quot;https://videomore.ru/kino_v_detalayah/5_sezon/367617&quot;
+
+# Download video as &quot;C:\MyVideos\uploader\title.ext&quot;, subtitles as &quot;C:\MyVideos\subs\uploader\title.ext&quot;
+# and put all temporary files in &quot;C:\MyVideos\tmp&quot;
+$ yt-dlp -P &quot;C:/MyVideos&quot; -P &quot;temp:tmp&quot; -P &quot;subtitle:subs&quot; -o &quot;%(uploader)s/%(title)s.%(ext)s&quot; BaW_jenoz --write-subs
+
+# Download video as &quot;C:\MyVideos\uploader\title.ext&quot; and subtitles as &quot;C:\MyVideos\uploader\subs\title.ext&quot;
+$ yt-dlp -P &quot;C:/MyVideos&quot; -o &quot;%(uploader)s/%(title)s.%(ext)s&quot; -o &quot;subtitle:%(uploader)s/subs/%(title)s.%(ext)s&quot; BaW_jenozKc --write-subs
+
+
+# Stream the video being downloaded to stdout
+$ yt-dlp -o - BaW_jenozKc</pre>
+
+
+<h2>FORMAT SELECTION
+<a name="FORMAT SELECTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">By default,
+yt-dlp tries to download the best available quality if you
+<b>don't</b> pass any options. This is generally equivalent
+to using <tt>-f bestvideo*+bestaudio/best</tt>. However, if
+multiple audiostreams is enabled
+(<tt>--audio-multistreams</tt>), the default format changes
+to <tt>-f bestvideo+bestaudio/best</tt>. Similarly, if
+ffmpeg is unavailable, or if you use yt-dlp to stream to
+<tt>stdout</tt> (<tt>-o -</tt>), the default becomes <tt>-f
+best/bestvideo+bestaudio</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Deprecation
+warning</b>: Latest versions of yt-dlp can stream multiple
+formats to the stdout simultaneously using ffmpeg. So, in
+future versions, the default for this will be set to <tt>-f
+bv*+ba/b</tt> similar to normal downloads. If you want to
+preserve the <tt>-f b/bv+ba</tt> setting, it is recommended
+to explicitly specify it in the configuration options.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The general
+syntax for format selection is <tt>-f FORMAT</tt> (or
+<tt>--format FORMAT</tt>) where <tt>FORMAT</tt> is a
+<i>selector expression</i>, i.e. an expression that
+describes format or formats you would like to download.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The simplest
+case is requesting a specific format, for example with
+<tt>-f 22</tt> you can download the format with format code
+equal to 22. You can get the list of available format codes
+for particular video using <tt>--list-formats</tt> or
+<tt>-F</tt>. Note that these format codes are extractor
+specific.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can also
+use a file extension (currently <tt>3gp</tt>, <tt>aac</tt>,
+<tt>flv</tt>, <tt>m4a</tt>, <tt>mp3</tt>, <tt>mp4</tt>,
+<tt>ogg</tt>, <tt>wav</tt>, <tt>webm</tt> are supported) to
+download the best quality format of a particular file
+extension served as a single file, e.g. <tt>-f webm</tt>
+will download the best quality format with the <tt>webm</tt>
+extension served as a single file.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can use
+<tt>-f -</tt> to interactively provide the format selector
+<i>for each video</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">You can also
+use special names to select particular edge case
+formats:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>all</tt>: Select <b>all
+formats</b> separately</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>mergeall</tt>: Select and <b>merge all formats</b>
+(Must be used with <tt>--audio-multistreams</tt>,
+<tt>--video-multistreams</tt> or both)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>b*</tt>, <tt>best*</tt>: Select the best quality
+format that <b>contains either</b> a video or an audio</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>b</tt>, <tt>best</tt>: Select the best quality
+format that <b>contains both</b> video and audio. Equivalent
+to <tt>best*[vcodec!=none][acodec!=none]</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>bv</tt>, <tt>bestvideo</tt>: Select the best quality
+<b>video-only</b> format. Equivalent to
+<tt>best*[acodec=none]</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>bv*</tt>, <tt>bestvideo*</tt>: Select the best
+quality format that <b>contains video</b>. It may also
+contain audio. Equivalent to
+<tt>best*[vcodec!=none]</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>ba</tt>, <tt>bestaudio</tt>: Select the best quality
+<b>audio-only</b> format. Equivalent to
+<tt>best*[vcodec=none]</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>ba*</tt>, <tt>bestaudio*</tt>: Select the best
+quality format that <b>contains audio</b>. It may also
+contain video. Equivalent to
+<tt>best*[acodec!=none]</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>w*</tt>, <tt>worst*</tt>: Select the worst quality
+format that contains either a video or an audio</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>w</tt>, <tt>worst</tt>: Select the worst quality
+format that contains both video and audio. Equivalent to
+<tt>worst*[vcodec!=none][acodec!=none]</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>wv</tt>, <tt>worstvideo</tt>: Select the worst
+quality video-only format. Equivalent to
+<tt>worst*[acodec=none]</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>wv*</tt>, <tt>worstvideo*</tt>: Select the worst
+quality format that contains video. It may also contain
+audio. Equivalent to <tt>worst*[vcodec!=none]</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>wa</tt>, <tt>worstaudio</tt>: Select the worst
+quality audio-only format. Equivalent to
+<tt>worst*[vcodec=none]</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>wa*</tt>, <tt>worstaudio*</tt>: Select the worst
+quality format that contains audio. It may also contain
+video. Equivalent to <tt>worst*[acodec!=none]</tt></p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">For example, to
+download the worst quality video-only format you can use
+<tt>-f worstvideo</tt>. It is however recommended not to use
+<tt>worst</tt> and related options. When your format
+selector is <tt>worst</tt>, the format which is worst in all
+respects is selected. Most of the time, what you actually
+want is the video with the smallest filesize instead. So it
+is generally better to use <tt>-f best -S
++size,+br,+res,+fps</tt> instead of <tt>-f worst</tt>. See
+sorting formats for more details.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can select
+the n'th best format of a type by using
+<tt>best&lt;type&gt;.&lt;n&gt;</tt>. For example,
+<tt>best.2</tt> will select the 2nd best combined format.
+Similarly, <tt>bv*.3</tt> will select the 3rd best format
+that contains a video stream.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+download multiple videos and they don't have the same
+formats available, you can specify the order of preference
+using slashes. Note that formats on the left hand side are
+preferred, for example <tt>-f 22/17/18</tt> will download
+format 22 if it's available, otherwise it will download
+format 17 if it's available, otherwise it will download
+format 18 if it's available, otherwise it will complain that
+no suitable formats are available for download.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+download several formats of the same video use a comma as a
+separator, e.g. <tt>-f 22,17,18</tt> will download all these
+three formats, of course if they are available. Or a more
+sophisticated example combined with the precedence feature:
+<tt>-f 136/137/mp4/bestvideo,140/m4a/bestaudio</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can merge
+the video and audio of multiple formats into a single file
+using <tt>-f &lt;format1&gt;+&lt;format2&gt;+...</tt>
+(requires ffmpeg installed), for example <tt>-f
+bestvideo+bestaudio</tt> will download the best video-only
+format, the best audio-only format and mux them together
+with ffmpeg.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Deprecation
+warning</b>: Since the <i>below</i> described behavior is
+complex and counter-intuitive, this will be removed and
+multistreams will be enabled by default in the future. A new
+operator will be instead added to limit formats to single
+audio/video</p>
+
+<p style="margin-left:11%; margin-top: 1em">Unless
+<tt>--video-multistreams</tt> is used, all formats with a
+video stream except the first one are ignored. Similarly,
+unless <tt>--audio-multistreams</tt> is used, all formats
+with an audio stream except the first one are ignored. For
+example, <tt>-f bestvideo+best+bestaudio
+--video-multistreams --audio-multistreams</tt> will download
+and merge all 3 given formats. The resulting file will have
+2 video streams and 2 audio streams. But <tt>-f
+bestvideo+best+bestaudio --no-video-multistreams</tt> will
+download and merge only <tt>bestvideo</tt> and
+<tt>bestaudio</tt>. <tt>best</tt> is ignored since another
+format containing a video stream (<tt>bestvideo</tt>) has
+already been selected. The order of the formats is therefore
+important. <tt>-f best+bestaudio
+--no-audio-multistreams</tt> will download and merge both
+formats while <tt>-f bestaudio+best
+--no-audio-multistreams</tt> will ignore <tt>best</tt> and
+download only <tt>bestaudio</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Filtering
+Formats</b> <br>
+You can also filter the video formats by putting a condition
+in brackets, as in <tt>-f &quot;best[height=720]&quot;</tt>
+(or <tt>-f &quot;[filesize&gt;10M]&quot;</tt>).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The following
+numeric meta fields can be used with comparisons
+<tt>&lt;</tt>, <tt>&lt;=</tt>, <tt>&gt;</tt>,
+<tt>&gt;=</tt>, <tt>=</tt> (equals), <tt>!=</tt> (not
+equals):</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p style="margin-top: 1em"><tt>filesize</tt>: The number of
+bytes, if known in advance</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>width</tt>: Width of the video, if known</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>height</tt>: Height of the video, if known</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>tbr</tt>: Average bitrate of audio and video in
+KBit/s</p> </td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>abr</tt>: Average audio bitrate in KBit/s</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>vbr</tt>: Average video bitrate in KBit/s</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>asr</tt>: Audio sampling rate in Hertz</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>fps</tt>: Frame rate</p></td>
+<td width="9%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Also filtering
+work for comparisons <tt>=</tt> (equals), <tt>^=</tt>
+(starts with), <tt>$=</tt> (ends with), <tt>*=</tt>
+(contains), <tt>~=</tt> (matches regex) and following string
+meta fields:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>ext</tt>: File extension</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>acodec</tt>: Name of the audio codec in use</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>vcodec</tt>: Name of the video codec in use</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>container</tt>: Name of the container format</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>protocol</tt>: The protocol that will be used for
+the actual download, lower-case (<tt>http</tt>,
+<tt>https</tt>, <tt>rtsp</tt>, <tt>rtmp</tt>,
+<tt>rtmpe</tt>, <tt>mms</tt>, <tt>f4m</tt>, <tt>ism</tt>,
+<tt>http_dash_segments</tt>, <tt>m3u8</tt>, or
+<tt>m3u8_native</tt>)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>format_id</tt>: A short description of the
+format</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>language</tt>: Language code</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Any string
+comparison may be prefixed with negation <tt>!</tt> in order
+to produce an opposite comparison, e.g. <tt>!*=</tt> (does
+not contain). The comparand of a string comparison needs to
+be quoted with either double or single quotes if it contains
+spaces or special characters other than <tt>._-</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that none
+of the aforementioned meta fields are guaranteed to be
+present since this solely depends on the metadata obtained
+by particular extractor, i.e. the metadata offered by the
+website. Any other field made available by the extractor can
+also be used for filtering.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Formats for
+which the value is not known are excluded unless you put a
+question mark (<tt>?</tt>) after the operator. You can
+combine format filters, so <tt>-f
+&quot;[height&lt;=?720][tbr&gt;500]&quot;</tt> selects up to
+720p videos (or videos where the height is not known) with a
+bitrate of at least 500 KBit/s. You can also use the filters
+with <tt>all</tt> to download all formats that satisfy the
+filter. For example, <tt>-f
+&quot;all[vcodec=none]&quot;</tt> selects all audio-only
+formats.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Format
+selectors can also be grouped using parentheses, for example
+if you want to download the best pre-merged mp4 and webm
+formats with a height lower than 480 you can use <tt>-f
+&quot;(mp4,webm)[height&lt;480]&quot;</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Sorting
+Formats</b> <br>
+You can change the criteria for being considered the
+<tt>best</tt> by using <tt>-S</tt> (<tt>--format-sort</tt>).
+The general format for this is <tt>--format-sort
+field1,field2...</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The available
+fields are:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>hasvid</tt>: Gives priority
+to formats that has a video stream</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>hasaud</tt>: Gives priority to formats that has a
+audio stream</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>ie_pref</tt>: The format preference</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>lang</tt>: The language preference</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>quality</tt>: The quality of the format</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>source</tt>: The preference of the source</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>proto</tt>: Protocol used for download
+(<tt>https</tt>/<tt>ftps</tt> &gt;
+<tt>http</tt>/<tt>ftp</tt> &gt;
+<tt>m3u8_native</tt>/<tt>m3u8</tt> &gt;
+<tt>http_dash_segments</tt>&gt; <tt>websocket_frag</tt> &gt;
+<tt>mms</tt>/<tt>rtsp</tt> &gt;
+<tt>f4f</tt>/<tt>f4m</tt>)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>vcodec</tt>: Video Codec (<tt>av01</tt> &gt;
+<tt>vp9.2</tt> &gt; <tt>vp9</tt> &gt; <tt>h265</tt> &gt;
+<tt>h264</tt> &gt; <tt>vp8</tt> &gt; <tt>h263</tt> &gt;
+<tt>theora</tt> &gt; other)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>acodec</tt>: Audio Codec
+(<tt>flac</tt>/<tt>alac</tt> &gt; <tt>wav</tt>/<tt>aiff</tt>
+&gt; <tt>opus</tt> &gt; <tt>vorbis</tt> &gt; <tt>aac</tt>
+&gt; <tt>mp4a</tt> &gt; <tt>mp3</tt> &gt; <tt>eac3</tt> &gt;
+<tt>ac3</tt> &gt; <tt>dts</tt> &gt; other)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>codec</tt>: Equivalent to <tt>vcodec,acodec</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>vext</tt>: Video Extension (<tt>mp4</tt> &gt;
+<tt>webm</tt> &gt; <tt>flv</tt> &gt; other). If
+<tt>--prefer-free-formats</tt> is used, <tt>webm</tt> is
+preferred.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>aext</tt>: Audio Extension (<tt>m4a</tt> &gt;
+<tt>aac</tt> &gt; <tt>mp3</tt> &gt; <tt>ogg</tt> &gt;
+<tt>opus</tt> &gt; <tt>webm</tt> &gt; other). If
+<tt>--prefer-free-formats</tt> is used, the order changes to
+<tt>opus</tt> &gt; <tt>ogg</tt> &gt; <tt>webm</tt> &gt;
+<tt>m4a</tt> &gt; <tt>mp3</tt> &gt; <tt>aac</tt>.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>ext</tt>: Equivalent to <tt>vext,aext</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>filesize</tt>: Exact filesize, if known in
+advance</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>fs_approx</tt>: Approximate filesize calculated from
+the manifests</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>size</tt>: Exact filesize if available, otherwise
+approximate filesize</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>height</tt>: Height of video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>width</tt>: Width of video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>res</tt>: Video resolution, calculated as the
+smallest dimension.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>fps</tt>: Framerate of video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>hdr</tt>: The dynamic range of the video
+(<tt>DV</tt> &gt; <tt>HDR12</tt> &gt; <tt>HDR10+</tt> &gt;
+<tt>HDR10</tt> &gt; <tt>HLG</tt> &gt; <tt>SDR</tt>)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>tbr</tt>: Total average bitrate in KBit/s</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>vbr</tt>: Average video bitrate in KBit/s</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>abr</tt>: Average audio bitrate in KBit/s</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>br</tt>: Equivalent to using
+<tt>tbr,vbr,abr</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>asr</tt>: Audio sample rate in Hz</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Deprecation
+warning</b>: Many of these fields have (currently
+undocumented) aliases, that may be removed in a future
+version. It is recommended to use only the documented field
+names.</p>
+
+<p style="margin-left:11%; margin-top: 1em">All fields,
+unless specified otherwise, are sorted in descending order.
+To reverse this, prefix the field with a <tt>+</tt>. Eg:
+<tt>+res</tt> prefers format with the smallest resolution.
+Additionally, you can suffix a preferred value for the
+fields, separated by a <tt>:</tt>. Eg: <tt>res:720</tt>
+prefers larger videos, but no larger than 720p and the
+smallest video if there are no videos less than 720p. For
+<tt>codec</tt> and <tt>ext</tt>, you can provide two
+preferred values, the first for video and the second for
+audio. Eg: <tt>+codec:avc:m4a</tt> (equivalent to
+<tt>+vcodec:avc,+acodec:m4a</tt>) sets the video codec
+preference to <tt>h264</tt> &gt; <tt>h265</tt> &gt;
+<tt>vp9</tt> &gt; <tt>vp9.2</tt> &gt; <tt>av01</tt> &gt;
+<tt>vp8</tt> &gt; <tt>h263</tt> &gt; <tt>theora</tt> and
+audio codec preference to <tt>mp4a</tt> &gt; <tt>aac</tt>
+&gt; <tt>vorbis</tt> &gt; <tt>opus</tt> &gt; <tt>mp3</tt>
+&gt; <tt>ac3</tt> &gt; <tt>dts</tt>. You can also make the
+sorting prefer the nearest values to the provided by using
+<tt>~</tt> as the delimiter. Eg: <tt>filesize~1G</tt>
+prefers the format with filesize closest to 1 GiB.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The fields
+<tt>hasvid</tt> and <tt>ie_pref</tt> are always given
+highest priority in sorting, irrespective of the
+user-defined order. This behaviour can be changed by using
+<tt>--format-sort-force</tt>. Apart from these, the default
+order used is:
+<tt>lang,quality,res,fps,hdr:12,codec:vp9.2,size,br,asr,proto,ext,hasaud,source,id</tt>.
+The extractors may override this default order, but they
+cannot override the user-provided order.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that the
+default has <tt>codec:vp9.2</tt>; i.e. <tt>av1</tt> is not
+preferred. Similarly, the default for hdr is
+<tt>hdr:12</tt>; i.e. dolby vision is not preferred. These
+choices are made since DV and AV1 formats are not yet fully
+compatible with most devices. This may be changed in the
+future as more devices become capable of smoothly playing
+back these formats.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If your format
+selector is <tt>worst</tt>, the last item is selected after
+sorting. This means it will select the format that is worst
+in all respects. Most of the time, what you actually want is
+the video with the smallest filesize instead. So it is
+generally better to use <tt>-f best -S
++size,+br,+res,+fps</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Tip</b>: You
+can use the <tt>-v -F</tt> to see how the formats have been
+sorted (worst to best).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Format
+Selection examples</b></p>
+<pre style="margin-left:22%;"># Download and merge the best video-only format and the best audio-only format,
+# or download the best combined format if video-only format is not available
+$ yt-dlp -f &quot;bv+ba/b&quot;
+
+# Download best format that contains video,
+# and if it doesn't already have an audio stream, merge it with best audio-only format
+$ yt-dlp -f &quot;bv*+ba/b&quot;
+
+# Same as above
+$ yt-dlp
+
+# Download the best video-only format and the best audio-only format without merging them
+# For this case, an output template should be used since
+# by default, bestvideo and bestaudio will have the same file name.
+$ yt-dlp -f &quot;bv,ba&quot; -o &quot;%(title)s.f%(format_id)s.%(ext)s&quot;
+
+# Download and merge the best format that has a video stream,
+# and all audio-only formats into one file
+$ yt-dlp -f &quot;bv*+mergeall[vcodec=none]&quot; --audio-multistreams
+
+# Download and merge the best format that has a video stream,
+# and the best 2 audio-only formats into one file
+$ yt-dlp -f &quot;bv*+ba+ba.2&quot; --audio-multistreams
+
+
+# The following examples show the old method (without -S) of format selection
+# and how to use -S to achieve a similar but (generally) better result
+
+# Download the worst video available (old method)
+$ yt-dlp -f &quot;wv*+wa/w&quot;
+
+# Download the best video available but with the smallest resolution
+$ yt-dlp -S &quot;+res&quot;
+
+# Download the smallest video available
+$ yt-dlp -S &quot;+size,+br&quot;
+
+
+
+# Download the best mp4 video available, or the best video if no mp4 available
+$ yt-dlp -f &quot;bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b&quot;
+
+# Download the best video with the best extension
+# (For video, mp4 &gt; webm &gt; flv. For audio, m4a &gt; aac &gt; mp3 ...)
+$ yt-dlp -S &quot;ext&quot;
+
+
+
+# Download the best video available but no better than 480p,
+# or the worst video if there is no video under 480p
+$ yt-dlp -f &quot;bv*[height&lt;=480]+ba/b[height&lt;=480] / wv*+ba/w&quot;
+
+# Download the best video available with the largest height but no better than 480p,
+# or the best video with the smallest resolution if there is no video under 480p
+$ yt-dlp -S &quot;height:480&quot;
+
+# Download the best video available with the largest resolution but no better than 480p,
+# or the best video with the smallest resolution if there is no video under 480p
+# Resolution is determined by using the smallest dimension.
+# So this works correctly for vertical videos as well
+$ yt-dlp -S &quot;res:480&quot;
+
+
+
+# Download the best video (that also has audio) but no bigger than 50 MB,
+# or the worst video (that also has audio) if there is no video under 50 MB
+$ yt-dlp -f &quot;b[filesize&lt;50M] / w&quot;
+
+# Download largest video (that also has audio) but no bigger than 50 MB,
+# or the smallest video (that also has audio) if there is no video under 50 MB
+$ yt-dlp -f &quot;b&quot; -S &quot;filesize:50M&quot;
+
+# Download best video (that also has audio) that is closest in size to 50 MB
+$ yt-dlp -f &quot;b&quot; -S &quot;filesize~50M&quot;
+
+
+
+# Download best video available via direct link over HTTP/HTTPS protocol,
+# or the best video available via any protocol if there is no such video
+$ yt-dlp -f &quot;(bv*+ba/b)[protocol^=http][protocol!*=dash] / (bv*+ba/b)&quot;
+
+# Download best video available via the best protocol
+# (https/ftps &gt; http/ftp &gt; m3u8_native &gt; m3u8 &gt; http_dash_segments ...)
+$ yt-dlp -S &quot;proto&quot;
+
+
+
+# Download the best video with either h264 or h265 codec,
+# or the best video if there is no such video
+$ yt-dlp -f &quot;(bv*[vcodec~='^((he|a)vc|h26[45])']+ba) / (bv*+ba/b)&quot;
+
+# Download the best video with best codec no better than h264,
+# or the best video with worst codec if there is no such video
+$ yt-dlp -S &quot;codec:h264&quot;
+
+# Download the best video with worst codec no worse than h264,
+# or the best video with best codec if there is no such video
+$ yt-dlp -S &quot;+codec:h264&quot;
+
+
+
+# More complex examples
+
+# Download the best video no better than 720p preferring framerate greater than 30,
+# or the worst video (still preferring framerate greater than 30) if there is no such video
+$ yt-dlp -f &quot;((bv*[fps&gt;30]/bv*)[height&lt;=720]/(wv*[fps&gt;30]/wv*)) + ba / (b[fps&gt;30]/b)[height&lt;=720]/(w[fps&gt;30]/w)&quot;
+
+# Download the video with the largest resolution no better than 720p,
+# or the video with the smallest resolution available if there is no such video,
+# preferring larger framerate for formats with the same resolution
+$ yt-dlp -S &quot;res:720,fps&quot;
+
+
+
+
+# Download the video with smallest resolution no worse than 480p,
+# or the video with the largest resolution available if there is no such video,
+# preferring better codec and then larger total bitrate for the same resolution
+$ yt-dlp -S &quot;+res:480,codec,br&quot;</pre>
+
+
+<h2>MODIFYING METADATA
+<a name="MODIFYING METADATA"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The metadata
+obtained by the extractors can be modified by using
+<tt>--parse-metadata</tt> and
+<tt>--replace-in-metadata</tt></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>--replace-in-metadata
+FIELDS REGEX REPLACE</tt> is used to replace text in any
+metadata field using python regular expression
+(https://docs.python.org/3/library/re.html#regular-expression-syntax).
+Backreferences
+(https://docs.python.org/3/library/re.html?highlight=backreferences#re.sub)
+can be used in the replace string for advanced use.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The general
+syntax of <tt>--parse-metadata FROM:TO</tt> is to give the
+name of a field or an output template to extract data from,
+and the format to interpret it as, separated by a colon
+<tt>:</tt>. Either a python regular expression
+(https://docs.python.org/3/library/re.html#regular-expression-syntax)
+with named capture groups or a similar syntax to the output
+template (only <tt>%(field)s</tt> formatting is supported)
+can be used for <tt>TO</tt>. The option can be used multiple
+times to parse and modify various fields.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that any
+field created by this can be used in the output template and
+will also affect the media file's metadata added when using
+<tt>--add-metadata</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This option
+also has a few special uses: * You can download an
+additional URL based on the metadata of the currently
+downloaded video. To do this, set the field
+<tt>additional_urls</tt> to the URL that you want to
+download. Eg: <tt>--parse-metadata
+&quot;description:(?P&lt;additional_urls&gt;https?://www\.vimeo\.com/\d+)</tt>
+will download the first vimeo video found in the description
+* You can use this to change the metadata that is embedded
+in the media file. To do this, set the value of the
+corresponding field with a <tt>meta_</tt> prefix. For
+example, any value you set to <tt>meta_description</tt>
+field will be added to the <tt>description</tt> field in the
+file. For example, you can use this to set a different
+&quot;description&quot; and &quot;synopsis&quot;. To modify
+the metadata of individual streams, use the
+<tt>meta&lt;n&gt;_</tt> prefix (Eg:
+<tt>meta1_language</tt>). Any value set to the
+<tt>meta_</tt> field will overwrite all default values.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Note</b>:
+Metadata modification happens before format selection,
+post-extraction and other post-processing operations. Some
+fields may be added or changed during these steps,
+overriding your changes.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For reference,
+these are the fields yt-dlp adds by default to the file
+metadata:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Note</b>:
+The file format may not support some of these fields</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Modifying
+metadata examples</b></p>
+<pre style="margin-left:22%;"># Interpret the title as &quot;Artist - Title&quot;
+$ yt-dlp --parse-metadata &quot;title:%(artist)s - %(title)s&quot;
+
+# Regex example
+$ yt-dlp --parse-metadata &quot;description:Artist - (?P&lt;artist&gt;.+)&quot;
+
+# Set title as &quot;Series name S01E05&quot;
+$ yt-dlp --parse-metadata &quot;%(series)s S%(season_number)02dE%(episode_number)02d:%(title)s&quot;
+
+# Set &quot;comment&quot; field in video metadata using description instead of webpage_url
+$ yt-dlp --parse-metadata &quot;description:(?s)(?P&lt;meta_comment&gt;.+)&quot; --add-metadata
+
+# Remove &quot;formats&quot; field from the infojson by setting it to an empty string
+$ yt-dlp --parse-metadata &quot;:(?P&lt;formats&gt;)&quot; -j
+
+
+# Replace all spaces and &quot;_&quot; in title and uploader with a `-`
+$ yt-dlp --replace-in-metadata &quot;title,uploader&quot; &quot;[ _]&quot; &quot;-&quot;</pre>
+
+
+<h2>EXTRACTOR ARGUMENTS
+<a name="EXTRACTOR ARGUMENTS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Some extractors
+accept additional arguments which can be passed using
+<tt>--extractor-args KEY:ARGS</tt>. <tt>ARGS</tt> is a
+<tt>;</tt> (semicolon) separated string of
+<tt>ARG=VAL1,VAL2</tt>. Eg: <tt>--extractor-args
+&quot;youtube:player-client=android_agegate,web;include_live_dash&quot;
+--extractor-args
+&quot;funimation:version=uncut&quot;</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">The following
+extractors use this feature:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>youtube</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>skip</tt>: <tt>hls</tt> or
+<tt>dash</tt> (or both) to skip download of the respective
+manifests</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>player_client</tt>: Clients to extract video data
+from. The main clients are <tt>web</tt>, <tt>android</tt>,
+<tt>ios</tt>, <tt>mweb</tt>. These also have
+<tt>_music</tt>, <tt>_embedded</tt>, <tt>_agegate</tt>, and
+<tt>_creator</tt> variants (Eg: <tt>web_embedded</tt>)
+(<tt>mweb</tt> has only <tt>_agegate</tt>). By default,
+<tt>android,web</tt> is used, but the agegate and creator
+variants are added as required for age-gated videos.
+Similarly the music variants are added for
+<tt>music.youtube.com</tt> urls. You can also use
+<tt>all</tt> to use all the clients, and <tt>default</tt>
+for the default clients.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>player_skip</tt>: Skip some network requests that
+are generally needed for robust extraction. One or more of
+<tt>configs</tt> (skip client configs), <tt>webpage</tt>
+(skip initial webpage), <tt>js</tt> (skip js player). While
+these options can help reduce the number of requests needed
+or avoid some rate-limiting, they could cause some issues.
+See #860 (https://github.com/yt-dlp/yt-dlp/pull/860) for
+more details</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>include_live_dash</tt>: Include live dash formats
+even without <tt>--live-from-start</tt> (These formats don't
+download properly)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>comment_sort</tt>: <tt>top</tt> or <tt>new</tt>
+(default) - choose comment sorting mode (on YouTube's
+side)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>max_comments</tt>: Limit the amount of comments to
+gather. Comma-separated list of integers representing
+<tt>max-comments,max-parents,max-replies,max-replies-per-thread</tt>.
+Default is <tt>all,all,all,all</tt>.</p></td></tr>
+</table>
+
+<p style="margin-left:14%;">&bull;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%"></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em">E.g. <tt>all,all,1000,10</tt>
+will get a maximum of 1000 replies total, with up to 10
+replies per thread. <tt>1000,all,100</tt> will get a maximum
+of 1000 comments, with a maximum of 100 replies total.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>max_comment_depth</tt> Maximum depth for nested
+comments. YouTube supports depths 1 or 2 (default)</p></td></tr>
+</table>
+
+<p style="margin-left:14%;">&bull;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p style="margin-top: 1em"><b>Deprecated</b>: Set
+<tt>max-replies</tt> to <tt>0</tt> or <tt>all</tt> in
+<tt>max_comments</tt> instead (e.g.
+<tt>max_comments=all,all,0</tt> to get no replies)</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em"><b>youtubetab
+(YouTube playlists, channels, feeds, etc.)</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>skip</tt>: One or more of
+<tt>webpage</tt> (skip initial webpage download),
+<tt>authcheck</tt> (allow the download of playlists
+requiring authentication when no initial webpage is
+downloaded. This may cause unwanted behavior, see #1122
+(https://github.com/yt-dlp/yt-dlp/pull/1122) for more
+details)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>approximate_date</tt>: Extract approximate
+<tt>upload_date</tt> in flat-playlist. This may cause
+date-based filters to be slightly off</p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>funimation</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>language</tt>: Languages to
+extract. Eg:
+<tt>funimation:language=english,japanese</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>version</tt>: The video version to extract -
+<tt>uncut</tt> or <tt>simulcast</tt></p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>crunchyroll</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>language</tt>: Languages to
+extract. Eg: <tt>crunchyroll:language=jaJp</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>hardsub</tt>: Which hard-sub versions to extract.
+Eg: <tt>crunchyroll:hardsub=None,enUS</tt></p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>crunchyroll:beta</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>format</tt>: Which stream
+type(s) to extract. Default is <tt>adaptive_hls</tt> Eg:
+<tt>crunchyrollbeta:format=vo_adaptive_hls</tt></p> </td></tr>
+</table>
+
+<p style="margin-left:14%;">&bull;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%"></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em">Potentially useful values
+include <tt>adaptive_hls</tt>, <tt>adaptive_dash</tt>,
+<tt>vo_adaptive_hls</tt>, <tt>vo_adaptive_dash</tt>,
+<tt>download_hls</tt>, <tt>trailer_hls</tt>,
+<tt>trailer_dash</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>hardsub</tt>: Preference order for which hardsub
+versions to extract. Default is <tt>None</tt> (no hardsubs).
+Eg: <tt>crunchyrollbeta:hardsub=en-US,None</tt></p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>vikichannel</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>video_types</tt>: Types of
+videos to download - one or more of <tt>episodes</tt>,
+<tt>movies</tt>, <tt>clips</tt>, <tt>trailers</tt></p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>youtubewebarchive</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>check_all</tt>: Try to check
+more at the cost of more requests. One or more of
+<tt>thumbnails</tt>, <tt>captures</tt></p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>gamejolt</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>comment_sort</tt>:
+<tt>hot</tt> (default), <tt>you</tt> (cookies needed),
+<tt>top</tt>, <tt>new</tt> - choose comment sorting mode (on
+GameJolt's side)</p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>hotstar</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>res</tt>: resolution to
+ignore - one or more of <tt>sd</tt>, <tt>hd</tt>,
+<tt>fhd</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>vcodec</tt>: vcodec to ignore - one or more of
+<tt>h264</tt>, <tt>h265</tt>, <tt>dvh265</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>dr</tt>: dynamic range to ignore - one or more of
+<tt>sdr</tt>, <tt>hdr10</tt>, <tt>dv</tt></p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>tiktok</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>app_version</tt>: App
+version to call mobile APIs with - should be set along with
+<tt>manifest_app_version</tt>. (e.g. <tt>20.2.1</tt>)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>manifest_app_version</tt>: Numeric app version to
+call mobile APIs with. (e.g. <tt>221</tt>)</p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>rokfinchannel</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>tab</tt>: Which tab to
+download. One of <tt>new</tt>, <tt>top</tt>,
+<tt>videos</tt>, <tt>podcasts</tt>, <tt>streams</tt>,
+<tt>stacks</tt>. (E.g.
+<tt>rokfinchannel:tab=streams</tt>)</p> </td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">NOTE: These
+options may be changed/removed in the future without concern
+for backward compatibility</p>
+
+<h2>INSTALLATION
+<a name="INSTALLATION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">You can install
+yt-dlp using one of the following methods:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Using the
+release binary</b> <br>
+You can simply download the correct binary file for your
+OS</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note: The
+manpages, shell completion files etc. are available in the
+source tarball
+(https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.tar.gz)</p>
+
+<p style="margin-left:11%; margin-top: 1em">In UNIX-like
+OSes (MacOS, Linux, BSD), you can also install the same in
+one of the following ways:</p>
+<pre style="margin-left:22%; margin-top: 1em">sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
+sudo chmod a+rx /usr/local/bin/yt-dlp
+sudo wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp
+sudo chmod a+rx /usr/local/bin/yt-dlp
+
+sudo aria2c https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp --dir /usr/local/bin -o yt-dlp
+sudo chmod a+rx /usr/local/bin/yt-dlp</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>With PIP
+(https://pypi.org/project/pip)</b> <br>
+You can install the PyPI package
+(https://pypi.org/project/yt-dlp) with:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">python3 -m pip install -U yt-dlp</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">You can install
+without any of the optional dependencies using:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">python3 -m pip install --no-deps -U yt-dlp</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+be on the cutting edge, you can also install the master
+branch with:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">python3 -m pip install --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.zip</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Note that on
+some systems, you may need to use <tt>py</tt> or
+<tt>python</tt> instead of <tt>python3</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>With
+Homebrew (https://brew.sh)</b> <br>
+macOS or Linux users that are using Homebrew can also
+install it by:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">brew install yt-dlp/taps/yt-dlp</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>UPDATE</b>
+<br>
+You can use <tt>yt-dlp -U</tt> to update if you are using
+the provided release</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you
+installed with pip, simply re-run the same command that was
+used to install the program</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you
+installed using Homebrew, run <tt>brew upgrade
+yt-dlp/taps/yt-dlp</tt></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>DEPENDENCIES</b>
+<br>
+Python versions 3.6+ (CPython and PyPy) are supported. Other
+versions and implementations may or may not work
+correctly.</p>
+
+<p style="margin-left:11%; margin-top: 1em">While all the
+other dependencies are optional, <tt>ffmpeg</tt> and
+<tt>ffprobe</tt> are highly recommended</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><b>ffmpeg</b> and <b>ffprobe</b>
+(https://www.ffmpeg.org) - Required for merging separate
+video and audio files as well as for various post-processing
+tasks. License depends on the build
+(https://www.ffmpeg.org/legal.html)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>mutagen</b> (https://github.com/quodlibet/mutagen) -
+For embedding thumbnail in certain formats. Licensed under
+GPLv2+
+(https://github.com/quodlibet/mutagen/blob/master/COPYING)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>pycryptodomex</b>
+(https://github.com/Legrandin/pycryptodome) - For decrypting
+AES-128 HLS streams and various other data. Licensed under
+BSD2
+(https://github.com/Legrandin/pycryptodome/blob/master/LICENSE.rst)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>websockets</b>
+(https://github.com/aaugustin/websockets) - For downloading
+over websocket. Licensed under BSD3
+(https://github.com/aaugustin/websockets/blob/main/LICENSE)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>secretstorage</b>
+(https://github.com/mitya57/secretstorage) - For accessing
+the Gnome keyring while decrypting cookies of Chromium-based
+browsers on Linux. Licensed under BSD
+(https://github.com/mitya57/secretstorage/blob/master/LICENSE)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>AtomicParsley</b>
+(https://github.com/wez/atomicparsley) - For embedding
+thumbnail in mp4/m4a if mutagen/ffmpeg cannot. Licensed
+under GPLv2+
+(https://github.com/wez/atomicparsley/blob/master/COPYING)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>brotli</b> (https://github.com/google/brotli) or
+<b>brotlicffi</b>
+(https://github.com/python-hyper/brotlicffi) - Brotli
+(https://en.wikipedia.org/wiki/Brotli) content encoding
+support. Both licensed under MIT 1
+(https://github.com/google/brotli/blob/master/LICENSE) 2
+(https://github.com/python-hyper/brotlicffi/blob/master/LICENSE)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>rtmpdump</b> (http://rtmpdump.mplayerhq.hu) - For
+downloading <tt>rtmp</tt> streams. ffmpeg will be used as a
+fallback. Licensed under GPLv2+
+(http://rtmpdump.mplayerhq.hu)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>mplayer</b> (http://mplayerhq.hu/design7/info.html)
+or <b>mpv</b> (https://mpv.io) - For downloading
+<tt>rstp</tt> streams. ffmpeg will be used as a fallback.
+Licensed under GPLv2+
+(https://github.com/mpv-player/mpv/blob/master/Copyright)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>phantomjs</b> (https://github.com/ariya/phantomjs) -
+Used in extractors where javascript needs to be run.
+Licensed under BSD3
+(https://github.com/ariya/phantomjs/blob/master/LICENSE.BSD)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>sponskrub</b>
+(https://github.com/faissaloo/SponSkrub) - For using the now
+<b>deprecated</b> sponskrub options. Licensed under GPLv3+
+(https://github.com/faissaloo/SponSkrub/blob/master/LICENCE.md)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>Any external downloader that you want to use with
+<tt>--downloader</tt></p> </td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">To use or
+redistribute the dependencies, you must agree to their
+respective licensing terms.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The Windows and
+MacOS standalone release binaries are already built with the
+python interpreter, mutagen, pycryptodomex and websockets
+included.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Note</b>:
+There are some regressions in newer ffmpeg versions that
+causes various issues when used alongside yt-dlp. Since
+ffmpeg is such an important dependency, we provide custom
+builds
+(https://github.com/yt-dlp/FFmpeg-Builds#ffmpeg-static-auto-builds)
+with patches for these issues at yt-dlp/FFmpeg-Builds
+(https://github.com/yt-dlp/FFmpeg-Builds). See the readme
+(https://github.com/yt-dlp/FFmpeg-Builds#patches-applied)
+for details on the specific issues solved by these
+builds</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>COMPILE <br>
+For Windows</b>: To build the Windows executable, you must
+have pyinstaller (and any of yt-dlp's optional dependencies
+if needed). Once you have all the necessary dependencies
+installed, (optionally) build lazy extractors using
+<tt>devscripts/make_lazy_extractors.py</tt>, and then just
+run <tt>pyinst.py</tt>. The executable will be built for the
+same architecture (32/64 bit) as the python used to build
+it.</p>
+
+<pre style="margin-left:22%; margin-top: 1em">py -m pip install -U pyinstaller -r requirements.txt
+py devscripts/make_lazy_extractors.py
+py pyinst.py</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+pyinstaller does not support
+(https://github.com/pyinstaller/pyinstaller#requirements-and-tested-platforms)
+Python installed from the Windows store without using a
+virtual environment</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>For
+Unix</b>: You will need the required build tools:
+<tt>python</tt>, <tt>make</tt> (GNU), <tt>pandoc</tt>,
+<tt>zip</tt>, <tt>pytest</tt> <br>
+Then simply run <tt>make</tt>. You can also run <tt>make
+yt-dlp</tt> instead to compile only the binary without
+updating any of the additional files</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Note</b>: In
+either platform, <tt>devscripts/update-version.py</tt> can
+be used to automatically update the version number</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can also
+fork the project on github and run your fork's build
+workflow (.github/workflows/build.yml) to automatically
+build a release</p>
+
+<h2>PLUGINS
+<a name="PLUGINS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Plugins are
+loaded from
+<tt>&lt;root-dir&gt;/ytdlp_plugins/&lt;type&gt;/__init__.py</tt>;
+where <tt>&lt;root-dir&gt;</tt> is the directory of the
+binary (<tt>&lt;root-dir&gt;/yt-dlp</tt>), or the root
+directory of the module if you are running directly from
+source-code (<tt>&lt;root dir&gt;/yt_dlp/__main__.py</tt>).
+Plugins are currently not supported for the <tt>pip</tt>
+version</p>
+
+<p style="margin-left:11%; margin-top: 1em">Plugins can be
+of <tt>&lt;type&gt;</tt>s <tt>extractor</tt> or
+<tt>postprocessor</tt>. Extractor plugins do not need to be
+enabled from the CLI and are automatically invoked when the
+input URL is suitable for it. Postprocessor plugins can be
+invoked using <tt>--use-postprocessor NAME</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">See
+&lt;ytdlp_plugins&gt; for example plugins.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+<b>all</b> plugins are imported even if not invoked, and
+that <b>there are no checks</b> performed on plugin code.
+Use plugins at your own risk and only if you trust the
+code</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you are a
+plugin author, add ytdlp-plugins
+(https://github.com/topics/ytdlp-plugins) as a topic to your
+repository for discoverability</p>
+
+<h2>EMBEDDING YT-DLP
+<a name="EMBEDDING YT-DLP"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">yt-dlp makes
+the best effort to be a good command-line program, and thus
+should be callable from any programming language.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Your program
+should avoid parsing the normal stdout since they may change
+in future versions. Instead they should use options such as
+<tt>-J</tt>, <tt>--print</tt>, <tt>--progress-template</tt>,
+<tt>--exec</tt> etc to create console output that you can
+reliably reproduce and parse.</p>
+
+<p style="margin-left:11%; margin-top: 1em">From a Python
+program, you can embed yt-dlp in a more powerful fashion,
+like this:</p>
+<pre style="margin-left:22%; margin-top: 1em">from yt_dlp import YoutubeDL
+
+
+ydl_opts = {'format': 'bestaudio'}
+with YoutubeDL(ydl_opts) as ydl:
+    ydl.download(['https://www.youtube.com/watch?v=BaW_jenozKc'])</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Most likely,
+you'll want to use various options. For a list of options
+available, have a look at <tt>yt_dlp/YoutubeDL.py</tt>
+(yt_dlp/YoutubeDL.py#L191).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Here's a more
+complete example demonstrating various functionality:</p>
+<pre style="margin-left:22%; margin-top: 1em">import json
+import yt_dlp
+
+
+class MyLogger:
+    def debug(self, msg):
+        # For compatibility with youtube-dl, both debug and info are passed into debug
+        # You can distinguish them by the prefix '[debug] '
+        if msg.startswith('[debug] '):
+            pass
+        else:
+            self.info(msg)
+
+    def info(self, msg):
+        pass
+
+    def warning(self, msg):
+        pass
+
+    def error(self, msg):
+        print(msg)
+
+
+# &#8505;&#65039; See the docstring of yt_dlp.postprocessor.common.PostProcessor
+class MyCustomPP(yt_dlp.postprocessor.PostProcessor):
+    # &#8505;&#65039; See docstring of yt_dlp.postprocessor.common.PostProcessor.run
+    def run(self, info):
+        self.to_screen('Doing stuff')
+        return [], info
+
+
+# &#8505;&#65039; See &quot;progress_hooks&quot; in the docstring of yt_dlp.YoutubeDL
+def my_hook(d):
+    if d['status'] == 'finished':
+        print('Done downloading, now converting ...')
+
+
+def format_selector(ctx):
+    &quot;&quot;&quot; Select the best video and the best audio that won't result in an mkv.
+    This is just an example and does not handle all cases &quot;&quot;&quot;
+
+    # formats are already sorted worst to best
+    formats = ctx.get('formats')[::-1]
+
+    # acodec='none' means there is no audio
+    best_video = next(f for f in formats
+                      if f['vcodec'] != 'none' and f['acodec'] == 'none')
+
+    # find compatible audio extension
+    audio_ext = {'mp4': 'm4a', 'webm': 'webm'}[best_video['ext']]
+    # vcodec='none' means there is no video
+    best_audio = next(f for f in formats if (
+        f['acodec'] != 'none' and f['vcodec'] == 'none' and f['ext'] == audio_ext))
+
+    yield {
+        # These are the minimum required fields for a merged format
+        'format_id': f'{best_video[&quot;format_id&quot;]}+{best_audio[&quot;format_id&quot;]}',
+        'ext': best_video['ext'],
+        'requested_formats': [best_video, best_audio],
+        # Must be + separated list of protocols
+        'protocol': f'{best_video[&quot;protocol&quot;]}+{best_audio[&quot;protocol&quot;]}'
+    }
+
+
+# &#8505;&#65039; See docstring of yt_dlp.YoutubeDL for a description of the options
+ydl_opts = {
+    'format': format_selector,
+    'postprocessors': [{
+        # Embed metadata in video using ffmpeg.
+        # &#8505;&#65039; See yt_dlp.postprocessor.FFmpegMetadataPP for the arguments it accepts
+        'key': 'FFmpegMetadata',
+        'add_chapters': True,
+        'add_metadata': True,
+    }],
+    'logger': MyLogger(),
+    'progress_hooks': [my_hook],
+    # Add custom headers
+    'http_headers': {'Referer': 'https://www.google.com'}
+}
+
+
+# &#8505;&#65039; See the public functions in yt_dlp.YoutubeDL for for other available functions.
+# Eg: &quot;ydl.download&quot;, &quot;ydl.download_with_info_file&quot;
+with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+    ydl.add_post_processor(MyCustomPP())
+    info = ydl.extract_info('https://www.youtube.com/watch?v=BaW_jenozKc')
+
+
+    # &#8505;&#65039; ydl.sanitize_info makes the info json-serializable
+    print(json.dumps(ydl.sanitize_info(info)))</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Tip</b>: If
+you are porting your code from youtube-dl to yt-dlp, one
+important point to look out for is that we do not guarantee
+the return value of <tt>YoutubeDL.extract_info</tt> to be
+json serializable, or even be a dictionary. It will be
+dictionary-like, but if you want to ensure it is a
+serializable dictionary, pass it through
+<tt>YoutubeDL.sanitize_info</tt> as shown in the example
+above</p>
+
+<h2>NEW FEATURES
+<a name="NEW FEATURES"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em">Based on <b>youtube-dl
+2021.12.17 commit/5add3f4
+(https://github.com/ytdl-org/youtube-dl/commit/5add3f4373287e6346ca3551239edab549284db3)</b>
+and <b>youtube-dlc 2020.11.11-3 commit/f9401f2
+(https://github.com/blackjack4494/yt-dlc/commit/f9401f2a91987068139c5f757b12fc711d4c0cee)</b>:
+You get all the features and patches of youtube-dlc
+(https://github.com/blackjack4494/yt-dlc) in addition to the
+latest youtube-dl
+(https://github.com/ytdl-org/youtube-dl)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>SponsorBlock Integration</b>: You can mark/remove
+sponsor sections in youtube videos by utilizing the
+SponsorBlock (https://sponsor.ajay.app) API</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Format Sorting</b>: The default format sorting
+options have been changed so that higher resolution and
+better codecs will be now preferred instead of simply using
+larger bitrate. Furthermore, you can now specify the sort
+order using <tt>-S</tt>. This allows for much easier format
+selection than what is possible by simply using
+<tt>--format</tt> (examples)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Merged with animelover1984/youtube-dl</b>: You get
+most of the features and improvements from
+animelover1984/youtube-dl
+(https://github.com/animelover1984/youtube-dl) including
+<tt>--write-comments</tt>, <tt>BiliBiliSearch</tt>,
+<tt>BilibiliChannel</tt>, Embedding thumbnail in
+mp4/ogg/opus, playlist infojson etc. Note that the NicoNico
+improvements are not available. See #31
+(https://github.com/yt-dlp/yt-dlp/pull/31) for details.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Youtube improvements</b>:</p></td></tr>
+</table>
+
+<p style="margin-left:14%;">&bull;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%"></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p style="margin-top: 1em">All Feeds (<tt>:ytfav</tt>,
+<tt>:ytwatchlater</tt>, <tt>:ytsubs</tt>,
+<tt>:ythistory</tt>, <tt>:ytrec</tt>) and private playlists
+supports downloading multiple pages of content</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>Search (<tt>ytsearch:</tt>, <tt>ytsearchdate:</tt>),
+search URLs and in-channel search works</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>Mixes supports downloading multiple pages of content</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>Some (but not all) age-gated content can be downloaded
+without cookies</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>Fix for n-sig based throttling
+(https://github.com/ytdl-org/youtube-dl/issues/29326)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>Redirect channel's home URL automatically to
+<tt>/video</tt> to preserve the old behaviour</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p><tt>255kbps</tt> audio is extracted (if available) from
+youtube music when premium cookies are given</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>Youtube music Albums, channels etc can be downloaded
+(except self-uploaded music
+(https://github.com/yt-dlp/yt-dlp/issues/723))</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>Download livestreams from the start using
+<tt>--live-from-start</tt> (experimental)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:14%; margin-top: 1em"><b>Cookies from
+browser</b>: Cookies can be automatically extracted from all
+major web browsers using <tt>--cookies-from-browser
+BROWSER[+KEYRING][:PROFILE]</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><b>Split video by chapters</b>:
+Videos can be split into multiple files based on chapters
+using <tt>--split-chapters</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Multi-threaded fragment downloads</b>: Download
+multiple fragments of m3u8/mpd videos in parallel. Use
+<tt>--concurrent-fragments</tt> (<tt>-N</tt>) option to set
+the number of threads used</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Aria2c with HLS/DASH</b>: You can use <tt>aria2c</tt>
+as the external downloader for DASH(mpd) and HLS(m3u8)
+formats</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>New and fixed extractors</b>: Many new extractors
+have been added and a lot of existing ones have been fixed.
+See the changelog (Changelog.md) or the list of supported
+sites (supportedsites.md)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>New MSOs</b>: Philo, Spectrum, SlingTV, Cablevision,
+RCN</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Subtitle extraction from manifests</b>: Subtitles can
+be extracted from streaming media manifests. See
+commit/be6202f
+(https://github.com/yt-dlp/yt-dlp/commit/be6202f12b97858b9d716e608394b51065d0419f)
+for details</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Multiple paths and output templates</b>: You can give
+different output templates and download paths for different
+types of files. You can also set a temporary path where
+intermediary files are downloaded to using <tt>--paths</tt>
+(<tt>-P</tt>)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Portable Configuration</b>: Configuration files are
+automatically loaded from the home and root directories. See
+configuration for details</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Output template improvements</b>: Output templates
+can now have date-time formatting, numeric offsets, object
+traversal etc. See output template for details. Even more
+advanced operations can also be done with the help of
+<tt>--parse-metadata</tt> and
+<tt>--replace-in-metadata</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Other new options</b>: Many new options have been
+added such as <tt>--concat-playlist</tt>, <tt>--print</tt>,
+<tt>--wait-for-video</tt>, <tt>--sleep-requests</tt>,
+<tt>--convert-thumbnails</tt>, <tt>--write-link</tt>,
+<tt>--force-download-archive</tt>,
+<tt>--force-overwrites</tt>, <tt>--break-on-reject</tt>
+etc</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Improvements</b>: Regex and other operators in
+<tt>--format</tt>/<tt>--match-filter</tt>, multiple
+<tt>--postprocessor-args</tt> and
+<tt>--downloader-args</tt>, faster archive checking, more
+format selection options, merge multi-video/audio, multiple
+<tt>--config-locations</tt>, <tt>--exec</tt> at different
+stages, etc</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Plugins</b>: Extractors and PostProcessors can be
+loaded from an external file. See plugins for details</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><b>Self-updater</b>: The releases can be updated using
+<tt>yt-dlp -U</tt></p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">See changelog
+(Changelog.md) or commits
+(https://github.com/yt-dlp/yt-dlp/commits) for the full list
+of changes</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Differences
+in default behavior</b> <br>
+Some of yt-dlp's default options are different from that of
+youtube-dl and youtube-dlc:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em">The options
+<tt>--auto-number</tt> (<tt>-A</tt>), <tt>--title</tt>
+(<tt>-t</tt>) and <tt>--literal</tt> (<tt>-l</tt>), no
+longer work. See removed options for details</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>avconv</tt> is not supported as an alternative to
+<tt>ffmpeg</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>The default output template is <tt>%(title)s
+[%(id)s].%(ext)s</tt>. There is no real reason for this
+change. This was changed before yt-dlp was ever made public
+and now there are no plans to change it back to
+<tt>%(title)s-%(id)s.%(ext)s</tt>. Instead, you may use
+<tt>--compat-options filename</tt></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>The default format sorting is different from youtube-dl
+and prefers higher resolution and better codecs rather than
+higher bitrates. You can use the <tt>--format-sort</tt>
+option to change this to any order you prefer, or use
+<tt>--compat-options format-sort</tt> to use youtube-dl's
+sorting order</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>The default format selector is <tt>bv*+ba/b</tt>. This
+means that if a combined video + audio format that is better
+than the best video-only format is found, the former will be
+preferred. Use <tt>-f bv+ba/b</tt> or <tt>--compat-options
+format-spec</tt> to revert this</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>Unlike youtube-dlc, yt-dlp does not allow merging
+multiple audio/video streams into one file by default (since
+this conflicts with the use of <tt>-f bv*+ba</tt>). If
+needed, this feature must be enabled using
+<tt>--audio-multistreams</tt> and
+<tt>--video-multistreams</tt>. You can also use
+<tt>--compat-options multistreams</tt> to enable both</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>--no-abort-on-error</tt> is enabled by default. Use
+<tt>--abort-on-error</tt> or <tt>--compat-options
+abort-on-error</tt> to abort on errors instead</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>When writing metadata files such as thumbnails,
+description or infojson, the same information (if available)
+is also written for playlists. Use
+<tt>--no-write-playlist-metafiles</tt> or
+<tt>--compat-options no-playlist-metafiles</tt> to not write
+these files</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>--add-metadata</tt> attaches the <tt>infojson</tt>
+to <tt>mkv</tt> files in addition to writing the metadata
+when used with <tt>--write-info-json</tt>. Use
+<tt>--no-embed-info-json</tt> or <tt>--compat-options
+no-attach-info-json</tt> to revert this</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>Some metadata are embedded into different fields when
+using <tt>--add-metadata</tt> as compared to youtube-dl.
+Most notably, <tt>comment</tt> field contains the
+<tt>webpage_url</tt> and <tt>synopsis</tt> contains the
+<tt>description</tt>. You can use <tt>--parse-metadata</tt>
+to modify this to your liking or use <tt>--compat-options
+embed-metadata</tt> to revert this</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_index</tt> behaves differently when used
+with options like <tt>--playlist-reverse</tt> and
+<tt>--playlist-items</tt>. See #302
+(https://github.com/yt-dlp/yt-dlp/issues/302) for details.
+You can use <tt>--compat-options playlist-index</tt> if you
+want to keep the earlier behavior</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>The output of <tt>-F</tt> is listed in a new format. Use
+<tt>--compat-options list-formats</tt> to revert this</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>All <i>experiences</i> of a funimation episode are
+considered as a single video. This behavior breaks existing
+archives. Use <tt>--compat-options
+seperate-video-versions</tt> to extract information from
+only the default player</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>Youtube live chat (if available) is considered as a
+subtitle. Use <tt>--sub-langs all,-live_chat</tt> to
+download all subtitles except live chat. You can also use
+<tt>--compat-options no-live-chat</tt> to prevent live chat
+from downloading</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>Youtube channel URLs are automatically redirected to
+<tt>/video</tt>. Append a <tt>/featured</tt> to the URL to
+download only the videos in the home page. If the channel
+does not have a videos tab, we try to download the
+equivalent <tt>UU</tt> playlist instead. For all other tabs,
+if the channel does not show the requested tab, an error
+will be raised. Also, <tt>/live</tt> URLs raise an error if
+there are no live videos instead of silently downloading the
+entire channel. You may use <tt>--compat-options
+no-youtube-channel-redirect</tt> to revert all these
+redirections</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>Unavailable videos are also listed for youtube
+playlists. Use <tt>--compat-options
+no-youtube-unavailable-videos</tt> to remove this</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>If <tt>ffmpeg</tt> is used as the downloader, the
+downloading and merging of formats happen in a single step
+when possible. Use <tt>--compat-options no-direct-merge</tt>
+to revert this</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>Thumbnail embedding in <tt>mp4</tt> is done with mutagen
+if possible. Use <tt>--compat-options
+embed-thumbnail-atomicparsley</tt> to force the use of
+AtomicParsley instead</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>Some private fields such as filenames are removed by
+default from the infojson. Use <tt>--no-clean-infojson</tt>
+or <tt>--compat-options no-clean-infojson</tt> to revert
+this</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>When <tt>--embed-subs</tt> and <tt>--write-subs</tt> are
+used together, the subtitles are written to disk and also
+embedded in the media file. You can use just
+<tt>--embed-subs</tt> to embed the subs and automatically
+delete the separate file. See #630 (comment)
+(https://github.com/yt-dlp/yt-dlp/issues/630#issuecomment-893659460)
+for more info. <tt>--compat-options no-keep-subs</tt> can be
+used to revert this</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">For ease of
+use, a few more compat options are available: *
+<tt>--compat-options all</tt>: Use all compat options *
+<tt>--compat-options youtube-dl</tt>: Same as
+<tt>--compat-options all,-multistreams</tt> *
+<tt>--compat-options youtube-dlc</tt>: Same as
+<tt>--compat-options
+all,-no-live-chat,-no-youtube-channel-redirect</tt></p>
+
+<h2>DEPRECATED OPTIONS
+<a name="DEPRECATED OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">These are all
+the deprecated options and the current alternative to
+achieve the same effect</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Almost
+redundant options</b> <br>
+While these options are almost the same as their new
+counterparts, there are some differences that prevents them
+being redundant</p>
+
+<pre style="margin-left:22%; margin-top: 1em">-j, --dump-json                  --print &quot;%()j&quot;
+-F, --list-formats               --print formats_table
+--list-thumbnails                --print thumbnails_table --print playlist:thumbnails_table
+--list-subs                      --print automatic_captions_table --print subtitles_table</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Redundant
+options</b> <br>
+While these options are redundant, they are still expected
+to be used due to their ease of use</p>
+
+<pre style="margin-left:22%; margin-top: 1em">--get-description                --print description
+--get-duration                   --print duration_string
+--get-filename                   --print filename
+--get-format                     --print format
+--get-id                         --print id
+--get-thumbnail                  --print thumbnail
+-e, --get-title                  --print title
+-g, --get-url                    --print urls
+--match-title REGEX              --match-filter &quot;title ~= (?i)REGEX&quot;
+--reject-title REGEX             --match-filter &quot;title !~= (?i)REGEX&quot;
+--min-views COUNT                --match-filter &quot;view_count &gt;=? COUNT&quot;
+--max-views COUNT                --match-filter &quot;view_count &lt;=? COUNT&quot;
+--user-agent UA                  --add-header &quot;User-Agent:UA&quot;
+--referer URL                    --add-header &quot;Referer:URL&quot;</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Not
+recommended</b> <br>
+While these options still work, their use is not recommended
+since there are other alternatives to achieve the same</p>
+
+<pre style="margin-left:22%; margin-top: 1em">--exec-before-download CMD       --exec &quot;before_dl:CMD&quot;
+--no-exec-before-download        --no-exec
+--all-formats                    -f all
+--all-subs                       --sub-langs all --write-subs
+--print-json                     -j --no-simulate
+--autonumber-size NUMBER         Use string formatting. Eg: %(autonumber)03d
+--autonumber-start NUMBER        Use internal field formatting like %(autonumber+NUMBER)s
+--id                             -o &quot;%(id)s.%(ext)s&quot;
+--metadata-from-title FORMAT     --parse-metadata &quot;%(title)s:FORMAT&quot;
+--hls-prefer-native              --downloader &quot;m3u8:native&quot;
+--hls-prefer-ffmpeg              --downloader &quot;m3u8:ffmpeg&quot;
+--list-formats-old               --compat-options list-formats (Alias: --no-list-formats-as-table)
+--list-formats-as-table          --compat-options -list-formats [Default] (Alias: --no-list-formats-old)
+--youtube-skip-dash-manifest     --extractor-args &quot;youtube:skip=dash&quot; (Alias: --no-youtube-include-dash-manifest)
+--youtube-skip-hls-manifest      --extractor-args &quot;youtube:skip=hls&quot; (Alias: --no-youtube-include-hls-manifest)
+--youtube-include-dash-manifest  Default (Alias: --no-youtube-skip-dash-manifest)
+--youtube-include-hls-manifest   Default (Alias: --no-youtube-skip-hls-manifest)</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Developer
+options</b> <br>
+These options are not intended to be used by the
+end-user</p>
+
+<pre style="margin-left:22%; margin-top: 1em">--test                           Download only part of video for testing extractors
+--youtube-print-sig-code         For testing youtube signatures
+--allow-unplayable-formats       List unplayable formats also
+--no-allow-unplayable-formats    Default</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Old
+aliases</b> <br>
+These are aliases that are no longer documented for various
+reasons</p>
+
+<pre style="margin-left:22%; margin-top: 1em">--avconv-location                --ffmpeg-location
+--clean-infojson                 --clean-info-json
+--cn-verification-proxy URL      --geo-verification-proxy URL
+--dump-headers                   --print-traffic
+--dump-intermediate-pages        --dump-pages
+--force-write-download-archive   --force-write-archive
+--load-info                      --load-info-json
+--no-clean-infojson              --no-clean-info-json
+--no-split-tracks                --no-split-chapters
+--no-write-srt                   --no-write-subs
+--prefer-unsecure                --prefer-insecure
+--rate-limit RATE                --limit-rate RATE
+--split-tracks                   --split-chapters
+--srt-lang LANGS                 --sub-langs LANGS
+--trim-file-names LENGTH         --trim-filenames LENGTH
+--write-srt                      --write-subs
+--yes-overwrites                 --force-overwrites</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Sponskrub
+Options</b> <br>
+Support for SponSkrub
+(https://github.com/faissaloo/SponSkrub) has been deprecated
+in favor of the <tt>--sponsorblock</tt> options</p>
+
+<pre style="margin-left:22%; margin-top: 1em">--sponskrub                      --sponsorblock-mark all
+--no-sponskrub                   --no-sponsorblock
+--sponskrub-cut                  --sponsorblock-remove all
+--no-sponskrub-cut               --sponsorblock-remove -all
+--sponskrub-force                Not applicable
+--no-sponskrub-force             Not applicable
+--sponskrub-location             Not applicable
+--sponskrub-args                 Not applicable</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>No longer
+supported</b> <br>
+These options may no longer work as intended</p>
+
+<pre style="margin-left:22%; margin-top: 1em">--prefer-avconv                  avconv is not officially supported by yt-dlp (Alias: --no-prefer-ffmpeg)
+--prefer-ffmpeg                  Default (Alias: --no-prefer-avconv)
+-C, --call-home                  Not implemented
+--no-call-home                   Default
+--include-ads                    No longer supported
+--no-include-ads                 Default
+--write-annotations              No supported site has annotations now
+--no-write-annotations           Default</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Removed</b>
+<br>
+These options were deprecated since 2014 and have now been
+entirely removed</p>
+
+<pre style="margin-left:22%; margin-top: 1em">-A, --auto-number                -o &quot;%(autonumber)s-%(id)s.%(ext)s&quot;
+-t, --title                      -o &quot;%(title)s-%(id)s.%(ext)s&quot;
+-l, --literal                    -o accepts literal names</pre>
+
+
+<h2>CONTRIBUTING
+<a name="CONTRIBUTING"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">See
+CONTRIBUTING.md (CONTRIBUTING.md#contributing-to-yt-dlp) for
+instructions on Opening an Issue
+(CONTRIBUTING.md#opening-an-issue) and Contributing code to
+the project (CONTRIBUTING.md#developer-instructions)</p>
+
+<h2>MORE
+<a name="MORE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">For FAQ see the
+youtube-dl README
+(https://github.com/ytdl-org/youtube-dl#faq)</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:11:50 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>UPDATE-LOCALE</title>
+
+</head>
+<body>
+
+<h1 align="center">UPDATE-LOCALE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNTAX">SYNTAX</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXAMPLE">EXAMPLE</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">update-locale -
+Modify global locale settings</p>
+
+<h2>SYNTAX
+<a name="SYNTAX"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">update-locale
+[<i>OPTIONS</i>] [<i>var</i>=<i>locale</i> | <i>var</i>]
+[...]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This program
+can be called by maintainer scripts when Debian packages are
+installed or removed, it updates the
+<b>/etc/default/locale</b> file to reflect changes in system
+configuration related to global locale settings. When
+variables have no value assigned, they are removed from the
+locale file. Some basic checks are performed to ensure that
+requested settings are valid.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p style="margin-top: 1em"><b>--help</b></p></td>
+<td width="2%"></td>
+<td width="50%">
+
+
+<p style="margin-top: 1em">Display an help message and
+exit.</p> </td>
+<td width="28%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>--reset</b></p>
+
+<p style="margin-left:22%;">Variables which are not set on
+command-line are cleared out.</p>
+
+<p style="margin-left:11%;"><b>--locale-file</b>
+<i>FILE</i></p>
+
+<p style="margin-left:22%;">Define file containing locale
+variables. (Default: <b>/etc/default/locale</b>)</p>
+
+<p style="margin-left:11%;"><b>--no-checks</b></p>
+
+<p style="margin-left:22%;">Do not perform sanity checks on
+locale variables.</p>
+
+<h2>EXAMPLE
+<a name="EXAMPLE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The command
+<b><br>
+update-locale LANG=en_CA.UTF-8 LANGUAGE</b> <br>
+sets <b>LANG</b> to <b>en_CA.UTF-8</b> and removes
+definitions for <b>LANGUAGE</b>.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>/etc/default/locale</b></p>
+
+<p style="margin-left:22%;">File where global locale
+settings are stored.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Denis Barbier
+&lt;barbier@linuxfr.org&gt;</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">locale-gen(8),
+locale(1)</p>
+<hr>
+</body>
+</html>

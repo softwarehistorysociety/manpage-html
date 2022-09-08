@@ -1,0 +1,203 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:42:47 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>FNMATCH</title>
+
+</head>
+<body>
+
+<h1 align="center">FNMATCH</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#EXAMPLE">EXAMPLE</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#COPYING PERMISSIONS">COPYING PERMISSIONS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">fnmatch -
+compare a string against a filename wildcard</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">@load
+&quot;fnmatch&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">result =
+fnmatch(pattern, string, flags)</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>fnmatch</i> extension provides an AWK interface to the
+<i>fnmatch</i>(3) routine. It adds a single function named
+<b>fnmatch()</b>, one predefined variable
+(<b>FNM_NOMATCH</b>), and an array of flag values named
+<b>FNM</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The first
+argument is the filename wildcard to match, the second is
+the filename string, and the third is either zero, or the
+bitwise OR of one or more of the flags in the <b>FNM</b>
+array.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The return
+value is zero on success, <b>FNM_NOMATCH</b> if the string
+did not match the pattern, or a different non-zero value if
+an error occurred.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The flags are
+follows: <b><br>
+FNM[&quot;CASEFOLD&quot;]</b></p>
+
+<p style="margin-left:22%;">Corresponds to the
+<b>FNM_CASEFOLD</b> flag as defined in
+<i>fnmatch</i>(3).</p>
+
+
+<p style="margin-left:11%;"><b>FNM[&quot;FILE_NAME&quot;]</b></p>
+
+<p style="margin-left:22%;">Corresponds to the
+<b>FNM_FILE_NAME</b> flag as defined in
+<i>fnmatch</i>(3).</p>
+
+
+<p style="margin-left:11%;"><b>FNM[&quot;LEADING_DIR&quot;]</b></p>
+
+<p style="margin-left:22%;">Corresponds to the
+<b>FNM_LEADING_DIR</b> flag as defined in
+<i>fnmatch</i>(3).</p>
+
+
+<p style="margin-left:11%;"><b>FNM[&quot;NOESCAPE&quot;]</b></p>
+
+<p style="margin-left:22%;">Corresponds to the
+<b>FNM_NOESCAPE</b> flag as defined in
+<i>fnmatch</i>(3).</p>
+
+
+<p style="margin-left:11%;"><b>FNM[&quot;PATHNAME&quot;]</b></p>
+
+<p style="margin-left:22%;">Corresponds to the
+<b>FNM_PATHNAME</b> flag as defined in
+<i>fnmatch</i>(3).</p>
+
+
+<p style="margin-left:11%;"><b>FNM[&quot;PERIOD&quot;]</b></p>
+
+<p style="margin-left:22%;">Corresponds to the
+<b>FNM_PERIOD</b> flag as defined in <i>fnmatch</i>(3).</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Nothing
+prevents AWK code from changing the predefined variable
+<b>FNM_NOMATCH</b>, but doing so may cause strange
+results.</p>
+
+<h2>EXAMPLE
+<a name="EXAMPLE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">@load
+&quot;fnmatch&quot; <br>
+... <br>
+flags = or(FNM[&quot;PERIOD&quot;],
+FNM[&quot;NOESCAPE&quot;]) <br>
+if (fnmatch(&quot;*.a&quot;, &quot;foo.c&quot;, flags) ==
+FNM_NOMATCH)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="85%">
+
+
+<p>print &quot;no match&quot;</p></td></tr>
+</table>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>GAWK:
+Effective AWK Programming</i>, <i>filefuncs</i>(3am),
+<i>fork</i>(3am), <i>inplace</i>(3am), <i>ordchr</i>(3am),
+<i>readdir</i>(3am), <i>readfile</i>(3am),
+<i>revoutput</i>(3am), <i>rwarray</i>(3am),
+<i>time</i>(3am).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>fnmatch</i>(3).</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Arnold Robbins,
+<b>arnold@skeeve.com</b>.</p>
+
+<h2>COPYING PERMISSIONS
+<a name="COPYING PERMISSIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+&copy; 2012, 2013, 2018, Free Software Foundation, Inc.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Permission is
+granted to make and distribute verbatim copies of this
+manual page provided the copyright notice and this
+permission notice are preserved on all copies.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Permission is
+granted to copy and distribute modified versions of this
+manual page under the conditions for verbatim copying,
+provided that the entire resulting derived work is
+distributed under the terms of a permission notice identical
+to this one.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Permission is
+granted to copy and distribute translations of this manual
+page into another language, under the above conditions for
+modified versions, except that this permission notice may be
+stated in a translation approved by the Foundation.</p>
+<hr>
+</body>
+</html>

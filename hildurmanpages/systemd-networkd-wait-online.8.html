@@ -1,0 +1,165 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:09:04 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SYSTEMD-NETWORKD-WAIT-ONLINE.SERVICE</title>
+
+</head>
+<body>
+
+<h1 align="center">SYSTEMD-NETWORKD-WAIT-ONLINE.SERVICE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-networkd-wait-online.service,
+systemd-networkd-wait-online - Wait for network to come
+online</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-networkd-wait-online.service</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/lib/systemd/systemd-networkd-wait-online</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>systemd-networkd-wait-online</b>
+is a oneshot system service (see <b>systemd.service</b>(5)),
+that waits for the network to be configured. By default, it
+will wait for all links it is aware of and which are managed
+by <b>systemd-networkd.service</b>(8) to be fully configured
+or failed, and for at least one link to be online. Here,
+online means that the link's operational state is equal or
+higher than &quot;degraded&quot;. The threshold can be
+configured by <b>--operational-state=</b> option.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+options are understood:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-i</b>
+<i>INTERFACE</i>[:<i>MIN_OPERSTATE</i>[:<i>MAX_OPERSTATE</i>]],
+<b>--interface=</b><i>INTERFACE</i>[:<i>MIN_OPERSTATE</i>[:<i>MAX_OPERSTATE</i>]]</p>
+
+<p style="margin-left:17%;">Network interface to wait for
+before deciding if the system is online. This is useful when
+a system has several interfaces which will be configured,
+but a particular one is necessary to access some network
+resources. When used, all other interfaces are ignored. This
+option may be used more than once to wait for multiple
+network interfaces. When this option is specified multiple
+times, then <b>systemd-networkd-wait-online</b> waits for
+all specified interfaces to be online. Optionally, required
+minimum and maximum operational states can be specified
+after a colon &quot;:&quot;. Please see <b>networkctl</b>(1)
+for possible operational states. If the operational state is
+not specified here, then the value from
+<i>RequiredForOnline=</i> in the corresponding .network file
+is used if present, and &quot;degraded&quot; otherwise.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--ignore=</b><i>INTERFACE</i></p>
+
+<p style="margin-left:17%;">Network interfaces to be
+ignored when deciding if the system is online. By default,
+only the loopback interface is ignored. This option may be
+used more than once to ignore multiple network
+interfaces.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-o</b>
+<i>MIN_OPERSTATE</i>[:<i>MAX_OPERSTATE</i>],
+<b>--operational-state=</b><i>MIN_OPERSTATE</i>[:<i>MAX_OPERSTATE</i>]</p>
+
+<p style="margin-left:17%;">Takes a minimum operational
+state and an optional maximum operational state. Please see
+<b>networkctl</b>(1) for possible operational states. If
+set, the specified value overrides <i>RequiredForOnline=</i>
+settings in .network files. But this does not override
+operational states specified in <b>--interface=</b>
+option.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--any</b></p>
+
+<p style="margin-left:17%;">Even if several interfaces are
+in configuring state, <b>systemd-networkd-wait-online</b>
+exits with success when at least one interface becomes
+online. When this option is specified with
+<b>--interface=</b>, then
+<b>systemd-networkd-wait-online</b> waits for one of the
+specified interfaces to be online. This option is useful
+when some interfaces may not have carrier on boot.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--timeout=</b><i>SECS</i></p>
+
+<p style="margin-left:17%;">Fail the service if the network
+is not online by the time the timeout elapses. A timeout of
+0 disables the timeout. Defaults to 120 seconds.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-q</b>,
+<b>--quiet</b></p>
+
+<p style="margin-left:17%;">Suppress log messages.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h</b>,
+<b>--help</b></p>
+
+<p style="margin-left:17%;">Print a short help text and
+exit.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--version</b></p>
+
+<p style="margin-left:17%;">Print a short version string
+and exit.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>systemd</b>(1),
+<b>systemd.service</b>(5),
+<b>systemd-networkd.service</b>(8), <b>networkctl</b>(1)</p>
+<hr>
+</body>
+</html>

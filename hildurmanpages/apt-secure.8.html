@@ -1,0 +1,412 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:31:55 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>APT-SECURE</title>
+
+</head>
+<body>
+
+<h1 align="center">APT-SECURE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#UNSIGNED REPOSITORIES">UNSIGNED REPOSITORIES</a><br>
+<a href="#SIGNED REPOSITORIES">SIGNED REPOSITORIES</a><br>
+<a href="#INFORMATION CHANGES">INFORMATION CHANGES</a><br>
+<a href="#USER CONFIGURATION">USER CONFIGURATION</a><br>
+<a href="#REPOSITORY CONFIGURATION">REPOSITORY CONFIGURATION</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#MANPAGE AUTHORS">MANPAGE AUTHORS</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#NOTES">NOTES</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">apt-secure -
+Archive authentication support for APT</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Starting with
+version 0.6, <b>APT</b> contains code that does signature
+checking of the Release file for all repositories. This
+ensures that data like packages in the archive can't be
+modified by people who have no access to the Release file
+signing key. Starting with version 1.1 <b>APT</b> requires
+repositories to provide recent authentication information
+for unimpeded usage of the repository. Since version 1.5
+changes in the information contained in the Release file
+about the repository need to be confirmed before APT
+continues to apply updates from this repository.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note: All
+APT-based package management front-ends like
+<b>apt-get</b>(8), <b>aptitude</b>(8) and <b>synaptic</b>(8)
+support this authentication feature, so this manpage uses
+APT to refer to them all for simplicity only.</p>
+
+<h2>UNSIGNED REPOSITORIES
+<a name="UNSIGNED REPOSITORIES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">If an archive
+has an unsigned Release file or no Release file at all
+current APT versions will refuse to download data from them
+by default in <b>update</b> operations and even if forced to
+download front-ends like <b>apt-get</b>(8) will require
+explicit confirmation if an installation request includes a
+package from such an unauthenticated archive.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can force
+all APT clients to raise only warnings by setting the
+configuration option
+<b>Acquire::AllowInsecureRepositories</b> to true.
+Individual repositories can also be allowed to be insecure
+via the <b>sources.list</b>(5) option allow-insecure=yes.
+Note that insecure repositories are strongly discouraged and
+all options to force apt to continue supporting them will
+eventually be removed. Users also have the <b>Trusted</b>
+option available to disable even the warnings, but be sure
+to understand the implications as detailed in
+<b>sources.list</b>(5).</p>
+
+<p style="margin-left:11%; margin-top: 1em">A repository
+which previously was authenticated but would loose this
+state in an <b>update</b> operation raises an error in all
+APT clients irrespective of the option to allow or forbid
+usage of insecure repositories. The error can be overcome by
+additionally setting
+<b>Acquire::AllowDowngradeToInsecureRepositories</b> to true
+or for Individual repositories with the
+<b>sources.list</b>(5) option
+allow-downgrade-to-insecure=yes.</p>
+
+<h2>SIGNED REPOSITORIES
+<a name="SIGNED REPOSITORIES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The chain of
+trust from an APT archive to the end user is made up of
+several steps. <b>apt-secure</b> is the last step in this
+chain; trusting an archive does not mean that you trust its
+packages not to contain malicious code, but means that you
+trust the archive maintainer. It's the archive maintainer's
+responsibility to ensure that the archive's integrity is
+preserved.</p>
+
+<p style="margin-left:11%; margin-top: 1em">apt-secure does
+not review signatures at a package level. If you require
+tools to do this you should look at <b>debsig-verify</b> and
+<b>debsign</b> (provided in the debsig-verify and devscripts
+packages respectively).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The chain of
+trust in Debian starts (e.g.) when a maintainer uploads a
+new package or a new version of a package to the Debian
+archive. In order to become effective, this upload needs to
+be signed by a key contained in one of the Debian package
+maintainer keyrings (available in the debian-keyring
+package). Maintainers' keys are signed by other maintainers
+following pre-established procedures to ensure the identity
+of the key holder. Similar procedures exist in all
+Debian-based distributions.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Once the
+uploaded package is verified and included in the archive,
+the maintainer signature is stripped off, and checksums of
+the package are computed and put in the Packages file. The
+checksums of all of the Packages files are then computed and
+put into the Release file. The Release file is then signed
+by the archive key for this Ubuntu release, and distributed
+alongside the packages and the Packages files on Ubuntu
+mirrors. The keys are in the Ubuntu archive keyring
+available in the ubuntu-keyring package.</p>
+
+<p style="margin-left:11%; margin-top: 1em">End users can
+check the signature of the Release file, extract a checksum
+of a package from it and compare it with the checksum of the
+package they downloaded by hand - or rely on APT doing this
+automatically.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Notice that
+this is distinct from checking signatures on a per package
+basis. It is designed to prevent two possible attacks:</p>
+
+<p style="margin-left:17%; margin-top: 1em">&bull; Network
+&quot;man in the middle&quot; attacks. Without signature
+checking, malicious agents can introduce themselves into the
+package download process and provide malicious software
+either by controlling a network element (router, switch,
+etc.) or by redirecting traffic to a rogue server (through
+ARP or DNS spoofing attacks).</p>
+
+<p style="margin-left:17%; margin-top: 1em">&bull; Mirror
+network compromise. Without signature checking, a malicious
+agent can compromise a mirror host and modify the files in
+it to propagate malicious software to all users downloading
+packages from that host.</p>
+
+<p style="margin-left:11%; margin-top: 1em">However, it
+does not defend against a compromise of the master server
+itself (which signs the packages) or against a compromise of
+the key used to sign the Release files. In any case, this
+mechanism can complement a per-package signature.</p>
+
+<h2>INFORMATION CHANGES
+<a name="INFORMATION CHANGES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">A Release file
+contains beside the checksums for the files in the
+repository also general information about the repository
+like the origin, codename or version number of the
+release.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This
+information is shown in various places so a repository owner
+should always ensure correctness. Further more user
+configuration like <b>apt_preferences</b>(5) can depend and
+make use of this information. Since version 1.5 the user
+must therefore explicitly confirm changes to signal that the
+user is sufficiently prepared e.g. for the new major release
+of the distribution shipped in the repository (as e.g.
+indicated by the codename).</p>
+
+<h2>USER CONFIGURATION
+<a name="USER CONFIGURATION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>apt-key</b>
+is the program that manages the list of keys used by APT to
+trust repositories. It can be used to add or remove keys as
+well as list the trusted keys. Limiting which key(s) are
+able to sign which archive is possible via the
+<b>Signed-By</b> in <b>sources.list</b>(5).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that a
+default installation already contains all keys to securely
+acquire packages from the default repositories, so fiddling
+with <b>apt-key</b> is only needed if third-party
+repositories are added.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In order to add
+a new key you need to first download it (you should make
+sure you are using a trusted communication channel when
+retrieving it), add it with <b>apt-key</b> and then run
+<b>apt-get update</b> so that apt can download and verify
+the InRelease or Release.gpg files from the archives you
+have configured.</p>
+
+<h2>REPOSITORY CONFIGURATION
+<a name="REPOSITORY CONFIGURATION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+provide archive signatures in an archive under your
+maintenance you have to:</p>
+
+<p style="margin-left:17%; margin-top: 1em">&bull;
+<i>Create a toplevel Release file</i>, if it does not exist
+already. You can do this by running <b>apt-ftparchive
+release</b> (provided in apt-utils).</p>
+
+<p style="margin-left:17%; margin-top: 1em">&bull; <i>Sign
+it</i>. You can do this by running <b>gpg --clearsign -o
+InRelease Release</b> and <b>gpg -abs -o Release.gpg
+Release</b>.</p>
+
+<p style="margin-left:17%; margin-top: 1em">&bull;
+<i>Publish the key fingerprint</i>, so that your users will
+know what key they need to import in order to authenticate
+the files in the archive. It is best to ship your key in its
+own keyring package like Ubuntu does with ubuntu-keyring to
+be able to distribute updates and key transitions
+automatically later.</p>
+
+<p style="margin-left:17%; margin-top: 1em">&bull;
+<i>Provide instructions on how to add your archive and
+key</i>. If your users can't acquire your key securely the
+chain of trust described above is broken. How you can help
+users add your key depends on your archive and target
+audience ranging from having your keyring package included
+in another archive users already have configured (like the
+default repositories of their distribution) to leveraging
+the web of trust.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Whenever the
+contents of the archive change (new packages are added or
+removed) the archive maintainer has to follow the first two
+steps outlined above.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>apt.conf</b>(5),
+<b>apt-get</b>(8), <b>sources.list</b>(5),
+<b>apt-key</b>(8), <b>apt-ftparchive</b>(1),
+<b>debsign</b>(1), <b>debsig-verify</b>(1),
+<b>gpg</b>(1)</p>
+
+<p style="margin-left:11%; margin-top: 1em">For more
+background information you might want to review the
+<b><font color="#0000FF">Debian Security
+Infrastructure</font></b>
+<small><font color="#000000">[1]</font></small>
+<font color="#000000">chapter of the Securing Debian Manual
+(also available in the harden-doc package) and the</font>
+<b><font color="#0000FF">Strong Distribution
+HOWTO</font></b>
+<small><font color="#000000">[2]</font></small>
+<font color="#000000">by V. Alex Brennen.</font></p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b><font color="#0000FF">APT
+bug page</font></b>
+<small><font color="#000000">[3]</font></small>
+<font color="#000000">. If you wish to report a bug in APT,
+please see /usr/share/doc/debian/bug-reporting.txt or the
+<b>reportbug</b>(1) command.</font></p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">APT
+was written by the APT team
+&lt;apt@packages.debian.org&gt;.</font></p>
+
+<h2>MANPAGE AUTHORS
+<a name="MANPAGE AUTHORS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">This
+man-page is based on the work of Javier
+Fern&aacute;ndez-Sanguino Pe&ntilde;a, Isaac Jones, Colin
+Walters, Florian Weimer and Michael Vogt.</font></p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>Jason
+Gunthorpe</b></font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>APT
+team</b></font></p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">1.</font></p> </td>
+<td width="2%"></td>
+<td width="46%">
+
+
+<p style="margin-top: 1em"><font color="#000000">Debian
+Security Infrastructure</font></p></td>
+<td width="37%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">https://www.debian.org/doc/manuals/securing-debian-howto/ch7</font></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">2.</font></p> </td>
+<td width="2%"></td>
+<td width="38%">
+
+
+<p style="margin-top: 1em"><font color="#000000">Strong
+Distribution HOWTO</font></p></td>
+<td width="45%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">http://www.cryptnet.net/fdp/crypto/strong_distro.html</font></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">3.</font></p> </td>
+<td width="2%"></td>
+<td width="18%">
+
+
+<p style="margin-top: 1em"><font color="#000000">APT bug
+page</font></p> </td>
+<td width="65%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">http://bugs.debian.org/src:apt</font></p>
+<hr>
+</body>
+</html>

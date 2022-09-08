@@ -1,0 +1,271 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:42:15 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>File::BaseDir</title>
+
+</head>
+<body>
+
+<h1 align="center">File::BaseDir</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#EXPORT">EXPORT</a><br>
+<a href="#METHODS">METHODS</a><br>
+<a href="#NON-UNIX PLATFORMS">NON-UNIX PLATFORMS</a><br>
+<a href="#BACKWARDS COMPATIBILITY">BACKWARDS COMPATIBILITY</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">File::BaseDir -
+Use the Freedesktop.org base directory specification</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">use
+File::BaseDir qw/xdg_data_files/; <br>
+for ( xdg_data_files('mime/globs') ) { <br>
+# do something <br>
+}</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This module can
+be used to find directories and files as specified by the
+Freedesktop.org Base Directory Specification. This
+specifications gives a mechanism to locate directories for
+configuration, application data and cache data. It is
+suggested that desktop applications for e.g. the Gnome,
+<small>KDE</small> or Xfce platforms follow this layout.
+However, the same layout can just as well be used for
+non-GUI applications.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This module
+forked from File::MimeInfo.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This module
+follows version 0.6 of BaseDir specification.</p>
+
+<h2>EXPORT
+<a name="EXPORT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">None by
+default, but all methods can be exported on demand. Also the
+groups &quot;:lookup&quot; and &quot;:vars&quot; are
+defined. The &quot;:vars&quot; group contains all routines
+with a &quot;xdg_&quot; prefix; the &quot;:lookup&quot;
+group contains the routines to locate files and
+directories.</p>
+
+<h2>METHODS
+<a name="METHODS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">&quot;new()&quot;</p>
+
+<p style="margin-left:17%;">Simple constructor to allow
+Object Oriented use of this module.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Lookup</b>
+<br>
+The following methods are used to lookup files and folders
+in one of the search paths. <br>
+&quot;data_home(@PATH)&quot;</p>
+
+<p style="margin-left:17%;">Takes a list of file path
+elements and returns a new path by appending them to the
+data home directory. The new path does not need to exist.
+Use this when writing user specific application data.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Example:</p>
+
+<p style="margin-left:17%; margin-top: 1em"># data_home is:
+/home/USER/.local/share <br>
+$path = $bd-&gt;data_home('Foo', 'Bar', 'Baz'); <br>
+# returns: /home/USER/.local/share/Foo/Bar/Baz</p>
+
+
+<p style="margin-left:11%;">&quot;data_dirs(@PATH)&quot;</p>
+
+<p style="margin-left:17%;">Looks for directories specified
+by @PATH in the data home and other data directories.
+Returns (possibly empty) list of readable directories. In
+scalar context only the first directory found is returned.
+Use this to lookup application data.</p>
+
+
+<p style="margin-left:11%;">&quot;data_files(@PATH)&quot;</p>
+
+<p style="margin-left:17%;">Looks for files specified by
+@PATH in the data home and other data directories. Only
+returns files that are readable. In scalar context only the
+first file found is returned. Use this to lookup application
+data.</p>
+
+
+<p style="margin-left:11%;">&quot;config_home(@PATH)&quot;</p>
+
+<p style="margin-left:17%;">Takes a list of path elements
+and appends them to the config home directory returning a
+new path. The new path does not need to exist. Use this when
+writing user specific configuration.</p>
+
+
+<p style="margin-left:11%;">&quot;config_dirs(@PATH)&quot;</p>
+
+<p style="margin-left:17%;">Looks for directories specified
+by @PATH in the config home and other config directories.
+Returns (possibly empty) list of readable directories. In
+scalar context only the first directory found is returned.
+Use this to lookup configuration.</p>
+
+
+<p style="margin-left:11%;">&quot;config_files(@PATH)&quot;</p>
+
+<p style="margin-left:17%;">Looks for files specified by
+@PATH in the config home and other config directories.
+Returns a (possibly empty) list of files that are readable.
+In scalar context only the first file found is returned. Use
+this to lookup configuration.</p>
+
+
+<p style="margin-left:11%;">&quot;cache_home(@PATH)&quot;</p>
+
+<p style="margin-left:17%;">Takes a list of path elements
+and appends them to the cache home directory returning a new
+path. The new path does not need to exist.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Variables</b>
+<br>
+The following methods only returns the value of one of the
+<small>XDG</small> variables. <br>
+&quot;xdg_data_home&quot;</p>
+
+<p style="margin-left:17%;">Returns either
+$ENV{XDG_DATA_HOME} or it&rsquo;s default value. Default is
+<i>$HOME/.local/share</i>.</p>
+
+<p style="margin-left:11%;">&quot;xdg_data_dirs&quot;</p>
+
+<p style="margin-left:17%;">Returns either
+$ENV{XDG_DATA_DIRS} or it&rsquo;s default value as list.
+Default is <i>/usr/local/share</i>, <i>/usr/share</i>.</p>
+
+
+<p style="margin-left:11%;">&quot;xdg_config_home&quot;</p>
+
+<p style="margin-left:17%;">Returns either
+$ENV{XDG_CONFIG_HOME} or it&rsquo;s default value. Default
+is <i>$HOME/.config</i>.</p>
+
+
+<p style="margin-left:11%;">&quot;xdg_config_dirs&quot;</p>
+
+<p style="margin-left:17%;">Returns either
+$ENV{XDG_CONFIG_DIRS} or it&rsquo;s default value as list.
+Default is <i>/etc/xdg</i>.</p>
+
+<p style="margin-left:11%;">&quot;xdg_cache_home&quot;</p>
+
+<p style="margin-left:17%;">Returns either
+$ENV{XDG_CACHE_HOME} or it&rsquo;s default value. Default is
+<i>$HOME/.cache</i>.</p>
+
+<h2>NON-UNIX PLATFORMS
+<a name="NON-UNIX PLATFORMS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The use of
+File::Spec ensures that all paths are returned in the
+appropriate form for the current platform. On Windows this
+module will try to set $HOME to a sensible value if it is
+not defined yet. On other platforms one can use e.g.
+File::HomeDir to set $HOME before loading File::BaseDir.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Please note
+that the specification is targeting Unix platforms only and
+will only have limited relevance on other platforms. Any
+platform dependent behavior in this module should be
+considered an extension of the spec.</p>
+
+<h2>BACKWARDS COMPATIBILITY
+<a name="BACKWARDS COMPATIBILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The methods
+&quot;xdg_data_files()&quot; and
+&quot;xdg_config_files()&quot; are exported for backwards
+compatibility with version 0.02. They are identical to
+&quot;data_files()&quot; and &quot;config_files()&quot;
+respectively but without the &quot;wantarray&quot;
+behavior.</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Please mail the
+author if you encounter any bugs.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Jaap
+Karssenberg || Pardus [Larus] &lt;pardus@cpan.org&gt;</p>
+
+<p style="margin-left:11%; margin-top: 1em">Copyright (c)
+2003, 2007 Jaap G Karssenberg. All rights reserved. This
+program is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Currently being
+maintained by Kim Ryan</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">&lt;http://www.freedesktop.org/wiki/Specifications/basedir-spec&gt;</p>
+<hr>
+</body>
+</html>

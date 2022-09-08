@@ -1,0 +1,118 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:08:47 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SYSTEMD-MAKEFS@.SERVICE</title>
+
+</head>
+<body>
+
+<h1 align="center">SYSTEMD-MAKEFS@.SERVICE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-makefs@.service,
+systemd-mkswap@.service, systemd-growfs@.service,
+systemd-makefs, systemd-growfs - Creating and growing file
+systems on demand</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-makefs@<i>device</i>.service</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-mkswap@<i>device</i>.service</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-growfs@<i>mountpoint</i>.service</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/lib/systemd/systemd-makefs</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/lib/systemd/systemd-growfs</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-makefs@.service,
+systemd-mkswap@.service, and systemd-growfs@.service are
+used to implement the <b>x-systemd.makefs</b> and
+<b>x-systemd.growfs</b> options in <b>fstab</b>(5), see
+<b>systemd.mount</b>(5). They are instantiated for each
+device for which the file system or swap structure needs to
+be initialized, and for each mount point where the file
+system needs to be grown.</p>
+
+<p style="margin-left:11%; margin-top: 1em">These services
+are started at boot, either right before or right after the
+mount point or swap device are used.</p>
+
+<p style="margin-left:11%; margin-top: 1em">systemd-makefs
+knows very little about specific file systems and swap
+devices, and after checking that the block device does not
+already contain a file system or other content, it will
+execute binaries specific to each filesystem type
+(/sbin/mkfs.<i>type</i>).</p>
+
+<p style="margin-left:11%; margin-top: 1em">systemd-growfs
+knows very little about specific file systems and swap
+devices, and will instruct the kernel to grow the mounted
+filesystem to full size of the underlying block device.
+Nevertheless, it needs to know the <b>ioctl</b>(2) number
+specific to each file system, so only certain types are
+supported. Currently: <b>ext4</b>(5), btrfs (see
+<b>btrfs-man5</b>(5)), <b>xfs</b>(5), and dm-crypt
+partitions (see <b>cryptsetup</b>(8)).</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the creation
+of a file system or swap device fails, the mount point or
+swap is failed too. If the growing of a file system fails, a
+warning is emitted.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>systemd</b>(1),
+<b>systemd.mount</b>(8), <b>systemd-fstab-generator</b>(8),
+<b>systemd-repart</b>(8), <b>mkfs.btrfs</b>(8),
+<b>mkfs.cramfs</b>(8), <b>mkfs.ext4</b>(8),
+<b>mkfs.fat</b>(8), <b>mkfs.hfsplus</b>(8),
+<b>mkfs.minix</b>(8), <b>mkfs.ntfs</b>(8),
+<b>mkfs.xfs</b>(8)</p>
+<hr>
+</body>
+</html>

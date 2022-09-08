@@ -1,0 +1,625 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:43:10 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>FSCK</title>
+
+</head>
+<body>
+
+<h1 align="center">FSCK</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#FILESYSTEM SPECIFIC OPTIONS">FILESYSTEM SPECIFIC OPTIONS</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#ENVIRONMENT VARIABLES">ENVIRONMENT VARIABLES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">fsck - check
+and repair a Linux filesystem</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fsck</b>
+[<b>-lsAVRTMNP</b>] [<b>-r</b> [<i>fd</i>]] [<b>-C</b>
+[<i>fd</i>]] [<b>-t</b> <i>fstype</i>]
+[<i>filesystem</i>...] [<b>--</b>]
+[<i>fs-specific-options</i>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fsck</b> is
+used to check and optionally repair one or more Linux
+filesystems. <i>filesys</i> can be a device name (e.g.
+<i>/dev/hdc1</i>, <i>/dev/sdb2</i>), a mount point (e.g.
+<i>/</i>, <i>/usr</i>, <i>/home</i>), or an filesystem label
+or UUID specifier (e.g.
+UUID=8868abf6-88c5-4a83-98b8-bfc24057f7bd or LABEL=root).
+Normally, the <b>fsck</b> program will try to handle
+filesystems on different physical disk drives in parallel to
+reduce the total amount of time needed to check all of
+them.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If no
+filesystems are specified on the command line, and the
+<b>-A</b> option is not specified, <b>fsck</b> will default
+to checking filesystems in <i>/etc/fstab</i> serially. This
+is equivalent to the <b>-As</b> options.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The exit code
+returned by <b>fsck</b> is the sum of the following
+conditions:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="4%">
+
+
+<p><b>0</b></p></td>
+<td width="6%"></td>
+<td width="53%">
+
+
+<p>No errors</p></td>
+<td width="15%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="4%">
+
+
+<p><b>1</b></p></td>
+<td width="6%"></td>
+<td width="53%">
+
+
+<p>Filesystem errors corrected</p></td>
+<td width="15%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="4%">
+
+
+<p><b>2</b></p></td>
+<td width="6%"></td>
+<td width="53%">
+
+
+<p>System should be rebooted</p></td>
+<td width="15%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="4%">
+
+
+<p><b>4</b></p></td>
+<td width="6%"></td>
+<td width="53%">
+
+
+<p>Filesystem errors left uncorrected</p></td>
+<td width="15%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="4%">
+
+
+<p><b>8</b></p></td>
+<td width="6%"></td>
+<td width="53%">
+
+
+<p>Operational error</p></td>
+<td width="15%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="4%">
+
+
+<p><b>16</b></p></td>
+<td width="6%"></td>
+<td width="53%">
+
+
+<p>Usage or syntax error</p></td>
+<td width="15%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="4%">
+
+
+<p><b>32</b></p></td>
+<td width="6%"></td>
+<td width="53%">
+
+
+<p>Checking canceled by user request</p></td>
+<td width="15%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="4%">
+
+
+<p><b>128</b></p></td>
+<td width="6%"></td>
+<td width="53%">
+
+
+<p>Shared-library error</p></td>
+<td width="15%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">The exit code
+returned when multiple filesystems are checked is the
+bit-wise OR of the exit codes for each filesystem that is
+checked.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In actuality,
+<b>fsck</b> is simply a front-end for the various filesystem
+checkers (<b>fsck</b>.<i>fstype</i>) available under Linux.
+The filesystem-specific checker is searched for in the PATH
+environment variable. If the PATH is undefined then fallback
+to &quot;/sbin&quot;.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Please see the
+filesystem-specific checker manual pages for further
+details.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em"><b>-l</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em">Create an exclusive
+<b>flock</b>(2) lock file (/run/fsck/&lt;diskname&gt;.lock)
+for whole-disk device. This option can be used with one
+device only (this means that <b>-A</b> and <b>-l</b> are
+mutually exclusive). This option is recommended when more
+<b>fsck</b>(8) instances are executed in the same time. The
+option is ignored when used for multiple devices or for
+non-rotating disks. <b>fsck</b> does not lock underlying
+devices when executed to check stacked devices (e.g. MD or
+DM) &ndash; this feature is not implemented yet.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-r&nbsp;</b>[<i>fd</i>]</p>
+
+<p style="margin-left:22%;">Report certain statistics for
+each fsck when it completes. These statistics include the
+exit status, the maximum run set size (in kilobytes), the
+elapsed all-clock time and the user and system CPU time used
+by the fsck run. For example:</p>
+
+<p style="margin-left:22%; margin-top: 1em">/dev/sda1:
+status 0, rss 92828, real 4.002804, user 2.677592, sys
+0.86186</p>
+
+<p style="margin-left:22%; margin-top: 1em">GUI front-ends
+may specify a file descriptor <i>fd</i>, in which case the
+progress bar information will be sent to that file
+descriptor in a machine parsable format. For example:</p>
+
+<p style="margin-left:22%; margin-top: 1em">/dev/sda1 0
+92828 4.002804 2.677592 0.86186</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-s</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Serialize <b>fsck</b> operations. This is a good idea if
+you are checking multiple filesystems and the checkers are
+in an interactive mode. (Note: <b>e2fsck</b>(8) runs in an
+interactive mode by default. To make <b>e2fsck</b>(8) run in
+a non-interactive mode, you must either specify the
+<b>-p</b> or <b>-a</b> option, if you wish for errors to be
+corrected automatically, or the <b>-n</b> option if you do
+not.)</p> </td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-t</b> <i>fslist</i></p>
+
+<p style="margin-left:22%;">Specifies the type(s) of
+filesystem to be checked. When the <b>-A</b> flag is
+specified, only filesystems that match <i>fslist</i> are
+checked. The <i>fslist</i> parameter is a comma-separated
+list of filesystems and options specifiers. All of the
+filesystems in this comma-separated list may be prefixed by
+a negation operator &rsquo;<b>no</b>&rsquo; or
+&rsquo;<b>!</b>&rsquo;, which requests that only those
+filesystems not listed in <i>fslist</i> will be checked. If
+none of the filesystems in <i>fslist</i> is prefixed by a
+negation operator, then only those listed filesystems will
+be checked.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Options
+specifiers may be included in the comma-separated
+<i>fslist</i>. They must have the format
+<b>opts=</b><i>fs-option</i>. If an options specifier is
+present, then only filesystems which contain
+<i>fs-option</i> in their mount options field of
+<i>/etc/fstab</i> will be checked. If the options specifier
+is prefixed by a negation operator, then only those
+filesystems that do not have <i>fs-option</i> in their mount
+options field of <i>/etc/fstab</i> will be checked.</p>
+
+<p style="margin-left:22%; margin-top: 1em">For example, if
+<b>opts=ro</b> appears in <i>fslist</i>, then only
+filesystems listed in <i>/etc/fstab</i> with the <b>ro</b>
+option will be checked.</p>
+
+<p style="margin-left:22%; margin-top: 1em">For
+compatibility with Mandrake distributions whose boot scripts
+depend upon an unauthorized UI change to the <b>fsck</b>
+program, if a filesystem type of <b>loop</b> is found in
+<i>fslist</i>, it is treated as if <b>opts=loop</b> were
+specified as an argument to the <b>-t</b> option.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Normally, the
+filesystem type is deduced by searching for <i>filesys</i>
+in the <i>/etc/fstab</i> file and using the corresponding
+entry. If the type cannot be deduced, and there is only a
+single filesystem given as an argument to the <b>-t</b>
+option, <b>fsck</b> will use the specified filesystem type.
+If this type is not available, then the default filesystem
+type (currently ext2) is used.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-A</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Walk through the <i>/etc/fstab</i> file and try to check
+all filesystems in one run. This option is typically used
+from the <i>/etc/rc</i> system initialization file, instead
+of multiple commands for checking a single filesystem.</p></td></tr>
+</table>
+
+<p style="margin-left:22%; margin-top: 1em">The root
+filesystem will be checked first unless the <b>-P</b> option
+is specified (see below). After that, filesystems will be
+checked in the order specified by the <i>fs_passno</i> (the
+sixth) field in the <i>/etc/fstab</i> file. Filesystems with
+a <i>fs_passno</i> value of 0 are skipped and are not
+checked at all. Filesystems with a <i>fs_passno</i> value of
+greater than zero will be checked in order, with filesystems
+with the lowest <i>fs_passno</i> number being checked first.
+If there are multiple filesystems with the same pass number,
+<b>fsck</b> will attempt to check them in parallel, although
+it will avoid running multiple filesystem checks on the same
+physical disk.</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>fsck</b>
+does not check stacked devices (RAIDs, dm-crypt, ...) in
+parallel with any other device. See below for
+FSCK_FORCE_ALL_PARALLEL setting. The /sys filesystem is used
+to determine dependencies between devices.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Hence, a very
+common configuration in <i>/etc/fstab</i> files is to set
+the root filesystem to have a <i>fs_passno</i> value of 1
+and to set all other filesystems to have a <i>fs_passno</i>
+value of 2. This will allow <b>fsck</b> to automatically run
+filesystem checkers in parallel if it is advantageous to do
+so. System administrators might choose not to use this
+configuration if they need to avoid multiple filesystem
+checks running in parallel for some reason &ndash; for
+example, if the machine in question is short on memory so
+that excessive paging is a concern.</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>fsck</b>
+normally does not check whether the device actually exists
+before calling a filesystem specific checker. Therefore
+non-existing devices may cause the system to enter
+filesystem repair mode during boot if the filesystem
+specific checker returns a fatal error. The
+<i>/etc/fstab</i> mount option <b>nofail</b> may be used to
+have <b>fsck</b> skip non-existing devices. <b>fsck</b> also
+skips non-existing devices that have the special filesystem
+type <b>auto</b>.</p>
+
+<p style="margin-left:11%;"><b>-C&nbsp;</b>[<i>fd</i>]</p>
+
+<p style="margin-left:22%;">Display completion/progress
+bars for those filesystem checkers (currently only for
+ext[234]) which support them. <b>fsck</b> will manage the
+filesystem checkers so that only one of them will display a
+progress bar at a time. GUI front-ends may specify a file
+descriptor <i>fd</i>, in which case the progress bar
+information will be sent to that file descriptor.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-M</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Do not check mounted filesystems and return an exit code
+of 0 for mounted filesystems.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-N</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Don&rsquo;t execute, just show what would be done.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-P</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>When the <b>-A</b> flag is set, check the root
+filesystem in parallel with the other filesystems. This is
+not the safest thing in the world to do, since if the root
+filesystem is in doubt things like the <b>e2fsck</b>(8)
+executable might be corrupted! This option is mainly
+provided for those sysadmins who don&rsquo;t want to
+repartition the root filesystem to be small and compact
+(which is really the right solution).</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-R</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>When checking all filesystems with the <b>-A</b> flag,
+skip the root filesystem. (This is useful in case the root
+filesystem has already been mounted read-write.)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-T</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Don&rsquo;t show the title on startup.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-V</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Produce verbose output, including all
+filesystem-specific commands that are executed.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-?</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<p style="margin-left:11%;"><b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<h2>FILESYSTEM SPECIFIC OPTIONS
+<a name="FILESYSTEM SPECIFIC OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Options
+which are not understood by fsck are passed to the
+filesystem-specific checker!</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">These options
+<b>must</b> not take arguments, as there is no way for
+<b>fsck</b> to be able to properly guess which options take
+arguments and which don&rsquo;t.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Options and
+arguments which follow the <b>--</b> are treated as
+filesystem-specific options to be passed to the
+filesystem-specific checker.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Please note
+that <b>fsck</b> is not designed to pass arbitrarily
+complicated options to filesystem-specific checkers. If
+you&rsquo;re doing something complicated, please just
+execute the filesystem-specific checker directly. If you
+pass <b>fsck</b> some horribly complicated options and
+arguments, and it doesn&rsquo;t do what you expect,
+<b>don&rsquo;t bother reporting it as a bug.</b>
+You&rsquo;re almost certainly doing something that you
+shouldn&rsquo;t be doing with <b>fsck</b>. Options to
+different filesystem-specific fsck&rsquo;s are not
+standardized.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/etc/fstab</i></p>
+
+<h2>ENVIRONMENT VARIABLES
+<a name="ENVIRONMENT VARIABLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The <b>fsck</b>
+program&rsquo;s behavior is affected by the following
+environment variables: <b><br>
+FSCK_FORCE_ALL_PARALLEL</b></p>
+
+<p style="margin-left:22%;">If this environment variable is
+set, <b>fsck</b> will attempt to check all of the specified
+filesystems in parallel, regardless of whether the
+filesystems appear to be on the same device. (This is useful
+for RAID systems or high-end storage systems such as those
+sold by companies such as IBM or EMC.) Note that the
+fs_passno value is still used.</p>
+
+<p style="margin-left:11%;"><b>FSCK_MAX_INST</b></p>
+
+<p style="margin-left:22%;">This environment variable will
+limit the maximum number of filesystem checkers that can be
+running at one time. This allows configurations which have a
+large number of disks to avoid <b>fsck</b> starting too many
+filesystem checkers at once, which might overload CPU and
+memory resources available on the system. If this value is
+zero, then an unlimited number of processes can be spawned.
+This is currently the default, but future versions of
+<b>fsck</b> may attempt to automatically determine how many
+filesystem checks can be run based on gathering accounting
+data from the operating system.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>PATH</b></p></td>
+<td width="5%"></td>
+<td width="78%">
+
+
+<p>The <b>PATH</b> environment variable is used to find
+filesystem checkers.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>FSTAB_FILE</b></p>
+
+<p style="margin-left:22%;">This environment variable
+allows the system administrator to override the standard
+location of the <i>/etc/fstab</i> file. It is also useful
+for developers who are testing <b>fsck</b>.</p>
+
+<p style="margin-left:11%;"><b>LIBBLKID_DEBUG=all</b></p>
+
+<p style="margin-left:22%;">enables libblkid debug
+output.</p>
+
+<p style="margin-left:11%;"><b>LIBMOUNT_DEBUG=all</b></p>
+
+<p style="margin-left:22%;">enables libmount debug
+output.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fstab</b>(5),
+<b>mkfs</b>(8), <b>fsck.ext2</b>(8) or <b>fsck.ext3</b>(8)
+or <b>e2fsck</b>(8), <b>cramfsck</b>(8), <b>fsck.jfs</b>(8),
+<b>fsck.nfs</b>(8), <b>fsck.minix</b>(8),
+<b>fsck.msdos</b>(8), <b>fsck.vfat</b>(8),
+<b>fsck.xfs</b>(8), <b>reiserfsck</b>(8)</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Theodore
+Ts&rsquo;o &lt;tytso@mit.edu&gt; <br>
+Karel Zak &lt;kzak@redhat.com&gt;</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The fsck
+command is part of the util-linux package and is available
+from
+<a href="https://www.kernel.org/pub/linux/utils/util-linux/">Linux
+Kernel Archive</a>.</p>
+<hr>
+</body>
+</html>

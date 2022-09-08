@@ -1,0 +1,388 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:37:36 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>DELUSER</title>
+
+</head>
+<body>
+
+<h1 align="center">DELUSER</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#RETURN VALUE">RETURN VALUE</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">deluser,
+delgroup - remove a user or group from the system</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>deluser</b>
+[options] [--force] [--remove-home] [--remove-all-files]
+[--backup] [--backup-to DIR] user</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>deluser</b>
+--group [options] group <b><br>
+delgroup</b> [options] [--only-if-empty] group</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>deluser</b>
+[options] user group</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>COMMON
+OPTIONS</b> <br>
+[--quiet] [--system] [--help] [--version] [--conf FILE]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>deluser</b>
+and <b>delgroup</b> remove users and groups from the system
+according to command line options and configuration
+information in <i>/etc/deluser.conf</i> and
+<i>/etc/adduser.conf</i>. They are friendlier front ends to
+the <b>userdel</b> and <b>groupdel</b> programs, removing
+the home directory as option or even all files on the system
+owned by the user to be removed, running a custom script,
+and other features. <b>deluser</b> and <b>delgroup</b> can
+be run in one of three modes:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Remove a
+normal user</b> <br>
+If called with one non-option argument and without the
+<b>--group</b> option, <b>deluser</b> will remove a normal
+user.</p>
+
+<p style="margin-left:11%; margin-top: 1em">By default,
+<b>deluser</b> will remove the user without removing the
+home directory, the mail spool or any other files on the
+system owned by the user. Removing the home directory and
+mail spool can be achieved using the <b>--remove-home</b>
+option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>--remove-all-files</b> option removes all files on the
+system owned by the user. Note that if you activate both
+options <b>--remove-home</b> will have no effect because all
+files including the home directory and mail spool are
+already covered by the <b>--remove-all-files</b> option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+backup all files before deleting them you can activate the
+<b>--backup</b> option which will create a file
+username.tar(.gz|.bz2) in the directory specified by the
+<b>--backup-to</b> option (defaulting to the current working
+directory). Both the remove and backup options can also be
+activated for default in the configuration file
+/etc/deluser.conf. See <b>deluser.conf(5)</b> for
+details.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+remove the root account (uid 0), then use the <b>--force</b>
+parameter; this may prevent to remove the root user by
+accident.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the file
+<b>/usr/local/sbin/deluser.local</b> exists, it will be
+executed after the user account has been removed in order to
+do any local cleanup. The arguments passed to
+<b>deluser.local</b> are: <br>
+username uid gid home-directory</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Remove a
+group</b> <br>
+If <b>deluser</b> is called with the <b>--group</b> option,
+or <b>delgroup</b> is called, a group will be removed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Warning: The
+primary group of an existing user cannot be removed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the option
+<b>--only-if-empty</b> is given, the group won&rsquo;t be
+removed if it has any members left.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Remove a
+user from a specific group</b> <br>
+If called with two non-option arguments, <b>deluser</b> will
+remove a user from a specific group.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--conf
+FILE</b></p>
+
+<p style="margin-left:22%;">Use FILE instead of the default
+files <i>/etc/deluser.conf</i> and
+<i>/etc/adduser.conf</i></p>
+
+<p style="margin-left:11%;"><b>--group</b></p>
+
+<p style="margin-left:22%;">Remove a group. This is the
+default action if the program is invoked as
+<i>delgroup</i>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--help</b></p></td>
+<td width="2%"></td>
+<td width="41%">
+
+
+<p>Display brief instructions.</p></td>
+<td width="37%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>--quiet</b></p>
+
+<p style="margin-left:22%;">Suppress progress messages.</p>
+
+<p style="margin-left:11%;"><b>--system</b></p>
+
+<p style="margin-left:22%;">Only delete if user/group is a
+system user/group. This avoids accidentally deleting
+non-system users/groups. Additionally, if the user does not
+exist, no error value is returned. This option is mainly for
+use in Debian package maintainer scripts.</p>
+
+<p style="margin-left:11%;"><b>--only-if-empty</b></p>
+
+<p style="margin-left:22%;">Only remove if no members are
+left.</p>
+
+<p style="margin-left:11%;"><b>--backup</b></p>
+
+<p style="margin-left:22%;">Backup all files contained in
+the userhome and the mailspool-file to a file named
+/$user.tar.bz2 or /$user.tar.gz.</p>
+
+<p style="margin-left:11%;"><b>--backup-to</b></p>
+
+<p style="margin-left:22%;">Place the backup files not in /
+but in the directory specified by this parameter. This
+implicitly sets --backup also.</p>
+
+<p style="margin-left:11%;"><b>--remove-home</b></p>
+
+<p style="margin-left:22%;">Remove the home directory of
+the user and its mailspool. If --backup is specified, the
+files are deleted after having performed the backup.</p>
+
+<p style="margin-left:11%;"><b>--remove-all-files</b></p>
+
+<p style="margin-left:22%;">Remove all files from the
+system owned by this user. Note: --remove-home does not have
+an effect any more. If --backup is specified, the files are
+deleted after having performed the backup.</p>
+
+<p style="margin-left:11%;"><b>--version</b></p>
+
+<p style="margin-left:22%;">Display version and copyright
+information.</p>
+
+<h2>RETURN VALUE
+<a name="RETURN VALUE"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em"><b>0</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em">The action was successfully
+executed.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>1</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>The user to delete was not a system account. No action
+was performed.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>2</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>There is no such user. No action was performed.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>3</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>There is no such group. No action was performed.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>4</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>Internal error. No action was performed.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>5</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>The group to delete is not empty. No action was
+performed.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>6</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>The user does not belong to the specified group. No
+action was performed.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>7</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>You cannot remove a user from its primary group. No
+action was performed.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>8</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>The required perl-package &rsquo;perl modules&rsquo; is
+not installed. This package is required to perform the
+requested actions. No action was performed.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>9</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>For removing the root account the parameter
+&quot;--force&quot; is required. No action was
+performed.</p> </td></tr>
+</table>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/etc/deluser.conf</i>
+Default configuration file for deluser and delgroup <i><br>
+/usr/local/sbin/deluser.local</i></p>
+
+<p style="margin-left:22%;">Optional custom add-ons.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>adduser</b>(8),
+<b>deluser.conf</b>(5), <b>groupdel</b>(8),
+<b>userdel</b>(8)</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright (C)
+2000 Roland Bauerschmidt. Modifications (C) 2004 Marc Haber
+and Joerg Hoh. This manpage and the deluser program are
+based on adduser which is: <br>
+Copyright (C) 1997, 1998, 1999 Guy Maor. <br>
+Copyright (C) 1995 Ted Hajek, with a great deal borrowed
+from the original Debian <b>adduser</b> <br>
+Copyright (C) 1994 Ian Murdock. <b>deluser</b> is free
+software; see the GNU General Public Licence version 2 or
+later for copying conditions. There is <i>no</i>
+warranty.</p>
+<hr>
+</body>
+</html>

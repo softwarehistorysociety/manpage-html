@@ -1,0 +1,203 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:03:44 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>run-one</title>
+
+</head>
+<body>
+
+<h1 align="center">run-one</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#EXAMPLE">EXAMPLE</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">run-one - run
+just one instance at a time of some command and unique set
+of arguments (useful for cronjobs, eg)</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>run-one</b>
+COMMAND [ARGS]</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>run-this-one</b>
+COMMAND [ARGS]</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>run-one-constantly</b>
+COMMAND [ARGS]</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>keep-one-running</b>
+COMMAND [ARGS]</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>run-one-until-success</b>
+COMMAND [ARGS]</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>run-one-until-failure</b>
+COMMAND [ARGS]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>run-one</b>
+is a wrapper script that runs no more than one unique
+instance of some command with a unique set of arguments.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This is often
+useful with cronjobs, when you want no more than one copy
+running at a time.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>run-this-one</b>
+is exactly like <b>run-one</b>, except that it will use
+<b>pgrep</b>(1) and <b>kill</b>(1) to find and kill any
+running processes owned by the user and matching the target
+commands and arguments. Note that <b>run-this-one</b> will
+block while trying to kill matching processes, until all
+matching processes are dead.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>run-one-constantly</b>
+operates exactly like <b>run-one</b> except that it respawns
+&quot;COMMAND [ARGS]&quot; any time COMMAND exits (zero or
+non-zero).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>keep-one-running</b>
+is an alias for <b>run-one-constantly</b>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>run-one-until-success</b>
+operates exactly like <b>run-one-constantly</b> except that
+it respawns &quot;COMMAND [ARGS]&quot; until COMMAND exits
+successfully (ie, exits zero).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>run-one-until-failure</b>
+operates exactly like <b>run-one-constantly</b> except that
+it respawns &quot;COMMAND [ARGS]&quot; until COMMAND exits
+with failure (ie, exits non-zero).</p>
+
+<h2>EXAMPLE
+<a name="EXAMPLE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">In one
+shell:</p>
+
+<p style="margin-left:11%; margin-top: 1em">$ run-one rsync
+-azP $HOME $USER@example.com:/srv/backup <br>
+foouser/ <br>
+foouser/.bash_history <br>
+40298 100% 37.13MB/s 0:00:00 (xfer#1, to-check=3509/3516)
+<br>
+foouser/.viminfo <br>
+20352 100% 98.39kB/s 0:00:00 (xfer#3, to-check=3478/3516)
+<br>
+... <br>
+sent 746228 bytes received 413059 bytes 36802.76 bytes/sec
+<br>
+total size is 3732890955 speedup is 3219.99</p>
+
+<p style="margin-left:11%; margin-top: 1em">In another
+shell, while the first is still running:</p>
+
+<p style="margin-left:11%; margin-top: 1em">$ run-one rsync
+-azP $HOME $USER@example.com:/srv/backup <br>
+$ echo $? <br>
+1</p>
+
+<p style="margin-left:11%; margin-top: 1em">Another
+example... In one shell:</p>
+
+<p style="margin-left:11%; margin-top: 1em">$ run-one
+top</p>
+
+<p style="margin-left:11%; margin-top: 1em">In another
+shell:</p>
+
+<p style="margin-left:11%; margin-top: 1em">$ run-one top
+<br>
+$ echo $? <br>
+1 <br>
+$ run-this-one top <br>
+top - 17:15:36 up 1:43, 3 users, load average: 1.05, 1.04,
+1.00 <br>
+Tasks: 170 total, 1 running, 169 sleeping, 0 stopped, 0
+zombie <br>
+...</p>
+
+<p style="margin-left:11%; margin-top: 1em">And note that
+the process in the first shell was killed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You might want
+to keep one ssh connection up and running all the time,
+with:</p>
+
+<p style="margin-left:11%; margin-top: 1em">$
+run-one-constantly ssh -N -C -L 3128:localhost:3128 -L
+7778:localhost:7778 example.com &amp;</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>flock</b>(1),
+<b>kill</b>(1), <b>pgrep</b>(1)</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This manpage
+and the utility was written by Dustin Kirkland
+&lt;kirkland@ubuntu.com&gt; for Ubuntu systems (but may be
+used by others). Permission is granted to copy, distribute
+and/or modify this document under the terms of the GNU
+General Public License, Version 3 published by the Free
+Software Foundation.</p>
+
+<p style="margin-left:11%; margin-top: 1em">On Debian
+systems, the complete text of the GNU General Public License
+can be found in /usr/share/common-licenses/GPL, or on the
+web at <i>http://www.gnu.org/licenses/gpl.txt</i>.</p>
+<hr>
+</body>
+</html>

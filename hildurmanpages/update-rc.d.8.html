@@ -1,0 +1,326 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:11:53 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>UPDATE-RC.D</title>
+
+</head>
+<body>
+
+<h1 align="center">UPDATE-RC.D</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#INSTALLING INIT SCRIPT LINKS">INSTALLING INIT SCRIPT LINKS</a><br>
+<a href="#REMOVING SCRIPTS">REMOVING SCRIPTS</a><br>
+<a href="#DISABLING INIT SCRIPT START LINKS">DISABLING INIT SCRIPT START LINKS</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">update-rc.d -
+install and remove System-V style init script links</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-rc.d</b>
+[<i>-f</i>] <i>name</i> <b>remove</b></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-rc.d</b>
+<i>name</i> <b>defaults</b></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-rc.d</b>
+<i>name</i> <b>defaults-disabled</b></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-rc.d</b>
+<i>name</i> <b>disable|enable</b> [ <i>S|2|3|4|5</i> ]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-rc.d</b>
+updates the System V style init script links
+<b>/etc/rc</b><i>runlevel</i><b>.d/</b><i>NNname</i> whose
+target is the script <b>/etc/init.d/</b><i>name</i>. These
+links are run by <b>init</b> when it changes runlevels; they
+are generally used to start and stop system services such as
+daemons. <i>runlevel</i> is one of the runlevels supported
+by <b>init</b>, namely, <b>0123456789S</b>, and <i>NN</i> is
+the two-digit sequence number that determines where in the
+sequence <b>init</b> will run the scripts.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This manpage
+documents only the usage and behaviour of
+<b>update-rc.d</b>. For a discussion of the System V style
+init script arrangements please see <b>init</b>(8) and the
+<i>Debian Policy Manual</i>.</p>
+
+<h2>INSTALLING INIT SCRIPT LINKS
+<a name="INSTALLING INIT SCRIPT LINKS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">update-rc.d
+requires dependency and runlevel information to be provided
+in the init.d script LSB comment header of all init.d
+scripts. See the insserv(8) manual page for details about
+the LSB header format.</p>
+
+<p style="margin-left:11%; margin-top: 1em">When run with
+the <b>defaults</b> option, <b>update-rc.d</b> makes links
+named
+<b>/etc/rc</b><i>runlevel</i><b>.d/[SK]</b><i>NNname</i>
+that point to the script <b>/etc/init.d/</b><i>name</i>,
+using runlevel and dependency information from the init.d
+script LSB comment header.</p>
+
+<p style="margin-left:11%; margin-top: 1em">When run with
+the <b>defaults-disabled</b> option, <b>update-rc.d</b>
+makes links named
+<b>/etc/rc</b><i>runlevel</i><b>.d/K</b><i>NNname</i> that
+point to the script <b>/etc/init.d/</b><i>name</i>, using
+dependency information from the init.d script LSB comment
+header. This means that the init.d script will be disabled
+(see below).</p>
+
+<p style="margin-left:11%; margin-top: 1em">If any files
+named
+<b>/etc/rc</b><i>runlevel</i><b>.d/[SK]??</b><i>name</i>
+already exist then <b>update-rc.d</b> does nothing. The
+program was written this way so that it will never change an
+existing configuration, which may have been customized by
+the system administrator. The program will only install
+links if none are present, i.e., if it appears that the
+service has never been installed before.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Older versions
+of <b>update-rc.d</b> also supported <b>start</b> and
+<b>stop</b> options. These options are no longer supported,
+and are now equivalent to the <b>defaults</b> option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">A common system
+administration error is to delete the links with the thought
+that this will &quot;disable&quot; the service, i.e., that
+this will prevent the service from being started. However,
+if all links have been deleted then the next time the
+package is upgraded, the package's <i>postinst</i> script
+will run <b>update-rc.d</b> again and this will reinstall
+links at their factory default locations. The correct way to
+disable services is to configure the service as stopped in
+all runlevels in which it is started by default. In the
+System V init system this means renaming the service's
+symbolic links from <b>S</b> to <b>K</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The script
+<b>/etc/init.d/</b><i>name</i> must exist before
+<b>update-rc.d</b> is run to create the links.</p>
+
+<h2>REMOVING SCRIPTS
+<a name="REMOVING SCRIPTS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">When invoked
+with the <i>remove</i> option, update-rc.d removes any links
+in the <b>/etc/rc</b><i>runlevel</i><b>.d</b> directories to
+the script <b>/etc/init.d/</b><i>name</i>. The script must
+have been deleted already. If the script is still present
+then <b>update-rc.d</b> aborts with an error message.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-rc.d</b>
+is usually called from a package's post-removal script when
+that script is given the <b>purge</b> argument. Any files in
+the <b>/etc/rc</b><i>runlevel</i><b>.d</b> directories that
+are not symbolic links to the script
+<b>/etc/init.d/</b><i>name</i> will be left untouched.</p>
+
+<h2>DISABLING INIT SCRIPT START LINKS
+<a name="DISABLING INIT SCRIPT START LINKS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">When run with
+the <b>disable</b> [ <i>S|2|3|4|5</i> ] options,
+<b>update-rc.d</b> modifies existing runlevel links for the
+script <b>/etc/init.d/</b><i>name</i> by renaming start
+links to stop links with a sequence number equal to the
+difference of 100 minus the original sequence number.</p>
+
+<p style="margin-left:11%; margin-top: 1em">When run with
+the <b>enable</b> [ <i>S|2|3|4|5</i> ] options,
+<b>update-rc.d</b> modifies existing runlevel links for the
+script <b>/etc/init.d/</b><i>name</i> by renaming stop links
+to start links with a sequence number equal to the positive
+difference of current sequence number minus 100, thus
+returning to the original sequence number that the script
+had been installed with before disabling it.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Both of these
+options only operate on start runlevel links of S, 2, 3, 4
+or 5. If no start runlevel is specified after the disable or
+enable keywords, the script will attempt to modify links in
+all start runlevels.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em"><b>-f</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em">Force removal of symlinks even
+if <b>/etc/init.d/</b><i>name</i> still exists.</p></td></tr>
+</table>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Insert links
+using the defaults:</p>
+
+<p style="margin-left:15%;"><b>update-rc.d foobar
+defaults</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">The equivalent
+dependency header would have start and stop dependencies on
+$remote_fs and $syslog, and start in runlevels 2-5 and stop
+in runlevels 0, 1 and 6.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Remove all
+links for a script (assuming foobar has been deleted
+already):</p>
+
+<p style="margin-left:15%;"><b>update-rc.d foobar
+remove</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Example of
+disabling a service:</p>
+
+<p style="margin-left:15%;"><b>update-rc.d foobar
+disable</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Example of a
+command for installing a system initialization-and-shutdown
+script:</p>
+
+<p style="margin-left:15%;"><b>update-rc.d foobar
+defaults</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Example of a
+command for disabling a system initialization-and-shutdown
+script:</p>
+
+<p style="margin-left:15%;"><b>update-rc.d foobar
+disable</b></p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">See
+<i>http://bugs.debian.org/sysv-rc</i> and
+<i>http://bugs.debian.org/init-system-helpers</i>.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>/etc/init.d/</b></p>
+
+<p style="margin-left:22%;">The directory containing the
+actual init scripts.</p>
+
+<p style="margin-left:11%;"><b>/etc/rc?.d/</b></p>
+
+<p style="margin-left:22%;">The directories containing the
+links used by <b>init</b> and managed by <b>update-rc.d
+.</b></p>
+
+
+<p style="margin-left:11%;"><b>/etc/init.d/skeleton</b></p>
+
+<p style="margin-left:22%;">Model for use by writers of
+<b>init.d</b> scripts.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Debian
+Policy Manual</i>, <b><br>
+/etc/init.d/skeleton</b>, <b><br>
+insserv</b>(8), <b><br>
+init</b>(8)</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Ian Jackson,
+Miquel van Smoorenburg</p>
+
+<p style="margin-left:11%; margin-top: 1em">Licence: GNU
+Public Licence v2 or Later (GPLv2+)</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">2001 Henrique
+de Moraes Holschuh</p>
+<hr>
+</body>
+</html>

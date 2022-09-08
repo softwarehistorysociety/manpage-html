@@ -1,0 +1,281 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:05:16 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SG_GET_LBA_STATUS</title>
+
+</head>
+<body>
+
+<h1 align="center">SG_GET_LBA_STATUS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#REPORTING BUGS">REPORTING BUGS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">sg_get_lba_status
+- send SCSI GET LBA STATUS(16 or 32) command</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sg_get_lba_status</b>
+[<i>--16</i>] [<i>--32</i>] [<i>--brief</i>]
+[<i>--element-id=EI</i>] [<i>--help</i>] [<i>--hex</i>]
+[<i>--lba=LBA</i>] [<i>--maxlen=LEN</i>] [<i>--raw</i>]
+[<i>--readonly</i>] [<i>--report-type=RT</i>]
+[<i>--scan-len=SL</i>] [<i>--verbose</i>] [<i>--version</i>]
+<i>DEVICE</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Send the SCSI
+GET LBA STATUS(16) or GET LBA STATUS(32) command to the
+<i>DEVICE</i> and output the response. The 16 byte command
+variant was introduced in (draft) SBC-3 revision 20 and
+devices that support logical block provisioning should
+support this command. The GET LBA STATUS(32) command was
+added in (draft) SBC-4 revision 14.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The default
+action is to decode the response into one LBA status
+descriptor per line output to stdout. The descriptor LBA is
+output in hex (prefixed by &rsquo;0x&rsquo;) and the number
+of blocks is output in decimal followed by the provisioning
+status and additional status in decimal. The provisioning
+status can be in the range 0 to 15 of which only 0 (mapped
+or unknown), 1 (unmapped), 2 (anchored), 3 (mapped) and 4
+(unknown) are used currently. The amount of output can be
+reduced by the <i>--brief</i> option.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Arguments to
+long options are mandatory for short options as well.
+<b><br>
+-S</b>, <b>--16</b></p>
+
+<p style="margin-left:22%;">send SCSI GET LBA STATUS(16)
+command which is the 16 byte variant. In the absence of the
+<i>--16</i> or the <i>--32</i> options the SCSI GET LBA
+STATUS(16) command is sent. If both <i>--16</i> and the
+<i>--32</i> options are given then the GET LBA STATUS(16)
+command is sent.</p>
+
+<p style="margin-left:11%;"><b>-T</b>, <b>--32</b></p>
+
+<p style="margin-left:22%;">send SCSI GET LBA STATUS(32)
+command which is the 32 byte variant. When given together
+with the <i>--16</i> option then this option is ignored (so
+the GET LBA STATUS(16) command is sent).</p>
+
+<p style="margin-left:11%;"><b>-b</b>, <b>--brief</b></p>
+
+<p style="margin-left:22%;">when use once then one LBA
+status descriptor per line is output to stdout. Each line
+has this format: &quot;0x&lt;descriptor_LBA&gt;
+0x&lt;blocks&gt; &lt;provisioning_status&gt;
+&lt;additional_status&gt;&quot;. So the descriptor&rsquo;s
+starting LBA and number of blocks are output in hex while
+the provisioning status and additional status are in
+decimal. When used twice (e.g. &rsquo;-bb&rsquo; or
+&rsquo;--brief --brief&rsquo;) then the provisioning status
+of the given <i>LBA</i> (or LBA 0 if the <i>--lba</i> option
+is not given) is output to stdout. A check is made that the
+given <i>LBA</i> lies in the range of the first returned LBA
+status descriptor (as it should according to SBC-3 revision
+20) and warnings are sent to stderr if it doesn&rsquo;t.</p>
+
+<p style="margin-left:11%;"><b>-e</b>,
+<b>--element-id</b>=<i>EI</i></p>
+
+<p style="margin-left:22%;">where <i>EI</i> is the element
+identifier of the physical element for which the LBAs shall
+be reported based on the value in the report type field
+(i.e. <i>RT</i>). This option is only active with the SCSI
+GET LBA STATUS(32) command (i.e. it is ignored if the GET
+LBA STATUS(16) command is sent). <br>
+Valid element identifiers are non-zero. The default value of
+<i>EI</i> is 0 which means in the context that no element
+identifier is specified.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">output the usage message then
+exit.</p>
+
+<p style="margin-left:11%;"><b>-H</b>, <b>--hex</b></p>
+
+<p style="margin-left:22%;">output response to this command
+in ASCII hex.</p>
+
+<p style="margin-left:11%;"><b>-l</b>,
+<b>--lba</b>=<i>LBA</i></p>
+
+<p style="margin-left:22%;">where <i>LBA</i> is the
+starting Logical Block Address (LBA) to check the
+provisioning status for. Note that the <i>DEVICE</i> chooses
+how many following blocks that it will return provisioning
+status for.</p>
+
+<p style="margin-left:11%;"><b>-m</b>,
+<b>--maxlen</b>=<i>LEN</i></p>
+
+<p style="margin-left:22%;">where <i>LEN</i> is the
+(maximum) response length in bytes. It is placed in the
+cdb&rsquo;s &quot;allocation length&quot; field. If not
+given then 24 is used. 24 is enough space for the response
+header and one LBA status descriptor. <i>LEN</i> should be 8
+plus a multiple of 16 (e.g. 24, 40, and 56 are
+suitable).</p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--raw</b></p>
+
+<p style="margin-left:22%;">output response in binary (to
+stdout).</p>
+
+<p style="margin-left:11%;"><b>-R</b>,
+<b>--readonly</b></p>
+
+<p style="margin-left:22%;">open the <i>DEVICE</i>
+read-only (e.g. in Unix with the O_RDONLY flag). The default
+is to open it read-write.</p>
+
+<p style="margin-left:11%;"><b>-t</b>,
+<b>--report-type</b>=<i>RT</i></p>
+
+<p style="margin-left:22%;">where <i>RT</i> is 0 for report
+all LBAs; 1 for report LBAs using non-zero provisioning
+status; 2 for report LBAs that are mapped; 3 for report LBAs
+that are de-allocated; 4 for report LBAs that are anchored;
+16 for report LBAs that may return an unrecovered error. The
+REPORT TYPE field was added to the GET LBA STATUS cdb in
+sbc4r12. <br>
+Since the REPORT TYPE field is newer than the command, the
+response contains the RTP bit to indicate whether or not the
+<i>DEVICE</i> acts on the REPORT TYE field (set when it does
+act on it, clear otherwise).</p>
+
+<p style="margin-left:11%;"><b>-s</b>,
+<b>--scan-len</b>=<i>SL</i></p>
+
+<p style="margin-left:22%;">where <i>SL</i> is the scan
+length which is the maximum number of contiguous logical
+blocks to be scanned for logical blocks that meet the given
+report type (i.e. <i>RT</i>). This option is only active
+with the SCSI GET LBA STATUS(32) command (i.e. it is ignored
+if the GET LBA STATUS(16) command is sent). <br>
+The default value of <i>SL</i> is 0 which should be
+interpreted by the <i>DEVICE</i> as there is no limits to
+the number of LBAs that shall be scanned.</p>
+
+<p style="margin-left:11%;"><b>-v</b>, <b>--verbose</b></p>
+
+<p style="margin-left:22%;">increase the level of
+verbosity, (i.e. debug output). Additional output caused by
+this option is sent to stderr.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">print the version string and
+then exit.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">In SBC-3
+revision 25 the calculation associated with the Parameter
+Data Length field in the response was modified. Prior to
+that the byte offset was 8 and in revision 25 it was changed
+to 4.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For a
+discussion of logical block provisioning see section 4.7 of
+sbc4r14.pdf at http://www.t10.org (or the corresponding
+section of a later draft).</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The exit status
+of sg_get_lba_status is 0 when it is successful. Otherwise
+see the sg3_utils(8) man page.</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Written by
+Douglas Gilbert.</p>
+
+<h2>REPORTING BUGS
+<a name="REPORTING BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Report bugs to
+&lt;dgilbert at interlog dot com&gt;.</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+&copy; 2009-2018 Douglas Gilbert <br>
+This software is distributed under a FreeBSD license. There
+is NO warranty; not even for MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sg_write_same(8),
+sg_unmap(8)</b></p>
+<hr>
+</body>
+</html>

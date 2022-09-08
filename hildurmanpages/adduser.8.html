@@ -1,0 +1,491 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:31:29 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>ADDUSER</title>
+
+</head>
+<body>
+
+<h1 align="center">ADDUSER</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXIT VALUES">EXIT VALUES</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">adduser,
+addgroup - add a user or group to the system</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>adduser</b>
+[options] [--home DIR] [--shell SHELL] [--no-create-home]
+[--uid ID] [--firstuid ID] [--lastuid ID] [--ingroup GROUP |
+--gid ID] [--disabled-password] [--disabled-login] [--gecos
+GECOS] [--add_extra_groups] [--encrypt-home] user</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>adduser</b>
+--system [options] [--home DIR] [--shell SHELL]
+[--no-create-home] [--uid ID] [--group | --ingroup GROUP |
+--gid ID] [--disabled-password] [--disabled-login] [--gecos
+GECOS] user</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>addgroup</b>
+[options] [--gid ID] group</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>addgroup</b>
+--system [options] [--gid ID] group</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>adduser</b>
+[options] user group</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>COMMON
+OPTIONS</b> <br>
+[--quiet] [--debug] [--force-badname] [--help|-h]
+[--version] [--conf FILE]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>adduser</b>
+and <b>addgroup</b> add users and groups to the system
+according to command line options and configuration
+information in <i>/etc/adduser.conf</i>. They are friendlier
+front ends to the low level tools like <b>useradd,
+groupadd</b> and <b>usermod</b> programs, by default
+choosing Debian policy conformant UID and GID values,
+creating a home directory with skeletal configuration,
+running a custom script, and other features. <b>adduser</b>
+and <b>addgroup</b> can be run in one of five modes:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Add a normal
+user</b> <br>
+If called with one non-option argument and without the
+<b>--system</b> or <b>--group</b> options, <b>adduser</b>
+will add a normal user.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>adduser</b>
+will choose the first available UID from the range specified
+for normal users in the configuration file. The UID can be
+overridden with the <b>--uid</b> option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The range
+specified in the configuration file may be overridden with
+the <b>--firstuid</b> and <b>--lastuid</b> options.</p>
+
+<p style="margin-left:11%; margin-top: 1em">By default,
+each user in Debian GNU/Linux is given a corresponding group
+with the same name. Usergroups allow group writable
+directories to be easily maintained by placing the
+appropriate users in the new group, setting the set-group-ID
+bit in the directory, and ensuring that all users use a
+umask of 002. If this option is turned off by setting
+<b>USERGROUPS</b> to <i>no</i>, all users&rsquo; GIDs are
+set to <b>USERS_GID</b>. Users&rsquo; primary groups can
+also be overridden from the command line with the
+<b>--gid</b> or <b>--ingroup</b> options to set the group by
+id or name, respectively. Also, users can be added to one or
+more groups defined in adduser.conf either by setting
+ADD_EXTRA_GROUPS to 1 in adduser.conf, or by passing
+<b>--add_extra_groups</b> on the commandline.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>adduser</b>
+will create a home directory subject to <b>DHOME</b>,
+<b>GROUPHOMES</b>, and <b>LETTERHOMES</b>. The home
+directory can be overridden from the command line with the
+<b>--home</b> option, and the shell with the <b>--shell</b>
+option. The home directory&rsquo;s set-group-ID bit is set
+if <b>USERGROUPS</b> is <i>yes</i> so that any files created
+in the user&rsquo;s home directory will have the correct
+group.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>adduser</b>
+will copy files from <b>SKEL</b> into the home directory and
+prompt for finger (gecos) information and a password. The
+gecos may also be set with the <b>--gecos</b> option. With
+the <b>--disabled-login</b> option, the account will be
+created but will be disabled until a password is set. The
+<b>--disabled-password</b> option will not set a password,
+but login is still possible (for example with SSH RSA keys).
+To set up an encrypted home directory for the new user, add
+the <b>--encrypt-home</b> option. For more information,
+refer to the -b option of
+<b>ecryptfs-setup-private(1).</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">If the file
+<b>/usr/local/sbin/adduser.local</b> exists, it will be
+executed after the user account has been set up in order to
+do any local setup. The arguments passed to
+<b>adduser.local</b> are: <br>
+username uid gid home-directory <br>
+The environment variable VERBOSE is set according to the
+following rule:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p>0 if</p></td>
+<td width="5%"></td>
+<td width="30%">
+
+
+<p><b>--quiet</b> is specified</p></td>
+<td width="48%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;">1 if neither</p>
+
+<p style="margin-left:22%;"><b>--quiet</b> nor
+<b>--debug</b> is specified</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p>2 if</p></td>
+<td width="5%"></td>
+<td width="30%">
+
+
+<p><b>--debug</b> is specified</p></td>
+<td width="48%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%; margin-top: 1em">(The same
+applies to the variable DEBUG, but DEBUG is deprecated and
+will be removed in a later version of <b>adduser</b>.)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Add a system
+user</b> <br>
+If called with one non-option argument and the
+<b>--system</b> option, <b>adduser</b> will add a system
+user. If a user with the same name already exists in the
+system uid range (or, if the uid is specified, if a user
+with that uid already exists), adduser will exit with a
+warning. This warning can be suppressed by adding
+<b>--quiet</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>adduser</b>
+will choose the first available UID from the range specified
+for system users in the configuration file (FIRST_SYSTEM_UID
+and LAST_SYSTEM_UID). If you want to have a specific UID,
+you can specify it using the <b>--uid</b> option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">By default,
+system users are placed in the <b>nogroup</b> group. To
+place the new system user in an already existing group, use
+the <b>--gid</b> or <b>--ingroup</b> options. To place the
+new system user in a new group with the same ID, use the
+<b>--group</b> option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">A home
+directory is created by the same rules as for normal users.
+The new system user will have the shell
+<i>/usr/sbin/nologin</i> (unless overridden with the
+<b>--shell</b> option), and have logins disabled. Skeletal
+configuration files are not copied.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Add a user
+group</b> <br>
+If <b>adduser</b> is called with the <b>--group</b> option
+and without the <b>--system</b> option, or <b>addgroup</b>
+is called respectively, a user group will be added.</p>
+
+<p style="margin-left:11%; margin-top: 1em">A GID will be
+chosen from the range specified for system GIDS in the
+configuration file (FIRST_GID, LAST_GID). To override that
+mechanism you can give the GID using the <b>--gid</b>
+option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The group is
+created with no users.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Add a system
+group</b> <br>
+If <b>addgroup</b> is called with the <b>--system</b>
+option, a system group will be added.</p>
+
+<p style="margin-left:11%; margin-top: 1em">A GID will be
+chosen from the range specified for system GIDS in the
+configuration file (FIRST_SYSTEM_GID, LAST_SYSTEM_GID). To
+override that mechanism you can give the GID using the
+<b>--gid</b> option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The group is
+created with no users.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Add an
+existing user to an existing group</b> <br>
+If called with two non-option arguments, <b>adduser</b> will
+add an existing user to an existing group.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--conf
+FILE</b></p>
+
+<p style="margin-left:22%;">Use FILE instead of
+<i>/etc/adduser.conf</i>.</p>
+
+<p style="margin-left:11%;"><b>--disabled-login</b></p>
+
+<p style="margin-left:22%;">Do not run passwd to set the
+password. The user won&rsquo;t be able to use her account
+until the password is set.</p>
+
+<p style="margin-left:11%;"><b>--disabled-password</b></p>
+
+<p style="margin-left:22%;">Like --disabled-login, but
+logins are still possible (for example using SSH RSA keys)
+but not using password authentication.</p>
+
+<p style="margin-left:11%;"><b>--force-badname</b></p>
+
+<p style="margin-left:22%;">By default, user and group
+names are checked against the configurable regular
+expression <b>NAME_REGEX</b> (or <b>NAME_REGEX_SYSTEM</b> if
+<b>--system</b> is specified) specified in the configuration
+file. This option forces <b>adduser</b> and <b>addgroup</b>
+to apply only a weak check for validity of the name.
+<b>NAME_REGEX</b> is described in
+<b>adduser.conf</b>(5).</p>
+
+<p style="margin-left:11%;"><b>--gecos GECOS</b></p>
+
+<p style="margin-left:22%;">Set the gecos field for the new
+entry generated. <b>adduser</b> will not ask for finger
+information if this option is given.</p>
+
+<p style="margin-left:11%;"><b>--gid ID</b></p>
+
+<p style="margin-left:22%;">When creating a group, this
+option forces the new groupid to be the given number. When
+creating a user, this option will put the user in that
+group.</p>
+
+<p style="margin-left:11%;"><b>--group</b></p>
+
+<p style="margin-left:22%;">When combined with
+<b>--system</b>, a group with the same name and ID as the
+system user is created. If not combined with
+<b>--system</b>, a group with the given name is created.
+This is the default action if the program is invoked as
+<b>addgroup</b>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--help</b></p></td>
+<td width="2%"></td>
+<td width="41%">
+
+
+<p>Display brief instructions.</p></td>
+<td width="37%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>--home DIR</b></p>
+
+<p style="margin-left:22%;">Use DIR as the user&rsquo;s
+home directory, rather than the default specified by the
+configuration file. If the directory does not exist, it is
+created and skeleton files are copied.</p>
+
+<p style="margin-left:11%;"><b>--shell SHELL</b></p>
+
+<p style="margin-left:22%;">Use SHELL as the user&rsquo;s
+login shell, rather than the default specified by the
+configuration file.</p>
+
+<p style="margin-left:11%;"><b>--ingroup GROUP</b></p>
+
+<p style="margin-left:22%;">Add the new user to GROUP
+instead of a usergroup or the default group defined by
+<b>USERS_GID</b> in the configuration file. This affects the
+users primary group. To add additional groups, see the
+<b>add_extra_groups</b> option.</p>
+
+<p style="margin-left:11%;"><b>--no-create-home</b></p>
+
+<p style="margin-left:22%;">Do not create the home
+directory, even if it doesn&rsquo;t exist.</p>
+
+<p style="margin-left:11%;"><b>--quiet</b></p>
+
+<p style="margin-left:22%;">Suppress informational
+messages, only show warnings and errors.</p>
+
+<p style="margin-left:11%;"><b>--debug</b></p>
+
+<p style="margin-left:22%;">Be verbose, most useful if you
+want to nail down a problem with adduser.</p>
+
+<p style="margin-left:11%;"><b>--system</b></p>
+
+<p style="margin-left:22%;">Create a system user or
+group.</p>
+
+<p style="margin-left:11%;"><b>--uid ID</b></p>
+
+<p style="margin-left:22%;">Force the new userid to be the
+given number. <b>adduser</b> will fail if the userid is
+already taken.</p>
+
+<p style="margin-left:11%;"><b>--firstuid ID</b></p>
+
+<p style="margin-left:22%;">Override the first uid in the
+range that the uid is chosen from (overrides
+<b>FIRST_UID</b> specified in the configuration file).</p>
+
+<p style="margin-left:11%;"><b>--lastuid ID</b></p>
+
+<p style="margin-left:22%;">Override the last uid in the
+range that the uid is chosen from ( <b>LAST_UID</b> )</p>
+
+<p style="margin-left:11%;"><b>--add_extra_groups</b></p>
+
+<p style="margin-left:22%;">Add new user to extra groups
+defined in the configuration file.</p>
+
+<p style="margin-left:11%;"><b>--version</b></p>
+
+<p style="margin-left:22%;">Display version and copyright
+information.</p>
+
+<h2>EXIT VALUES
+<a name="EXIT VALUES"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em"><b>0</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em">The user exists as specified.
+This can have 2 causes: The user was created by adduser or
+the user was already present on the system before adduser
+was invoked. If adduser was returning 0 , invoking adduser a
+second time with the same parameters as before also returns
+0.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>1</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>Creating the user or group failed because it was already
+present with other UID/GID than specified. The username or
+groupname was rejected because of a mismatch with the
+configured regular expressions, see adduser.conf(5). Adduser
+has been aborted by a signal.</p></td></tr>
+</table>
+
+<p style="margin-left:22%;">Or for many other yet
+undocumented reasons which are printed to console then. You
+may then consider to remove <b>--quiet</b> to make adduser
+more verbose.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/adduser.conf</p>
+
+<p style="margin-left:22%;">Default configuration file for
+adduser and addgroup</p>
+
+
+<p style="margin-left:11%;">/usr/local/sbin/adduser.local</p>
+
+<p style="margin-left:22%;">Optional custom add-ons.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>adduser.conf</b>(5),
+<b>deluser</b>(8), <b>groupadd</b>(8), <b>useradd</b>(8),
+<b>usermod</b>(8), Debian Policy 9.2.2.</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright (C)
+1997, 1998, 1999 Guy Maor. Modifications by Roland
+Bauerschmidt and Marc Haber. Additional patches by Joerg Hoh
+and Stephen Gran. <br>
+Copyright (C) 1995 Ted Hajek, with a great deal borrowed
+from the original Debian <b>adduser</b> <br>
+Copyright (C) 1994 Ian Murdock. <b>adduser</b> is free
+software; see the GNU General Public Licence version 2 or
+later for copying conditions. There is <i>no</i>
+warranty.</p>
+<hr>
+</body>
+</html>

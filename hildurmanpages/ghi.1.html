@@ -1,0 +1,241 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:45:53 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>GHI</title>
+
+</head>
+<body>
+
+<h1 align="center">GHI</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#GHI COMMANDS">GHI COMMANDS</a><br>
+<a href="#ENVIRONMENT VARIABLES">ENVIRONMENT VARIABLES</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#REPORTING BUGS">REPORTING BUGS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ghi</b> -
+the stupid issue tracker</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ghi</b>
+[<b>--version</b>]
+[<b>-p</b>|<b>--paginate</b>|<b>--no-pager</b>]
+[<b>--help</b>] <i>command</i> [<i>args</i>] <br>
+[ <b>--</b> [<i>user</i>/]<i>repo</i>]]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">GHI is the
+alphabetical acronym for GitHub Issues. GHI provides an easy
+way to manage your issues from the comfort of the command
+line and your editor of choice.</p>
+
+<p style="margin-left:11%; margin-top: 1em">GHI should look
+familiar if you&acute;re familiar with Git. When invoked
+from a repository directory that has a GitHub remote, GHI
+will work with that repository&acute;s issues by default.
+Otherwise, GHI will work with your global issues or with a
+repository specified in its terminating arguments.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>command</i> is either the name of a GHI command (see
+below) or an alias.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--version</b></p>
+
+<p style="margin-left:22%;">Prints the GHI version
+number.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--help</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Prints the synopsis and a list of commonly-used
+commands. If a GHI command is named, this option will bring
+up the manual page for that command.</p></td></tr>
+</table>
+
+<p style="margin-left:22%; margin-top: 1em">See
+<b>ghi-help</b>(1) for more information.</p>
+
+<p style="margin-left:11%;"><b>-p</b>,
+<b>--paginate</b></p>
+
+<p style="margin-left:22%;">Pipe all output into less if
+standard output is a terminal.</p>
+
+<p style="margin-left:11%;"><b>--no-pager</b></p>
+
+<p style="margin-left:22%;">Do not pipe output into a
+pager.</p>
+
+<p style="margin-left:11%;"><b>--[no-]color</b></p>
+
+<p style="margin-left:22%;">Toggle colorized output.</p>
+
+<h2>GHI COMMANDS
+<a name="GHI COMMANDS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ghi-assign</b>(1)</p>
+
+<p style="margin-left:22%;">Assign an issue to yourself (or
+someone else).</p>
+
+<p style="margin-left:11%;"><b>ghi-close</b>(1)</p>
+
+<p style="margin-left:22%;">Close an issue.</p>
+
+<p style="margin-left:11%;"><b>ghi-comment</b>(1)</p>
+
+<p style="margin-left:22%;">Leave a comment on an
+issue.</p>
+
+<p style="margin-left:11%;"><b>ghi-config</b>(1)</p>
+
+<p style="margin-left:22%;">Configure GHI.</p>
+
+<p style="margin-left:11%;"><b>ghi-edit</b>(1)</p>
+
+<p style="margin-left:22%;">Modify an existing issue.</p>
+
+<p style="margin-left:11%;"><b>ghi-label</b>(1)</p>
+
+<p style="margin-left:22%;">Create, list, modify, or delete
+labels.</p>
+
+<p style="margin-left:11%;"><b>ghi-list</b>(1)</p>
+
+<p style="margin-left:22%;">List your issues (or a
+repository&acute;s).</p>
+
+<p style="margin-left:11%;"><b>ghi-milestone</b>(1)</p>
+
+<p style="margin-left:22%;">Manage project milestones.</p>
+
+<p style="margin-left:11%;"><b>ghi-open</b>(1)</p>
+
+<p style="margin-left:22%;">Open (or reopen) an issue.</p>
+
+<p style="margin-left:11%;"><b>ghi-show</b>(1)</p>
+
+<p style="margin-left:22%;">Show an issue&acute;s
+details.</p>
+
+<h2>ENVIRONMENT VARIABLES
+<a name="ENVIRONMENT VARIABLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Various GHI
+commands use the following environment variables: <i><br>
+GHI_REPO</i></p>
+
+<p style="margin-left:22%;">The GitHub repository to be
+used by the issued GHI command.</p>
+
+<p style="margin-left:11%;"><i>GHI_TOKEN</i></p>
+
+<p style="margin-left:22%;">The OAuth access token used to
+authenticate you.</p>
+
+<p style="margin-left:11%;"><i>GHI_PAGER</i></p>
+
+<p style="margin-left:22%;">This environment variable
+overrides <i>$GIT_PAGER</i> and <i>$PAGER</i>. If it is set
+to an empty string or to the value &quot;cat&quot;, git will
+not launch a pager.</p>
+
+<p style="margin-left:11%;"><i>GHI_EDITOR</i></p>
+
+<p style="margin-left:22%;">This environment variable
+overrides <i>$GIT_EDITOR</i>, <i>$VISUAL</i>, and
+<i>$EDITOR</i>.</p>
+
+<p style="margin-left:11%;"><i>GITHUB_USER</i></p>
+
+<p style="margin-left:22%;">Your GitHub username: used to
+authenticate and identify you.</p>
+
+<p style="margin-left:11%;"><i>GITHUB_PASSWORD</i></p>
+
+<p style="margin-left:22%;">If you store your GitHub
+password in an environment variable, GHI will automatically
+attempt to fetch an access token using it.</p>
+
+<p style="margin-left:11%; margin-top: 1em">All environment
+variables may also be stored in Git configuration files
+where the variable is in lowercase form and the underscore
+is a period (e.g., <i>$GHI_REPO</i> would become the
+ghi.repo option).</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">GHI is
+maintained by Stephen Celis. A full list of contributors can
+be found at
+<i>https://github.com/stephencelis/ghi/contributors</i>.</p>
+
+<h2>REPORTING BUGS
+<a name="REPORTING BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">ghi open --
+stephencelis/ghi</p>
+
+<p style="margin-left:11%; margin-top: 1em">Or visit
+<i>https://github.com/stephencelis/ghi/issues</i>.</p>
+<hr>
+</body>
+</html>

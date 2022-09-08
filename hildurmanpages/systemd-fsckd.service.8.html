@@ -1,0 +1,178 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:08:45 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SYSTEMD-FSCKD.SERVICE</title>
+
+</head>
+<body>
+
+<h1 align="center">SYSTEMD-FSCKD.SERVICE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#PROTOCOL FOR COMMUNICATION WITH PLYMOUTH">PROTOCOL FOR COMMUNICATION WITH PLYMOUTH</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-fsckd.service,
+systemd-fsckd.socket, systemd-fsckd - File system check
+progress reporting</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-fsckd.service</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-fsckd.socket</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/lib/systemd/systemd-fsckd</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-fsckd.service
+is a service responsible for receiving file system check
+progress, and communicating some consolidated data to
+console and plymouth (if running). It also handles possible
+check cancellations.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>systemd-fsckd</b>
+receives messages about file system check progress from
+<b>fsck</b> through an UNIX domain socket. It can display
+the progress of the least advanced fsck as well as the total
+number of devices being checked in parallel to the console.
+It will also send progress messages to plymouth. Both the
+raw data and translated messages are sent, so compiled
+plymouth themes can use the raw data to display custom
+messages, and scripted themes, not supporting i18n, can
+display the translated versions.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>systemd-fsckd</b>
+will instruct plymouth to grab Control+C keypresses. When
+the key is pressed, running checks will be terminated. It
+will also cancel any newly connected fsck instances for the
+lifetime of systemd-fsckd.</p>
+
+<h2>PROTOCOL FOR COMMUNICATION WITH PLYMOUTH
+<a name="PROTOCOL FOR COMMUNICATION WITH PLYMOUTH"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-fsckd
+passes the following messages to the theme:</p>
+
+<p style="margin-left:11%; margin-top: 1em">Progress
+update, sent as a plymouth update message:
+&quot;fsckd:&lt;num_devices&gt;:&lt;progress&gt;:&lt;string&gt;&quot;</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">&quot;&lt;num_devices&gt;&quot;</p>
+
+<p style="margin-left:17%;">the current number of devices
+being checked (int)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">&quot;&lt;progress&gt;&quot;</p>
+
+<p style="margin-left:17%;">the current minimum percentage
+of all devices being checking (float, from 0 to 100)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">&quot;&lt;string&gt;&quot;</p>
+
+<p style="margin-left:17%;">a translated message ready to
+be displayed by the plymouth theme displaying the data
+above. It can be overridden by themes supporting i18n.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Cancel message,
+sent as a traditional plymouth message:
+&quot;fsckd-cancel-msg:&lt;string&gt;&quot;</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">&quot;&lt;strings&gt;&quot;</p>
+
+<p style="margin-left:17%;">a translated string ready to be
+displayed by the plymouth theme indicating that Control+C
+can be used to cancel current checks. It can be overridden
+(matching only &quot;fsckd-cancel-msg&quot; prefix) by
+themes supporting i18n.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+options are understood:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h</b>,
+<b>--help</b></p>
+
+<p style="margin-left:17%;">Print a short help text and
+exit.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--version</b></p>
+
+<p style="margin-left:17%;">Print a short version string
+and exit.</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">On success, 0
+is returned, a non-zero failure code otherwise. Note that
+the daemon stays idle for a while to accept new fsck
+connections before exiting.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>systemd</b>(1),
+<b>systemd-fsck</b>(8), <b>fsck</b>(8),
+<b>systemd-quotacheck.service</b>(8), <b>fsck.btrfs</b>(8),
+<b>fsck.cramfs</b>(8), <b>fsck.ext4</b>(8),
+<b>fsck.fat</b>(8), <b>fsck.hfsplus</b>(8),
+<b>fsck.minix</b>(8), <b>fsck.ntfs</b>(8),
+<b>fsck.xfs</b>(8)</p>
+<hr>
+</body>
+</html>

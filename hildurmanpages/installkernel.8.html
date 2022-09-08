@@ -1,0 +1,78 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:49:44 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>INSTALLKERNEL</title>
+
+</head>
+<body>
+
+<h1 align="center">INSTALLKERNEL</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#BUGS">BUGS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">installkernel -
+install a new kernel image</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>installkernel</b>
+<i>version zImage System.map [directory]</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>installkernel</b></i>
+installs a new kernel image onto the system from the Linux
+source tree. It is called by the Linux kernel makefiles when
+<b>make install</b> is invoked there.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The new kernel
+is installed into <i>{directory}/vmlinuz-{version}</i>. If a
+symbolic link <i>{directory}/vmlinuz</i> already exists, it
+is refreshed by making a link from
+<i>{directory}/vmlinuz</i> to the new kernel, and the
+previously installed kernel is available as
+<i>{directory}/vmlinuz.old</i>.</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">installkernel
+resides in /sbin only because the Linux kernel makefiles
+call it from there. It should really be in /usr/sbin. It
+isn&rsquo;t needed to boot a system.</p>
+<hr>
+</body>
+</html>

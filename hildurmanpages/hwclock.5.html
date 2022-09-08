@@ -1,0 +1,117 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:49:00 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>HWCLOCK</title>
+
+</head>
+<body>
+
+<h1 align="center">HWCLOCK</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">hwclock -
+variables that affect the behaviour of the hwclock boot
+script</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>/etc/default/rcS</i> file contains variable settings in
+POSIX format:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%"></td>
+<td width="11%">
+
+
+<p>VAR=VAL</p></td>
+<td width="71%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Only one
+assignment is allowed per line. Comments (starting with
+&rsquo;#&rsquo;) are also allowed.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+variables can be set. <b><br>
+BADYEAR</b></p>
+
+<p style="margin-left:22%;">This is used to specify that
+the hardware clock is incapable of storing years outside the
+range of 1994-1999. Set to <b>yes</b> if the hardware is
+broken or <b>no</b> if working correctly.</p>
+
+<p style="margin-left:11%;"><b>HWCLOCKACCESS</b></p>
+
+<p style="margin-left:22%;">If the hardware clock is not
+accessible, set to <b>no</b>, in which case hwclock will not
+be run. Otherwise, set to <b>yes</b>.</p>
+
+<p style="margin-left:11%;"><b>HWCLOCKPARS</b></p>
+
+<p style="margin-left:22%;">Additional options for hwclock.
+Unset by default. For example, this may be use to specify
+the machine hardware clock type for Alphas.</p>
+
+<p style="margin-left:11%;"><b>HCTOSYS_DEVICE</b></p>
+
+<p style="margin-left:22%;">The hardware clock device you
+want to use. Defaults to <b>rtc0</b>. It should probably
+match the CONFIG_RTC_HCTOSYS_DEVICE kernel config
+option.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Roger Leigh
+&lt;rleigh@debian.org&gt;</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>hwclock</b>(8),
+<b>rcS</b>(5).</p>
+<hr>
+</body>
+</html>

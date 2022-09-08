@@ -1,0 +1,162 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:55:05 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>MKFS.BFS</title>
+
+</head>
+<body>
+
+<h1 align="center">MKFS.BFS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXIT CODES">EXIT CODES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">mkfs.bfs - make
+an SCO bfs filesystem</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mkfs.bfs</b>
+[options] <i>device</i> [<i>block-count</i>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mkfs.bfs</b>
+creates an SCO bfs filesystem on a block device (usually a
+disk partition or a file accessed via the loop device).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>block-count</i> parameter is the desired size of the
+filesystem, in blocks. If nothing is specified, the entire
+partition will be used.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-N</b>,
+<b>--inodes</b> <i>number</i></p>
+
+<p style="margin-left:22%;">Specify the desired
+<i>number</i> of inodes (at most 512). If nothing is
+specified, some default number in the range 48&ndash;512 is
+picked depending on the size of the partition.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--vname</b>
+<i>label</i></p>
+
+<p style="margin-left:22%;">Specify the volume
+<i>label</i>. I have no idea if/where this is used.</p>
+
+<p style="margin-left:11%;"><b>-F</b>, <b>--fname</b>
+<i>name</i></p>
+
+<p style="margin-left:22%;">Specify the filesystem
+<i>name</i>. I have no idea if/where this is used.</p>
+
+<p style="margin-left:11%;"><b>-v</b>, <b>--verbose</b></p>
+
+<p style="margin-left:22%;">Explain what is being done.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-c</b></p></td>
+<td width="8%"></td>
+<td width="49%">
+
+
+<p>This option is silently ignored.</p></td>
+<td width="29%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-l</b></p></td>
+<td width="8%"></td>
+<td width="49%">
+
+
+<p>This option is silently ignored.</p></td>
+<td width="29%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit. Option <b>-V</b> only works as <b>--version</b> when
+it is the only option.</p>
+
+<h2>EXIT CODES
+<a name="EXIT CODES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The exit code
+returned by <b>mkfs.bfs</b> is 0 when all went well, and 1
+when something went wrong.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mkfs</b>(8)</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The mkfs.bfs
+command is part of the util-linux package and is available
+from https://www.kernel.org/pub/linux/utils/util-linux/.</p>
+<hr>
+</body>
+</html>

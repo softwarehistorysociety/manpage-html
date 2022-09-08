@@ -1,0 +1,700 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:36:46 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>CRYPTTAB</title>
+
+</head>
+<body>
+
+<h1 align="center">CRYPTTAB</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#ON DIFFERENT CRYPTTAB FORMATS">ON DIFFERENT CRYPTTAB FORMATS</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#CHECKSCRIPTS">CHECKSCRIPTS</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
+<a href="#KNOWN UPGRADE ISSUES">KNOWN UPGRADE ISSUES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">crypttab -
+static information about encrypted filesystems</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The file
+/etc/crypttab contains descriptive information about
+encrypted filesystems. crypttab is only read by programs
+(e.g. <b>cryptdisks_start</b> and <b>cryptdisks_stop</b>),
+and not written; it is the duty of the system administrator
+to properly create and maintain this file. Each filesystem
+is described on a separate line; fields on each line are
+separated by tabs or spaces. Lines starting with
+&ldquo;#&rdquo; are comments, empty lines are ignored. The
+order of records in crypttab is important because the init
+scripts sequentially iterate through crypttab doing their
+thing.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The first
+field, <i>target</i>, describes the mapped device name. It
+must be a plain filename without any directory components. A
+mapped device which encrypts/decrypts data to/from the
+<i>source device</i> will be created at /dev/mapper/target
+by <b>cryptsetup</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The second
+field, <i>source device</i>, describes either the block
+special device or file that contains the encrypted data.
+Instead of giving the <i>source device</i> explicitly, the
+UUID (resp. LABEL, PARTUUID and PARTLABEL) is supported as
+well, using &ldquo;UUID=&lt;uuid&gt;&rdquo; (resp.
+&ldquo;LABEL=&lt;label&gt;&rdquo;,
+&ldquo;PARTUUID=&lt;partuuid&gt;&rdquo; and
+&ldquo;PARTLABEL=&lt;partlabel&gt;&rdquo;).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The third
+field, <i>key file</i>, describes the file to use as a key
+for decrypting the data of the <i>source device</i>. In case
+of a <i>keyscript</i>, the value of this field is given as
+argument to the keyscript. Values with spaces and special
+characters need to be escaped using octal sequences, like
+for <b>fstab</b>(5). Note that the <i>entire</i> key file
+will be used as the passphrase; the passphrase must
+<i>not</i> be followed by a newline character.</p>
+
+<p style="margin-left:11%; margin-top: 1em">It can also be
+a device name (e.g. /dev/urandom), note however that LUKS
+requires a persistent key and therefore does <i>not</i>
+support random data keys.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the <i>key
+file</i> is the string <i>none</i>, a passphrase will be
+read interactively from the console. In this case, the
+options check, checkargs and tries may be useful.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The fourth
+field, <i>options</i>, describes the cryptsetup options
+associated with the encryption process. At minimum, the
+field should contain either the string <i>luks</i>
+respectively <i>tcrypt</i> or the <i>cipher</i>, <i>hash</i>
+and <i>size</i> options. Some options can be changed on
+active devices using <b>cryptsetup refresh [&lt;options&gt;]
+&lt;name&gt;</b>. Moreover some options can be permanently
+written to the metada of LUKS2 headers using the
+<b>--persistent</b> option flag.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Options are in
+the format: <i>key</i>=<i>value</i>
+[,<i>key</i>=<i>value</i> ...]. The supported options are
+described below.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that all
+four fields are mandatory and that a missing field will lead
+to unspecified behaviour.</p>
+
+<h2>ON DIFFERENT CRYPTTAB FORMATS
+<a name="ON DIFFERENT CRYPTTAB FORMATS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Please note
+that there are several independent cryptsetup wrappers with
+their own <i>crypttab</i> format. This manpage covers
+Debian's implementation for <i>initramfs</i> scripts and
+<i>SysVinit</i> init scripts. <i>systemd</i> brings its own
+<i>crypttab</i> implementation. We try to cover the
+differences between the <i>systemd</i> and our
+implementation in this manpage, but if in doubt, better
+check the <i>systemd</i> <b>crypttab</b>(5) manpage, e.g.
+online at
+<b><font color="#0000FF">https://www.freedesktop.org/software/systemd/man/crypttab.html</font></b><font color="#000000">.</font></p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>cipher</i>=&lt;cipher&gt;</font></p>
+
+
+<p style="margin-left:17%;"><font color="#000000">Encryption
+algorithm (ignored for LUKS and TCRYPT devices). See
+<b>cryptsetup -c</b>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>size</i>=&lt;size&gt;</font></p>
+
+
+<p style="margin-left:17%;"><font color="#000000">Encryption
+key size (ignored for LUKS and TCRYPT devices). See
+<b>cryptsetup -s</b>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>sector-size</i>=&lt;bytes&gt;</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Sector
+size. See <b>cryptsetup</b>(8) for possible values and the
+default value of this option.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>hash</i>=&lt;hash&gt;</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Hash
+algorithm (ignored for LUKS and TCRYPT devices). See
+<b>cryptsetup -h</b>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>offset</i>=&lt;offset&gt;</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Start
+offset (ignored for LUKS and TCRYPT devices). Uses
+<b>cryptsetup -o</b>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>skip</i>=&lt;skip&gt;</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Skip
+sectors at the beginning (ignored for LUKS and TCRYPT
+devices). Uses <b>cryptsetup -p</b>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>keyfile-offset</i>=&lt;keyfile-offset&gt;</font></p>
+
+
+<p style="margin-left:17%;"><font color="#000000">Specifies
+the number of bytes to skip at the start of the key
+file.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>keyfile-size</i>=&lt;keyfile-size&gt;</font></p>
+
+
+<p style="margin-left:17%;"><font color="#000000">Specifies
+the maximum number of bytes to read from the key file. The
+default is to read the whole file up to the compiled-in
+maximum, that can be queried with <b>cryptsetup --help</b>.
+This option is ignored for plain dm-crypt devices, as the
+key file size is then given by the encryption key size
+(option <i>size</i>).</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>keyslot</i>=&lt;slot&gt;,
+<i>key-slot</i>=&lt;slot&gt;</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Key slot
+(ignored for non-LUKS devices). See <b>cryptsetup
+-S</b>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>header</i>=&lt;path&gt;</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Detached
+header file (ignored for plain dm-crypt devices). See
+<b>cryptsetup --header</b>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>verify</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Verify
+password. Uses <b>cryptsetup -y</b>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>readonly</i>,
+<i>read-only</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Set up a
+read-only mapping.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>tries</i>=&lt;num&gt;</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Try to
+unlock the device &lt;num&gt; before failing. It's
+particularly useful when using a passphrase or a
+<i>keyscript</i> that asks for interactive input. If you
+want to disable retries, pass &ldquo;tries=1&rdquo;. Default
+is &ldquo;3&rdquo;. Setting &ldquo;tries=0&rdquo; means
+infinitive retries.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>discard</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Allow
+using of discards (TRIM) requests for device.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">Starting
+with Debian 10 (Buster), this option is added per default to
+new dm-crypt devices by the Debian Installer. If you don't
+care about leaking access patterns (filesystem type, used
+space) and don't have hidden truecrypt volumes inside this
+volume, then it should be safe to enable this option. See
+the following warning for further information.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000"><b>WARNING</b>:
+Assess the specific security risks carefully before enabling
+this option. For example, allowing discards on encrypted
+devices may lead to the leak of information about the
+ciphertext device (filesystem type, used space etc.) if the
+discarded blocks can be located easily on the device
+later.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>luks</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Force
+LUKS mode. When this mode is used, the following options are
+ignored since they are provided by the LUKS header on the
+device: <i>cipher=</i>, <i>hash=</i>,
+<i>size=</i></font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>plain</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Force
+plain encryption mode.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>tcrypt</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Use
+TrueCrypt encryption mode. When this mode is used, the
+following options are ignored since they are provided by the
+TrueCrypt header on the device or do not apply:
+<i>cipher=</i>, <i>hash=</i>, <i>keyfile-offset=</i>,
+<i>keyfile-size=</i>, <i>size=</i></font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>veracrypt</i>,
+<i>tcrypt-veracrypt</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Use
+VeraCrypt extension to TrueCrypt device. Only useful in
+conjunction with <i>tcrypt</i> option (ignored for
+non-TrueCrypt devices).</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>tcrypthidden</i>,
+<i>tcrypt-hidden</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Use
+hidden TCRYPT header (ignored for non-TCRYPT
+devices).</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>swap</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Run
+<b>mkswap</b> on the created device.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">This
+option is ignored for <i>initramfs</i> devices.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>tmp</i>=&lt;tmpfs&gt;</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Run
+<b>mkfs</b> with filesystem type &lt;tmpfs&gt; on the
+created device. Default is ext4.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">This
+option is ignored for <i>initramfs</i> devices.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>check</i>=&lt;check&gt;</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Check the
+content of the target device by a suitable program; if the
+check fails, the device is removed. If a program is provided
+as an argument, it is run, giving the decrypted volume
+(target device) as first argument, and the value of the
+checkargs option as second argument. Cryptdisks/cryptroot
+searches for the given program in /lib/cryptsetup/checks/
+first, but full path to program is supported as
+well.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">Default
+is set in /etc/default/cryptdisks (blkid).</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">This
+option is specific to the Debian <i>crypttab</i> format.
+It's not supported by <i>systemd</i>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>checkargs</i>=&lt;arguments&gt;</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Give
+&lt;arguments&gt; as the second argument to the check
+script. See the CHECKSCRIPTS section for more
+information.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">This
+option is specific to the Debian <i>crypttab</i> format.
+It's not supported by <i>systemd</i>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>initramfs</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">The
+initramfs hook processes the root device, any resume devices
+and any devices with the <i>initramfs</i> option set. These
+devices are processed within the initramfs stage of boot. As
+an example, that allows the use of remote unlocking using
+dropbear.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">This
+option is specific to the Debian <i>crypttab</i> format.
+It's not supported by <i>systemd</i>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>noearly</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">The
+cryptsetup init scripts are invoked twice during the boot
+process - once before lvm, raid, etc. are started and once
+again after that. Sometimes you need to start your encrypted
+disks in a special order. With this option the device is
+ignored during the first invocation of the cryptsetup init
+scripts.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">This
+option is ignored for <i>initramfs</i> devices and specific
+to the Debian <i>crypttab</i> format. It's not supported by
+<i>systemd</i>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>noauto</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Entirely
+ignore the device at the boot process. It's still possible
+to map the device manually using
+cryptdisks_start.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">This
+option is ignored for <i>initramfs</i> devices and specific
+to the Debian <i>crypttab</i> format. It's not supported by
+<i>systemd</i>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>loud</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Be loud.
+Print warnings if a device does not exist. This option
+overwrites the option <i>loud</i>.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">This
+option is ignored for <i>initramfs</i> devices and specific
+to the Debian <i>crypttab</i> format. It's not supported by
+<i>systemd</i>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>quiet</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Be quiet.
+Don't print warnings if a device does not exist. This option
+overwrites the option <i>loud</i>.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">This
+option is ignored for <i>initramfs</i> devices and specific
+to the Debian <i>crypttab</i> format. It's not supported by
+<i>systemd</i>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>keyscript</i>=&lt;path&gt;</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">The
+executable at the indicated path is executed with the value
+of the <i>third field</i> as only argument. The keyscript
+output is passed to cryptsetup as decyption key. When used
+in initramfs, the executable either needs to be
+self-contained (i.e. does'nt rely on any external program
+which is not present in the initramfs environment) or the
+dependencies have to added to the initramfs image by other
+means.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">LIMITATIONS:
+All binaries and files on which the keyscript depends must
+be available at the time of execution. Special care needs to
+be taken for encrypted filesystems like /usr or /var. As an
+example, unlocking encrypted /usr must not depend on
+binaries from /usr/(s)bin.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">This
+option is specific to the Debian <i>crypttab</i> format.
+It's not supported by <i>systemd</i>.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">WARNING:
+With systemd as init system, this option might be ignored.
+At the time this is written (December 2016), the systemd
+cryptsetup helper doesn't support the keyscript option to
+/etc/crypttab. For the time being, the only option to use
+keyscripts along with systemd is to force processing of the
+corresponding crypto devices in the initramfs. See the
+'initramfs' option for further information.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">All
+fields of the appropriate crypttab entry are available to
+the keyscript as exported environment variables:</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">CRYPTTAB_NAME</font></p>
+
+<p style="margin-left:23%;"><font color="#000000">The
+target name</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">CRYPTTAB_SOURCE</font></p>
+
+<p style="margin-left:23%;"><font color="#000000">The
+source device</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">CRYPTTAB_KEY</font></p>
+
+<p style="margin-left:23%;"><font color="#000000">The key
+file</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">CRYPTTAB_OPTIONS</font></p>
+
+<p style="margin-left:23%;"><font color="#000000">A list of
+exported crypttab options</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">CRYPTTAB_OPTION_&lt;option&gt;</font></p>
+
+<p style="margin-left:23%;"><font color="#000000">The value
+of the appropriate crypttab option, with value set to 'yes'
+in case the option is merely a flag. For option aliases,
+such as 'readonly' and 'read-only', the variable name refers
+to the first alternative listed (thus
+'CRYPTTAB_OPTION_readonly' in that case). If the crypttab
+option name contains '-' characters, then they are replaced
+with '_' in the exported variable name. For instance, the
+value of the 'CRYPTTAB_OPTION_keyfile_offset' environment
+variable is set to the value of the 'keyfile-offset'
+crypttab option.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">CRYPTTAB_TRIED</font></p>
+
+<p style="margin-left:23%;"><font color="#000000">Number of
+previous tries since start of cryptdisks (counts until
+maximum number of tries is reached).</font></p>
+
+<h2>CHECKSCRIPTS
+<a name="CHECKSCRIPTS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>blkid</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Checks
+for any known filesystem. Supports a filesystem type as
+argument via &lt;checkargs&gt;:</font></p>
+
+
+<p style="margin-left:23%; margin-top: 1em"><font color="#000000">&bull;
+no checkargs - succeeds if any valid filesystem is found on
+the device.</font></p>
+
+
+<p style="margin-left:23%; margin-top: 1em"><font color="#000000">&bull;
+&quot;none&quot; - succeeds if no valid filesystem is found
+on the device.</font></p>
+
+
+<p style="margin-left:23%; margin-top: 1em"><font color="#000000">&bull;
+&quot;ext4&quot; [or another filesystem type like xfs, swap,
+crypto_LUKS, ...] - succeeds if ext4 filesystem is found on
+the device.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>un_blkid</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Checks
+for no known filesystem. Supports a filesystem type as
+argument via &lt;checkargs&gt;:</font></p>
+
+
+<p style="margin-left:23%; margin-top: 1em"><font color="#000000">&bull;
+no checkargs - succeeds if no valid filesystem is found on
+the device.</font></p>
+
+
+<p style="margin-left:23%; margin-top: 1em"><font color="#000000">&bull;
+&quot;ext4&quot; [or another filesystem type like xfs, swap,
+crypto_LUKS, ...] - succeeds if no ext4 filesystem is found
+on the device.</font></p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">#
+Encrypted swap device <br>
+cswap /dev/sda6 /dev/urandom
+cipher=aes-xts-plain64,size=256,hash=sha1,swap</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">#
+Encrypted LUKS disk with interactive password, identified by
+its UUID, discard enabled <br>
+cdisk0 UUID=12345678-9abc-def012345-6789abcdef01 none
+luks,discard</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">#
+Encrypted TCRYPT disk with interactive password, discard
+enabled <br>
+tdisk0 /dev/sr0 none tcrypt,discard</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">#
+Encrypted ext4 disk with interactive password, discard
+enabled <br>
+# - retry 5 times if the check fails <br>
+cdisk1 /dev/sda2 none
+discard,cipher=aes-xts-plain64,size=256,hash=sha1,checkargs=ext4,tries=5</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">#
+Encrypted disk with interactive password, discard enabled
+<br>
+# - use a nondefault check script <br>
+# - no retries <br>
+cdisk2 /dev/sdc1 none
+discard,cipher=aes-xts-plain64,size=256,hash=sha1,check=customscript,tries=1</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">#
+Encrypted disk with interactive password, discard enabled
+<br>
+# - Twofish as the cipher, RIPEMD-160 as the hash <br>
+cdisk3 /dev/sda3 none
+dscard,cipher=twofish,size=256,hash=ripemd160</font></p>
+
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>CRYPTDISKS_ENABLE</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Set to
+<i>yes</i> to run cryptdisks initscripts at startup. Set to
+<i>no</i> to disable cryptdisks initscripts. Default is
+<i>yes</i>.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>CRYPTDISKS_MOUNT</i></font></p>
+
+
+<p style="margin-left:17%;"><font color="#000000">Specifies
+the mountpoints that are mounted before cryptdisks is
+invoked. Takes mountpoints configured in /etc/fstab as
+arguments. Separate mountpoints by space. This is useful for
+keys on removable devices, such as cdrom, usbstick,
+flashcard, etc. Default is unset.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>CRYPTDISKS_CHECK</i></font></p>
+
+
+<p style="margin-left:17%;"><font color="#000000">Specifies
+the default checkscript to be run against the target device,
+after cryptdisks has been invoked. The target device is
+passed as the first and only argument to the checkscript.
+Takes effect if the <i>check</i> option is given in crypttab
+with no value. See documentation for <i>check</i> option
+above for more information.</font></p>
+
+<h2>KNOWN UPGRADE ISSUES
+<a name="KNOWN UPGRADE ISSUES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">The
+upstream defaults for encryption cipher, hash and keysize
+have changed several times in the past, and they're expected
+to change again in future, for example if security issues
+arise. On LUKS devices, the used settings are stored in the
+LUKS header, and thus don't need to be configured in
+/etc/crypttab. For plain dm-crypt devices, no information
+about used cipher, hash and keysize are available at all.
+Therefore we strongly suggest to configure the cipher, hash
+and keysize in /etc/crypttab for plain dm-crypt devices,
+even if they match the current default.</font></p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>cryptsetup</b>(8),
+<b>cryptdisks_start</b>(8), <b>cryptdisks_stop</b>(8),
+/usr/share/doc/cryptsetup-initramfs/README.initramfs.gz</font></p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">This
+manual page was originally written by Bastian Kleineidam
+&lt;calvin@debian.org&gt; for the Debian distribution of
+cryptsetup. It has been further improved by Michael
+Gebetsroither &lt;michael.geb@gmx.at&gt;, David
+H&auml;rdeman &lt;david@hardeman.nu&gt; and Jonas Meurer
+&lt;jonas@freesources.org&gt;.</font></p>
+<hr>
+</body>
+</html>

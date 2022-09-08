@@ -1,0 +1,420 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:53:37 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>LSBLK</title>
+
+</head>
+<body>
+
+<h1 align="center">LSBLK</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#RETURN CODES">RETURN CODES</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">lsblk - list
+block devices</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lsblk</b>
+[options] [<i>device</i>...]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lsblk</b>
+lists information about all available or the specified block
+devices. The <b>lsblk</b> command reads the <b>sysfs</b>
+filesystem and <b>udev db</b> to gather information. If the
+udev db is not available or lsblk is compiled without udev
+support than it tries to read LABELs, UUIDs and filesystem
+types from the block device. In this case root permissions
+are necessary.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The command
+prints all block devices (except RAM disks) in a tree-like
+format by default. Use <b>lsblk --help</b> to get a list of
+all available columns.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The default
+output, as well as the default output from options like
+<b>--fs</b> and <b>--topology</b>, is subject to change. So
+whenever possible, you should avoid using default outputs in
+your scripts. Always explicitly define expected columns by
+using <b>--output</b> <i>columns-list</i> and <b>--list</b>
+in environments where a stable output is required.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+<b>lsblk</b> might be executed in time when <b>udev</b> does
+not have all information about recently added or modified
+devices yet. In this case it is recommended to use
+<b>udevadm settle</b> before lsblk to synchronize with
+udev.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-a</b>,
+<b>--all</b></p>
+
+<p style="margin-left:22%;">Also list empty devices and RAM
+disk devices.</p>
+
+<p style="margin-left:11%;"><b>-b</b>, <b>--bytes</b></p>
+
+<p style="margin-left:22%;">Print the SIZE column in bytes
+rather than in a human-readable format.</p>
+
+<p style="margin-left:11%;"><b>-D</b>, <b>--discard</b></p>
+
+<p style="margin-left:22%;">Print information about the
+discarding capabilities (TRIM, UNMAP) for each device.</p>
+
+<p style="margin-left:11%;"><b>-d</b>, <b>--nodeps</b></p>
+
+<p style="margin-left:22%;">Do not print holder devices or
+slaves. For example, <b>lsblk --nodeps /dev/sda</b> prints
+information about the sda device only.</p>
+
+<p style="margin-left:11%;"><b>-E</b>, <b>--dedup</b>
+<i>column</i></p>
+
+<p style="margin-left:22%;">Use <i>column</i> as a
+de-duplication key to de-duplicate output tree. If the key
+is not available for the device, or the device is a
+partition and parental whole-disk device provides the same
+key than the device is always printed.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The usual use
+case is to de-duplicate output on system multi-path devices,
+for example by <b>-E WWN</b>.</p>
+
+<p style="margin-left:11%;"><b>-e</b>, <b>--exclude</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Exclude the devices specified
+by the comma-separated <i>list</i> of major device numbers.
+Note that RAM disks (major=1) are excluded by default if
+<b>--all</b> is not specified. The filter is applied to the
+top-level devices only. This may be confusing for
+<b>--list</b> output format where hierarchy of the devices
+is not obvious.</p>
+
+<p style="margin-left:11%;"><b>-f</b>, <b>--fs</b></p>
+
+<p style="margin-left:22%;">Output info about filesystems.
+This option is equivalent to
+<b>-o&nbsp;NAME,FSTYPE,LABEL,UUID,MOUNTPOINT</b>. The
+authoritative information about filesystems and raids is
+provided by the <b>blkid</b>(8) command.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<p style="margin-left:11%;"><b>-I</b>, <b>--include</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Include devices specified by
+the comma-separated <i>list</i> of major device numbers. The
+filter is applied to the top-level devices only. This may be
+confusing for <b>--list</b> output format where hierarchy of
+the devices is not obvious.</p>
+
+<p style="margin-left:11%;"><b>-i</b>, <b>--ascii</b></p>
+
+<p style="margin-left:22%;">Use ASCII characters for tree
+formatting.</p>
+
+<p style="margin-left:11%;"><b>-J</b>, <b>--json</b></p>
+
+<p style="margin-left:22%;">Use JSON output format.
+It&rsquo;s strongly recommended to use <b>--output</b> and
+also <b>--tree</b> if necessary.</p>
+
+<p style="margin-left:11%;"><b>-l</b>, <b>--list</b></p>
+
+<p style="margin-left:22%;">Produce output in the form of a
+list. The output does not provide information about
+relationships between devices and since version 2.34 every
+device is printed only once.</p>
+
+<p style="margin-left:11%;"><b>-M</b>, <b>--merge</b></p>
+
+<p style="margin-left:22%;">Group parents of sub-trees to
+provide more readable output for RAIDs and Multi-path
+devices. The tree-like output is required.</p>
+
+<p style="margin-left:11%;"><b>-m</b>, <b>--perms</b></p>
+
+<p style="margin-left:22%;">Output info about device owner,
+group and mode. This option is equivalent to
+<b>-o&nbsp;NAME,SIZE,OWNER,GROUP,MODE</b>.</p>
+
+<p style="margin-left:11%;"><b>-n</b>,
+<b>--noheadings</b></p>
+
+<p style="margin-left:22%;">Do not print a header line.</p>
+
+<p style="margin-left:11%;"><b>-o</b>, <b>--output</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Specify which output columns to
+print. Use <b>--help</b> to get a list of all supported
+columns. The columns may affect tree-like output. The
+default is to use tree for the column &rsquo;NAME&rsquo;
+(see also <b>--tree</b>).</p>
+
+<p style="margin-left:22%; margin-top: 1em">The default
+list of columns may be extended if <i>list</i> is specified
+in the format <i>+list</i> (e.g. <b>lsblk -o +UUID</b>).</p>
+
+<p style="margin-left:11%;"><b>-O</b>,
+<b>--output-all</b></p>
+
+<p style="margin-left:22%;">Output all available
+columns.</p>
+
+<p style="margin-left:11%;"><b>-P</b>, <b>--pairs</b></p>
+
+<p style="margin-left:22%;">Produce output in the form of
+key=&quot;value&quot; pairs. All potentially unsafe
+characters are hex-escaped (\x&lt;code&gt;).</p>
+
+<p style="margin-left:11%;"><b>-p</b>, <b>--paths</b></p>
+
+<p style="margin-left:22%;">Print full device paths.</p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--raw</b></p>
+
+<p style="margin-left:22%;">Produce output in raw format.
+All potentially unsafe characters are hex-escaped
+(\x&lt;code&gt;) in the NAME, KNAME, LABEL, PARTLABEL and
+MOUNTPOINT columns.</p>
+
+<p style="margin-left:11%;"><b>-S</b>, <b>--scsi</b></p>
+
+<p style="margin-left:22%;">Output info about SCSI devices
+only. All partitions, slaves and holder devices are
+ignored.</p>
+
+<p style="margin-left:11%;"><b>-s</b>, <b>--inverse</b></p>
+
+<p style="margin-left:22%;">Print dependencies in inverse
+order. If the <b>--list</b> output is requested then the
+lines are still ordered by dependencies.</p>
+
+<p style="margin-left:11%;"><b>-T</b>,
+<b>--tree</b>[<b>=</b><i>column</i>]</p>
+
+<p style="margin-left:22%;">Force tree-like output format.
+If <i>column</i> is specified, then a tree is printed in the
+column. The default is NAME column.</p>
+
+<p style="margin-left:11%;"><b>-t</b>,
+<b>--topology</b></p>
+
+<p style="margin-left:22%;">Output info about block-device
+topology. This option is equivalent to
+<b>-o&nbsp;NAME,ALIGNMENT,MIN-IO,OPT-IO,PHY-SEC,LOG-SEC,ROTA,SCHED,RQ-SIZE,RA,WSAME</b>.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<p style="margin-left:11%;"><b>-x</b>, <b>--sort</b>
+<i>column</i></p>
+
+<p style="margin-left:22%;">Sort output lines by
+<i>column</i>. This option enables <b>--list</b> output
+format by default. It is possible to use the option
+<i>--tree</i> to force tree-like output and than the tree
+branches are sorted by the <i>column</i>.</p>
+
+<p style="margin-left:11%;"><b>-z</b>, <b>--zoned</b></p>
+
+<p style="margin-left:22%;">Print the zone model for each
+device.</p>
+
+<p style="margin-left:11%;"><b>--sysroot</b>
+<i>directory</i></p>
+
+<p style="margin-left:22%;">Gather data for a Linux
+instance other than the instance from which the lsblk
+command is issued. The specified directory is the system
+root of the Linux instance to be inspected. This option is
+designed for the testing purpose.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">For partitions,
+some information (e.g. queue attributes) is inherited from
+the parent device.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>lsblk</b> command needs to be able to look up each block
+device by major:minor numbers, which is done by using
+<i>/sys/dev/block</i>. This sysfs block directory appeared
+in kernel 2.6.27 (October 2008). In case of problems with a
+new enough kernel, check that CONFIG_SYSFS was enabled at
+the time of the kernel build.</p>
+
+<h2>RETURN CODES
+<a name="RETURN CODES"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em">0</p></td>
+<td width="8%"></td>
+<td width="67%">
+
+
+<p style="margin-top: 1em">success</p></td>
+<td width="11%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>1</p></td>
+<td width="8%"></td>
+<td width="67%">
+
+
+<p>failure</p></td>
+<td width="11%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>32</p></td>
+<td width="8%"></td>
+<td width="67%">
+
+
+<p>none of specified devices found</p></td>
+<td width="11%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>64</p></td>
+<td width="8%"></td>
+<td width="67%">
+
+
+<p>some specified devices found, some not found</p></td>
+<td width="11%">
+</td></tr>
+</table>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Milan Broz
+&lt;mbroz@redhat.com&gt; <br>
+Karel Zak &lt;kzak@redhat.com&gt;</p>
+
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">LSBLK_DEBUG=all</p>
+
+<p style="margin-left:22%;">enables lsblk debug output.</p>
+
+<p style="margin-left:11%;">LIBBLKID_DEBUG=all</p>
+
+<p style="margin-left:22%;">enables libblkid debug
+output.</p>
+
+<p style="margin-left:11%;">LIBMOUNT_DEBUG=all</p>
+
+<p style="margin-left:22%;">enables libmount debug
+output.</p>
+
+<p style="margin-left:11%;">LIBSMARTCOLS_DEBUG=all</p>
+
+<p style="margin-left:22%;">enables libsmartcols debug
+output.</p>
+
+
+<p style="margin-left:11%;">LIBSMARTCOLS_DEBUG_PADDING=on</p>
+
+<p style="margin-left:22%;">use visible padding characters.
+Requires enabled LIBSMARTCOLS_DEBUG.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ls</b>(1),
+<b>blkid</b>(8), <b>findmnt</b>(8)</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The lsblk
+command is part of the util-linux package and is available
+from https://www.kernel.org/pub/linux/utils/util-linux/.</p>
+<hr>
+</body>
+</html>

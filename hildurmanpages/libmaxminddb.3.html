@@ -1,0 +1,2212 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:52:42 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>libmaxminddb</title>
+
+</head>
+<body>
+
+<h1 align="center">libmaxminddb</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#DATA STRUCTURES">DATA STRUCTURES</a><br>
+<a href="#STATUS CODES">STATUS CODES</a><br>
+<a href="#FUNCTIONS">FUNCTIONS</a><br>
+<a href="#EXAMPLE">EXAMPLE</a><br>
+<a href="#THREAD SAFETY">THREAD SAFETY</a><br>
+<a href="#INSTALLATION AND SOURCE">INSTALLATION AND SOURCE</a><br>
+<a href="#BUG REPORTS AND PULL REQUESTS">BUG REPORTS AND PULL REQUESTS</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#COPYRIGHT AND LICENSE">COPYRIGHT AND LICENSE</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">libmaxminddb -
+a library for working with MaxMind DB files</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="34%">
+
+<pre style="margin-top: 1em">#include&nbsp;&lt;maxminddb.h&gt;</td>
+<td width="49%">
+</td></tr>
+</table></pre>
+
+
+<p style="margin-left:17%; margin-top: 1em">int&nbsp;MMDB_open(
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;char&nbsp;*const&nbsp;filename,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;flags, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_s&nbsp;*const&nbsp;mmdb); <br>
+void&nbsp;MMDB_close(MMDB_s&nbsp;*const&nbsp;mmdb);</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">MMDB_lookup_result_s&nbsp;MMDB_lookup_string(
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_s&nbsp;*const&nbsp;mmdb, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;char&nbsp;*const&nbsp;ipstr,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+int&nbsp;*const&nbsp;gai_error, &nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+int&nbsp;*const&nbsp;mmdb_error); <br>
+MMDB_lookup_result_s&nbsp;MMDB_lookup_sockaddr(
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_s&nbsp;*const&nbsp;mmdb, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;struct&nbsp;sockaddr&nbsp;*const
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+sockaddr, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+int&nbsp;*const&nbsp;mmdb_error);</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">int&nbsp;MMDB_get_value(
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_s&nbsp;*const&nbsp;start,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_s&nbsp;*const&nbsp;entry_data,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+...); <br>
+int&nbsp;MMDB_vget_value( &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_s&nbsp;*const&nbsp;start,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_s&nbsp;*const&nbsp;entry_data,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+va_list&nbsp;va_path); <br>
+int&nbsp;MMDB_aget_value( &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_s&nbsp;*const&nbsp;start,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_s&nbsp;*const&nbsp;entry_data,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;char&nbsp;*const&nbsp;*const&nbsp;path);</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">int&nbsp;MMDB_get_entry_data_list(
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_s&nbsp;*start, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_list_s&nbsp;**const&nbsp;entry_data_list);
+<br>
+void&nbsp;MMDB_free_entry_data_list(
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_list_s&nbsp;*const&nbsp;entry_data_list);
+<br>
+int&nbsp;MMDB_get_metadata_as_entry_data_list(
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_s&nbsp;*const&nbsp;mmdb, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_list_s&nbsp;**const&nbsp;entry_data_list);
+<br>
+int&nbsp;MMDB_dump_entry_data_list( &nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+FILE&nbsp;*const&nbsp;stream, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_list_s&nbsp;*const&nbsp;entry_data_list,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+int&nbsp;indent);</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">int&nbsp;MMDB_read_node(
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_s&nbsp;*const&nbsp;mmdb, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;node_number, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_search_node_s&nbsp;*const&nbsp;node);</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">const&nbsp;char&nbsp;*MMDB_lib_version(void);
+<br>
+
+const&nbsp;char&nbsp;*MMDB_strerror(int&nbsp;error_code);</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">typedef&nbsp;struct&nbsp;MMDB_lookup_result_s&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+bool&nbsp;found_entry; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_s&nbsp;entry; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint16_t&nbsp;netmask; <br>
+}&nbsp;MMDB_lookup_result_s;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">typedef&nbsp;struct&nbsp;MMDB_entry_data_s&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+bool&nbsp;has_data; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+union&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;pointer;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;char&nbsp;*utf8_string;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+double&nbsp;double_value;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;uint8_t&nbsp;*bytes;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint16_t&nbsp;uint16;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;uint32;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+int32_t&nbsp;int32;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint64_t&nbsp;uint64;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+{mmdb_uint128_t&nbsp;or&nbsp;uint8_t[16]}&nbsp;uint128;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+bool&nbsp;boolean;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+float&nbsp;float_value; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+}; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+... &nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;data_size; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;type; <br>
+}&nbsp;MMDB_entry_data_s;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">typedef&nbsp;struct&nbsp;MMDB_entry_data_list_s&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_s&nbsp;entry_data; &nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+struct&nbsp;MMDB_entry_data_list_s&nbsp;*next; <br>
+}&nbsp;MMDB_entry_data_list_s;</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+libmaxminddb library provides functions for working MaxMind
+DB files. See http://maxmind.github.io/MaxMind-DB/ for the
+MaxMind DB format specification. The database and results
+are all represented by different data structures. Databases
+are opened by calling <tt>MMDB_open()</tt>. You can look up
+IP addresses as a string with <tt>MMDB_lookup_string()</tt>
+or as a pointer to a <tt>sockaddr</tt> structure with
+<tt>MMDB_lookup_sockaddr()</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the lookup
+finds the IP address in the database, it returns a
+<tt>MMDB_lookup_result_s</tt> structure. If that structure
+indicates that the database has data for the IP, there are a
+number of functions that can be used to fetch that data.
+These include <tt>MMDB_get_value()</tt> and
+<tt>MMDB_get_entry_data_list()</tt>. See the function
+documentation below for more details.</p>
+
+<p style="margin-left:11%; margin-top: 1em">When you are
+done with the database handle you should call
+<tt>MMDB_close()</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">All publicly
+visible functions, structures, and macros begin with
+&quot;MMDB_&quot;.</p>
+
+<h2>DATA STRUCTURES
+<a name="DATA STRUCTURES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">All data
+structures exported by this library's <tt>maxminddb.h</tt>
+header are typedef'd in the form
+<tt>typedef&nbsp;struct&nbsp;foo_s&nbsp;{&nbsp;...&nbsp;}&nbsp;foo_s</tt>
+so you can refer to them without the <tt>struct</tt>
+prefix.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This library
+provides the following data structures:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_s</tt>
+<br>
+This is the handle for a MaxMind DB file. We only document
+some of this structure's fields intended for public use. All
+other fields are subject to change and are intended only for
+internal use.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="35%">
+
+<pre style="margin-top: 1em">typedef&nbsp;struct&nbsp;MMDB_s&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="48%">
+</td></tr>
+</table></pre>
+
+<p style="margin-left:17%;">uint32_t&nbsp;flags;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;char&nbsp;*filename; &nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+... &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_metadata_s&nbsp;metadata; <br>
+}&nbsp;MMDB_s;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>uint32_t&nbsp;flags</tt> -
+the flags this database was opened with. See the
+<tt>MMDB_open()</tt> documentation for more details.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>const&nbsp;char&nbsp;*filename</tt> - the name of
+the file which was opened, as passed to
+<tt>MMDB_open()</tt>.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_metadata_s&nbsp;metadata</tt> - the metadata
+for the database.</p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_metadata_s</tt>
+<b>and</b> <tt>MMDB_description_s</tt> <br>
+This structure can be retrieved from the <tt>MMDB_s</tt>
+structure. It contains the metadata read from the database
+file. Note that you may find it more convenient to access
+this metadata by calling
+<tt>MMDB_get_metadata_as_entry_data_list()</tt> instead.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="49%">
+
+<pre style="margin-top: 1em">typedef&nbsp;struct&nbsp;MMDB_metadata_s&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="34%">
+</td></tr>
+</table></pre>
+
+<p style="margin-left:17%;">uint32_t&nbsp;node_count;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint16_t&nbsp;record_size; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint16_t&nbsp;ip_version; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;char&nbsp;*database_type;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+struct&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+size_t&nbsp;count;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;char&nbsp;**names; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+}&nbsp;languages; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint16_t&nbsp;binary_format_major_version;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint16_t&nbsp;binary_format_minor_version;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint64_t&nbsp;build_epoch; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+struct&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+size_t&nbsp;count;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_description_s&nbsp;**descriptions;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+}&nbsp;description; <br>
+}&nbsp;MMDB_metadata_s;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">typedef&nbsp;struct&nbsp;MMDB_description_s&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;char&nbsp;*language; &nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+const&nbsp;char&nbsp;*description; <br>
+}&nbsp;MMDB_description_s;</p>
+
+<p style="margin-left:11%; margin-top: 1em">These
+structures should be mostly self-explanatory.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>ip_version</tt> member should always be <tt>4</tt> or
+<tt>6</tt>. The <tt>binary_format_major_version</tt> should
+always be <tt>2</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">There is no
+requirement that the database metadata include languages or
+descriptions, so the <tt>count</tt> for these parts of the
+metadata can be zero. All of the other
+<tt>MMDB_metadata_s</tt> fields should be populated.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_lookup_result_s</tt>
+<br>
+This structure is returned as the result of looking up an IP
+address.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="57%">
+
+<pre style="margin-top: 1em">typedef&nbsp;struct&nbsp;MMDB_lookup_result_s&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="26%">
+</td></tr>
+</table></pre>
+
+<p style="margin-left:17%;">bool&nbsp;found_entry;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_s&nbsp;entry; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint16_t&nbsp;netmask; <br>
+}&nbsp;MMDB_lookup_result_s;</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the
+<tt>found_entry</tt> member is false then the other members
+of this structure do not contain meaningful values. Always
+check that <tt>found_entry</tt> is true first.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>entry</tt> member is used to look up the data associated
+with the IP address.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>netmask</tt> member tells you what subnet the IP address
+belongs to in this database. For example, if you look up the
+address <tt>1.1.1.1</tt> in an IPv4 database and the
+returned <tt>netmask</tt> is 16, then the address is part of
+the <tt>1.1.0.0/16</tt> subnet.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the database
+is an IPv6 database, the returned netmask is always an IPv6
+prefix length (from 0-128), even if that database
+<i>also</i> contains IPv4 networks. If you look up an IPv4
+address and would like to turn the netmask into an IPv4
+netmask value, you can simply subtract <tt>96</tt> from the
+value.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_result_s</tt>
+<br>
+You don't really need to dig around in this structure.
+You'll get this from a <tt>MMDB_lookup_result_s</tt>
+structure and pass it to various functions.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_entry_data_s</tt>
+<br>
+This structure is used to return a single data section entry
+for an IP. These entries can in turn point to other entries,
+as is the case for things like maps and arrays. Some members
+of this structure are not documented as they are only for
+internal use.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="52%">
+
+<pre style="margin-top: 1em">typedef&nbsp;struct&nbsp;MMDB_entry_data_s&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="31%">
+</td></tr>
+</table></pre>
+
+<p style="margin-left:17%;">bool&nbsp;has_data;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+union&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;pointer;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;char&nbsp;*utf8_string;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+double&nbsp;double_value;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;uint8_t&nbsp;*bytes;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint16_t&nbsp;uint16;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;uint32;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+int32_t&nbsp;int32;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint64_t&nbsp;uint64;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+{mmdb_uint128_t&nbsp;or&nbsp;uint8_t[16]}&nbsp;uint128;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+bool&nbsp;boolean;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+float&nbsp;float_value; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+}; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+... &nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;data_size; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;type; <br>
+}&nbsp;MMDB_entry_data_s;</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>has_data</tt> member is true if data was found for a
+given lookup. See <tt>MMDB_get_value()</tt> for more
+details. If this member is false then none of the other
+values in the structure are meaningful.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The union at
+the beginning of the structure defines the actual data. To
+determine which union member is populated you should look at
+the <tt>type</tt> member. The <tt>pointer</tt> member of the
+union should never be populated in any data returned by the
+API. Pointers should always be resolved internally.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>data_size</tt> member is only relevant for
+<tt>utf8_string</tt> and <tt>bytes</tt> data.
+<tt>utf8_string</tt> is not null terminated and
+<tt>data_size</tt> <i>must</i> be used to determine its
+length.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>type</tt> member can be compared to one of the
+<tt>MMDB_DTYPE_*</tt> macros.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>128-bit
+Integers</b> <br>
+The handling of <tt>uint128</tt> data depends on how your
+platform supports 128-bit integers, if it does so at all.
+With GCC 4.4 and 4.5 we can write
+<tt>unsigned&nbsp;int&nbsp;__attribute__&nbsp;((__mode__&nbsp;(TI)))</tt>.
+With newer versions of GCC (4.6+) and clang (3.2+) we can
+simply write &quot;unsigned __int128&quot;.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In order to
+work around these differences, this library defines an
+<tt>mmdb_uint128_t</tt> type. This type is defined in the
+<tt>maxminddb.h</tt> header so you can use it in your own
+code.</p>
+
+<p style="margin-left:11%; margin-top: 1em">With older
+compilers, we can't use an integer so we instead use a 16
+byte array of <tt>uint8_t</tt> values. This is the raw data
+from the database.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This library
+provides a public macro <tt>MMDB_UINT128_IS_BYTE_ARRAY</tt>
+macro. If this is true (1), then <tt>uint128</tt> values are
+returned as a byte array, if it is false then they are
+returned as a <tt>mmdb_uint128_t</tt> integer.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Data Type
+Macros</b> <br>
+This library provides a macro for every data type defined by
+the MaxMind DB spec.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+
+<p style="margin-top: 1em"><tt>MMDB_DATA_TYPE_UTF8_STRING</tt></p> </td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+<p><tt>MMDB_DATA_TYPE_DOUBLE</tt></p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+<p><tt>MMDB_DATA_TYPE_BYTES</tt></p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+<p><tt>MMDB_DATA_TYPE_UINT16</tt></p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+<p><tt>MMDB_DATA_TYPE_UINT32</tt></p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+<p><tt>MMDB_DATA_TYPE_MAP</tt></p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+<p><tt>MMDB_DATA_TYPE_INT32</tt></p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+<p><tt>MMDB_DATA_TYPE_UINT64</tt></p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+<p><tt>MMDB_DATA_TYPE_UINT128</tt></p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+<p><tt>MMDB_DATA_TYPE_ARRAY</tt></p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+<p><tt>MMDB_DATA_TYPE_BOOLEAN</tt></p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="40%">
+
+
+<p><tt>MMDB_DATA_TYPE_FLOAT</tt></p></td>
+<td width="46%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">There are also
+a few types that are for internal use only:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="38%">
+
+
+
+<p style="margin-top: 1em"><tt>MMDB_DATA_TYPE_EXTENDED</tt></p> </td>
+<td width="48%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="38%">
+
+
+<p><tt>MMDB_DATA_TYPE_POINTER</tt></p></td>
+<td width="48%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="38%">
+
+
+<p><tt>MMDB_DATA_TYPE_CONTAINER</tt></p></td>
+<td width="48%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="38%">
+
+
+<p><tt>MMDB_DATA_TYPE_END_MARKER</tt></p></td>
+<td width="48%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">If you see one
+of these in returned data then something has gone very
+wrong. The database is damaged or was generated incorrectly
+or there is a bug in the libmaxminddb code.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Pointer
+Values and</b> <tt>MMDB_close()</tt> <br>
+The <tt>utf8_string</tt>, <tt>bytes</tt>, and (maybe) the
+<tt>uint128</tt> members of this structure are all pointers
+directly into the database's data section. This can either
+be a <tt>malloc</tt>'d or <tt>mmap</tt>'d block of memory.
+In either case, these pointers will become invalid after
+<tt>MMDB_close()</tt> is called.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you need to
+refer to this data after that time you should copy the data
+with an appropriate function (<tt>strdup</tt>,
+<tt>memcpy</tt>, etc.).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_entry_data_list_s</tt>
+<br>
+This structure encapsulates a linked list of
+<tt>MMDB_entry_data_s</tt> structures.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="60%">
+
+<pre style="margin-top: 1em">typedef&nbsp;struct&nbsp;MMDB_entry_data_list_s&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="23%">
+</td></tr>
+</table></pre>
+
+
+<p style="margin-left:17%;">MMDB_entry_data_s&nbsp;entry_data;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+struct&nbsp;MMDB_entry_data_list_s&nbsp;*next; <br>
+}&nbsp;MMDB_entry_data_list_s;</p>
+
+<p style="margin-left:11%; margin-top: 1em">This structure
+lets you look at entire map or array data entry by iterating
+over the linked list.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_search_node_s</tt>
+<br>
+This structure encapsulates the two records in a search
+node. This is really only useful if you want to write code
+that iterates over the entire search tree as opposed to
+looking up a specific IP address.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="54%">
+
+<pre style="margin-top: 1em">typedef&nbsp;struct&nbsp;MMDB_search_node_s&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="29%">
+</td></tr>
+</table></pre>
+
+<p style="margin-left:17%;">uint64_t&nbsp;left_record;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint64_t&nbsp;right_record; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint8_t&nbsp;left_record_type; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint8_t&nbsp;right_record_type; &nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+MMDB_entry_s&nbsp;left_record_entry;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_s&nbsp;right_record_entry; <br>
+}&nbsp;MMDB_search_node_s;</p>
+
+<p style="margin-left:11%; margin-top: 1em">The two record
+types will take one of the following values:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+
+<p style="margin-top: 1em"><tt>MMDB_RECORD_TYPE_SEARCH_NODE</tt>
+- The record points to the next search node.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_RECORD_TYPE_EMPTY</tt> - The record is a
+placeholder that indicates there is no data for the IP
+address. The search should end here.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_RECORD_TYPE_DATA</tt> - The record is for data
+in the data section of the database. Use the entry for the
+record when looking up the data for the record.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_RECORD_TYPE_INVALID</tt> - The record is
+invalid. Either an invalid node was looked up or the
+database is corrupt.</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>MMDB_entry_s</tt> for the record is only valid if the
+type is <tt>MMDB_RECORD_TYPE_DATA</tt>. Attempts to use an
+entry for other record types will result in an error or
+invalid data.</p>
+
+<h2>STATUS CODES
+<a name="STATUS CODES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This library
+returns (or populates) status codes for many functions.
+These status codes are:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>MMDB_SUCCESS</tt> -
+everything worked</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_FILE_OPEN_ERROR</tt> - there was an error
+trying to open the MaxMind DB file.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_IO_ERROR</tt> - an IO operation failed. Check
+<tt>errno</tt> for more details.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_CORRUPT_SEARCH_TREE_ERROR</tt> - looking up an
+IP address in the search tree gave us an impossible result.
+The database is damaged or was generated incorrectly or
+there is a bug in the libmaxminddb code.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_INVALID_METADATA_ERROR</tt> - something in the
+database is wrong. This includes missing metadata keys as
+well as impossible values (like an <tt>ip_version</tt> of
+7).</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_UNKNOWN_DATABASE_FORMAT_ERROR</tt> - The
+database metadata indicates that it's major version is not
+2. This library can only handle major version 2.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_OUT_OF_MEMORY_ERROR</tt> - a memory allocation
+call (<tt>malloc</tt>, etc.) failed.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_INVALID_DATA_ERROR</tt> - an entry in the data
+section contains invalid data. For example, a
+<tt>uint16</tt> field is claiming to be more than 2 bytes
+long. The database is probably damaged or was generated
+incorrectly.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_INVALID_LOOKUP_PATH_ERROR</tt> - The lookup
+path passed to <tt>MMDB_get_value</tt>,
+<tt>MMDB_vget_value</tt>, or <tt>MMDB_aget_value</tt>
+contains an array offset that is larger than LONG_MAX or
+smaller than LONG_MIN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>MMDB_LOOKUP_PATH_DOES_NOT_MATCH_DATA_ERROR</tt> -
+The lookup path passed to
+<tt>MMDB_get_value</tt>,<tt>MMDB_vget_value</tt>, or
+<tt>MMDB_aget_value</tt> does not match the data structure
+for the entry. There are number of reasons this can happen.
+The lookup path could include a key not in a map. The lookup
+path could include an array index larger than an array or
+smaller than the minimum offset from the end of an array. It
+can also happen when the path expects to find a map or array
+where none exist.</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">All status
+codes should be treated as <tt>int</tt> values.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_strerror()</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="63%">
+
+
+
+<p style="margin-top: 1em"><tt>const&nbsp;char&nbsp;*MMDB_strerror(int&nbsp;error_code)</tt></p> </td>
+<td width="20%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">This function
+takes a status code and returns an English string explaining
+the status.</p>
+
+<h2>FUNCTIONS
+<a name="FUNCTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This library
+provides the following exported functions:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_open()</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="21%">
+
+
+<p style="margin-top: 1em"><tt>int&nbsp;MMDB_open(
+&nbsp;&nbsp;&nbsp;&nbsp;</tt></p> </td>
+<td width="62%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><tt>const&nbsp;char&nbsp;*const&nbsp;filename,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;flags, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_s&nbsp;*const&nbsp;mmdb);</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">This function
+opens a handle to a MaxMind DB file. Its return value is a
+status code as defined above. Always check this call's
+return value.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="18%">
+
+<pre style="margin-top: 1em">MMDB_s&nbsp;mmdb;</td>
+<td width="65%">
+</td></tr>
+</table></pre>
+
+<p style="margin-left:17%;">int&nbsp;status&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+MMDB_open(&quot;/path/to/file.mmdb&quot;,&nbsp;MMDB_MODE_MMAP,&nbsp;&amp;mmdb);
+<br>
+
+if&nbsp;(MMDB_SUCCESS&nbsp;!=&nbsp;status)&nbsp;{&nbsp;...&nbsp;}
+<br>
+... <br>
+MMDB_close(&amp;mmdb);</p>
+
+<p style="margin-left:11%; margin-top: 1em">filename must
+be encoded as UTF-8 on Windows.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>MMDB_s</tt> structure you pass in can be on the stack or
+allocated from the heap. However, if the open is successful
+it will contain heap-allocated data, so you need to close it
+with <tt>MMDB_close()</tt>. If the status returned is not
+<tt>MMDB_SUCCESS</tt> then this library makes sure that all
+allocated memory is freed before returning.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The flags
+currently provided are:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="72%">
+
+
+<p style="margin-top: 1em"><tt>MMDB_MODE_MMAP</tt> - open
+the database with <tt>mmap()</tt>.</p></td>
+<td width="14%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Passing in
+other values for <tt>flags</tt> may yield unpredictable
+results. In the future we may add additional flags that you
+can bitwise-or together with the mode, as well as additional
+modes.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can also
+pass <tt>0</tt> as the <tt>flags</tt> value in which case
+the database will be opened with the default flags. However,
+these defaults may change in future releases. The current
+default is <tt>MMDB_MODE_MMAP</tt>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_close()</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="55%">
+
+
+
+<p style="margin-top: 1em"><tt>void&nbsp;MMDB_close(MMDB_s&nbsp;*const&nbsp;mmdb);</tt></p> </td>
+<td width="28%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">This frees any
+allocated or mmap'd memory that is held from the
+<tt>MMDB_s</tt> structure. <i>It does not free the memory
+allocated for the structure itself!</i> If you allocated the
+structure from the heap then you are responsible for freeing
+it.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_lookup_string()</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="61%">
+
+
+
+<p style="margin-top: 1em"><tt>MMDB_lookup_result_s&nbsp;MMDB_lookup_string(
+&nbsp;&nbsp;&nbsp;&nbsp;</tt></p> </td>
+<td width="22%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><tt>MMDB_s&nbsp;*const&nbsp;mmdb,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;char&nbsp;*const&nbsp;ipstr,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+int&nbsp;*const&nbsp;gai_error, &nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+int&nbsp;*const&nbsp;mmdb_error);</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">This function
+looks up an IP address that is passed in as a
+null-terminated string. Internally it calls
+<tt>getaddrinfo()</tt> to resolve the address into a binary
+form. It then calls <tt>MMDB_lookup_sockaddr()</tt> to look
+the address up in the database. If you have already resolved
+an address you can call <tt>MMDB_lookup_sockaddr()</tt>
+directly, rather than resolving the address twice.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="40%">
+
+<pre style="margin-top: 1em">int&nbsp;gai_error,&nbsp;mmdb_error;</td>
+<td width="43%">
+</td></tr>
+</table></pre>
+
+
+<p style="margin-left:17%;">MMDB_lookup_result_s&nbsp;result&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+MMDB_lookup_string(&amp;mmdb,&nbsp;&quot;1.2.3.4&quot;,&nbsp;&amp;gai_error,&nbsp;&amp;mmdb_error);
+<br>
+if&nbsp;(0&nbsp;!=&nbsp;gai_error)&nbsp;{&nbsp;...&nbsp;}
+<br>
+
+if&nbsp;(MMDB_SUCCESS&nbsp;!=&nbsp;mmdb_error)&nbsp;{&nbsp;...&nbsp;}</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">if&nbsp;(result.found_entry)&nbsp;{&nbsp;...&nbsp;}</p>
+
+<p style="margin-left:11%; margin-top: 1em">This function
+always returns an <tt>MMDB_lookup_result_s</tt> structure,
+but you should also check the <tt>gai_error</tt> and
+<tt>mmdb_error</tt> parameters. If either of these indicates
+an error then the returned structure is meaningless.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If no error
+occurred you still need to make sure that the
+<tt>found_entry</tt> member in the returned result is true.
+If it's not, this means that the IP address does not have an
+entry in the database.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This function
+will work with IPv4 addresses even when the database
+contains data for both IPv4 and IPv6 addresses. The IPv4
+address will be looked up as '::xxx.xxx.xxx.xxx' rather than
+being remapped to the <tt>::ffff:xxx.xxx.xxx.xxx</tt> block
+allocated for IPv4-mapped IPv6 addresses.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you pass an
+IPv6 address to a database with only IPv4 data then the
+<tt>found_entry</tt> member will be false, but the
+<tt>mmdb_error</tt> status will still be
+<tt>MMDB_SUCCESS</tt>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_lookup_sockaddr()</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="65%">
+
+
+
+<p style="margin-top: 1em"><tt>MMDB_lookup_result_s&nbsp;MMDB_lookup_sockaddr(
+&nbsp;&nbsp;&nbsp;&nbsp;</tt></p> </td>
+<td width="18%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><tt>MMDB_s&nbsp;*const&nbsp;mmdb,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;struct&nbsp;sockaddr&nbsp;*const&nbsp;sockaddr,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+int&nbsp;*const&nbsp;mmdb_error);</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">This function
+looks up an IP address that has already been resolved by
+<tt>getaddrinfo()</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Other than not
+calling <tt>getaddrinfo()</tt> itself, this function is
+identical to the <tt>MMDB_lookup_string()</tt> function.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="23%">
+
+<pre style="margin-top: 1em">int&nbsp;mmdb_error;</td>
+<td width="60%">
+</td></tr>
+</table></pre>
+
+
+<p style="margin-left:17%;">MMDB_lookup_result_s&nbsp;result&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+MMDB_lookup_sockaddr(&amp;mmdb,&nbsp;address-&gt;ai_addr,&nbsp;&amp;mmdb_error);
+<br>
+
+if&nbsp;(MMDB_SUCCESS&nbsp;!=&nbsp;mmdb_error)&nbsp;{&nbsp;...&nbsp;}</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">if&nbsp;(result.found_entry)&nbsp;{&nbsp;...&nbsp;}</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Data Lookup
+Functions</b> <br>
+There are three functions for looking up data associated
+with an IP address.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="29%">
+
+<pre style="margin-top: 1em">int&nbsp;MMDB_get_value(&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="54%">
+</td></tr>
+</table></pre>
+
+
+<p style="margin-left:17%;">MMDB_entry_s&nbsp;*const&nbsp;start,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_s&nbsp;*const&nbsp;entry_data,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+...); <br>
+int&nbsp;MMDB_vget_value( &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_s&nbsp;*const&nbsp;start,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_s&nbsp;*const&nbsp;entry_data,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+va_list&nbsp;va_path); <br>
+int&nbsp;MMDB_aget_value( &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_s&nbsp;*const&nbsp;start,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_s&nbsp;*const&nbsp;entry_data,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+const&nbsp;char&nbsp;*const&nbsp;*const&nbsp;path);</p>
+
+<p style="margin-left:11%; margin-top: 1em">The three
+functions allow three slightly different calling styles, but
+they all do the same thing.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The first
+parameter is an <tt>MMDB_entry_s</tt> value. In most cases
+this will come from the <tt>MMDB_lookup_result_s</tt> value
+returned by <tt>MMDB_lookup_string()</tt> or
+<tt>MMDB_lookup_sockaddr()</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The second
+parameter is a reference to an <tt>MMDB_entry_data_s</tt>
+structure. This will be populated with the data that is
+being looked up, if any is found. If nothing is found, then
+the <tt>has_data</tt> member of this structure will be
+false. If <tt>has_data</tt> is true then you can look at the
+<tt>data_type</tt> member.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The final
+parameter is a lookup path. The path consists of a set of
+strings representing either map keys (e.g, &quot;city&quot;)
+or array indexes (e.g., &quot;0&quot;, &quot;1&quot;,
+&quot;-1&quot;) to use in the lookup.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Negative array
+indexes will be treated as an offset from the end of the
+array. For instance, &quot;-1&quot; refers to the last
+element of the array.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The lookup path
+allows you to navigate a complex data structure. For
+example, given this data:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="6%">
+
+<pre style="margin-top: 1em">{&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="77%">
+</td></tr>
+</table></pre>
+
+<p style="margin-left:17%;">&quot;names&quot;:&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&quot;en&quot;:&nbsp;&quot;Germany&quot;,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&quot;de&quot;:&nbsp;&quot;Deutschland&quot;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+}, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+&quot;cities&quot;:&nbsp;[&nbsp;&quot;Berlin&quot;,&nbsp;&quot;Frankfurt&quot;&nbsp;]
+<br>
+}</p>
+
+<p style="margin-left:11%; margin-top: 1em">We could look
+up the English name with this code:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="45%">
+
+<pre style="margin-top: 1em">MMDB_lookup_result_s&nbsp;result&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="38%">
+</td></tr>
+</table></pre>
+
+
+<p style="margin-left:17%;">MMDB_lookup_sockaddr(&amp;mmdb,&nbsp;address-&gt;ai_addr,&nbsp;&amp;mmdb_error);
+<br>
+MMDB_entry_data_s&nbsp;entry_data; <br>
+int&nbsp;status&nbsp;= &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_get_value(&amp;result.entry,&nbsp;&amp;entry_data,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&quot;names&quot;,&nbsp;&quot;en&quot;,&nbsp;NULL); <br>
+
+if&nbsp;(MMDB_SUCCESS&nbsp;!=&nbsp;status)&nbsp;{&nbsp;...&nbsp;}
+<br>
+if&nbsp;(entry_data.has_data)&nbsp;{&nbsp;...&nbsp;}</p>
+
+<p style="margin-left:11%; margin-top: 1em">If we wanted to
+find the first city the lookup path would be
+<tt>&quot;cities&quot;,&nbsp;&quot;0&quot;</tt>. If you
+don't provide a lookup path at all, you'll get the entry
+which corresponds to the top level map. The lookup path must
+always end with <tt>NULL</tt>, regardless of which function
+you call.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>MMDB_get_value</tt> function takes a variable number of
+arguments. All of the arguments after the
+<tt>MMDB_entry_data_s&nbsp;*</tt> structure pointer are the
+lookup path. The last argument must be <tt>NULL</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>MMDB_vget_value</tt> function accepts a <tt>va_list</tt>
+as the lookup path. The last element retrieved by
+<tt>va_arg()</tt> must be <tt>NULL</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Finally, the
+<tt>MMDB_aget_value</tt> accepts an array of strings as the
+lookup path. The last member of this array must be
+<tt>NULL</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+get all of the entry data at once you can call
+<tt>MMDB_get_entry_data_list()</tt> instead.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For each of the
+three functions, the return value is a status code as
+defined above.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_get_entry_data_list()</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="45%">
+
+
+
+<p style="margin-top: 1em"><tt>int&nbsp;MMDB_get_entry_data_list(
+&nbsp;&nbsp;&nbsp;&nbsp;</tt></p> </td>
+<td width="38%">
+</td></tr>
+</table>
+
+<p style="margin-left:17%;"><tt>MMDB_entry_s&nbsp;*start,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+MMDB_entry_data_list_s&nbsp;**const&nbsp;entry_data_list);</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">This function
+allows you to get all of the data for a complex data
+structure at once, rather than looking up each piece using
+repeated calls to <tt>MMDB_get_value()</tt>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="45%">
+
+<pre style="margin-top: 1em">MMDB_lookup_result_s&nbsp;result&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="38%">
+</td></tr>
+</table></pre>
+
+
+<p style="margin-left:17%;">MMDB_lookup_sockaddr(&amp;mmdb,&nbsp;address-&gt;ai_addr,&nbsp;&amp;mmdb_error);
+<br>
+MMDB_entry_data_list_s&nbsp;*entry_data_list,&nbsp;*first;
+<br>
+int&nbsp;status&nbsp;= &nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+MMDB_get_entry_data_list(&amp;result.entry,&nbsp;&amp;entry_data_list);
+<br>
+
+if&nbsp;(MMDB_SUCCESS&nbsp;!=&nbsp;status)&nbsp;{&nbsp;...&nbsp;}
+<br>
+
+//&nbsp;save&nbsp;this&nbsp;so&nbsp;we&nbsp;can&nbsp;free&nbsp;this&nbsp;data&nbsp;later
+<br>
+first&nbsp;=&nbsp;entry_data_list;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">while&nbsp;(1)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+MMDB_entry_data_list_s&nbsp;*next&nbsp;=&nbsp;entry_data_list&nbsp;=&nbsp;entry_data_list-&gt;next;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+if&nbsp;(NULL&nbsp;==&nbsp;next)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+break; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+} &nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">switch&nbsp;(next-&gt;entry_data.type)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+case&nbsp;MMDB_DATA_TYPE_MAP:&nbsp;{&nbsp;...&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+case&nbsp;MMDB_DATA_TYPE_UTF8_STRING:&nbsp;{&nbsp;...&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+... &nbsp;&nbsp;&nbsp;&nbsp; <br>
+}</p>
+
+<p style="margin-left:17%; margin-top: 1em">}</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">MMDB_free_entry_data_list(first);</p>
+
+<p style="margin-left:11%; margin-top: 1em">It's up to you
+to interpret the <tt>entry_data_list</tt> data structure.
+The list is linked in a depth-first traversal. Let's use
+this structure as an example:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="6%">
+
+<pre style="margin-top: 1em">{&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="77%">
+</td></tr>
+</table></pre>
+
+<p style="margin-left:17%;">&quot;names&quot;:&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&quot;en&quot;:&nbsp;&quot;Germany&quot;,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&quot;de&quot;:&nbsp;&quot;Deutschland&quot;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+}, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+&quot;cities&quot;:&nbsp;[&nbsp;&quot;Berlin&quot;,&nbsp;&quot;Frankfurt&quot;&nbsp;]
+<br>
+}</p>
+
+<p style="margin-left:11%; margin-top: 1em">The list will
+consist of the following items:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p style="margin-top: 1em">MAP - top level map</p></td>
+<td width="34%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>2.</p></td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p>UTF8_STRING - &quot;names&quot; key</p></td>
+<td width="34%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>3.</p></td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p>MAP - map for &quot;names&quot; key</p></td>
+<td width="34%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>4.</p></td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p>UTF8_STRING - &quot;en&quot; key</p></td>
+<td width="34%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>5.</p></td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p>UTF8_STRING - value for &quot;en&quot; key</p></td>
+<td width="34%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>6.</p></td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p>UTF8_STRING - &quot;de&quot; key</p></td>
+<td width="34%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>7.</p></td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p>UTF8_STRING - value for &quot;de&quot; key</p></td>
+<td width="34%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>8.</p></td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p>UTF8_STRING - &quot;cities&quot; key</p></td>
+<td width="34%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>9.</p></td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p>ARRAY - value for &quot;cities&quot; key</p></td>
+<td width="34%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>10.</p></td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p>UTF8_STRING - array[0]</p></td>
+<td width="34%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>11.</p></td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p>UTF8_STRING - array[1]</p></td>
+<td width="34%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">The return
+value of the function is a status code as defined above.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_free_entry_data_list()</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="48%">
+
+
+
+<p style="margin-top: 1em"><tt>void&nbsp;MMDB_free_entry_data_list(
+&nbsp;&nbsp;&nbsp;&nbsp;</tt></p> </td>
+<td width="35%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><tt>MMDB_entry_data_list_s&nbsp;*const&nbsp;entry_data_list);</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>MMDB_get_entry_data_list()</tt> and
+<tt>MMDB_get_metadata_as_entry_data_list()</tt> functions
+will allocate the linked list structure from the heap. Call
+this function to free the <tt>MMDB_entry_data_list_s</tt>
+structure.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_get_metadata_as_entry_data_list()</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="63%">
+
+
+
+<p style="margin-top: 1em"><tt>int&nbsp;MMDB_get_metadata_as_entry_data_list(
+&nbsp;&nbsp;&nbsp;&nbsp;</tt></p> </td>
+<td width="20%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><tt>MMDB_s&nbsp;*const&nbsp;mmdb,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+MMDB_entry_data_list_s&nbsp;**const&nbsp;entry_data_list);</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">This function
+allows you to retrieve the database metadata as a linked
+list of <tt>MMDB_entry_data_list_s</tt> structures. This can
+be a more convenient way to deal with the metadata than
+using the metadata structure directly.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="6%">
+
+
+<p style="margin-top: 1em">&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+<td width="74%">
+
+<pre style="margin-top: 1em">    MMDB_entry_data_list_s&nbsp;*entry_data_list,&nbsp;*first;</td>
+<td width="3%">
+</td></tr>
+</table></pre>
+
+<p style="margin-left:17%;">&nbsp;&nbsp;&nbsp;&nbsp; <br>
+int&nbsp;status&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+MMDB_get_metadata_as_entry_data_list(&amp;mmdb,&nbsp;&amp;entry_data_list);
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+if&nbsp;(MMDB_SUCCESS&nbsp;!=&nbsp;status)&nbsp;{&nbsp;...&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+first&nbsp;=&nbsp;entry_data_list; &nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+...&nbsp;//&nbsp;do&nbsp;something&nbsp;with&nbsp;the&nbsp;data
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_free_entry_data_list(first);</p>
+
+<p style="margin-left:11%; margin-top: 1em">The return
+value of the function is a status code as defined above.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_dump_entry_data_list()</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="46%">
+
+
+
+<p style="margin-top: 1em"><tt>int&nbsp;MMDB_dump_entry_data_list(
+&nbsp;&nbsp;&nbsp;&nbsp;</tt></p> </td>
+<td width="37%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><tt>FILE&nbsp;*const&nbsp;stream,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_entry_data_list_s&nbsp;*const&nbsp;entry_data_list,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+int&nbsp;indent);</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">This function
+takes a linked list of <tt>MMDB_entry_data_list_s</tt>
+structures and stringifies it to the given <tt>stream</tt>.
+The <tt>indent</tt> parameter is the starting indent level
+for the generated output. It is incremented for nested data
+structures (maps, array, etc.).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>stream</tt> must be a file handle (<tt>stdout</tt>,
+etc). If your platform provides something like the GNU
+<tt>open_memstream()</tt> you can use that to capture the
+output as a string.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The output is
+formatted in a JSON-ish fashion, but values are marked with
+their data type (except for maps and arrays which are shown
+with &quot;{}&quot; and &quot;[]&quot; respectively).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The specific
+output format may change in future releases, so you should
+not rely on the specific formatting produced by this
+function. It is intended to be used to show data to users in
+a readable way and for debugging purposes.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The return
+value of the function is a status code as defined above.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_read_node()</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="29%">
+
+
+<p style="margin-top: 1em"><tt>int&nbsp;MMDB_read_node(
+&nbsp;&nbsp;&nbsp;&nbsp;</tt></p> </td>
+<td width="54%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><tt>MMDB_s&nbsp;*const&nbsp;mmdb,
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+uint32_t&nbsp;node_number, &nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_search_node_s&nbsp;*const&nbsp;node);</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">This reads a
+specific node in the search tree. The third argument is a
+reference to an <tt>MMDB_search_node_s</tt> structure that
+will be populated by this function.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The return
+value is a status code. If you pass a <tt>node_number</tt>
+that is greater than the number of nodes in the database,
+this function will return
+<tt>MMDB_INVALID_NODE_NUMBER_ERROR</tt>, otherwise it will
+return <tt>MMDB_SUCCESS</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The first node
+in the search tree is always node 0. If you wanted to
+iterate over the whole search tree, you would start by
+reading node 0 and then following the the records that make
+up this node, based on the type of each record. If the type
+is <tt>MMDB_RECORD_TYPE_SEARCH_NODE</tt> then the record
+contains an integer for the next node to look up.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><tt>MMDB_lib_version()</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="52%">
+
+
+
+<p style="margin-top: 1em"><tt>const&nbsp;char&nbsp;*MMDB_lib_version(void)</tt></p> </td>
+<td width="31%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">This function
+returns the library version as a string, something like
+&quot;2.0.0&quot;.</p>
+
+<h2>EXAMPLE
+<a name="EXAMPLE"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="28%">
+
+<pre style="margin-top: 1em">#include&nbsp;&lt;errno.h&gt;</td>
+<td width="55%">
+</td></tr>
+</table></pre>
+
+
+<p style="margin-left:17%;">#include&nbsp;&lt;maxminddb.h&gt;
+<br>
+#include&nbsp;&lt;stdlib.h&gt; <br>
+#include&nbsp;&lt;string.h&gt;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">int&nbsp;main(int&nbsp;argc,&nbsp;char&nbsp;**argv)
+<br>
+{ &nbsp;&nbsp;&nbsp;&nbsp; <br>
+char&nbsp;*filename&nbsp;=&nbsp;argv[1];
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+char&nbsp;*ip_address&nbsp;=&nbsp;argv[2];
+&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">MMDB_s&nbsp;mmdb;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+int&nbsp;status&nbsp;=&nbsp;MMDB_open(filename,&nbsp;MMDB_MODE_MMAP,&nbsp;&amp;mmdb);
+&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">if&nbsp;(MMDB_SUCCESS&nbsp;!=&nbsp;status)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+fprintf(stderr,&nbsp;&quot;\n&nbsp;&nbsp;Can't&nbsp;open&nbsp;%s&nbsp;-&nbsp;%s\n&quot;,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+filename,&nbsp;MMDB_strerror(status));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">if&nbsp;(MMDB_IO_ERROR&nbsp;==&nbsp;status)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+fprintf(stderr,&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;IO&nbsp;error:&nbsp;%s\n&quot;,&nbsp;strerror(errno));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+exit(1); &nbsp;&nbsp;&nbsp;&nbsp; <br>
+} &nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">int&nbsp;gai_error,&nbsp;mmdb_error;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_lookup_result_s&nbsp;result&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+MMDB_lookup_string(&amp;mmdb,&nbsp;ip_address,&nbsp;&amp;gai_error,&nbsp;&amp;mmdb_error);
+&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">if&nbsp;(0&nbsp;!=&nbsp;gai_error)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+fprintf(stderr,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+&quot;\n&nbsp;&nbsp;Error&nbsp;from&nbsp;getaddrinfo&nbsp;for&nbsp;%s&nbsp;-&nbsp;%s\n\n&quot;,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+ip_address,&nbsp;gai_strerror(gai_error));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+exit(2); &nbsp;&nbsp;&nbsp;&nbsp; <br>
+} &nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">if&nbsp;(MMDB_SUCCESS&nbsp;!=&nbsp;mmdb_error)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+fprintf(stderr,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+&quot;\n&nbsp;&nbsp;Got&nbsp;an&nbsp;error&nbsp;from&nbsp;libmaxminddb:&nbsp;%s\n\n&quot;,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+MMDB_strerror(mmdb_error));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+exit(3); &nbsp;&nbsp;&nbsp;&nbsp; <br>
+} &nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">MMDB_entry_data_list_s&nbsp;*entry_data_list&nbsp;=&nbsp;NULL;
+&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">int&nbsp;exit_code&nbsp;=&nbsp;0;
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+if&nbsp;(result.found_entry)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+int&nbsp;status&nbsp;=&nbsp;MMDB_get_entry_data_list(&amp;result.entry,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&amp;entry_data_list);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">if&nbsp;(MMDB_SUCCESS&nbsp;!=&nbsp;status)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+fprintf(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+stderr,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+&quot;Got&nbsp;an&nbsp;error&nbsp;looking&nbsp;up&nbsp;the&nbsp;entry&nbsp;data&nbsp;-&nbsp;%s\n&quot;,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+MMDB_strerror(status));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+exit_code&nbsp;=&nbsp;4;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+goto&nbsp;end;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">if&nbsp;(NULL&nbsp;!=&nbsp;entry_data_list)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+MMDB_dump_entry_data_list(stdout,&nbsp;entry_data_list,&nbsp;2);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+} &nbsp;&nbsp;&nbsp;&nbsp; <br>
+}&nbsp;else&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+fprintf(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+stderr,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+&quot;\n&nbsp;&nbsp;No&nbsp;entry&nbsp;for&nbsp;this&nbsp;IP&nbsp;address&nbsp;(%s)&nbsp;was&nbsp;found\n\n&quot;,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+ip_address);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+exit_code&nbsp;=&nbsp;5; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+} &nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+<p style="margin-left:17%; margin-top: 1em">end:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_free_entry_data_list(entry_data_list);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+MMDB_close(&amp;mmdb);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+exit(exit_code); <br>
+}</p>
+
+<h2>THREAD SAFETY
+<a name="THREAD SAFETY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This library is
+thread safe when compiled and linked with a thread-safe
+<tt>malloc</tt> and <tt>free</tt> implementation.</p>
+
+<h2>INSTALLATION AND SOURCE
+<a name="INSTALLATION AND SOURCE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">You can
+download the latest release of libmaxminddb from GitHub
+(https://github.com/maxmind/libmaxminddb/releases).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Our GitHub repo
+(https://github.com/maxmind/libmaxminddb) is publicly
+available. Please fork it!</p>
+
+<h2>BUG REPORTS AND PULL REQUESTS
+<a name="BUG REPORTS AND PULL REQUESTS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Please report
+all issues to our GitHub issue tracker
+(https://github.com/maxmind/libmaxminddb/issues). We welcome
+bug reports and pull requests. Please note that pull
+requests are greatly preferred over patches.</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This library
+was written by Boris Zentner (bzentner@maxmind.com) and Dave
+Rolsky (drolsky@maxmind.com).</p>
+
+<h2>COPYRIGHT AND LICENSE
+<a name="COPYRIGHT AND LICENSE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+2013-2014 MaxMind, Inc.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Licensed under
+the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the
+License. You may obtain a copy of the License at</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="65%">
+
+<pre style="margin-top: 1em">http://www.apache.org/licenses/LICENSE-2.0</td>
+<td width="18%">
+</td></tr>
+</table></pre>
+
+<p style="margin-left:11%; margin-top: 1em">Unless required
+by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS
+IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied. See the License for the
+specific language governing permissions and limitations
+under the License.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">mmdblookup(1)</p>
+<hr>
+</body>
+</html>

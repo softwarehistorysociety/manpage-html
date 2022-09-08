@@ -1,0 +1,90 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:43:08 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<hr>
+
+
+<p>FROM(1) BSD General Commands Manual FROM(1)</p>
+
+<p style="margin-top: 1em"><b>NAME</b></p>
+
+<p style="margin-left:6%;"><b>from</b> &mdash; print names
+of those who have sent mail</p>
+
+<p style="margin-top: 1em"><b>SYNOPSIS</b></p>
+
+<p style="margin-left:13%;"><b>from</b> [<b>-c</b>]
+[<b>-f&nbsp;</b><i>file</i>] [<b>-s&nbsp;</b><i>sender</i>]
+[<i>user</i>]</p>
+
+<p style="margin-top: 1em"><b>DESCRIPTION</b></p>
+
+<p style="margin-left:6%;">The <b>from</b> utility prints
+out the mail header lines from the invoker&rsquo;s
+mailbox.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The following
+options are available:</p>
+
+<p style="margin-top: 1em"><b>-c</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Just print a
+count of messages and exit.</p>
+
+<p style="margin-top: 1em"><b>-f</b> <i>file</i></p>
+
+<p style="margin-left:17%;">The supplied <i>file</i> is
+examined instead of the invoker&rsquo;s mailbox. If the
+<b>-f</b> option is used, the <i>user</i> argument should
+not be used. Read from standard input if file name
+&ldquo;<b>-</b>&rdquo; is given.</p>
+
+<p style="margin-top: 1em"><b>-s</b> <i>sender</i></p>
+
+<p style="margin-left:17%;">Only mail from addresses
+containing the supplied string are printed.</p>
+
+<p style="margin-left:6%; margin-top: 1em">If <i>user</i>
+is given, the <i>user</i>&rsquo;s mailbox is examined
+instead of the invoker&rsquo;s own mailbox. (Privileges are
+required.)</p>
+
+<p style="margin-top: 1em"><b>ENVIRONMENT</b> <br>
+MAIL</p>
+
+<p style="margin-left:17%; margin-top: 1em">If set, the
+location of the invoker&rsquo;s mailbox. Otherwise, the
+default in <i>/var/mail</i> is used.</p>
+
+<p style="margin-top: 1em"><b>FILES</b> <br>
+/var/mail/* <b><br>
+SEE ALSO</b></p>
+
+<p style="margin-left:6%;">biff(1), mail(1)</p>
+
+<p style="margin-top: 1em"><b>HISTORY</b></p>
+
+<p style="margin-left:6%;">The <b>from</b> command appeared
+in 3.0BSD.</p>
+
+<p style="margin-left:6%; margin-top: 1em">BSD
+December&nbsp;30, 1993 BSD</p>
+<hr>
+</body>
+</html>

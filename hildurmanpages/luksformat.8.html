@@ -1,0 +1,85 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:53:47 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>LUKSFORMAT</title>
+
+</head>
+<body>
+
+<h1 align="center">LUKSFORMAT</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">luksformat -
+Create and format an encrypted LUKS device</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>luksformat</b>
+[<b>-t</b> <i>fstype</i>] <i>device</i> [ mkfs options ]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>luksformat</b>
+is a wrapper around <b>cryptsetup</b> and <b>mkfs</b> which
+provides an easy interface for creating an encrypted device
+that follows the <small>LUKS</small> standard and for
+putting a file system onto the encrypted device.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The default
+file system is <b>vfat</b> since that is most commonly used
+on removable devices. However, you can specify any available
+file system with the <b>-t</b> option.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>cryptsetup</b>(8),
+<b>mkfs</b>(8)</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This program
+was written by Martin Pitt
+&lt;martin.pitt@ubuntu.com&gt;.</p>
+<hr>
+</body>
+</html>

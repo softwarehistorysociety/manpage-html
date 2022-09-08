@@ -1,0 +1,327 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:58:14 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>PAM_TALLY</title>
+
+</head>
+<body>
+
+<h1 align="center">PAM_TALLY</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#MODULE TYPES PROVIDED">MODULE TYPES PROVIDED</a><br>
+<a href="#RETURN VALUES">RETURN VALUES</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">pam_tally - The
+login counter (tallying) module</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em"><b>pam_tally.so</b>
+[file=<i>/path/to/counter</i>]
+[onerr=[<i>fail</i>|<i>succeed</i>]] [magic_root]
+[even_deny_root_account] [deny=<i>n</i>]
+[lock_time=<i>n</i>] [unlock_time=<i>n</i>] [per_user]
+[no_lock_time] [no_reset] [audit] [silent] [no_log_info]</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em"><b>pam_tally</b>
+[--file&nbsp;<i>/path/to/counter</i>]
+[--user&nbsp;<i>username</i>] [--reset[=<i>n</i>]]
+[--quiet]</p> </td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This module
+maintains a count of attempted accesses, can reset count on
+success, can deny access if too many attempts fail.</p>
+
+<p style="margin-left:11%; margin-top: 1em">pam_tally has
+several limitations, which are solved with pam_tally2. For
+this reason pam_tally is deprecated and will be removed in a
+future release.</p>
+
+<p style="margin-left:11%; margin-top: 1em">pam_tally comes
+in two parts: <b>pam_tally.so</b> and <b>pam_tally</b>. The
+former is the PAM module and the latter, a stand-alone
+program. <b>pam_tally</b> is an (optional) application which
+can be used to interrogate and manipulate the counter file.
+It can display user counts, set individual counts, or clear
+all counts. Setting artificially high counts may be useful
+for blocking users without changing their passwords. For
+example, one might find it useful to clear all counts every
+midnight from a cron job. The <b>faillog</b>(8) command can
+be used instead of pam_tally to to maintain the counter
+file.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Normally,
+failed attempts to access <i>root</i> will <b>not</b> cause
+the root account to become blocked, to prevent
+denial-of-service: if your users aren't given shell accounts
+and root may only login via <b>su</b> or at the machine
+console (not telnet/rsh, etc), this is safe.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">GLOBAL
+OPTIONS</p>
+
+<p style="margin-left:17%;">This can be used for
+<i>auth</i> and <i>account</i> module types.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>onerr=[</b><i>fail</i><b>|</b><i>succeed</i><b>]</b></p>
+
+<p style="margin-left:23%;">If something weird happens
+(like unable to open the file), return with
+<b>PAM_SUCCESS</b> if <b>onerr=</b><i>succeed</i> is given,
+else with the corresponding PAM error code.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>file=</b><i>/path/to/counter</i></p>
+
+<p style="margin-left:23%;">File where to keep counts.
+Default is /var/log/faillog.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>audit</b></p>
+
+<p style="margin-left:23%;">Will log the user name into the
+system log if the user is not found.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>silent</b></p>
+
+<p style="margin-left:23%;">Don't print informative
+messages.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>no_log_info</b></p>
+
+<p style="margin-left:23%;">Don't log informative messages
+via <b>syslog</b>(3).</p>
+
+<p style="margin-left:11%; margin-top: 1em">AUTH
+OPTIONS</p>
+
+<p style="margin-left:17%;">Authentication phase first
+checks if user should be denied access and if not it
+increments attempted login counter. Then on call to
+<b>pam_setcred</b>(3) it resets the attempts counter.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>deny=</b><i>n</i></p>
+
+<p style="margin-left:23%;">Deny access if tally for this
+user exceeds <i>n</i>.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>lock_time=</b><i>n</i></p>
+
+<p style="margin-left:23%;">Always deny for <i>n</i>
+seconds after failed attempt.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>unlock_time=</b><i>n</i></p>
+
+<p style="margin-left:23%;">Allow access after <i>n</i>
+seconds after failed attempt. If this option is used the
+user will be locked out for the specified amount of time
+after he exceeded his maximum allowed attempts. Otherwise
+the account is locked until the lock is removed by a manual
+intervention of the system administrator.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>magic_root</b></p>
+
+<p style="margin-left:23%;">If the module is invoked by a
+user with uid=0 the counter is not incremented. The sysadmin
+should use this for user launched services, like <b>su</b>,
+otherwise this argument should be omitted.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>no_lock_time</b></p>
+
+<p style="margin-left:23%;">Do not use the .fail_locktime
+field in /var/log/faillog for this user.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>no_reset</b></p>
+
+<p style="margin-left:23%;">Don't reset count on successful
+entry, only decrement.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>even_deny_root_account</b></p>
+
+<p style="margin-left:23%;">Root account can become
+unavailable.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>per_user</b></p>
+
+<p style="margin-left:23%;">If /var/log/faillog contains a
+non-zero .fail_max/.fail_locktime field for this user then
+use it instead of <b>deny=</b><i>n</i>/
+<b>lock_time=</b><i>n</i> parameter.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>no_lock_time</b></p>
+
+<p style="margin-left:23%;">Don't use .fail_locktime filed
+in /var/log/faillog for this user.</p>
+
+<p style="margin-left:11%; margin-top: 1em">ACCOUNT
+OPTIONS</p>
+
+<p style="margin-left:17%;">Account phase resets attempts
+counter if the user is <b>not</b> magic root. This phase can
+be used optionally for services which don't call
+<b>pam_setcred</b>(3) correctly or if the reset should be
+done regardless of the failure of the account phase of other
+modules.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>magic_root</b></p>
+
+<p style="margin-left:23%;">If the module is invoked by a
+user with uid=0 the counter is not incremented. The sysadmin
+should use this for user launched services, like <b>su</b>,
+otherwise this argument should be omitted.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>no_reset</b></p>
+
+<p style="margin-left:23%;">Don't reset count on successful
+entry, only decrement.</p>
+
+<h2>MODULE TYPES PROVIDED
+<a name="MODULE TYPES PROVIDED"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The <b>auth</b>
+and <b>account</b> module types are provided.</p>
+
+<h2>RETURN VALUES
+<a name="RETURN VALUES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">PAM_AUTH_ERR</p>
+
+<p style="margin-left:17%;">A invalid option was given, the
+module was not able to retrieve the user name, no valid
+counter file was found, or too many failed logins.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">PAM_SUCCESS</p>
+
+<p style="margin-left:17%;">Everything was successful.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">PAM_USER_UNKNOWN</p>
+
+<p style="margin-left:17%;">User not known.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Add the
+following line to /etc/pam.d/login to lock the account after
+too many failed logins. The number of allowed fails is
+specified by /var/log/faillog and needs to be set with
+pam_tally or <b>faillog</b>(8) before.</p>
+
+<p style="margin-left:17%; margin-top: 1em">auth required
+pam_securetty.so <br>
+auth required pam_tally.so per_user <br>
+auth required pam_env.so <br>
+auth required pam_unix.so <br>
+auth required pam_nologin.so <br>
+account required pam_unix.so <br>
+password required pam_unix.so <br>
+session required pam_limits.so <br>
+session required pam_unix.so <br>
+session required pam_lastlog.so nowtmp <br>
+session optional pam_mail.so standard</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">/var/log/faillog</p>
+
+<p style="margin-left:17%;">failure logging file</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>faillog</b>(8),
+<b>pam.conf</b>(5), <b>pam.d</b>(5), <b>pam</b>(7)</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">pam_tally was
+written by Tim Baverstock and Tomas Mraz.</p>
+<hr>
+</body>
+</html>

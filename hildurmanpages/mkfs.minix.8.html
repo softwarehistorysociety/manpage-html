@@ -1,0 +1,233 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:55:08 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>MKFS.MINIX</title>
+
+</head>
+<body>
+
+<h1 align="center">MKFS.MINIX</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXIT CODES">EXIT CODES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">mkfs.minix -
+make a Minix filesystem</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mkfs.minix</b>
+[options] <i>device</i> [<i>size-in-blocks</i>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mkfs.minix</b>
+creates a Linux MINIX filesystem on a device (usually a disk
+partition).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>device</i> is usually of the following form:</p>
+
+
+<p style="margin-left:22%; margin-top: 1em">/dev/hda[1&ndash;8]
+(IDE disk 1) <br>
+/dev/hdb[1&ndash;8] (IDE disk 2) <br>
+/dev/sda[1&ndash;8] (SCSI disk 1) <br>
+/dev/sdb[1&ndash;8] (SCSI disk 2)</p>
+
+<p style="margin-left:11%; margin-top: 1em">The device may
+be a block device or an image file of one, but this is not
+enforced. Expect not much fun on a character device :-).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>size-in-blocks</i> parameter is the desired size of the
+file system, in blocks. It is present only for backwards
+compatibility. If omitted the size will be determined
+automatically. Only block counts strictly greater than 10
+and strictly less than 65536 are allowed.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-c</b>,
+<b>--check</b></p>
+
+<p style="margin-left:22%;">Check the device for bad blocks
+before creating the filesystem. If any are found, the count
+is printed.</p>
+
+<p style="margin-left:11%;"><b>-n</b>, <b>--namelength</b>
+<i>length</i></p>
+
+<p style="margin-left:22%;">Specify the maximum length of
+filenames. Currently, the only allowable values are 14 and
+30 for file system versions 1 and 2. Version 3 allows only
+value 60. The default is 30.</p>
+
+<p style="margin-left:11%;"><b>-i</b>, <b>--inodes</b>
+<i>number</i></p>
+
+<p style="margin-left:22%;">Specify the number of inodes
+for the filesystem.</p>
+
+<p style="margin-left:11%;"><b>-l</b>, <b>--badblocks</b>
+<i>filename</i></p>
+
+<p style="margin-left:22%;">Read the list of bad blocks
+from <i>filename</i>. The file has one bad-block number per
+line. The count of bad blocks read is printed.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>-1</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Make a Minix version 1 filesystem. This is the
+default.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>-2</b>, <b>-v</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Make a Minix version 2 filesystem.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>-3</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Make a Minix version 3 filesystem.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit. The long option cannot be combined with other
+options.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<h2>EXIT CODES
+<a name="EXIT CODES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The exit code
+returned by <b>mkfs.minix</b> is one of the following:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>0</p></td>
+<td width="8%"></td>
+<td width="32%">
+
+
+<p>No errors</p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>8</p></td>
+<td width="8%"></td>
+<td width="32%">
+
+
+<p>Operational error</p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>16</p></td>
+<td width="8%"></td>
+<td width="32%">
+
+
+<p>Usage or syntax error</p></td>
+<td width="46%">
+</td></tr>
+</table>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fsck</b>(8),
+<b>mkfs</b>(8), <b>reboot</b>(8)</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The mkfs.minix
+command is part of the util-linux package and is available
+from https://www.kernel.org/pub/linux/utils/util-linux/.</p>
+<hr>
+</body>
+</html>

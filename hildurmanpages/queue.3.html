@@ -1,0 +1,2057 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:02:15 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<hr>
+
+
+<p>QUEUE(3) BSD Library Functions Manual QUEUE(3)</p>
+
+<p style="margin-top: 1em"><b>NAME</b></p>
+
+<p style="margin-left:6%;"><b>SLIST_EMPTY</b>,
+<b>SLIST_ENTRY</b>, <b>SLIST_FIRST</b>,
+<b>SLIST_FOREACH</b>, <b>SLIST_HEAD</b>,
+<b>SLIST_HEAD_INITIALIZER</b>, <b>SLIST_INIT</b>,
+<b>SLIST_INSERT_AFTER</b>, <b>SLIST_INSERT_HEAD</b>,
+<b>SLIST_NEXT</b>, <b>SLIST_REMOVE_HEAD</b>,
+<b>SLIST_REMOVE</b>, <b>STAILQ_CONCAT</b>,
+<b>STAILQ_EMPTY</b>, <b>STAILQ_ENTRY</b>,
+<b>STAILQ_FIRST</b>, <b>STAILQ_FOREACH</b>,
+<b>STAILQ_HEAD</b>, <b>STAILQ_HEAD_INITIALIZER</b>,
+<b>STAILQ_INIT</b>, <b>STAILQ_INSERT_AFTER</b>,
+<b>STAILQ_INSERT_HEAD</b>, <b>STAILQ_INSERT_TAIL</b>,
+<b>STAILQ_NEXT</b>, <b>STAILQ_REMOVE_HEAD</b>,
+<b>STAILQ_REMOVE</b>, <b>LIST_EMPTY</b>, <b>LIST_ENTRY</b>,
+<b>LIST_FIRST</b>, <b>LIST_FOREACH</b>, <b>LIST_HEAD</b>,
+<b>LIST_HEAD_INITIALIZER</b>, <b>LIST_INIT</b>,
+<b>LIST_INSERT_AFTER</b>, <b>LIST_INSERT_BEFORE</b>,
+<b>LIST_INSERT_HEAD</b>, <b>LIST_NEXT</b>,
+<b>LIST_REMOVE</b>, <b>TAILQ_CONCAT</b>, <b>TAILQ_EMPTY</b>,
+<b>TAILQ_ENTRY</b>, <b>TAILQ_FIRST</b>,
+<b>TAILQ_FOREACH</b>, <b>TAILQ_FOREACH_REVERSE</b>,
+<b>TAILQ_HEAD</b>, <b>TAILQ_HEAD_INITIALIZER</b>,
+<b>TAILQ_INIT</b>, <b>TAILQ_INSERT_AFTER</b>,
+<b>TAILQ_INSERT_BEFORE</b>, <b>TAILQ_INSERT_HEAD</b>,
+<b>TAILQ_INSERT_TAIL</b>, <b>TAILQ_LAST</b>,
+<b>TAILQ_NEXT</b>, <b>TAILQ_PREV</b>, <b>TAILQ_REMOVE</b>,
+<b>TAILQ_SWAP</b> &mdash; implementations of singly-linked
+lists, singly-linked tail queues, lists and tail queues</p>
+
+<p style="margin-top: 1em"><b>SYNOPSIS</b></p>
+
+<p style="margin-left:6%;"><b>#include
+&lt;sys/queue.h&gt;</b></p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_EMPTY</b>(<i>SLIST_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_ENTRY</b>(<i>TYPE</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_FIRST</b>(<i>SLIST_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_FOREACH</b>(<i>TYPE&nbsp;*var</i>,
+<i>SLIST_HEAD&nbsp;*head</i>,
+<i>SLIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_HEAD</b>(<i>HEADNAME</i>,
+<i>TYPE</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_HEAD_INITIALIZER</b>(<i>SLIST_HEAD&nbsp;head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_INIT</b>(<i>SLIST_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_INSERT_AFTER</b>(<i>TYPE&nbsp;*listelm</i>,
+<i>TYPE&nbsp;*elm</i>, <i>SLIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_INSERT_HEAD</b>(<i>SLIST_HEAD&nbsp;*head</i>,
+<i>TYPE&nbsp;*elm</i>, <i>SLIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_NEXT</b>(<i>TYPE&nbsp;*elm</i>,
+<i>SLIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_REMOVE_HEAD</b>(<i>SLIST_HEAD&nbsp;*head</i>,
+<i>SLIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>SLIST_REMOVE</b>(<i>SLIST_HEAD&nbsp;*head</i>,
+<i>TYPE&nbsp;*elm</i>, <i>TYPE</i>,
+<i>SLIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_CONCAT</b>(<i>STAILQ_HEAD&nbsp;*head1</i>,
+<i>STAILQ_HEAD&nbsp;*head2</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_EMPTY</b>(<i>STAILQ_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_ENTRY</b>(<i>TYPE</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_FIRST</b>(<i>STAILQ_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_FOREACH</b>(<i>TYPE&nbsp;*var</i>,
+<i>STAILQ_HEAD&nbsp;*head</i>,
+<i>STAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_HEAD</b>(<i>HEADNAME</i>,
+<i>TYPE</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_HEAD_INITIALIZER</b>(<i>STAILQ_HEAD&nbsp;head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_INIT</b>(<i>STAILQ_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_INSERT_AFTER</b>(<i>STAILQ_HEAD&nbsp;*head</i>,
+<i>TYPE&nbsp;*listelm</i>, <i>TYPE&nbsp;*elm</i>,
+<i>STAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_INSERT_HEAD</b>(<i>STAILQ_HEAD&nbsp;*head</i>,
+<i>TYPE&nbsp;*elm</i>, <i>STAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_INSERT_TAIL</b>(<i>STAILQ_HEAD&nbsp;*head</i>,
+<i>TYPE&nbsp;*elm</i>, <i>STAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_NEXT</b>(<i>TYPE&nbsp;*elm</i>,
+<i>STAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_REMOVE_HEAD</b>(<i>STAILQ_HEAD&nbsp;*head</i>,
+<i>STAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>STAILQ_REMOVE</b>(<i>STAILQ_HEAD&nbsp;*head</i>,
+<i>TYPE&nbsp;*elm</i>, <i>TYPE</i>,
+<i>STAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_EMPTY</b>(<i>LIST_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_ENTRY</b>(<i>TYPE</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_FIRST</b>(<i>LIST_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_FOREACH</b>(<i>TYPE&nbsp;*var</i>,
+<i>LIST_HEAD&nbsp;*head</i>,
+<i>LIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_HEAD</b>(<i>HEADNAME</i>,
+<i>TYPE</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_HEAD_INITIALIZER</b>(<i>LIST_HEAD&nbsp;head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_INIT</b>(<i>LIST_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_INSERT_AFTER</b>(<i>TYPE&nbsp;*listelm</i>,
+<i>TYPE&nbsp;*elm</i>, <i>LIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_INSERT_BEFORE</b>(<i>TYPE&nbsp;*listelm</i>,
+<i>TYPE&nbsp;*elm</i>, <i>LIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_INSERT_HEAD</b>(<i>LIST_HEAD&nbsp;*head</i>,
+<i>TYPE&nbsp;*elm</i>, <i>LIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_NEXT</b>(<i>TYPE&nbsp;*elm</i>,
+<i>LIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_REMOVE</b>(<i>TYPE&nbsp;*elm</i>,
+<i>LIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>LIST_SWAP</b>(<i>LIST_HEAD&nbsp;*head1</i>,
+<i>LIST_HEAD&nbsp;*head2</i>, <i>TYPE</i>,
+<i>LIST_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_CONCAT</b>(<i>TAILQ_HEAD&nbsp;*head1</i>,
+<i>TAILQ_HEAD&nbsp;*head2</i>,
+<i>TAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_EMPTY</b>(<i>TAILQ_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_ENTRY</b>(<i>TYPE</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_FIRST</b>(<i>TAILQ_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_FOREACH</b>(<i>TYPE&nbsp;*var</i>,
+<i>TAILQ_HEAD&nbsp;*head</i>,
+<i>TAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_FOREACH_REVERSE</b>(<i>TYPE&nbsp;*var</i>,
+<i>TAILQ_HEAD&nbsp;*head</i>, <i>HEADNAME</i>,
+<i>TAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_HEAD</b>(<i>HEADNAME</i>,
+<i>TYPE</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_HEAD_INITIALIZER</b>(<i>TAILQ_HEAD&nbsp;head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_INIT</b>(<i>TAILQ_HEAD&nbsp;*head</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_INSERT_AFTER</b>(<i>TAILQ_HEAD&nbsp;*head</i>,
+<i>TYPE&nbsp;*listelm</i>, <i>TYPE&nbsp;*elm</i>,
+<i>TAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_INSERT_BEFORE</b>(<i>TYPE&nbsp;*listelm</i>,
+<i>TYPE&nbsp;*elm</i>, <i>TAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_INSERT_HEAD</b>(<i>TAILQ_HEAD&nbsp;*head</i>,
+<i>TYPE&nbsp;*elm</i>, <i>TAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_INSERT_TAIL</b>(<i>TAILQ_HEAD&nbsp;*head</i>,
+<i>TYPE&nbsp;*elm</i>, <i>TAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_LAST</b>(<i>TAILQ_HEAD&nbsp;*head</i>,
+<i>HEADNAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_NEXT</b>(<i>TYPE&nbsp;*elm</i>,
+<i>TAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_PREV</b>(<i>TYPE&nbsp;*elm</i>,
+<i>HEADNAME</i>, <i>TAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_REMOVE</b>(<i>TAILQ_HEAD&nbsp;*head</i>,
+<i>TYPE&nbsp;*elm</i>, <i>TAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+
+<p style="margin-left:12%; margin-top: 1em"><b>TAILQ_SWAP</b>(<i>TAILQ_HEAD&nbsp;*head1</i>,
+<i>TAILQ_HEAD&nbsp;*head2</i>, <i>TYPE</i>,
+<i>TAILQ_ENTRY&nbsp;NAME</i>);</p>
+
+<p style="margin-top: 1em"><b>DESCRIPTION</b></p>
+
+<p style="margin-left:6%;">These macros define and operate
+on four types of data structures: singly-linked lists,
+singly-linked tail queues, lists, and tail queues. All four
+structures support the following functionality:</p>
+
+<p style="margin-top: 1em">1.</p>
+
+<p style="margin-left:21%;">Insertion of a new entry at the
+head of the list.</p>
+
+<p>2.</p>
+
+<p style="margin-left:21%;">Insertion of a new entry after
+any element in the list.</p>
+
+<p>3.</p>
+
+<p style="margin-left:21%;">O(1) removal of an entry from
+the head of the list.</p>
+
+<p>4.</p>
+
+<p style="margin-left:21%;">Forward traversal through the
+list.</p>
+
+<p>5.</p>
+
+<p style="margin-left:21%;">Swapping the contents of two
+lists.</p>
+
+<p style="margin-left:6%; margin-top: 1em">Singly-linked
+lists are the simplest of the four data structures and
+support only the above functionality. Singly-linked lists
+are ideal for applications with large datasets and few or no
+removals, or for implementing a LIFO queue. Singly-linked
+lists add the following functionality:</p>
+
+<p style="margin-top: 1em">1.</p>
+
+<p style="margin-left:21%;">O(n) removal of any entry in
+the list.</p>
+
+<p style="margin-left:6%; margin-top: 1em">Singly-linked
+tail queues add the following functionality:</p>
+
+<p style="margin-top: 1em">1.</p>
+
+<p style="margin-left:21%;">Entries can be added at the end
+of a list.</p>
+
+<p>2.</p>
+
+<p style="margin-left:21%;">O(n) removal of any entry in
+the list.</p>
+
+<p>3.</p>
+
+<p style="margin-left:21%;">They may be concatenated.</p>
+
+<p style="margin-left:6%; margin-top: 1em">However:</p>
+
+<p style="margin-top: 1em">1.</p>
+
+<p style="margin-left:21%;">All list insertions must
+specify the head of the list.</p>
+
+<p>2.</p>
+
+<p style="margin-left:21%;">Each head entry requires two
+pointers rather than one.</p>
+
+<p>3.</p>
+
+<p style="margin-left:21%;">Code size is about 15% greater
+and operations run about 20% slower than singly-linked
+lists.</p>
+
+<p style="margin-left:6%; margin-top: 1em">Singly-linked
+tail queues are ideal for applications with large datasets
+and few or no removals, or for implementing a FIFO
+queue.</p>
+
+<p style="margin-left:6%; margin-top: 1em">All doubly
+linked types of data structures (lists and tail queues)
+additionally allow:</p>
+
+<p style="margin-top: 1em">1.</p>
+
+<p style="margin-left:21%;">Insertion of a new entry before
+any element in the list.</p>
+
+<p>2.</p>
+
+<p style="margin-left:21%;">O(1) removal of any entry in
+the list.</p>
+
+<p style="margin-left:6%; margin-top: 1em">However:</p>
+
+<p style="margin-top: 1em">1.</p>
+
+<p style="margin-left:21%;">Each element requires two
+pointers rather than one.</p>
+
+<p>2.</p>
+
+<p style="margin-left:21%;">Code size and execution time of
+operations (except for removal) is about twice that of the
+singly-linked data-structures.</p>
+
+<p style="margin-left:6%; margin-top: 1em">Linked lists are
+the simplest of the doubly linked data structures. They add
+the following functionality over the above:</p>
+
+<p style="margin-top: 1em">1.</p>
+
+<p style="margin-left:21%;">They may be traversed
+backwards.</p>
+
+<p style="margin-left:6%; margin-top: 1em">However:</p>
+
+<p style="margin-top: 1em">1.</p>
+
+<p style="margin-left:21%;">To traverse backwards, an entry
+to begin the traversal and the list in which it is contained
+must be specified.</p>
+
+<p style="margin-left:6%; margin-top: 1em">Tail queues add
+the following functionality:</p>
+
+<p>1.</p>
+
+<p style="margin-left:21%;">Entries can be added at the end
+of a list.</p>
+
+<p>2.</p>
+
+<p style="margin-left:21%;">They may be traversed
+backwards, from tail to head.</p>
+
+<p>3.</p>
+
+<p style="margin-left:21%;">They may be concatenated.</p>
+
+<p style="margin-left:6%; margin-top: 1em">However:</p>
+
+<p style="margin-top: 1em">1.</p>
+
+<p style="margin-left:21%;">All list insertions and
+removals must specify the head of the list.</p>
+
+<p>2.</p>
+
+<p style="margin-left:21%;">Each head entry requires two
+pointers rather than one.</p>
+
+<p>3.</p>
+
+<p style="margin-left:21%;">Code size is about 15% greater
+and operations run about 20% slower than singly-linked
+lists.</p>
+
+<p style="margin-left:6%; margin-top: 1em">In the macro
+definitions, <i>TYPE</i> is the name of a user defined
+structure, that must contain a field of type SLIST_ENTRY,
+STAILQ_ENTRY, LIST_ENTRY, or TAILQ_ENTRY, named <i>NAME</i>.
+The argument <i>HEADNAME</i> is the name of a user defined
+structure that must be declared using the macros SLIST_HEAD,
+STAILQ_HEAD, LIST_HEAD, or TAILQ_HEAD. See the examples
+below for further explanation of how these macros are
+used.</p>
+
+
+<p style="margin-left:6%; margin-top: 1em"><b>Singly-linked
+lists</b> <br>
+A singly-linked list is headed by a structure defined by the
+<b>SLIST_HEAD</b> macro. This structure contains a single
+pointer to the first element on the list. The elements are
+singly linked for minimum space and pointer manipulation
+overhead at the expense of O(n) removal for arbitrary
+elements. New elements can be added to the list after an
+existing element or at the head of the list. An
+<i>SLIST_HEAD</i> structure is declared as follows:</p>
+
+
+<p style="margin-left:14%; margin-top: 1em">SLIST_HEAD(HEADNAME,
+TYPE) head;</p>
+
+<p style="margin-left:6%; margin-top: 1em">where
+<i>HEADNAME</i> is the name of the structure to be defined,
+and <i>TYPE</i> is the type of the elements to be linked
+into the list. A pointer to the head of the list can later
+be declared as:</p>
+
+<p style="margin-left:14%; margin-top: 1em">struct HEADNAME
+*headp;</p>
+
+<p style="margin-left:6%; margin-top: 1em">(The names head
+and headp are user selectable.)</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>SLIST_HEAD_INITIALIZER</b> evaluates to an initializer
+for the list <i>head</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>SLIST_EMPTY</b> evaluates to true if there are no
+elements in the list.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>SLIST_ENTRY</b> declares a structure that connects the
+elements in the list.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>SLIST_FIRST</b> returns the first element in the list or
+NULL if the list is empty.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>SLIST_FOREACH</b> traverses the list referenced by
+<i>head</i> in the forward direction, assigning each element
+in turn to <i>var</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>SLIST_INIT</b> initializes the list referenced by
+<i>head</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>SLIST_INSERT_HEAD</b> inserts the new element <i>elm</i>
+at the head of the list.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>SLIST_INSERT_AFTER</b> inserts the new element <i>elm</i>
+after the element <i>listelm</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>SLIST_NEXT</b> returns the next element in the list.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>SLIST_REMOVE_HEAD</b> removes the element <i>elm</i> from
+the head of the list. For optimum efficiency, elements being
+removed from the head of the list should explicitly use this
+macro instead of the generic <i>SLIST_REMOVE</i> macro.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>SLIST_REMOVE</b> removes the element <i>elm</i> from the
+list.</p>
+
+
+<p style="margin-left:6%; margin-top: 1em"><b>Singly-linked
+list example</b> <br>
+SLIST_HEAD(slisthead, entry) head = <br>
+SLIST_HEAD_INITIALIZER(head);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>struct slisthead *headp;</p></td>
+<td width="30%"></td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Singly-linked List</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">head. */ <br>
+struct entry {</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>...</p></td>
+<td width="31%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>SLIST_ENTRY(entry) entries;</p></td>
+<td width="31%"></td>
+<td width="10%">
+
+
+<p>/* Singly-linked List. */</p></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>...</p></td>
+<td width="31%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">} *n1, *n2, *n3, *np;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>SLIST_INIT(&amp;head);</p></td>
+<td width="20%"></td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Initialize the list. */</p></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n1 = malloc(sizeof(struct entry));</p></td>
+<td width="20%"></td>
+<td width="10%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>/* Insert at the head. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">SLIST_INSERT_HEAD(&amp;head, n1,
+entries);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n2 = malloc(sizeof(struct entry));</p></td>
+<td width="41%"></td>
+<td width="10%">
+
+
+<p>/* Insert after. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">SLIST_INSERT_AFTER(n1, n2,
+entries);</p>
+
+
+<p style="margin-left:6%; margin-top: 1em">SLIST_REMOVE(&amp;head,
+n2, entry, entries);/* Deletion. */ <br>
+free(n2);</p>
+
+<p style="margin-left:6%; margin-top: 1em">n3 =
+SLIST_FIRST(&amp;head);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>SLIST_REMOVE_HEAD(&amp;head, entries);</p></td>
+<td width="41%"></td>
+<td width="10%">
+
+
+<p>/* Deletion from the head. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">free(n3);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Forward traversal. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">SLIST_FOREACH(np, &amp;head,
+entries)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>np-&gt; ...</p></td>
+<td width="20%"></td>
+<td width="11%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>while (!SLIST_EMPTY(&amp;head)) {</p></td>
+<td width="10%"></td>
+<td width="20%"></td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* List Deletion. */</p></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>n1 = SLIST_FIRST(&amp;head);</p></td>
+<td width="20%"></td>
+<td width="11%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>SLIST_REMOVE_HEAD(&amp;head, entries);</p></td>
+<td width="20%"></td>
+<td width="11%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>free(n1);</p></td>
+<td width="20%"></td>
+<td width="11%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">}</p>
+
+
+<p style="margin-left:6%; margin-top: 1em"><b>Singly-linked
+tail queues</b> <br>
+A singly-linked tail queue is headed by a structure defined
+by the <b>STAILQ_HEAD</b> macro. This structure contains a
+pair of pointers, one to the first element in the tail queue
+and the other to the last element in the tail queue. The
+elements are singly linked for minimum space and pointer
+manipulation overhead at the expense of O(n) removal for
+arbitrary elements. New elements can be added to the tail
+queue after an existing element, at the head of the tail
+queue, or at the end of the tail queue. A <i>STAILQ_HEAD</i>
+structure is declared as follows:</p>
+
+
+<p style="margin-left:14%; margin-top: 1em">STAILQ_HEAD(HEADNAME,
+TYPE) head;</p>
+
+<p style="margin-left:6%; margin-top: 1em">where HEADNAME
+is the name of the structure to be defined, and TYPE is the
+type of the elements to be linked into the tail queue. A
+pointer to the head of the tail queue can later be declared
+as:</p>
+
+<p style="margin-left:14%; margin-top: 1em">struct HEADNAME
+*headp;</p>
+
+<p style="margin-left:6%; margin-top: 1em">(The names head
+and headp are user selectable.)</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_HEAD_INITIALIZER</b> evaluates to an initializer
+for the tail queue <i>head</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_CONCAT</b> concatenates the tail queue headed by
+<i>head2</i> onto the end of the one headed by <i>head1</i>
+removing all entries from the former.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_EMPTY</b> evaluates to true if there are no items
+on the tail queue.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_ENTRY</b> declares a structure that connects the
+elements in the tail queue.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_FIRST</b> returns the first item on the tail queue
+or NULL if the tail queue is empty.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_FOREACH</b> traverses the tail queue referenced by
+<i>head</i> in the forward direction, assigning each element
+in turn to <i>var</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_INIT</b> initializes the tail queue referenced by
+<i>head</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_INSERT_HEAD</b> inserts the new element <i>elm</i>
+at the head of the tail queue.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_INSERT_TAIL</b> inserts the new element <i>elm</i>
+at the end of the tail queue.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_INSERT_AFTER</b> inserts the new element
+<i>elm</i> after the element <i>listelm</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_NEXT</b> returns the next item on the tail queue,
+or NULL this item is the last.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_REMOVE_HEAD</b> removes the element at the head of
+the tail queue. For optimum efficiency, elements being
+removed from the head of the tail queue should use this
+macro explicitly rather than the generic
+<i>STAILQ_REMOVE</i> macro.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>STAILQ_REMOVE</b> removes the element <i>elm</i> from the
+tail queue.</p>
+
+
+<p style="margin-left:6%; margin-top: 1em"><b>Singly-linked
+tail queue example</b> <br>
+STAILQ_HEAD(stailhead, entry) head = <br>
+STAILQ_HEAD_INITIALIZER(head);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>struct stailhead *headp;</p></td>
+<td width="30%"></td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Singly-linked tail queue head. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">struct entry {</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>...</p></td>
+<td width="31%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>STAILQ_ENTRY(entry) entries;</p></td>
+<td width="31%"></td>
+<td width="10%">
+
+
+<p>/* Tail queue. */</p></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>...</p></td>
+<td width="31%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">} *n1, *n2, *n3, *np;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>STAILQ_INIT(&amp;head);</p></td>
+<td width="20%"></td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Initialize the queue. */</p></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n1 = malloc(sizeof(struct entry));</p></td>
+<td width="20%"></td>
+<td width="10%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>/* Insert at the head. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">STAILQ_INSERT_HEAD(&amp;head,
+n1, entries);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n1 = malloc(sizeof(struct entry));</p></td>
+<td width="41%"></td>
+<td width="10%">
+
+
+<p>/* Insert at the tail. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">STAILQ_INSERT_TAIL(&amp;head,
+n1, entries);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n2 = malloc(sizeof(struct entry));</p></td>
+<td width="41%"></td>
+<td width="10%">
+
+
+<p>/* Insert after. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">STAILQ_INSERT_AFTER(&amp;head,
+n1, n2, entries);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Deletion. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">STAILQ_REMOVE(&amp;head, n2,
+entry, entries); <br>
+free(n2);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Deletion from the head. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">n3 = STAILQ_FIRST(&amp;head);
+<br>
+STAILQ_REMOVE_HEAD(&amp;head, entries); <br>
+free(n3);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Forward traversal. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">STAILQ_FOREACH(np, &amp;head,
+entries)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>np-&gt; ...</p></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="11%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* TailQ Deletion. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">while (!STAILQ_EMPTY(&amp;head))
+{</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>n1 = STAILQ_FIRST(&amp;head);</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>STAILQ_REMOVE_HEAD(&amp;head, entries);</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>free(n1);</p></td></tr>
+</table>
+
+<p style="margin-left:6%;">}</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Faster TailQ Deletion. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">n1 = STAILQ_FIRST(&amp;head);
+<br>
+while (n1 != NULL) {</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>n2 = STAILQ_NEXT(n1, entries);</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>free(n1);</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>n1 = n2;</p></td></tr>
+</table>
+
+<p style="margin-left:6%;">} <br>
+STAILQ_INIT(&amp;head);</p>
+
+<p style="margin-left:6%; margin-top: 1em"><b>Lists</b>
+<br>
+A list is headed by a structure defined by the
+<b>LIST_HEAD</b> macro. This structure contains a single
+pointer to the first element on the list. The elements are
+doubly linked so that an arbitrary element can be removed
+without traversing the list. New elements can be added to
+the list after an existing element, before an existing
+element, or at the head of the list. A <i>LIST_HEAD</i>
+structure is declared as follows:</p>
+
+
+<p style="margin-left:14%; margin-top: 1em">LIST_HEAD(HEADNAME,
+TYPE) head;</p>
+
+<p style="margin-left:6%; margin-top: 1em">where
+<i>HEADNAME</i> is the name of the structure to be defined,
+and <i>TYPE</i> is the type of the elements to be linked
+into the list. A pointer to the head of the list can later
+be declared as:</p>
+
+<p style="margin-left:14%; margin-top: 1em">struct HEADNAME
+*headp;</p>
+
+<p style="margin-left:6%; margin-top: 1em">(The names head
+and headp are user selectable.)</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>LIST_HEAD_INITIALIZER</b> evaluates to an initializer for
+the list <i>head</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>LIST_EMPTY</b> evaluates to true if there are no elements
+in the list.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>LIST_ENTRY</b> declares a structure that connects the
+elements in the list.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>LIST_FIRST</b> returns the first element in the list or
+NULL if the list is empty.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>LIST_FOREACH</b> traverses the list referenced by
+<i>head</i> in the forward direction, assigning each element
+in turn to <i>var</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>LIST_INIT</b> initializes the list referenced by
+<i>head</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>LIST_INSERT_HEAD</b> inserts the new element <i>elm</i>
+at the head of the list.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>LIST_INSERT_AFTER</b> inserts the new element <i>elm</i>
+after the element <i>listelm</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>LIST_INSERT_BEFORE</b> inserts the new element <i>elm</i>
+before the element <i>listelm</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>LIST_NEXT</b> returns the next element in the list, or
+NULL if this is the last.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>LIST_REMOVE</b> removes the element <i>elm</i> from the
+list.</p>
+
+<p style="margin-left:6%; margin-top: 1em"><b>List
+example</b> <br>
+LIST_HEAD(listhead, entry) head = <br>
+LIST_HEAD_INITIALIZER(head);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>struct listhead *headp;</p></td>
+<td width="20%"></td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* List head. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">struct entry {</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>...</p></td>
+<td width="31%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>LIST_ENTRY(entry) entries;</p></td>
+<td width="31%"></td>
+<td width="10%">
+
+
+<p>/* List. */</p></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>...</p></td>
+<td width="31%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">} *n1, *n2, *n3, *np,
+*np_temp;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>LIST_INIT(&amp;head);</p></td>
+<td width="20%"></td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Initialize the list. */</p></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n1 = malloc(sizeof(struct entry));</p></td>
+<td width="20%"></td>
+<td width="10%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>/* Insert at the head. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">LIST_INSERT_HEAD(&amp;head, n1,
+entries);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n2 = malloc(sizeof(struct entry));</p></td>
+<td width="41%"></td>
+<td width="10%">
+
+
+<p>/* Insert after. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">LIST_INSERT_AFTER(n1, n2,
+entries);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n3 = malloc(sizeof(struct entry));</p></td>
+<td width="41%"></td>
+<td width="10%">
+
+
+<p>/* Insert before. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">LIST_INSERT_BEFORE(n2, n3,
+entries);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>LIST_REMOVE(n2, entries);</p></td>
+<td width="30%"></td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Deletion. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">free(n2);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Forward traversal. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">LIST_FOREACH(np, &amp;head,
+entries)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>np-&gt; ...</p></td>
+<td width="20%"></td>
+<td width="11%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>while (!LIST_EMPTY(&amp;head)) {</p></td>
+<td width="10%"></td>
+<td width="20%"></td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* List Deletion. */</p></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>n1 = LIST_FIRST(&amp;head);</p></td>
+<td width="20%"></td>
+<td width="11%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>LIST_REMOVE(n1, entries);</p></td>
+<td width="20%"></td>
+<td width="11%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>free(n1);</p></td>
+<td width="20%"></td>
+<td width="11%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">}</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n1 = LIST_FIRST(&amp;head);</p></td>
+<td width="20%"></td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Faster List Deletion. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">while (n1 != NULL) {</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>n2 = LIST_NEXT(n1, entries);</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>free(n1);</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>n1 = n2;</p></td></tr>
+</table>
+
+<p style="margin-left:6%;">} <br>
+LIST_INIT(&amp;head);</p>
+
+<p style="margin-left:6%; margin-top: 1em"><b>Tail
+queues</b> <br>
+A tail queue is headed by a structure defined by the
+<b>TAILQ_HEAD</b> macro. This structure contains a pair of
+pointers, one to the first element in the tail queue and the
+other to the last element in the tail queue. The elements
+are doubly linked so that an arbitrary element can be
+removed without traversing the tail queue. New elements can
+be added to the tail queue after an existing element, before
+an existing element, at the head of the tail queue, or at
+the end of the tail queue. A <i>TAILQ_HEAD</i> structure is
+declared as follows:</p>
+
+
+<p style="margin-left:14%; margin-top: 1em">TAILQ_HEAD(HEADNAME,
+TYPE) head;</p>
+
+<p style="margin-left:6%; margin-top: 1em">where HEADNAME
+is the name of the structure to be defined, and TYPE is the
+type of the elements to be linked into the tail queue. A
+pointer to the head of the tail queue can later be declared
+as:</p>
+
+<p style="margin-left:14%; margin-top: 1em">struct HEADNAME
+*headp;</p>
+
+<p style="margin-left:6%; margin-top: 1em">(The names head
+and headp are user selectable.)</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_HEAD_INITIALIZER</b> evaluates to an initializer
+for the tail queue <i>head</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_CONCAT</b> concatenates the tail queue headed by
+<i>head2</i> onto the end of the one headed by <i>head1</i>
+removing all entries from the former.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_EMPTY</b> evaluates to true if there are no items
+on the tail queue.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_ENTRY</b> declares a structure that connects the
+elements in the tail queue.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_FIRST</b> returns the first item on the tail queue
+or NULL if the tail queue is empty.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_FOREACH</b> traverses the tail queue referenced by
+<i>head</i> in the forward direction, assigning each element
+in turn to <i>var</i>. <i>var</i> is set to NULL if the loop
+completes normally, or if there were no elements.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_FOREACH_REVERSE</b> traverses the tail queue
+referenced by <i>head</i> in the reverse direction,
+assigning each element in turn to <i>var</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_INIT</b> initializes the tail queue referenced by
+<i>head</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_INSERT_HEAD</b> inserts the new element <i>elm</i>
+at the head of the tail queue.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_INSERT_TAIL</b> inserts the new element <i>elm</i>
+at the end of the tail queue.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_INSERT_AFTER</b> inserts the new element <i>elm</i>
+after the element <i>listelm</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_INSERT_BEFORE</b> inserts the new element
+<i>elm</i> before the element <i>listelm</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_LAST</b> returns the last item on the tail queue.
+If the tail queue is empty the return value is NULL.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_NEXT</b> returns the next item on the tail queue,
+or NULL if this item is the last.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_PREV</b> returns the previous item on the tail
+queue, or NULL if this item is the first.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_REMOVE</b> removes the element <i>elm</i> from the
+tail queue.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The macro
+<b>TAILQ_SWAP</b> swaps the contents of <i>head1</i> and
+<i>head2</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em"><b>Tail queue
+example</b> <br>
+TAILQ_HEAD(tailhead, entry) head = <br>
+TAILQ_HEAD_INITIALIZER(head);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>struct tailhead *headp;</p></td>
+<td width="20%"></td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Tail queue head. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">struct entry {</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>...</p></td>
+<td width="31%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>TAILQ_ENTRY(entry) entries;</p></td>
+<td width="31%"></td>
+<td width="10%">
+
+
+<p>/* Tail queue. */</p></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>...</p></td>
+<td width="31%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">} *n1, *n2, *n3, *np;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>TAILQ_INIT(&amp;head);</p></td>
+<td width="20%"></td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Initialize the queue. */</p></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n1 = malloc(sizeof(struct entry));</p></td>
+<td width="20%"></td>
+<td width="10%"></td>
+<td width="11%"></td>
+<td width="10%">
+
+
+<p>/* Insert at the head. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">TAILQ_INSERT_HEAD(&amp;head, n1,
+entries);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n1 = malloc(sizeof(struct entry));</p></td>
+<td width="41%"></td>
+<td width="10%">
+
+
+<p>/* Insert at the tail. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">TAILQ_INSERT_TAIL(&amp;head, n1,
+entries);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n2 = malloc(sizeof(struct entry));</p></td>
+<td width="41%"></td>
+<td width="10%">
+
+
+<p>/* Insert after. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">TAILQ_INSERT_AFTER(&amp;head,
+n1, n2, entries);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>n3 = malloc(sizeof(struct entry));</p></td>
+<td width="41%"></td>
+<td width="10%">
+
+
+<p>/* Insert before. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">TAILQ_INSERT_BEFORE(n2, n3,
+entries);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="6%"></td>
+<td width="11%">
+
+
+<p>TAILQ_REMOVE(&amp;head, n2, entries);</p></td>
+<td width="41%"></td>
+<td width="10%">
+
+
+<p>/* Deletion. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">free(n2);</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Forward traversal. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">TAILQ_FOREACH(np, &amp;head,
+entries)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>np-&gt; ...</p></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="11%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Reverse traversal. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">TAILQ_FOREACH_REVERSE(np,
+&amp;head, tailhead, entries)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+
+
+<p>np-&gt; ...</p></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="11%"></td>
+<td width="10%"></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* TailQ Deletion. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">while (!TAILQ_EMPTY(&amp;head))
+{</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>n1 = TAILQ_FIRST(&amp;head);</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>TAILQ_REMOVE(&amp;head, n1, entries);</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>free(n1);</p></td></tr>
+</table>
+
+<p style="margin-left:6%;">}</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="11%">
+</td>
+<td width="10%">
+
+
+<p>/* Faster TailQ Deletion. */</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:6%;">n1 = TAILQ_FIRST(&amp;head);
+<br>
+while (n1 != NULL) {</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>n2 = TAILQ_NEXT(n1, entries);</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>free(n1);</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>n1 = n2;</p></td></tr>
+</table>
+
+<p style="margin-left:6%;">}</p>
+
+
+<p style="margin-left:6%; margin-top: 1em">TAILQ_INIT(&amp;head);
+<br>
+n2 = malloc(sizeof(struct entry)); /* Insert before. */ <br>
+CIRCLEQ_INSERT_BEFORE(&amp;head, n1, n2, entries); <br>
+/* Forward traversal. */ <br>
+for (np = head.cqh_first; np != (void *)&amp;head; <br>
+np = np-&gt;entries.cqe_next) <br>
+np-&gt; ... <br>
+/* Reverse traversal. */ <br>
+for (np = head.cqh_last; np != (void *)&amp;head; np =
+np-&gt;entries.cqe_prev) <br>
+np-&gt; ... <br>
+/* Delete. */ <br>
+while (head.cqh_first != (void *)&amp;head) <br>
+CIRCLEQ_REMOVE(&amp;head, head.cqh_first, entries);</p>
+
+<p style="margin-top: 1em"><b>CONFORMING TO</b></p>
+
+<p style="margin-left:6%;">Not in POSIX.1, POSIX.1-2001 or
+POSIX.1-2008. Present on the BSDs. <b>queue</b> functions
+first appeared in 4.4BSD.</p>
+
+<p style="margin-top: 1em"><b>SEE ALSO</b></p>
+
+<p style="margin-left:6%;">insque(3)</p>
+
+<p style="margin-top: 1em"><b>COLOPHON</b></p>
+
+<p style="margin-left:6%;">This page is part of release
+5.05 of the Linux <i>man-pages</i> project. A description of
+the project, information about reporting bugs, and the
+latest version of this page, can be found at
+https://www.kernel.org/doc/man-pages/.</p>
+
+<p style="margin-left:6%; margin-top: 1em">BSD
+February&nbsp;7, 2015 BSD</p>
+<hr>
+</body>
+</html>

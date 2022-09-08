@@ -1,0 +1,445 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:12:23 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>VERITYSETUP</title>
+
+</head>
+<body>
+
+<h1 align="center">VERITYSETUP</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#RETURN CODES">RETURN CODES</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#REPORTING BUGS">REPORTING BUGS</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">veritysetup -
+manage dm-verity (block level verification) volumes</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>veritysetup
+&lt;options&gt; &lt;action&gt; &lt;action args&gt;</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Veritysetup is
+used to configure dm-verity managed device-mapper
+mappings.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Device-mapper
+verity target provides read-only transparent integrity
+checking of block devices using kernel crypto API.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The dm-verity
+devices are always read-only.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Veritysetup
+supports these operations:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>format</i>
+&lt;data_device&gt; &lt;hash_device&gt;</p>
+
+<p style="margin-left:22%; margin-top: 1em">Calculates and
+permanently stores hash verification data for data_device.
+Hash area can be located on the same device after data if
+specified by --hash-offset option.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note you need
+to provide root hash string for device verification or
+activation. Root hash must be trusted.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The data or
+hash device argument can be block device or file image. If
+hash device path doesn&rsquo;t exist, it will be created as
+file.</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>&lt;options&gt;</b>
+can be [--hash, --no-superblock, --format,
+--data-block-size, --hash-block-size, --data-blocks,
+--hash-offset, --salt, --uuid]</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>open</i>
+&lt;data_device&gt; &lt;name&gt; &lt;hash_device&gt;
+&lt;root_hash&gt; <i>create</i> &lt;name&gt;
+&lt;data_device&gt; &lt;hash_device&gt;
+&lt;root_hash&gt;</p>
+
+<p style="margin-left:22%; margin-top: 1em">Creates a
+mapping with &lt;name&gt; backed by device
+&lt;data_device&gt; and using &lt;hash_device&gt; for
+in-kernel verification.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The
+&lt;root_hash&gt; is a hexadecimal string.</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>&lt;options&gt;</b>
+can be [--hash-offset, --no-superblock, --ignore-corruption
+or --restart-on-corruption, --ignore-zero-blocks,
+--check-at-most-once]</p>
+
+<p style="margin-left:22%; margin-top: 1em">If option
+--no-superblock is used, you have to use as the same options
+as in initial format operation.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>verify</i>
+&lt;data_device&gt; &lt;hash_device&gt;
+&lt;root_hash&gt;</p>
+
+<p style="margin-left:22%; margin-top: 1em">Verifies data
+on data_device with use of hash blocks stored on
+hash_device.</p>
+
+<p style="margin-left:22%; margin-top: 1em">This command
+performs userspace verification, no kernel device is
+created.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The
+&lt;root_hash&gt; is a hexadecimal string.</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>&lt;options&gt;</b>
+can be [--hash-offset, --no-superblock]</p>
+
+<p style="margin-left:22%; margin-top: 1em">If option
+--no-superblock is used, you have to use as the same options
+as in initial format operation.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>close</i>
+&lt;name&gt;</p>
+
+<p style="margin-left:22%; margin-top: 1em">Removes
+existing mapping &lt;name&gt;.</p>
+
+<p style="margin-left:22%; margin-top: 1em">For backward
+compatibility there is <b>remove</b> command alias for
+<b>close</b> command.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>status</i>
+&lt;name&gt;</p>
+
+<p style="margin-left:22%; margin-top: 1em">Reports status
+for the active verity mapping &lt;name&gt;.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>dump</i>
+&lt;hash_device&gt;</p>
+
+<p style="margin-left:22%; margin-top: 1em">Reports
+parameters of verity device from on-disk stored
+superblock.</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>&lt;options&gt;</b>
+can be [--no-superblock]</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--verbose,
+-v</b></p>
+
+<p style="margin-left:22%;">Print more information on
+command execution.</p>
+
+<p style="margin-left:11%;"><b>--debug</b></p>
+
+<p style="margin-left:22%;">Run in debug mode with full
+diagnostic logs. Debug output lines are always prefixed by
+&rsquo;#&rsquo;.</p>
+
+<p style="margin-left:11%;"><b>--no-superblock</b></p>
+
+<p style="margin-left:22%;">Create or use dm-verity without
+permanent on-disk superblock.</p>
+
+<p style="margin-left:11%;"><b>--format=number</b></p>
+
+<p style="margin-left:22%;">Specifies the hash version
+type. Format type 0 is original Chrome OS version. Format
+type 1 is current version.</p>
+
+
+<p style="margin-left:11%;"><b>--data-block-size=bytes</b></p>
+
+<p style="margin-left:22%;">Used block size for the data
+device. (Note kernel supports only page-size as maximum
+here.)</p>
+
+
+<p style="margin-left:11%;"><b>--hash-block-size=bytes</b></p>
+
+<p style="margin-left:22%;">Used block size for the hash
+device. (Note kernel supports only page-size as maximum
+here.)</p>
+
+
+<p style="margin-left:11%;"><b>--data-blocks=blocks</b></p>
+
+<p style="margin-left:22%;">Size of data device used in
+verification. If not specified, the whole device is
+used.</p>
+
+<p style="margin-left:11%;"><b>--hash-offset=bytes</b></p>
+
+<p style="margin-left:22%;">Offset of hash area/superblock
+on hash_device. Value must be aligned to disk sector
+offset.</p>
+
+<p style="margin-left:11%;"><b>--salt=hex string</b></p>
+
+<p style="margin-left:22%;">Salt used for format or
+verification. Format is a hexadecimal string.</p>
+
+<p style="margin-left:11%;"><b>--uuid=UUID</b></p>
+
+<p style="margin-left:22%;">Use the provided UUID for
+format command instead of generating new one.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The UUID must
+be provided in standard UUID format, e.g.
+12345678-1234-1234-1234-123456789abc.</p>
+
+<p style="margin-left:11%;"><b>--ignore-corruption ,
+--restart-on-corruption</b></p>
+
+<p style="margin-left:22%;">Defines what to do if data
+integrity problem is detected (data corruption).</p>
+
+<p style="margin-left:22%; margin-top: 1em">Without these
+options kernel fails the IO operation with I/O error. With
+--ignore-corruption option the corruption is only logged.
+With --restart-on-corruption the kernel is restarted
+immediately. (You have to provide way how to avoid restart
+loops.)</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>WARNING:</b>
+Use these options only for very specific cases. These
+options are available since Linux kernel version 4.1.</p>
+
+
+<p style="margin-left:11%;"><b>--ignore-zero-blocks</b></p>
+
+<p style="margin-left:22%;">Instruct kernel to not verify
+blocks that are expected to contain zeroes and always
+directly return zeroes instead.</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>WARNING:</b>
+Use this option only in very specific cases. This option is
+available since Linux kernel version 4.5.</p>
+
+
+<p style="margin-left:11%;"><b>--check-at-most-once</b></p>
+
+<p style="margin-left:22%;">Instruct kernel to verify
+blocks only the first time they are read from the data
+device, rather than every time.</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>WARNING:</b>
+It provides a reduced level of security because only offline
+tampering of the data device&rsquo;s content will be
+detected, not online tampering. This option is available
+since Linux kernel version 4.17.</p>
+
+<p style="margin-left:11%;"><b>--hash=hash</b></p>
+
+<p style="margin-left:22%;">Hash algorithm for dm-verity.
+For default see --help option.</p>
+
+<p style="margin-left:11%;"><b>--version</b></p>
+
+<p style="margin-left:22%;">Show the program version.</p>
+
+
+<p style="margin-left:11%;"><b>--fec-device=fec_device</b></p>
+
+<p style="margin-left:22%;">Use forward error correction
+(FEC) to recover from corruption if hash verification fails.
+Use encoding data from the specified device.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The fec device
+argument can be block device or file image. For format, if
+fec device path doesn&rsquo;t exist, it will be created as
+file.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note: block
+sizes for data and hash devices must match. Also, if the
+verity data_device is encrypted the fec_device should be
+too.</p>
+
+<p style="margin-left:11%;"><b>--fec-offset=bytes</b></p>
+
+<p style="margin-left:22%;">This is the offset, in bytes,
+from the start of the FEC device to the beginning of the
+encoding data.</p>
+
+<p style="margin-left:11%;"><b>--fec-roots=num</b></p>
+
+<p style="margin-left:22%;">Number of generator roots. This
+equals to the number of parity bytes in the encoding data.
+In RS(M, N) encoding, the number of roots is M-N. M is 255
+and M-N is between 2 and 24 (including).</p>
+
+<h2>RETURN CODES
+<a name="RETURN CODES"></a>
+</h2>
+
+
+<p style="margin-left:22%; margin-top: 1em">Veritysetup
+returns 0 on success and a non-zero value on error.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Error codes
+are: <br>
+1 wrong parameters <br>
+2 no permission <br>
+3 out of memory <br>
+4 wrong device specified <br>
+5 device already exists or device is busy.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>veritysetup
+--data-blocks=256 format &lt;data_device&gt;
+&lt;hash_device&gt;</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Calculates and
+stores verification data on hash_device for the first 256
+blocks (of block-size). If hash_device does not exist, it is
+created (as file image).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>veritysetup
+format &lt;data_device&gt; &lt;hash_device&gt;</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Calculates and
+stores verification data on hash_device for the whole
+data_device.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>veritysetup
+--data-blocks=256 --hash-offset=1052672 format
+&lt;device&gt; &lt;device&gt;</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Verification
+data (hashes) is stored on the same device as data (starting
+at hash-offset). Hash-offset must be greater than number of
+blocks in data-area.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>veritysetup
+--data-blocks=256 --hash-offset=1052672 create test-device
+&lt;device&gt; &lt;device&gt; &lt;root_hash&gt;</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Activates the
+verity device named test-device. Options --data-blocks and
+--hash-offset are the same as in the format command. The
+&lt;root_hash&gt; was calculated in format command.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>veritysetup
+--data-blocks=256 --hash-offset=1052672 verify
+&lt;data_device&gt; &lt;hash_device&gt;
+&lt;root_hash&gt;</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Verifies device
+without activation (in userspace).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>veritysetup
+--fec-device=&lt;fec_device&gt; --fec-roots=10 format
+&lt;data_device&gt; &lt;hash_device&gt;</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Calculates and
+stores verification and encoding data for data_device.</p>
+
+<h2>REPORTING BUGS
+<a name="REPORTING BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Report bugs,
+including ones in the documentation, on the cryptsetup
+mailing list at &lt;dm-crypt@saout.de&gt; or in the
+&rsquo;Issues&rsquo; section on LUKS website. Please attach
+the output of the failed command with the --debug option
+added.</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The first
+implementation of veritysetup was written by Chrome OS
+authors.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This version is
+based on verification code written by Mikulas Patocka
+&lt;mpatocka@redhat.com&gt; and rewritten for libcryptsetup
+by Milan Broz &lt;gmazyland@gmail.com&gt;.</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+&copy; 2012-2019 Red Hat, Inc. <br>
+Copyright &copy; 2012-2019 Milan Broz</p>
+
+<p style="margin-left:11%; margin-top: 1em">This is free
+software; see the source for copying conditions. There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The project
+website at
+<b>https://gitlab.com/cryptsetup/cryptsetup</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">The verity
+on-disk format specification available at
+<b>https://gitlab.com/cryptsetup/cryptsetup/wikis/DMVerity</b></p>
+<hr>
+</body>
+</html>

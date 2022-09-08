@@ -1,0 +1,104 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:00:05 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>POPULARITY-CONTEST</title>
+
+</head>
+<body>
+
+<h1 align="center">POPULARITY-CONTEST</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">popularity-contest
+- list the most popular Debian packages</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>popularity-contest</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>popularity-contest</b> command gathers information about
+Debian packages installed on the system, and prints the name
+of the most recently used executable program in that package
+as well as its last-accessed time (atime) and
+last-attribute-changed time (ctime) to stdout.</p>
+
+<p style="margin-left:11%; margin-top: 1em">When aggregated
+with the output of <b>popularity-contest</b> from many other
+systems, this information is valuable because it can be used
+to determine which Debian packages are commonly installed,
+used, or installed and never used. This helps Debian
+maintainers make decisions such as which packages should be
+installed by default on new systems.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The resulting
+statistic is available from the project home page
+<b>https://popcon.debian.org/</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Normally,
+<b>popularity-contest</b> is run from a <b>cron</b>(8) job,
+<b>/etc/cron.daily/popularity-contest</b>, which
+automatically submits the results to Debian package
+maintainers (only once a week) according to the settings in
+<b>/etc/popularity-contest.conf</b> and
+<b>/usr/share/popularity-contest/default.conf</b>.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+popularity-contest FAQ at
+<b>/usr/share/doc/popularity-contest/FAQ
+popcon-largest-unused</b>(8), <b>cron</b>(8)</p>
+
+<p style="margin-left:11%; margin-top: 1em">Additional
+documentation is in
+<b>/usr/share/doc/popularity-contest/</b>.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Avery Pennarun
+&lt;apenwarr@debian.org&gt;.</p>
+<hr>
+</body>
+</html>

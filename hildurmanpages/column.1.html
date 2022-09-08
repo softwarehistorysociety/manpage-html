@@ -1,0 +1,122 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:35:52 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<hr>
+
+
+<p>COLUMN(1) BSD General Commands Manual COLUMN(1)</p>
+
+<p style="margin-top: 1em"><b>NAME</b></p>
+
+<p style="margin-left:6%;"><b>column</b> &mdash; columnate
+lists</p>
+
+<p style="margin-top: 1em"><b>SYNOPSIS</b></p>
+
+<p style="margin-left:15%;"><b>column</b> [<b>-entx</b>]
+[<b>-c&nbsp;</b><i>columns</i>] [<b>-s&nbsp;</b><i>sep</i>]
+[<i>file&nbsp;...</i>]</p>
+
+<p style="margin-top: 1em"><b>DESCRIPTION</b></p>
+
+<p style="margin-left:6%;">The <b>column</b> utility
+formats its input into multiple columns. Rows are filled
+before columns. Input is taken from <i>file</i> operands,
+or, by default, from the standard input. Empty lines are
+ignored unless the <b>-e</b> option is used.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The options are
+as follows:</p>
+
+<p style="margin-top: 1em"><b>-c</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Output is
+formatted for a display <i>columns</i> wide.</p>
+
+<p style="margin-top: 1em"><b>-s</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Specify a set
+of characters to be used to delimit columns for the
+<b>-t</b> option.</p>
+
+<p style="margin-top: 1em"><b>-t</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Determine the
+number of columns the input contains and create a table.
+Columns are delimited with whitespace, by default, or with
+the characters supplied using the <b>-s</b> option. Useful
+for pretty-printing displays.</p>
+
+<p style="margin-top: 1em"><b>-x</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Fill columns
+before filling rows.</p>
+
+<p style="margin-top: 1em"><b>-n</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">By default, the
+column command will merge multiple adjacent delimiters into
+a single delimiter when using the <b>-t</b> option; this
+option disables that behavior. This option is a Debian
+GNU/Linux extension.</p>
+
+<p style="margin-top: 1em"><b>-e</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Do not ignore
+empty lines.</p>
+
+<p style="margin-top: 1em"><b>ENVIRONMENT</b></p>
+
+<p style="margin-left:6%;">The COLUMNS, LANG, LC_ALL and
+LC_CTYPE environment variables affect the execution of
+<b>column</b> as described in environ(7).</p>
+
+<p style="margin-top: 1em"><b>EXIT STATUS</b></p>
+
+<p style="margin-left:6%;">The <b>column</b> utility
+exits&nbsp;0 on success, and&nbsp;&gt;0 if an error
+occurs.</p>
+
+<p style="margin-top: 1em"><b>EXAMPLES</b></p>
+
+<p style="margin-left:14%;">(printf &quot;PERM LINKS OWNER
+GROUP SIZE MONTH DAY &quot;&nbsp;;&nbsp;\ <br>
+printf &quot;HH:MM/YEAR NAME\n&quot;&nbsp;;&nbsp;\ <br>
+ls -l | sed 1d) | column -t</p>
+
+<p style="margin-top: 1em"><b>SEE ALSO</b></p>
+
+<p style="margin-left:6%;">colrm(1), ls(1), paste(1),
+sort(1)</p>
+
+<p style="margin-top: 1em"><b>HISTORY</b></p>
+
+<p style="margin-left:6%;">The <b>column</b> command
+appeared in 4.3BSD-Reno.</p>
+
+<p style="margin-top: 1em"><b>BUGS</b></p>
+
+<p style="margin-left:6%;">Input lines are limited to 512
+times LINE_MAX (1M) wide characters in length.</p>
+
+<p style="margin-left:6%; margin-top: 1em">BSD
+July&nbsp;29, 2004 BSD</p>
+<hr>
+</body>
+</html>

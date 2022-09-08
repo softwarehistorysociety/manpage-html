@@ -1,0 +1,258 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:50:36 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>IPTUNNEL</title>
+
+</head>
+<body>
+
+<h1 align="center">IPTUNNEL</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#HOMEPAGE">HOMEPAGE</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">iptunnel -
+Create and manage IP tunnels</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>iptunnel</b>
+{ add | change | del | show } [ NAME ] <br>
+[ mode { ipip | gre | sit } ] [ remote ADDR ] [ local ADDR ]
+<br>
+[ [i|o]seq ] [ [i|o]key KEY ] [ [i|o]csum ] <br>
+[ ttl TTL ] [ tos TOS ] [ nopmtudisc ] [ dev PHYS_DEV ]</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>iptunnel</b>
+-V | --version</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Where</b>:
+NAME := STRING <br>
+ADDR := { IP_ADDRESS | any } <br>
+TOS := { NUMBER | inherit } <br>
+TTL := { 1..255 | inherit } <br>
+KEY := { DOTTED_QUAD | NUMBER }</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>iptunnel</b>
+can be used to add, change, delete and show IP tunnels on
+the machine.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p style="margin-top: 1em"><b>help</b></p></td>
+<td width="5%"></td>
+<td width="38%">
+
+
+<p style="margin-top: 1em">Show the help text.</p></td>
+<td width="40%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>show</b></p></td>
+<td width="5%"></td>
+<td width="38%">
+
+
+<p>List existing IP tunnels.</p></td>
+<td width="40%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>{ add | change | del } [
+NAME ]</b></p>
+
+<p style="margin-left:22%;">Specify an action (<b>add</b>,
+<b>change</b> or <b>delete</b> an IP tunnel) to be executed
+by <b>iptunnel</b> on the tunnel named <b>NAME</b>, which
+must be a string. You must specify one action.</p>
+
+<p style="margin-left:11%;"><b>mode PROTOCOL</b></p>
+
+<p style="margin-left:22%;">Specify the <b>PROTOCOL</b> to
+be used for the IP tunnel. It can be <b>ipip</b> for TCP/IP,
+<b>gre</b> for Cisco GRE tunnel (RFCs 1701 and 1702), or
+<b>sit</b> for IPv6-in-IPv4 tunneling.</p>
+
+<p style="margin-left:11%;"><b>remote ADDR</b></p>
+
+<p style="margin-left:22%;">Set the remote (i.e.,
+destination) address of the tunnel. <b>ADDR</b> must be an
+IP address or the word <b>any</b>.</p>
+
+<p style="margin-left:11%;"><b>local ADDR</b></p>
+
+<p style="margin-left:22%;">Set the local (i.e., source)
+address of the tunnel. <b>ADDR</b> must be an IP address or
+the word <b>any</b>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>iseq</b></p></td>
+<td width="5%"></td>
+<td width="78%">
+
+
+<p>Require that all incoming packets are serialized. Only
+applicable for <b>GRE</b> tunnels.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>oseq</b></p></td>
+<td width="5%"></td>
+<td width="78%">
+
+
+<p>Enable serialization (sequencing) for all outgoing
+packets. Only applicable for <b>GRE</b> tunnels.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>ikey KEY</b></p>
+
+<p style="margin-left:22%;">Specify the input key for the
+Cisco GRE tunnel. <b>KEY</b> must be either in dotted quad
+(dotted decimal) or a number. Only applicable for <b>GRE</b>
+tunnels.</p>
+
+<p style="margin-left:11%;"><b>okey KEY</b></p>
+
+<p style="margin-left:22%;">Same as <b>ikey</b>, but set
+the output key instead. Only applicable for <b>GRE</b>
+tunnels.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p><b>icsum</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p>Require that all incoming packets have the correct
+checksum. Only applicable for <b>GRE</b> tunnels.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p><b>ocsum</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p>Calculate checksums for all outgoing packets. Only
+applicable for <b>GRE</b> tunnels.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>ttl TTL</b></p>
+
+<p style="margin-left:22%;">Specify the <b>Time-To-Live</b>
+value for the IP tunnel. <b>TTL</b> must be a value between
+<b>1</b> and <b>255</b>, or the word <b>inherit</b>, which
+causes the field to be copied from the original IP
+header.</p>
+
+<p style="margin-left:11%;"><b>tos TOS</b></p>
+
+<p style="margin-left:22%;">Specify the
+<b>Type-Of-Service</b> value for the IP tunnel. <b>TOS</b>
+must be a value between <b>1</b> and <b>255</b>, or the word
+<b>inherit</b>, which causes the field to be copied from the
+original IP header.</p>
+
+<p style="margin-left:11%;"><b>nopmtudisc</b></p>
+
+<p style="margin-left:22%;">Disable <b>Path MTU
+Discovery</b> on this tunnel. Note that a fixed <b>ttl</b>
+is incompatible with this option.</p>
+
+<p style="margin-left:11%;"><b>dev PHYS_DEV</b></p>
+
+<p style="margin-left:22%;">Bind the tunnel to the device
+<b>PHYS_DEV</b>.</p>
+
+<h2>HOMEPAGE
+<a name="HOMEPAGE"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>&lt;https://sourceforge.net/projects/net-tools/&gt;</b></p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This manpage
+was written by Sergio Durigan Junior &lt;sergiodj (at)
+sergiodj (dot) net&gt;. A few parts were inspired by
+<b>ip-tunnel(1)</b>&rsquo;s manpage.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Permission is
+granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License, Version 2
+or any later version published by the Free Software
+Foundation.</p>
+<hr>
+</body>
+</html>

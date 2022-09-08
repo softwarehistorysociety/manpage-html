@@ -1,0 +1,422 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:48:26 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<hr>
+
+
+<p>HEXDUMP(1) BSD General Commands Manual HEXDUMP(1)</p>
+
+<p style="margin-top: 1em"><b>NAME</b></p>
+
+<p style="margin-left:6%;"><b>hexdump</b>, <b>hd</b>
+&mdash; ASCII, decimal, hexadecimal, octal dump</p>
+
+<p style="margin-top: 1em"><b>SYNOPSIS</b></p>
+
+<p style="margin-left:17%;"><b>hexdump</b>
+[<b>-bcCdovx</b>] [<b>-e&nbsp;</b><i>format_string</i>]
+[<b>-f&nbsp;</b><i>format_file</i>]
+[<b>-n&nbsp;</b><i>length</i>]
+[<b>-s&nbsp;</b><i>offset</i>] <i>file&nbsp;...</i> <b><br>
+hd</b> [<b>-bcdovx</b>]
+[<b>-e&nbsp;</b><i>format_string</i>]
+[<b>-f&nbsp;</b><i>format_file</i>]
+[<b>-n&nbsp;</b><i>length</i>]
+[<b>-s&nbsp;</b><i>offset</i>] <i>file&nbsp;...</i></p>
+
+<p style="margin-top: 1em"><b>DESCRIPTION</b></p>
+
+<p style="margin-left:6%;">The <b>hexdump</b> utility is a
+filter which displays the specified files, or the standard
+input, if no files are specified, in a user specified
+format.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The options are
+as follows:</p>
+
+<p style="margin-top: 1em"><b>-b</b></p>
+
+<p style="margin-left:17%; margin-top: 1em"><i>One-byte
+octal display</i>. Display the input offset in hexadecimal,
+followed by sixteen space-separated, three column,
+zero-filled, bytes of input data, in octal, per line.</p>
+
+<p style="margin-top: 1em"><b>-c</b></p>
+
+<p style="margin-left:17%; margin-top: 1em"><i>One-byte
+character display</i>. Display the input offset in
+hexadecimal, followed by sixteen space-separated, three
+column, space-filled, characters of input data per line.</p>
+
+<p style="margin-top: 1em"><b>-C</b></p>
+
+<p style="margin-left:17%; margin-top: 1em"><i>Canonical
+hex+ASCII display</i>. Display the input offset in
+hexadecimal, followed by sixteen space-separated, two
+column, hexadecimal bytes, followed by the same sixteen
+bytes in %_p format enclosed in
+&rsquo;&rsquo;|&rsquo;&rsquo; characters.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Calling the
+command <b>hd</b> implies this option.</p>
+
+<p style="margin-top: 1em"><b>-d</b></p>
+
+<p style="margin-left:17%; margin-top: 1em"><i>Two-byte
+decimal display</i>. Display the input offset in
+hexadecimal, followed by eight space-separated, five column,
+zero-filled, two-byte units of input data, in unsigned
+decimal, per line.</p>
+
+<p style="margin-top: 1em"><b>-e</b>
+<i>format_string</i></p>
+
+<p style="margin-left:17%;">Specify a format string to be
+used for displaying data.</p>
+
+<p style="margin-top: 1em"><b>-f</b> <i>format_file</i></p>
+
+<p style="margin-left:17%;">Specify a file that contains
+one or more newline separated format strings. Empty lines
+and lines whose first non-blank character is a hash mark
+(<b>#</b>) are ignored.</p>
+
+<p style="margin-top: 1em"><b>-n</b> <i>length</i></p>
+
+<p style="margin-left:17%;">Interpret only <i>length</i>
+bytes of input.</p>
+
+<p style="margin-top: 1em"><b>-o</b></p>
+
+<p style="margin-left:17%; margin-top: 1em"><i>Two-byte
+octal display</i>. Display the input offset in hexadecimal,
+followed by eight space-separated, six column, zero-filled,
+two byte quantities of input data, in octal, per line.</p>
+
+<p style="margin-top: 1em"><b>-s</b> <i>offset</i></p>
+
+<p style="margin-left:17%;">Skip <i>offset</i> bytes from
+the beginning of the input. By default, <i>offset</i> is
+interpreted as a decimal number. With a leading <b>0x</b> or
+<b>0X</b>, <i>offset</i> is interpreted as a hexadecimal
+number, otherwise, with a leading <b>0</b>, <i>offset</i> is
+interpreted as an octal number. Appending the character
+<b>b</b>, <b>k</b>, or <b>m</b> to <i>offset</i> causes it
+to be interpreted as a multiple of 512, 1024, or 1048576,
+respectively.</p>
+
+<p style="margin-top: 1em"><b>-v</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Cause
+<b>hexdump</b> to display all input data. Without the
+<b>-v</b> option, any number of groups of output lines,
+which would be identical to the immediately preceding group
+of output lines (except for the input offsets), are replaced
+with a line comprised of a single asterisk.</p>
+
+<p style="margin-top: 1em"><b>-x</b></p>
+
+<p style="margin-left:17%; margin-top: 1em"><i>Two-byte
+hexadecimal display</i>. Display the input offset in
+hexadecimal, followed by eight, space separated, four
+column, zero-filled, two-byte quantities of input data, in
+hexadecimal, per line.</p>
+
+<p style="margin-left:6%; margin-top: 1em">For each input
+file, <b>hexdump</b> sequentially copies the input to
+standard output, transforming the data according to the
+format strings specified by the <b>-e</b> and <b>-f</b>
+options, in the order that they were specified.</p>
+
+<p style="margin-left:6%; margin-top: 1em"><b>Formats</b>
+<br>
+A format string contains any number of format units,
+separated by whitespace. A format unit contains up to three
+items: an iteration count, a byte count, and a format.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The iteration
+count is an optional positive integer, which defaults to
+one. Each format is applied iteration count times.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The byte count
+is an optional positive integer. If specified it defines the
+number of bytes to be interpreted by each iteration of the
+format.</p>
+
+<p style="margin-left:6%; margin-top: 1em">If an iteration
+count and/or a byte count is specified, a single slash must
+be placed after the iteration count and/or before the byte
+count to disambiguate them. Any whitespace before or after
+the slash is ignored.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The format is
+required and must be surrounded by double quote (&quot;
+&quot;) marks. It is interpreted as a fprintf-style format
+string (see fprintf(3)), with the following exceptions:</p>
+
+<p style="margin-top: 1em"><b>&bull;</b></p>
+
+<p style="margin-left:19%;">An asterisk (*) may not be used
+as a field width or precision.</p>
+
+<p style="margin-top: 1em"><b>&bull;</b></p>
+
+<p style="margin-left:19%;">A byte count or field precision
+<i>is</i> required for each &rsquo;&rsquo;s&rsquo;&rsquo;
+conversion character (unlike the fprintf(3) default which
+prints the entire string if the precision is
+unspecified).</p>
+
+<p style="margin-top: 1em"><b>&bull;</b></p>
+
+<p style="margin-left:19%;">The conversion characters
+&rsquo;&rsquo;%&rsquo;&rsquo;,
+&rsquo;&rsquo;h&rsquo;&rsquo;,
+&rsquo;&rsquo;l&rsquo;&rsquo;,
+&rsquo;&rsquo;n&rsquo;&rsquo;, &rsquo;&rsquo;p&rsquo;&rsquo;
+and &rsquo;&rsquo;q&rsquo;&rsquo; are not supported.</p>
+
+<p style="margin-top: 1em"><b>&bull;</b></p>
+
+<p style="margin-left:19%;">The single character escape
+sequences described in the C standard are supported:</p>
+
+<p style="margin-left:54%; margin-top: 1em">NUL \0 <br>
+&lt;alert character&gt; \a <br>
+&lt;backspace&gt; \b <br>
+&lt;form-feed&gt; \f <br>
+&lt;newline&gt; \n <br>
+&lt;carriage return&gt; \r <br>
+&lt;tab&gt; \t <br>
+&lt;vertical tab&gt; \v</p>
+
+<p style="margin-left:6%; margin-top: 1em">The
+<b>hexdump</b> utility also supports the following
+additional conversion strings:</p>
+
+<p style="margin-top: 1em"><b>_a</b>[<b>dox</b>]</p>
+
+<p style="margin-left:22%; margin-top: 1em">Display the
+input offset, cumulative across input files, of the next
+byte to be displayed. The appended characters <b>d</b>,
+<b>o</b>, and <b>x</b> specify the display base as decimal,
+octal or hexadecimal respectively.</p>
+
+<p style="margin-top: 1em"><b>_A</b>[<b>dox</b>]</p>
+
+<p style="margin-left:22%; margin-top: 1em">Identical to
+the <b>_a</b> conversion string except that it is only
+performed once, when all of the input data has been
+processed.</p>
+
+<p style="margin-top: 1em"><b>_c</b></p>
+
+<p style="margin-left:22%; margin-top: 1em">Output
+characters in the default character set. Nonprinting
+characters are displayed in three character, zero-padded
+octal, except for those representable by standard escape
+notation (see above), which are displayed as two character
+strings.</p>
+
+<p style="margin-top: 1em"><b>_p</b></p>
+
+<p style="margin-left:22%; margin-top: 1em">Output
+characters in the default character set. Nonprinting
+characters are displayed as a single
+&ldquo;<b>.</b>&rdquo;.</p>
+
+<p style="margin-top: 1em"><b>_u</b></p>
+
+<p style="margin-left:22%; margin-top: 1em">Output US ASCII
+characters, with the exception that control characters are
+displayed using the following, lower-case, names. Characters
+greater than 0xff, hexadecimal, are displayed as hexadecimal
+strings.</p>
+
+<p style="margin-left:79%; margin-top: 1em">000 NUL 001 SOH
+002 STX 003 ETX 004 EOT 005 ENQ <br>
+006 ACK 007 BEL 008 BS 009 HT 00A LF 00B VT <br>
+00C FF 00D CR 00E&nbsp;SO 00F SI 010 DLE 011 DC1 <br>
+012 DC2 013 DC3 014 DC4 015&nbsp;NAK 016 SYN 017 ETB <br>
+018 CAN 019 EM 01A SUB 01B ESC 01C FS 01D GS <br>
+01E RS 01F US 07F DEL</p>
+
+<p style="margin-left:6%; margin-top: 1em">The default and
+supported byte counts for the conversion characters are as
+follows:</p>
+
+<p style="margin-top: 1em">%_c, %_p, %_u, %c</p>
+
+<p style="margin-left:45%; margin-top: 1em">One byte counts
+only.</p>
+
+<p style="margin-top: 1em">%d, %i, %o, %u, %X, %x</p>
+
+<p style="margin-left:45%; margin-top: 1em">Four byte
+default, one, two and four byte counts supported.</p>
+
+<p style="margin-top: 1em">%E, %e, %f, %G, %g</p>
+
+<p style="margin-left:45%; margin-top: 1em">Eight byte
+default, four and twelve byte counts supported.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The amount of
+data interpreted by each format string is the sum of the
+data required by each format unit, which is the iteration
+count times the byte count, or the iteration count times the
+number of bytes required by the format if the byte count is
+not specified.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The input is
+manipulated in &rsquo;&rsquo;blocks&rsquo;&rsquo;, where a
+block is defined as the largest amount of data specified by
+any format string. Format strings interpreting less than an
+input block&rsquo;s worth of data, whose last format unit
+both interprets some number of bytes and does not have a
+specified iteration count, have the iteration count
+incremented until the entire input block has been processed
+or there is not enough data remaining in the block to
+satisfy the format string.</p>
+
+<p style="margin-left:6%; margin-top: 1em">If, either as a
+result of user specification or <b>hexdump</b> modifying the
+iteration count as described above, an iteration count is
+greater than one, no trailing whitespace characters are
+output during the last iteration.</p>
+
+<p style="margin-left:6%; margin-top: 1em">It is an error
+to specify a byte count as well as multiple conversion
+characters or strings unless all but one of the conversion
+characters or strings is <b>_a</b> or <b>_A</b>.</p>
+
+<p style="margin-left:6%; margin-top: 1em">If, as a result
+of the specification of the <b>-n</b> option or end-of-file
+being reached, input data only partially satisfies a format
+string, the input block is zero-padded sufficiently to
+display all available data (i.e., any format units
+overlapping the end of data will display some number of the
+zero bytes).</p>
+
+<p style="margin-left:6%; margin-top: 1em">Further output
+by such format strings is replaced by an equivalent number
+of spaces. An equivalent number of spaces is defined as the
+number of spaces output by an <b>s</b> conversion character
+with the same field width and precision as the original
+conversion character or conversion string but with any
+&ldquo;+&rdquo;, &ldquo;&nbsp;&rdquo;, &ldquo;#&rdquo;
+conversion flag characters removed, and referencing a NULL
+string.</p>
+
+<p style="margin-left:6%; margin-top: 1em">If no format
+strings are specified, the default display is equivalent to
+specifying the <b>-x</b> option.</p>
+
+<p style="margin-top: 1em"><b>EXIT STATUS</b></p>
+
+<p style="margin-left:6%;">The <b>hexdump</b> and <b>hd</b>
+utilities exit&nbsp;0 on success, and&nbsp;&gt;0 if an error
+occurs.</p>
+
+<p style="margin-top: 1em"><b>EXAMPLES</b></p>
+
+<p style="margin-left:6%;">Display the input in perusal
+format:</p>
+
+<p style="margin-left:14%; margin-top: 1em">&quot;%06.6_ao
+&quot; 12/1 &quot;%3_u &quot; <br>
+&quot;\t\t&quot; &quot;%_p &quot; <br>
+&quot;\n&quot;</p>
+
+<p style="margin-left:6%; margin-top: 1em">Implement the -x
+option:</p>
+
+
+<p style="margin-left:14%; margin-top: 1em">&quot;%07.7_Ax\n&quot;
+<br>
+&quot;%07.7_ax &quot; 8/2 &quot;%04x &quot;
+&quot;\n&quot;</p>
+
+<p style="margin-left:6%; margin-top: 1em">Some examples
+for the -e option:</p>
+
+<p style="margin-left:14%; margin-top: 1em"># hex bytes
+<br>
+% echo hello | hexdump -v -e &rsquo;/1 &quot;%02X
+&quot;&rsquo; ; echo <br>
+68 65 6C 6C 6F 0A</p>
+
+<p style="margin-left:14%; margin-top: 1em"># same, with
+ASCII section <br>
+% echo hello | hexdump -e &rsquo;8/1 &quot;%02X
+&quot;&quot;\t&quot;&quot; &quot;&rsquo; -e &rsquo;8/1
+&quot;%c&quot;&quot;\n&quot;&rsquo; <br>
+68 65 6C 6C 6F 0A hello</p>
+
+<p style="margin-left:14%; margin-top: 1em"># hex with
+preceding &rsquo;x&rsquo; <br>
+% echo hello | hexdump -v -e &rsquo;&quot;x&quot; 1/1
+&quot;%02X&quot; &quot; &quot;&rsquo; ; echo <br>
+x68 x65 x6C x6C x6F x0A</p>
+
+<p style="margin-left:14%; margin-top: 1em"># one hex byte
+per line <br>
+% echo hello | hexdump -v -e &rsquo;/1
+&quot;%02X\n&quot;&rsquo; <br>
+68 <br>
+65 <br>
+6C <br>
+6C <br>
+6F <br>
+0A</p>
+
+<p style="margin-left:14%; margin-top: 1em"># a table of
+byte#, hex, decimal, octal, ASCII <br>
+% echo hello | hexdump -v -e &rsquo;/1 &quot;%_ad#
+&quot;&rsquo; -e &rsquo;/1 &quot;%02X hex&quot;&rsquo; -e
+&rsquo;/1 &quot; = %03i dec&quot;&rsquo; -e &rsquo;/1 &quot;
+= %03o oct&quot;&rsquo; -e &rsquo;/1 &quot; =
+_%c\_\n&quot;&rsquo; <br>
+0# 68 hex = 104 dec = 150 oct = _h_ <br>
+1# 65 hex = 101 dec = 145 oct = _e_ <br>
+2# 6C hex = 108 dec = 154 oct = _l_ <br>
+3# 6C hex = 108 dec = 154 oct = _l_ <br>
+4# 6F hex = 111 dec = 157 oct = _o_ <br>
+5# 0A hex = 010 dec = 012 oct = _ <br>
+_</p>
+
+<p style="margin-left:14%; margin-top: 1em"># byte# &amp;
+ASCII with control chars <br>
+% echo hello | hexdump -v -e &rsquo;/1 &quot;%_ad#
+&quot;&rsquo; -e &rsquo;/1 &quot; _%_u\_\n&quot;&rsquo; <br>
+0# _h_ <br>
+1# _e_ <br>
+2# _l_ <br>
+3# _l_ <br>
+4# _o_ <br>
+5# _lf_</p>
+
+<p style="margin-top: 1em"><b>SEE ALSO</b></p>
+
+<p style="margin-left:6%;">gdb(1), od(1)</p>
+
+<p style="margin-left:6%; margin-top: 1em">BSD
+October&nbsp;29, 2014 BSD</p>
+<hr>
+</body>
+</html>

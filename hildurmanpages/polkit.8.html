@@ -1,0 +1,614 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:00:02 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>POLKIT</title>
+
+</head>
+<body>
+
+<h1 align="center">POLKIT</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#OVERVIEW">OVERVIEW</a><br>
+<a href="#SYSTEM ARCHITECTURE">SYSTEM ARCHITECTURE</a><br>
+<a href="#AUTHENTICATION AGENTS">AUTHENTICATION AGENTS</a><br>
+<a href="#DECLARING ACTIONS">DECLARING ACTIONS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#NOTES">NOTES</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">polkit -
+Authorization Framework</p>
+
+<h2>OVERVIEW
+<a name="OVERVIEW"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">PolicyKit
+provides an authorization API intended to be used by
+privileged programs (&ldquo;MECHANISMS&rdquo;) offering
+service to unprivileged programs (&ldquo;CLIENTS&rdquo;)
+through some form of IPC mechanism such as D-Bus or Unix
+pipes. In this scenario, the mechanism typically treats the
+client as untrusted. For every request from a client, the
+mechanism needs to determine if the request is authorized or
+if it should refuse to service the client. Using the
+PolicyKit API, a mechanism can offload this decision to a
+trusted party: The PolicyKit Authority.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In addition to
+acting as an authority, PolicyKit allows users to obtain
+temporary authorization through authenticating either an
+administrative user or the owner of the session the client
+belongs to. This is useful for scenarios where a mechanism
+needs to verify that the operator of the system really is
+the user or really is an administrative user.</p>
+
+<h2>SYSTEM ARCHITECTURE
+<a name="SYSTEM ARCHITECTURE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The system
+architecture of PolicyKit is comprised of the
+<i>Authority</i> (implemented as a service on the system
+message bus) and a <i>Authentication Agent</i> per user
+session (provided and started by the user session e.g. GNOME
+or KDE). Additionally, PolicyKit supports a number of
+extension points &ndash; specifically, vendors and/or sites
+can write extensions to completely control authorization
+policy. In a block diagram, the architecture looks like
+this:</p>
+
+<p style="margin-left:17%; margin-top: 1em">[IMAGE]
+<small>[1]</small></p>
+
+
+<p style="margin-left:23%; margin-top: 1em">+-------------------+
+<br>
+| Authentication | <br>
+| Agent | <br>
++-------------------+ <br>
+| libpolkit-agent-1 | <br>
++-------------------+ <br>
+^ +--------+ <br>
+| | Client | <br>
++--------------+ +--------+ <br>
+| ^ <br>
+| | <br>
+User Session | | <br>
+
+=======================|========================|=============
+<br>
+System Context | | <br>
+| | <br>
+| +---+ <br>
+V | <br>
+/------------\ | <br>
+| System Bus | | <br>
+\------------/ | <br>
+^ ^ V <br>
+| | +---------------------+ <br>
++--------------+ | | Mechanism | <br>
+| | +---------------------+ <br>
+V +----&gt; | libpolkit-gobject-1 | <br>
++------------------+ +---------------------+ <br>
+| org.freedesktop. | <br>
+| PolicyKit1 | <br>
++------------------+ <br>
+| Backends and | <br>
+| Extensions | <br>
++------------------+</p>
+
+<p style="margin-left:11%; margin-top: 1em">For
+convenience, the libpolkit-gobject-1 library wraps the
+PolicyKit D-Bus API using GObject. However, a mechanism can
+also use the D-Bus API or the <b>pkcheck</b>(1) command to
+check authorizations.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+libpolkit-agent-1 library provides an abstraction of the
+native authentication system, e.g. <b>pam</b>(8) and also
+facilities registration and communication with the PolicyKit
+D-Bus service.</p>
+
+<p style="margin-left:11%; margin-top: 1em">See the
+<b><font color="#0000FF">developer documentation</font></b>
+<small><font color="#000000">[2]</font></small>
+<font color="#000000">for more information about using and
+extending PolicyKit.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">See
+<b>pklocalauthority</b>(8) for information about the Local
+Authority - the default authority implementation shipped
+with PolicyKit.</font></p>
+
+<h2>AUTHENTICATION AGENTS
+<a name="AUTHENTICATION AGENTS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">An
+authentication agent is used to make the user of a session
+prove that the user of the session really is the user (by
+authenticating as the user) or an administrative user (by
+authenticating as a administrator). In order to integrate
+well with the rest of the user session (e.g. match the look
+and feel), authentication agents are meant to be provided by
+the user session that the user uses. For example, an
+authentication agent may look like this:</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">[IMAGE]
+<small>[3]</small></font></p>
+
+
+<p style="margin-left:23%; margin-top: 1em"><font color="#000000">+----------------------------------------------------------+
+<br>
+| Authenticate [X] | <br>
+
++----------------------------------------------------------+
+<br>
+| | <br>
+| [Icon] Authentication is required to run ATA SMART | <br>
+| self tests | <br>
+| | <br>
+| An application is attempting to perform an | <br>
+| action that requires privileges. Authentication | <br>
+| as the super user is required to perform this | <br>
+| action. | <br>
+| | <br>
+| Password for root: [_________________________] | <br>
+| | <br>
+| [V] Details: | <br>
+| Drive: ATA INTEL SSDSA2MH08 (045C) | <br>
+| Device: /dev/sda | <br>
+| Action: org.fd.devicekit.disks.drive-ata-smart-selftest |
+<br>
+| Vendor: The DeviceKit Project | <br>
+| | <br>
+| [Cancel] [Authenticate] | <br>
+
++----------------------------------------------------------+</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">If
+the system is configured without a <i>root</i> account it
+may allow you to select the administrative user who is
+authenticating:</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">[IMAGE]
+<small>[4]</small></font></p>
+
+
+<p style="margin-left:23%; margin-top: 1em"><font color="#000000">+----------------------------------------------------------+
+<br>
+| Authenticate [X] | <br>
+
++----------------------------------------------------------+
+<br>
+| | <br>
+| [Icon] Authentication is required to run ATA SMART | <br>
+| self tests | <br>
+| | <br>
+| An application is attempting to perform an | <br>
+| action that requires privileges. Authentication | <br>
+| as one of the users below is required to | <br>
+| perform this action. | <br>
+| | <br>
+| [[Face] Patrick Bateman (bateman) [V]] | <br>
+| | <br>
+| Password for bateman: [______________________] | <br>
+| | <br>
+| [V] Details: | <br>
+| Drive: ATA INTEL SSDSA2MH08 (045C) | <br>
+| Device: /dev/sda | <br>
+| Action: org.fd.devicekit.disks.drive-ata-smart-selftest |
+<br>
+| Vendor: The DeviceKit Project | <br>
+| | <br>
+| [Cancel] [Authenticate] | <br>
+
++----------------------------------------------------------+</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">See
+<b>pklocalauthority</b>(8) on how to set up the local
+authority implemention for systems without a root
+account.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">Applications
+that do not run under a desktop environment (for example, if
+launched from a <b>ssh</b>(1) login) may not have have an
+authentication agent associated with them. Such applications
+may use the PolkitAgentTextListener type or the
+<b>pkttyagent</b>(1) helper so the user can authenticate
+using a textual interface.</font></p>
+
+<h2>DECLARING ACTIONS
+<a name="DECLARING ACTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">A
+mechanism need to declare a set of &ldquo;ACTIONS&rdquo; in
+order to use PolicyKit. Actions correspond to operations
+that clients can request the mechanism to carry out and are
+defined in XML files that the mechanism installs into the
+/usr/share/polkit-1/actions directory.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">PolicyKit
+actions are namespaced and can only contain the characters
+[a-z][0-9].- e.g. lower-case ASCII, digits, period and
+hyphen. Each XML file can contain more than one action but
+all actions need to be in the same namespace and the file
+needs to be named after the namespace and have the extension
+.policy.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">The
+XML file must have the following doctype
+declaration</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&lt;?xml
+version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; <br>
+&lt;!DOCTYPE policyconfig PUBLIC &quot;-//freedesktop//DTD
+PolicyKit Policy Configuration 1.0//EN&quot; <br>
+
+&quot;http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd&quot;&gt;</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">The
+<i>policyconfig</i> element must be present exactly once.
+Elements that can be used inside <i>policyconfig</i>
+includes:</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>vendor</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">The name
+of the project or vendor that is supplying the actions in
+the XML document. Optional.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>vendor_url</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">A URL to
+the project or vendor that is supplying the actions in the
+XML document. Optional.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>icon_name</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">An icon
+representing the project or vendor that is supplying the
+actions in the XML document. The icon name must adhere to
+the</font> <b><font color="#0000FF">Freedesktop.org Icon
+Naming Specification</font></b>
+<small><font color="#000000">[5]</font></small>
+<font color="#000000">. Optional.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>action</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Declares
+an action. The action name is specified using the id
+attribute and can only contain the characters [a-z][0-9].-
+e.g. lower-case ASCII, digits, period and hyphen.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">Elements
+that can be used inside <i>action</i> includes:</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>description</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">A human
+readable description of the action, e.g. &ldquo;Install
+unsigned software&rdquo;.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>message</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">A human
+readable message displayed to the user when asking for
+credentials when authentication is needed, e.g.
+&ldquo;Installing unsigned software requires
+authentication&rdquo;.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>defaults</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">This
+element is used to specify implicit authorizations for
+clients.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">Elements
+that can be used inside <i>defaults</i> includes:</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000"><i>allow_any</i></font></p>
+
+<p style="margin-left:23%;"><font color="#000000">Implicit
+authorizations that apply to any client.
+Optional.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000"><i>allow_inactive</i></font></p>
+
+<p style="margin-left:23%;"><font color="#000000">Implicit
+authorizations that apply to clients in inactive sessions on
+local consoles. Optional.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000"><i>allow_active</i></font></p>
+
+<p style="margin-left:23%;"><font color="#000000">Implicit
+authorizations that apply to clients in active sessions on
+local consoles. Optional.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">Each
+of the <i>allow_any</i>, <i>allow_inactive</i> and
+<i>allow_active</i> elements can contain the following
+values:</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">no</font></p>
+
+<p style="margin-left:23%;"><font color="#000000">Not
+authorized.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">yes</font></p>
+
+
+<p style="margin-left:23%;"><font color="#000000">Authorized.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">auth_self</font></p>
+
+
+<p style="margin-left:23%;"><font color="#000000">Authentication
+by the owner of the session that the client originates from
+is required.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">auth_admin</font></p>
+
+
+<p style="margin-left:23%;"><font color="#000000">Authentication
+by an administrative user is required.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">auth_self_keep</font></p>
+
+<p style="margin-left:23%;"><font color="#000000">Like
+auth_self but the authorization is kept for a brief
+period.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">auth_admin_keep</font></p>
+
+<p style="margin-left:23%;"><font color="#000000">Like
+auth_admin but the authorization is kept for a brief
+period.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>annotate</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Used for
+annotating an action with a key/value pair. The key is
+specified using the the key attribute and the value is
+specified using the value attribute. This element may appear
+zero or more times. See below for known
+annotations.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>vendor</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Used for
+overriding the vendor on a per-action basis.
+Optional.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>vendor_url</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Used for
+overriding the vendor URL on a per-action basis.
+Optional.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><i>icon_name</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Used for
+overriding the icon name on a per-action basis.
+Optional.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">For
+localization, <i>description</i> and <i>message</i> elements
+may occur multiple times with different xml:lang
+attributes.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">To
+list installed PolicyKit actions, use the <b>pkaction</b>(1)
+command.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>Known
+annotations</b> <br>
+The org.freedesktop.policykit.exec.path annotation is used
+by the <b>pkexec</b> program shipped with PolicyKit - see
+the <b>pkexec</b>(1) man page for details.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">The
+org.freedesktop.policykit.imply annotation (its value is a
+string containing a space separated list of action
+identifiers) can be used to define <i>meta actions</i>. The
+way it works is that if a subject is authorized for an
+action with this annotation, then it is also authorized for
+any action specified by the annotation. A typical use of
+this annotation is when defining an UI shell with a single
+lock button that should unlock multiple actions from
+distinct mechanisms.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">The
+org.freedesktop.policykit.owner annotation can be used to
+define a set of users who can query whether a client is
+authorized to perform this action. If this annotation is not
+specified then only root can query whether a client running
+as a different user is authorized for an action. The value
+of this annotation is a string containing a space separated
+list of PolkitIdentity entries, for example
+&quot;unix-user:42 unix-user:colord&quot;. A typical use of
+this annotation is for a daemon process that runs as a
+system user rather than root.</font></p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">Written
+by David Zeuthen &lt;davidz@redhat.com&gt; with a lot of
+help from many others.</font></p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">Please
+send bug reports to either the distribution or the
+polkit-devel mailing list, see the link</font>
+<b><font color="#0000FF">http://lists.freedesktop.org/mailman/listinfo/polkit-devel</font></b>
+<font color="#000000">on how to subscribe.</font></p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>pklocalauthority</b>(8)
+<b>polkitd</b>(8) <b>pkaction</b>(1), <b>pkcheck</b>(1),
+<b>pkexec</b>(1), <b>pkttyagent</b>(1)</font></p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">1.</font></p> </td>
+<td width="2%"></td>
+<td width="83%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">/usr/share/gtk-doc/html/polkit-1/polkit-architecture.png</font></p> </td></tr>
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+<p><font color="#000000">2.</font></p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p><font color="#000000">developer documentation</font></p></td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">file:///usr/share/gtk-doc/html/polkit-1/index.html</font></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">3.</font></p> </td>
+<td width="2%"></td>
+<td width="83%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">/usr/share/gtk-doc/html/polkit-1/polkit-authentication-agent-example.png</font></p> </td></tr>
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+<p><font color="#000000">4.</font></p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+
+<p><font color="#000000">/usr/share/gtk-doc/html/polkit-1/polkit-authentication-agent-example-wheel.png</font></p> </td></tr>
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+<p><font color="#000000">5.</font></p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p><font color="#000000">Freedesktop.org Icon Naming
+Specification</font></p> </td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html</font></p>
+<hr>
+</body>
+</html>

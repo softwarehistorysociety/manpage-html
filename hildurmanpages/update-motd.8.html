@@ -1,0 +1,122 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:11:52 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>update-motd</title>
+
+</head>
+<body>
+
+<h1 align="center">update-motd</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">update-motd -
+immediately update the dynamic MOTD and print it to
+stdout</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-motd
+[--show-only]</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The PAM MOTD
+module updates the Message-of-the-Day automatically on user
+logins.</p>
+
+<p style="margin-left:11%; margin-top: 1em">But sometimes,
+the system administrator may want to update the MOTD
+immediately or on demand.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This simple
+program performs the same actions handled by PAM on login,
+and prints the new MOTD to stdout.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that only
+the system administrator can typically write to the MOTD,
+and thus this utility should be executed as the root
+user.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The program
+also accepts the <b>--show-only</b> option to not update,
+just show the MOTD. Regular users can use this option to see
+the dynamically generated MOTD even when the root user did
+not generate it in advance. The show-motd package contains
+the <i>/etc/profile.d/update-motd.sh</i> snipped to show
+MOTD in interactive shells when the PAM MOTD module did not
+show it on login.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For best
+practices and additional information, please see
+<b>update-motd</b>(5).</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/etc/motd</i>,
+<i>/var/run/motd</i>, <i>/etc/update-motd.d</i></p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>motd</b></i>(5),
+<b>pam_motd</b>(8), <b>run-parts</b>(8),
+<b>update-motd</b>(5)</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This manpage
+and the update-motd framework was written by Dustin Kirkland
+&lt;dustin.kirkland@gmail.com&gt; for Ubuntu systems (but
+may be used by others). Permission is granted to copy,
+distribute and/or modify this document under the terms of
+the GNU General Public License, Version 3 published by the
+Free Software Foundation.</p>
+
+<p style="margin-left:11%; margin-top: 1em">On Debian
+systems, the complete text of the GNU General Public License
+can be found in /usr/share/common-licenses/GPL.</p>
+<hr>
+</body>
+</html>

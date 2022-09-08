@@ -1,0 +1,207 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:52:41 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>libdmmp.h</title>
+
+</head>
+<body>
+
+<h1 align="center">libdmmp.h</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#USAGE">USAGE</a><br>
+<a href="#LOG HANDLING">LOG HANDLING</a><br>
+<a href="#SAMPLE CODE">SAMPLE CODE</a><br>
+<a href="#LICENSE">LICENSE</a><br>
+<a href="#BUG">BUG</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">libdmmp.h -
+Device Mapper Multipath API.</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">#include
+&lt;libdmmp/libdmmp.h&gt;</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">All the libdmmp
+public functions ships its own man pages. Use &rsquo;man 3
+&lt;function_name&gt;&rsquo; to check the detail usage.</p>
+
+<h2>USAGE
+<a name="USAGE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">To use libdmmp
+in your project, we suggest to use the
+&rsquo;pkg-config&rsquo; way:</p>
+
+<p style="margin-left:11%; margin-top: 1em">* Add this line
+into your configure.ac:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">PKG_CHECK_MODULES([LIBDMMP],
+[libdmmp])</p>
+
+<p style="margin-left:11%; margin-top: 1em">* Add these
+lines into your Makefile.am:</p>
+
+<p style="margin-left:11%; margin-top: 1em">foo_LDFLAGS +=
+$(LIBDMMP_LIBS) <br>
+foo_CFLAGS += $(LIBDMMP_CFLAGS)</p>
+
+<h2>LOG HANDLING
+<a name="LOG HANDLING"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The log handler
+function could be set via
+&rsquo;dmmp_context_log_func_set()&rsquo;. The log priority
+could be set via
+&rsquo;dmmp_context_log_priority_set()&rsquo;.</p>
+
+<p style="margin-left:11%; margin-top: 1em">By default, the
+log priorities is &rsquo;DMMP_LOG_PRIORITY_WARNING&rsquo;.
+By default, the log handler is print log to STDERR, and its
+code is listed below in case you want to create your own log
+handler.</p>
+
+<p style="margin-left:11%; margin-top: 1em">static int
+_DMMP_LOG_STRERR_ALIGN_WIDTH = 80;</p>
+
+<p style="margin-left:11%; margin-top: 1em">static void
+_log_stderr(struct dmmp_context *ctx, <br>
+enum dmmp_log_priority priority, <br>
+const char *file, int line, <br>
+const char *func_name, <br>
+const char *format, va_list args) <br>
+{ <br>
+int printed_bytes = 0;</p>
+
+<p style="margin-left:11%; margin-top: 1em">printed_bytes
++= fprintf(stderr, &quot;libdmmp %s: &quot;, <br>
+dmmp_log_priority_str(priority)); <br>
+printed_bytes += vfprintf(stderr, format, args); <br>
+userdata = dmmp_context_userdata_get(ctx); <br>
+if (userdata != NULL) <br>
+fprintf(stderr, &quot;(with user data at memory address
+%p)&quot;, <br>
+userdata);</p>
+
+<p style="margin-left:11%; margin-top: 1em">if
+(printed_bytes &lt; _DMMP_LOG_STRERR_ALIGN_WIDTH) { <br>
+fprintf(stderr, &quot;%*s # %s:%s():%d0, <br>
+_DMMP_LOG_STRERR_ALIGN_WIDTH - printed_bytes, &quot;&quot;,
+file, <br>
+func_name, line); <br>
+} else { <br>
+fprintf(stderr, &quot; # %s:%s():%d0, file, func_name,
+line); <br>
+} <br>
+}</p>
+
+<h2>SAMPLE CODE
+<a name="SAMPLE CODE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">#include
+&lt;libdmmp/libdmmp.h&gt;</p>
+
+<p style="margin-left:11%; margin-top: 1em">int main(int
+argc, char *argv[]) { <br>
+struct dmmp_context *ctx = NULL; <br>
+struct dmmp_mpath **dmmp_mps = NULL; <br>
+struct dmmp_path_group **dmmp_pgs = NULL; <br>
+struct dmmp_path **dmmp_ps = NULL; <br>
+uint32_t dmmp_mp_count = 0; <br>
+uint32_t dmmp_pg_count = 0; <br>
+uint32_t dmmp_p_count = 0; <br>
+const char *name = NULL; <br>
+const char *wwid = NULL; <br>
+uint32_t i = 0; <br>
+int rc = DMMP_OK;</p>
+
+<p style="margin-left:11%; margin-top: 1em">ctx =
+dmmp_context_new(); <br>
+dmmp_context_log_priority_set(ctx, DMMP_LOG_PRIORITY_DEBUG);
+<br>
+// By default, log will be printed to STDERR, you could <br>
+// change that via dmmp_context_log_func_set() <br>
+rc = dmmp_mpath_array_get(ctx, &amp;dmmp_mps,
+&amp;dmmp_mp_count); <br>
+if (rc != DMMP_OK) { <br>
+printf(&quot;dmmp_mpath_array_get() failed with %d:
+%s&quot;, rc, <br>
+dmmp_strerror(rc)); <br>
+goto out; <br>
+} <br>
+for (i = 0; i &lt; dmmp_mp_count; ++i) { <br>
+name = dmmp_mpath_name_get(dmmp_mps[i]); <br>
+wwid = dmmp_mpath_wwid_get(dmmp_mps[i]); <br>
+printf(&quot;dmmp_mpath_array_get(): Got mpath: %s %s0,
+name, <br>
+wwid); <br>
+// You could use dmmp_path_group_array_get() to retrieve
+<br>
+// path group information and then invoke
+dmmp_path_array_get() <br>
+// for path information. <br>
+}</p>
+
+<p style="margin-left:11%; margin-top: 1em">out: <br>
+dmmp_context_free(ctx); <br>
+dmmp_mpath_array_free(dmmp_mps, dmmp_mp_count); <br>
+if (rc != DMMP_OK) <br>
+exit(1); <br>
+exit(0); <br>
+}</p>
+
+<h2>LICENSE
+<a name="LICENSE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">GPLv2+</p>
+
+<h2>BUG
+<a name="BUG"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Please report
+bug to &lt;dm-devel@redhat.com&gt;</p>
+<hr>
+</body>
+</html>

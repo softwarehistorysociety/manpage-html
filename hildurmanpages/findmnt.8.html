@@ -1,0 +1,545 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:42:27 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>FINDMNT</title>
+
+</head>
+<body>
+
+<h1 align="center">FINDMNT</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">findmnt - find
+a filesystem</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>findmnt</b>
+[options]</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>findmnt</b>
+[options] <i>device</i>|<i>mountpoint</i></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>findmnt</b>
+[options] [<b>--source</b>] <i>device</i>
+[<b>--target</b>|<b>--mountpoint</b>] <i>mountpoint</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>findmnt</b></i>
+will list all mounted filesystems or search for a
+filesystem. The <b>findmnt</b> command is able to search in
+<i>/etc/fstab</i>, <i>/etc/mtab</i> or
+<i>/proc/self/mountinfo</i>. If <i>device</i> or
+<i>mountpoint</i> is not given, all filesystems are
+shown.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The device may
+be specified by device name, major:minor numbers, filesystem
+label or UUID, or partition label or UUID. Note that
+<b>findmnt</b> follows <b>mount</b>(8) behavior where a
+device name may be interpreted as a mountpoint (and vice
+versa) if the <b>--target</b>, <b>--mountpoint</b> or
+<b>--source</b> options are not specified.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The command
+prints all mounted filesystems in the tree-like format by
+default.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-A</b>,
+<b>--all</b></p>
+
+<p style="margin-left:22%;">Disable all built-in filters
+and print all filesystems.</p>
+
+<p style="margin-left:11%;"><b>-a</b>, <b>--ascii</b></p>
+
+<p style="margin-left:22%;">Use ascii characters for tree
+formatting.</p>
+
+<p style="margin-left:11%;"><b>-b</b>, <b>--bytes</b></p>
+
+<p style="margin-left:22%;">Print the SIZE, USED and AVAIL
+columns in bytes rather than in a human-readable format.</p>
+
+<p style="margin-left:11%;"><b>-C</b>,
+<b>--nocanonicalize</b></p>
+
+<p style="margin-left:22%;">Do not canonicalize paths at
+all. This option affects the comparing of paths and the
+evaluation of tags (LABEL, UUID, etc.).</p>
+
+<p style="margin-left:11%;"><b>-c</b>,
+<b>--canonicalize</b></p>
+
+<p style="margin-left:22%;">Canonicalize all printed
+paths.</p>
+
+<p style="margin-left:11%;"><b>-D</b>, <b>--df</b></p>
+
+<p style="margin-left:22%;">Imitate the output of
+<b>df</b>(1). This option is equivalent to
+<b>-o&nbsp;SOURCE,FSTYPE,SIZE,USED,AVAIL,USE%,TARGET</b> but
+excludes all pseudo filesystems. Use <b>--all</b> to print
+all filesystems.</p>
+
+<p style="margin-left:11%;"><b>-d</b>, <b>--direction</b>
+<i>word</i></p>
+
+<p style="margin-left:22%;">The search direction, either
+<b>forward</b> or <b>backward</b>.</p>
+
+<p style="margin-left:11%;"><b>-e</b>,
+<b>--evaluate</b></p>
+
+<p style="margin-left:22%;">Convert all tags (LABEL, UUID,
+PARTUUID or PARTLABEL) to the corresponding device
+names.</p>
+
+<p style="margin-left:11%;"><b>-F</b>, <b>--tab-file</b>
+<i>path</i></p>
+
+<p style="margin-left:22%;">Search in an alternative file.
+If used with <b>--fstab</b>, <b>--mtab</b> or
+<b>--kernel</b>, then it overrides the default paths. If
+specified more than once, then tree-like output is disabled
+(see the <b>--list</b> option).</p>
+
+<p style="margin-left:11%;"><b>-f</b>,
+<b>--first-only</b></p>
+
+<p style="margin-left:22%;">Print the first matching
+filesystem only.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<p style="margin-left:11%;"><b>-i</b>, <b>--invert</b></p>
+
+<p style="margin-left:22%;">Invert the sense of
+matching.</p>
+
+<p style="margin-left:11%;"><b>-J</b>, <b>--json</b></p>
+
+<p style="margin-left:22%;">Use JSON output format.</p>
+
+<p style="margin-left:11%;"><b>-k</b>, <b>--kernel</b></p>
+
+<p style="margin-left:22%;">Search in
+<i>/proc/self/mountinfo</i>. The output is in the tree-like
+format. This is the default. The output contains only mount
+options maintained by kernel (see also <b>--mtab)</b>.</p>
+
+<p style="margin-left:11%;"><b>-l</b>, <b>--list</b></p>
+
+<p style="margin-left:22%;">Use the list output format.
+This output format is automatically enabled if the output is
+restricted by the <b>-t</b>, <b>-O</b>, <b>-S</b> or
+<b>-T</b> option and the option <b>--submounts</b> is not
+used or if more that one source file (the option <b>-F</b>)
+is specified.</p>
+
+<p style="margin-left:11%;"><b>-M</b>, <b>--mountpoint</b>
+<i>path</i></p>
+
+<p style="margin-left:22%;">Explicitly define the
+mountpoint file or directory. See also <b>--target</b>.</p>
+
+<p style="margin-left:11%;"><b>-m</b>, <b>--mtab</b></p>
+
+<p style="margin-left:22%;">Search in <i>/etc/mtab</i>. The
+output is in the list format by default (see <b>--tree</b>).
+The output may include user space mount options.</p>
+
+<p style="margin-left:11%;"><b>-N</b>, <b>--task</b>
+<i>tid</i></p>
+
+<p style="margin-left:22%;">Use alternative namespace
+/proc/&lt;tid&gt;/mountinfo rather than the default
+/proc/self/mountinfo. If the option is specified more than
+once, then tree-like output is disabled (see the
+<b>--list</b> option). See also the <b>unshare</b>(1)
+command.</p>
+
+<p style="margin-left:11%;"><b>-n</b>,
+<b>--noheadings</b></p>
+
+<p style="margin-left:22%;">Do not print a header line.</p>
+
+<p style="margin-left:11%;"><b>-O</b>, <b>--options</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Limit the set of printed
+filesystems. More than one option may be specified in a
+comma-separated list. The <b>-t</b> and <b>-O</b> options
+are cumulative in effect. It is different from <b>-t</b> in
+that each option is matched exactly; a leading <i>no</i> at
+the beginning does not have global meaning. The
+&quot;no&quot; can used for individual items in the list.
+The &quot;no&quot; prefix interpretation can be disabled by
+&quot;+&quot; prefix.</p>
+
+<p style="margin-left:11%;"><b>-o</b>, <b>--output</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Define output columns. See the
+<b>--help</b> output to get a list of the currently
+supported columns. The <b>TARGET</b> column contains tree
+formatting if the <b>--list</b> or <b>--raw</b> options are
+not specified.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The default
+list of columns may be extended if <i>list</i> is specified
+in the format <i>+list</i> (e.g. <b>findmnt -o
++PROPAGATION</b>).</p>
+
+<p style="margin-left:11%;"><b>--output-all</b></p>
+
+<p style="margin-left:22%;">Output almost all available
+columns. The columns that require <b>--poll</b> are not
+included.</p>
+
+<p style="margin-left:11%;"><b>-P</b>, <b>--pairs</b></p>
+
+<p style="margin-left:22%;">Use key=&quot;value&quot;
+output format. All potentially unsafe characters are
+hex-escaped (\x&lt;code&gt;).</p>
+
+<p style="margin-left:11%;"><b>-p</b>,
+<b>--poll</b>[<i>=list</i>]</p>
+
+<p style="margin-left:22%;">Monitor changes in the
+/proc/self/mountinfo file. Supported actions are: mount,
+umount, remount and move. More than one action may be
+specified in a comma-separated list. All actions are
+monitored by default.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The time for
+which <b>--poll</b> will block can be restricted with the
+<b>--timeout</b> or <b>--first-only</b> options.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The standard
+columns always use the new version of the information from
+the mountinfo file, except the umount action which is based
+on the original information cached by <b>findmnt</b>(8). The
+poll mode allows to use extra columns:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="9%">
+
+
+<p><b>ACTION</b></p></td>
+<td width="1%"></td>
+<td width="68%">
+
+
+<p>mount, umount, move or remount action name; this column
+is enabled by default</p></td></tr>
+</table>
+
+<p style="margin-left:22%;"><b>OLD-TARGET</b></p>
+
+<p style="margin-left:32%;">available for umount and move
+actions</p>
+
+<p style="margin-left:22%;"><b>OLD-OPTIONS</b></p>
+
+<p style="margin-left:32%;">available for umount and
+remount actions</p>
+
+<p style="margin-left:11%;"><b>--pseudo</b></p>
+
+<p style="margin-left:22%;">Print only pseudo
+filesystems.</p>
+
+<p style="margin-left:11%;"><b>-R</b>,
+<b>--submounts</b></p>
+
+<p style="margin-left:22%;">Print recursively all submounts
+for the selected filesystems. The restrictions defined by
+options <b>-t</b>, <b>-O</b>, <b>-S</b>, <b>-T</b> and
+<b>--direction</b> are not applied to submounts. All
+submounts are always printed in tree-like order. The option
+enables the tree-like output format by default. This option
+has no effect for <b>--mtab</b> or <b>--fstab</b>.</p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--raw</b></p>
+
+<p style="margin-left:22%;">Use raw output format. All
+potentially unsafe characters are hex-escaped
+(\x&lt;code&gt;).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--real</b></p></td>
+<td width="2%"></td>
+<td width="43%">
+
+
+<p>Print only real filesystems.</p></td>
+<td width="35%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-S</b>, <b>--source</b>
+<i>spec</i></p>
+
+<p style="margin-left:22%;">Explicitly define the mount
+source. Supported specifications are <i>device</i>,
+<i>maj</i><b>:</b><i>min</i>, <b>LABEL=</b><i>label</i>,
+<b>UUID=</b><i>uuid</i>, <b>PARTLABEL=</b><i>label</i> and
+<b>PARTUUID=</b><i>uuid</i>.</p>
+
+<p style="margin-left:11%;"><b>-s</b>, <b>--fstab</b></p>
+
+<p style="margin-left:22%;">Search in <i>/etc/fstab</i>.
+The output is in the list format (see <b>--list</b>).</p>
+
+<p style="margin-left:11%;"><b>-T</b>, <b>--target</b>
+<i>path</i></p>
+
+<p style="margin-left:22%;">Define the mount target. If
+<i>path</i> is not a mountpoint file or directory, then
+<b>findmnt</b> checks the <i>path</i> elements in reverse
+order to get the mountpoint (this feature is supported only
+when searching in kernel files and unsupported for
+<b>--fstab</b>). It&rsquo;s recommended to use the option
+<b>--mountpoint</b> when checks of <i>path</i> elements are
+unwanted and <i>path</i> is a strictly specified
+mountpoint.</p>
+
+<p style="margin-left:11%;"><b>-t</b>, <b>--types</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Limit the set of printed
+filesystems. More than one type may be specified in a
+comma-separated list. The list of filesystem types can be
+prefixed with <b>no</b> to specify the filesystem types on
+which no action should be taken. For more details see
+<b>mount</b>(8).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--tree</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Enable tree-like output if possible. The options is
+silently ignored for tables where is missing child-parent
+relation (e.g. fstab).</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-U</b>, <b>--uniq</b></p>
+
+<p style="margin-left:22%;">Ignore filesystems with
+duplicate mount targets, thus effectively skipping
+over-mounted mount points.</p>
+
+<p style="margin-left:11%;"><b>-u</b>,
+<b>--notruncate</b></p>
+
+<p style="margin-left:22%;">Do not truncate text in
+columns. The default is to not truncate the <b>TARGET</b>,
+<b>SOURCE</b>, <b>UUID</b>, <b>LABEL</b>, <b>PARTUUID</b>,
+<b>PARTLABEL</b> columns. This option disables text
+truncation also in all other columns.</p>
+
+<p style="margin-left:11%;"><b>-v</b>,
+<b>--nofsroot</b></p>
+
+<p style="margin-left:22%;">Do not print a [/dir] in the
+SOURCE column for bind mounts or btrfs subvolumes.</p>
+
+<p style="margin-left:11%;"><b>-w</b>, <b>--timeout</b>
+<i>milliseconds</i></p>
+
+<p style="margin-left:22%;">Specify an upper limit on the
+time for which <b>--poll</b> will block, in
+milliseconds.</p>
+
+<p style="margin-left:11%;"><b>-x</b>, <b>--verify</b></p>
+
+<p style="margin-left:22%;">Check mount table content. The
+default is to verify <i>/etc/fstab</i> parsability and
+usability. It&rsquo;s possible to use this option also with
+<b>--tab-file</b>. It&rsquo;s possible to specify source
+(device) or target (mountpoint) to filter mount table. The
+option <b>--verbose</b> forces findmnt to print more
+details.</p>
+
+<p style="margin-left:11%;"><b>--verbose</b></p>
+
+<p style="margin-left:22%;">Force findmnt to print more
+information (<b>--verify</b> only for now).</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>findmnt
+--fstab -t nfs</b></p>
+
+<p style="margin-left:22%;">Prints all NFS filesystems
+defined in <i>/etc/fstab</i>.</p>
+
+<p style="margin-left:11%;"><b>findmnt --fstab
+/mnt/foo</b></p>
+
+<p style="margin-left:22%;">Prints all <i>/etc/fstab</i>
+filesystems where the mountpoint directory is /mnt/foo. It
+also prints bind mounts where /mnt/foo is a source.</p>
+
+<p style="margin-left:11%;"><b>findmnt --fstab --target
+/mnt/foo</b></p>
+
+<p style="margin-left:22%;">Prints all <i>/etc/fstab</i>
+filesystems where the mountpoint directory is /mnt/foo.</p>
+
+<p style="margin-left:11%;"><b>findmnt --fstab
+--evaluate</b></p>
+
+<p style="margin-left:22%;">Prints all <i>/etc/fstab</i>
+filesystems and converts LABEL= and UUID= tags to the real
+device names.</p>
+
+<p style="margin-left:11%;"><b>findmnt -n --raw --evaluate
+--output=target LABEL=/boot</b></p>
+
+<p style="margin-left:22%;">Prints only the mountpoint
+where the filesystem with label &quot;/boot&quot; is
+mounted.</p>
+
+<p style="margin-left:11%;"><b>findmnt --poll --mountpoint
+/mnt/foo</b></p>
+
+<p style="margin-left:22%;">Monitors mount, unmount,
+remount and move on /mnt/foo.</p>
+
+<p style="margin-left:11%;"><b>findmnt --poll=umount
+--first-only --mountpoint /mnt/foo</b></p>
+
+<p style="margin-left:22%;">Waits for /mnt/foo unmount.</p>
+
+<p style="margin-left:11%;"><b>findmnt --poll=remount -t
+ext3 -O ro</b></p>
+
+<p style="margin-left:22%;">Monitors remounts to read-only
+mode on all ext3 filesystems.</p>
+
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">LIBMOUNT_FSTAB=&lt;path&gt;</p>
+
+<p style="margin-left:22%;">overrides the default location
+of the fstab file</p>
+
+<p style="margin-left:11%;">LIBMOUNT_MTAB=&lt;path&gt;</p>
+
+<p style="margin-left:22%;">overrides the default location
+of the mtab file</p>
+
+<p style="margin-left:11%;">LIBMOUNT_DEBUG=all</p>
+
+<p style="margin-left:22%;">enables libmount debug
+output</p>
+
+<p style="margin-left:11%;">LIBSMARTCOLS_DEBUG=all</p>
+
+<p style="margin-left:22%;">enables libsmartcols debug
+output</p>
+
+
+<p style="margin-left:11%;">LIBSMARTCOLS_DEBUG_PADDING=on</p>
+
+<p style="margin-left:22%;">use visible padding characters.
+Requires enabled LIBSMARTCOLS_DEBUG.</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Karel Zak
+&lt;kzak@redhat.com&gt;</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fstab</b>(5),
+<b>mount</b>(8)</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The findmnt
+command is part of the util-linux package and is available
+from https://www.kernel.org/pub/linux/utils/util-linux/.</p>
+<hr>
+</body>
+</html>

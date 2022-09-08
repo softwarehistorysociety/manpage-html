@@ -1,0 +1,100 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:13:21 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<hr>
+
+
+<p>WRITE(1) BSD General Commands Manual WRITE(1)</p>
+
+<p style="margin-top: 1em"><b>NAME</b></p>
+
+<p style="margin-left:6%;"><b>write</b> &mdash; send a
+message to another user</p>
+
+<p style="margin-top: 1em"><b>SYNOPSIS</b></p>
+
+<p style="margin-left:14%;"><b>write</b> <i>user</i>
+[<i>tty</i>]</p>
+
+<p style="margin-top: 1em"><b>DESCRIPTION</b></p>
+
+<p style="margin-left:6%;">The <b>write</b> utility allows
+you to communicate with other users, by copying lines from
+your terminal to theirs.</p>
+
+<p style="margin-left:6%; margin-top: 1em">When you run the
+<b>write</b> command, the user you are writing to gets a
+message of the form:</p>
+
+<p style="margin-left:14%; margin-top: 1em">Message from
+yourname@yourhost on yourtty at hh:mm ...</p>
+
+<p style="margin-left:6%; margin-top: 1em">Any further
+lines you enter will be copied to the specified user&rsquo;s
+terminal. If the other user wants to reply, they must run
+<b>write</b> as well.</p>
+
+<p style="margin-left:6%; margin-top: 1em">When you are
+done, type an end-of-file or interrupt character. The other
+user will see the message &rsquo;EOF&rsquo; indicating that
+the conversation is over.</p>
+
+<p style="margin-left:6%; margin-top: 1em">You can prevent
+people (other than the super-user) from writing to you with
+the mesg(1) command.</p>
+
+<p style="margin-left:6%; margin-top: 1em">If the user you
+want to write to is logged in on more than one terminal, you
+can specify which terminal to write to by specifying the
+terminal name as the second operand to the <b>write</b>
+command. Alternatively, you can let <b>write</b> select one
+of the terminals - it will pick the one with the shortest
+idle time. This is so that if the user is logged in at work
+and also dialed up from home, the message will go to the
+right place.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The traditional
+protocol for writing to someone is that the string
+&rsquo;-o&rsquo;, either at the end of a line or on a line
+by itself, means that it is the other person&rsquo;s turn to
+talk. The string &rsquo;oo&rsquo; means that the person
+believes the conversation to be over.</p>
+
+<p style="margin-top: 1em"><b>SEE ALSO</b></p>
+
+<p style="margin-left:6%;">mesg(1), talk(1), wall(1),
+who(1)</p>
+
+<p style="margin-top: 1em"><b>HISTORY</b></p>
+
+<p style="margin-left:6%;">A <b>write</b> command appeared
+in Version&nbsp;1 AT&amp;T UNIX.</p>
+
+<p style="margin-top: 1em"><b>BUGS</b></p>
+
+<p style="margin-left:6%;">The sender&rsquo;s LC_CTYPE
+setting is used to determine which characters are safe to
+write to a terminal, not the receiver&rsquo;s (which
+<b>write</b> has no way of knowing).</p>
+
+<p style="margin-left:6%; margin-top: 1em">BSD
+February&nbsp;13, 2012 BSD</p>
+<hr>
+</body>
+</html>

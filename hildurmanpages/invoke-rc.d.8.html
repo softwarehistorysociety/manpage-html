@@ -1,0 +1,417 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:49:49 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>INVOKE-RC.D</title>
+
+</head>
+<body>
+
+<h1 align="center">INVOKE-RC.D</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#INIT SCRIPT ACTIONS">INIT SCRIPT ACTIONS</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#STATUS CODES">STATUS CODES</a><br>
+<a href="#INIT SCRIPT POLICY">INIT SCRIPT POLICY</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">invoke-rc.d -
+executes System-V style init script actions</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>invoke-rc.d</b>
+[<i>--quiet</i>] [<i>--force</i>] [<i>--try-anyway</i>]
+[<i>--disclose-deny</i>] [<i>--query</i>]
+[<i>--no-fallback</i>] <i>name action</i> [<i>init script
+parameters...</i>]</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>invoke-rc.d</b>
+[<i>--help</i>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>invoke-rc.d</b>
+is a generic interface to execute System V style init script
+<b>/etc/init.d/</b><i>name</i> actions, obeying runlevel
+constraints as well as any local policies set by the system
+administrator.</p>
+
+<p style="margin-left:11%; margin-top: 1em">All access to
+the init scripts by Debian packages' maintainer scripts
+should be done through <b>invoke-rc.d</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This manpage
+documents only the usage and behavior of <b>invoke-rc.d</b>.
+For a discussion of the System V style init script
+arrangements please see <b>init</b>(8). More information on
+invoke-rc.d can be found in the section on runlevels and
+init.d scripts of the <i>Debian Policy Manual</i>.</p>
+
+<h2>INIT SCRIPT ACTIONS
+<a name="INIT SCRIPT ACTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The standard
+actions are: <i>start</i>, <i>stop</i>, <i>force-stop</i>,
+<i>restart</i>, <i>try-restart</i>, <i>reload</i>,
+<i>force-reload</i>, and <i>status</i>. Other actions are
+accepted, but they can cause problems to <b>policy-rc.d</b>
+(see the <b>INIT SCRIPT POLICY</b> section), so warnings are
+generated if the policy layer is active.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Please note
+that not all init scripts will implement all the actions
+listed above, and that the policy layer may override an
+action to another action(s), or even deny it.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Any extra
+parameters will be passed to the init script(s) being
+executed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If an action
+must be carried out regardless of any local policies, use
+the <i>--force</i> switch.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p style="margin-top: 1em"><i>--help</i></p></td>
+<td width="2%"></td>
+<td width="29%">
+
+
+<p style="margin-top: 1em">Display usage help.</p></td>
+<td width="49%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><i>--quiet</i></p>
+
+<p style="margin-left:22%;">Quiet mode, no error messages
+are generated.</p>
+
+<p style="margin-left:11%;"><i>--force</i></p>
+
+<p style="margin-left:22%;">Tries to run the init script
+regardless of policy and init script subsystem errors.
+<b>Use of this option in Debian maintainer scripts is
+severely discouraged.</b></p>
+
+<p style="margin-left:11%;"><i>--try-anyway</i></p>
+
+<p style="margin-left:22%;">Tries to run the init script if
+a non-fatal error is detected.</p>
+
+<p style="margin-left:11%;"><i>--disclose-deny</i></p>
+
+<p style="margin-left:22%;">Return status code 101 instead
+of status code 0 if the init script action is denied by the
+policy layer.</p>
+
+<p style="margin-left:11%;"><i>--query</i></p>
+
+<p style="margin-left:22%;">Returns one of the status codes
+100-106. Does not run the init script, and implies
+<i>--disclose-deny</i> and <i>--no-fallback</i>.</p>
+
+<p style="margin-left:11%;"><i>--no-fallback</i></p>
+
+<p style="margin-left:22%;">Ignores any fallback action
+requests by the policy layer. <b>Warning:</b> this is
+usually a very bad idea for any actions other than
+start.</p>
+
+
+<p style="margin-left:11%;"><i>--skip-systemd-native</i></p>
+
+<p style="margin-left:22%;">Exits before doing anything if
+a systemd environment is detected and the requested service
+is a native systemd unit. This is useful for maintainer
+scripts that want to defer systemd actions to
+<b>deb-systemd-invoke</b>(1p)</p>
+
+<h2>STATUS CODES
+<a name="STATUS CODES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Should an init
+script be executed, <b>invoke-rc.d</b> always returns the
+status code returned by the init script. Init scripts should
+not return status codes in the 100+ range (which is reserved
+in Debian and by the LSB). The status codes returned by
+invoke-rc.d proper are:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>0</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p><i>Success</i>. Either the init script was run and
+returned exit status 0 (note that a fallback action may have
+been run instead of the one given in the command line), or
+it was not run because of runlevel/local policy constrains
+and <b>--disclose-deny</b> is not in effect.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>1 - 99</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Reserved for init.d script, usually indicates a
+failure.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>100</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p><b>Init script ID (</b><i>name</i><b>) unknown.</b> This
+means the init script was not registered successfully
+through <b>update-rc.d</b> or that the init script does not
+exist.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>101</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p><b>Action not allowed</b>. The requested action will not
+be performed because of runlevel or local policy
+constraints.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>102</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p><b>Subsystem error</b>. Init script (or policy layer)
+subsystem malfunction. Also, forced init script execution
+due to <i>--try-anyway</i> or <i>--force</i> failed.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>103</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p><i>Syntax error.</i></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>104</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p><i>Action allowed</i>. Init script would be run, but
+<b>--query</b> is in effect.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>105</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p><i>Behavior uncertain</i>. It cannot be determined if
+action should be carried out or not, and <b>--query</b> is
+in effect.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>106</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p><i>Fallback action requested</i>. The policy layer
+denied the requested action, and supplied an allowed
+fallback action to be used instead.</p></td></tr>
+</table>
+
+<h2>INIT SCRIPT POLICY
+<a name="INIT SCRIPT POLICY"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>invoke-rc.d</b>
+introduces the concept of a policy layer which is used to
+verify if an init script should be run or not, or if
+something else should be done instead. This layer has
+various uses, the most immediate ones being avoiding that
+package upgrades start daemons out-of-runlevel, and that a
+package starts or stops daemons while inside a chroot
+jail.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The policy
+layer has the following abilities: deny or approve the
+execution of an action; request that another action (called
+a <i>fallback</i>) is to be taken, instead of the action
+requested in invoke-rc.d's command line; or request multiple
+actions to be tried in order, until one of them succeeds (a
+multiple <i>fallback</i>).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>invoke-rc.d</b>
+itself only pays attention to the current runlevel; it will
+block any attempts to start a service in a runlevel in which
+the service is disabled. Other policies are implemented with
+the use of the <b>policy-rc.d</b> helper, and are only
+available if <b>/usr/sbin/policy-rc.d</b> is installed in
+the system.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>/etc/init.d/*</b></p>
+
+<p style="margin-left:22%;">System V init scripts.</p>
+
+
+<p style="margin-left:11%;"><b>/usr/sbin/policy-rc.d</b></p>
+
+<p style="margin-left:22%;">Init script policy layer helper
+(not required).</p>
+
+<p style="margin-left:11%;"><b>/etc/rc?.d/*</b></p>
+
+<p style="margin-left:22%;">System V runlevel
+configuration.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>invoke-rc.d</b>
+special cases the <i>status</i> action, and returns exit
+status 4 instead of exit status 0 when it is denied.</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">See
+<i>http://bugs.debian.org/sysv-rc</i> and
+<i>http://bugs.debian.org/init-system-helpers</i>.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Debian
+Policy manual</i>, <b><br>
+/etc/init.d/skeleton</b>, <b><br>
+update-rc.d</b>(8), <b><br>
+init</b>(8), <b><br>
+
+/usr/share/doc/init-system-helpers/README.policy-rc.d.gz</b></p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Henrique de
+Moraes Holschuh</p>
+
+<p style="margin-left:11%; margin-top: 1em">Licence: GNU
+Public Licence v2 or Later (GPLv2+)</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">2001 Henrique
+de Moraes Holschuh</p>
+<hr>
+</body>
+</html>

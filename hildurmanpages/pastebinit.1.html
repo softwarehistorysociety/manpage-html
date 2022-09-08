@@ -1,0 +1,177 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:58:30 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>PASTEBINIT</title>
+
+</head>
+<body>
+
+<h1 align="center">PASTEBINIT</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#CONFIGURATION FILE">CONFIGURATION FILE</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">pastebinit -
+command-line pastebin client</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="40%">
+
+
+<p style="margin-top: 1em"><b>pastebinit</b>
+[<b>-abfhiljmrtup</b>]</p> </td>
+<td width="49%">
+</td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This manual
+page documents briefly the <b>pastebinit</b> commands</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>pastebinit</b>
+reads text and sends it to a &quot;pastebin&quot; on the
+internet, returning the URL to the user.</p>
+
+<p style="margin-left:11%; margin-top: 1em">It allows the
+text to be passed through a pipe (|) or from files as
+arguments.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Optional
+arguments (not supported by all pastebins) <br>
+-a [author]</b> (default: $USER)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-b
+[pastebin&nbsp;url]</b> (default is distro-specific with a
+fallback to pastebin.com)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-E</b> Print
+the content to stdout too</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-f
+[format&nbsp;for&nbsp;syntax-highlighting]</b> (default:
+text) (check pastebin's website for complete list, example:
+python)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h</b> Help
+screen</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-i
+[filename]</b> Use filename for input</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-l</b> List
+all the supported pastebins</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-j
+[jabberid]</b> (default: none)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-m
+[permatag]</b> (default: none)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-t
+[title&nbsp;of&nbsp;paste]</b> (default: none)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-P
+[private]</b> (default: 1)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-u
+[username]</b> (default: none)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-p
+[password]</b> (default: none)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-v</b>
+Version number</p>
+
+<h2>CONFIGURATION FILE
+<a name="CONFIGURATION FILE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">If a
+.pastebinit.xml file is found in the user's home directory,
+pastebinit will use it for its configuration.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Here's an
+example file:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">&lt;pastebinit&gt;
+<br>
+&lt;pastebin&gt;https://paste.ubuntu.com&lt;/pastebin&gt;
+<br>
+&lt;author&gt;Stephane Graber&lt;/author&gt; <br>
+&lt;jabberid&gt;stgraber@stgraber.org&lt;/jabberid&gt; <br>
+&lt;format&gt;text&lt;/format&gt; <br>
+&lt;/pastebinit&gt;</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Pastebinit is
+currently written by Stephane Graber.</p>
+
+<p style="margin-left:11%; margin-top: 1em">username,
+password, format, title, arguments and redirect support
+added by Daniel Bartlett.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Website:
+http://launchpad.net/pastebinit</p>
+
+<p style="margin-left:11%; margin-top: 1em">E-mail:
+stgraber@ubuntu.com</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+&copy; 2007-2014 Stephane Graber</p>
+<hr>
+</body>
+</html>

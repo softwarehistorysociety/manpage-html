@@ -1,0 +1,135 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:36:44 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>CRYPTO</title>
+
+</head>
+<body>
+
+<h1 align="center">CRYPTO</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#RETURN VALUES">RETURN VALUES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">crypto -
+OpenSSL cryptographic library</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">See the
+individual manual pages for details.</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The OpenSSL
+<b>crypto</b> library implements a wide range of
+cryptographic algorithms used in various Internet standards.
+The services provided by this library are used by the
+OpenSSL implementations of <small>SSL, TLS</small> and
+S/MIME, and they have also been used to implement
+<small>SSH,</small> OpenPGP, and other cryptographic
+standards.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>libcrypto</b>
+consists of a number of sub-libraries that implement the
+individual algorithms.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+functionality includes symmetric encryption, public key
+cryptography and key agreement, certificate handling,
+cryptographic hash functions, cryptographic pseudo-random
+number generator, and various utilities.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Some of the
+newer functions follow a naming convention using the numbers
+<b>0</b> and <b>1</b>. For example the functions:</p>
+
+<p style="margin-left:11%; margin-top: 1em">int
+X509_CRL_add0_revoked(X509_CRL *crl, X509_REVOKED *rev);
+<br>
+int X509_add1_trust_object(X509 *x, const ASN1_OBJECT
+*obj);</p>
+
+<p style="margin-left:11%; margin-top: 1em">The <b>0</b>
+version uses the supplied structure pointer directly in the
+parent and it will be freed up when the parent is freed. In
+the above example <b>crl</b> would be freed but <b>rev</b>
+would not.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The <b>1</b>
+function uses a copy of the supplied structure pointer (or
+in some cases increases its link count) in the parent and so
+both (<b>x</b> and <b>obj</b> above) should be freed up.</p>
+
+<h2>RETURN VALUES
+<a name="RETURN VALUES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">See the
+individual manual pages for details.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>openssl</b>(1),
+<b>ssl</b>(7)</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+2000-2016 The OpenSSL Project Authors. All Rights
+Reserved.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Licensed under
+the OpenSSL license (the &quot;License&quot;). You may not
+use this file except in compliance with the License. You can
+obtain a copy in the file <small>LICENSE</small> in the
+source distribution or at
+&lt;https://www.openssl.org/source/license.html&gt;.</p>
+<hr>
+</body>
+</html>

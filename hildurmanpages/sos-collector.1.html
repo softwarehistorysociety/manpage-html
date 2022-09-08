@@ -1,0 +1,671 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:06:42 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SOS</title>
+
+</head>
+<body>
+
+<h1 align="center">SOS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#MAINTAINER">MAINTAINER</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">sos collect -
+Collect sosreports from multiple (cluster) nodes</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sos
+collect</b> <br>
+[-a|--all-options] <br>
+[-b|--become] <br>
+[--batch] <br>
+[-c CLUSTER_OPTIONS] <br>
+[--chroot CHROOT] <br>
+[--case-id CASE_ID] <br>
+[--cluster-type CLUSTER_TYPE] <br>
+[--container-runtime RUNTIME] <br>
+[-e ENABLE_PLUGINS] <br>
+[--encrypt-key KEY] <br>
+[--encrypt-pass PASS] <br>
+[--group GROUP] <br>
+[-j|--jobs JOBS] <br>
+[--save-group GROUP] <br>
+[--nopasswd-sudo] <br>
+[-k PLUGIN_OPTION] <br>
+[--label LABEL] <br>
+[--log-size SIZE] <br>
+[-n SKIP_PLUGINS] <br>
+[--nodes NODES] <br>
+[--no-pkg-check] <br>
+[--no-local] <br>
+[--primary PRIMARY] <br>
+[--image IMAGE] <br>
+[--force-pull-image] <br>
+[--registry-user USER] <br>
+[--registry-password PASSWORD] <br>
+[--registry-authfile FILE] <br>
+[-o ONLY_PLUGINS] <br>
+[-p SSH_PORT] <br>
+[--password] <br>
+[--password-per-node] <br>
+[--preset PRESET] <br>
+[--skip-commands COMMANDS] <br>
+[--skip-files FILES] <br>
+[-s|--sysroot SYSROOT] <br>
+[--ssh-user SSH_USER] <br>
+[--sos-cmd SOS_CMD] <br>
+[-t|--threads THREADS] <br>
+[--timeout TIMEOUT] <br>
+[--transport TRANSPORT] <br>
+[--tmp-dir TMP_DIR] <br>
+[-v|--verbose] <br>
+[--verify] <br>
+[-z|--compression-type COMPRESSION_TYPE]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">collect is an
+sos subcommand to collect sosreports from multiple nodes and
+package them in a single useful tar archive.</p>
+
+<p style="margin-left:11%; margin-top: 1em">sos collect can
+be run either on a workstation that has SSH key
+authentication setup for the nodes in a given cluster, or
+from a &quot;primary&quot; node in a cluster that has SSH
+keys configured for the other nodes.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Some sosreport
+options are supported by sos-collect and are passed directly
+to the sosreport command run on each node.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-a</b>,
+<b>--alloptions</b></p>
+
+<p style="margin-left:22%;">Enables all sosreport
+options.</p>
+
+<p style="margin-left:22%; margin-top: 1em">This does NOT
+enable all sos collect options.</p>
+
+<p style="margin-left:11%;"><b>-b</b>, <b>--become</b></p>
+
+<p style="margin-left:22%;">Become the root user on the
+remote node when connecting as a non-root user.</p>
+
+<p style="margin-left:11%;"><b>--batch</b></p>
+
+<p style="margin-left:22%;">Run in non-interactive mode.
+This will skip prompts for user input, with the exception of
+a prompt for the SSH password.</p>
+
+<p style="margin-left:11%;"><b>--all-logs</b></p>
+
+<p style="margin-left:22%;">Sosreport option. Collects all
+logs regardless of size.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Default: no</p>
+
+<p style="margin-left:11%;"><b>-c</b> CLUSTER_OPTIONS</p>
+
+<p style="margin-left:22%;">Specify options used by cluster
+profiles. The format is
+&rsquo;profile.option_name=value&rsquo;.</p>
+
+<p style="margin-left:22%; margin-top: 1em">For example,
+for the ovirt plugin if you wanted to restrict node
+enumeration to a specific cluster you would use <b>&rsquo;-c
+ovirt.cluster=example_cluster&rsquo;</b>.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Available
+cluster options can be listed by running <b>&rsquo;sos
+collect -l&rsquo;</b>.</p>
+
+<p style="margin-left:11%;"><b>--chroot</b> CHROOT</p>
+
+<p style="margin-left:22%;">Sosreport option. Set the
+chroot mode. When <b>--sysroot</b> is used commands default
+to executing with SYSROOT as the root directory. This can be
+overridden by setting <b>--chroot</b> to &quot;always&quot;
+(always chroot) or &quot;never&quot; (always run in the host
+namespace).</p>
+
+<p style="margin-left:11%;"><b>--case-id</b> CASE_ID</p>
+
+<p style="margin-left:22%;">Sosreport option. Specifies a
+case number identifier.</p>
+
+<p style="margin-left:11%;"><b>--cluster-type</b>
+CLUSTER_TYPE</p>
+
+<p style="margin-left:22%;">When run by itself, sos collect
+will attempt to identify the type of cluster at play. This
+is done by checking package or configuration information
+against the localhost, or the primary node if
+<b>&quot;--primary&quot;</b> is supplied.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Setting
+<b>--cluster-type</b> skips this step and forcibly sets a
+particular profile.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Using a value
+of <b>none</b> or <b>jbon</b> (just a bunch of nodes) will
+effectively disable all cluster-specific checks, and cause
+sos collect to only use the nodes specified by the
+<b>--nodes</b> option. Note that in this scenario, regex
+string(s) for node names will be ignored.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Example: <b>sos
+collect --cluster-type=kubernetes</b> will force the
+kubernetes profile to be run, and thus set sosreport options
+and attempt to determine a list of nodes using that
+profile.</p>
+
+<p style="margin-left:11%;"><b>--container-runtime</b>
+RUNTIME</p>
+
+<p style="margin-left:22%;"><b>sos report</b> option. Using
+this with <b>collect</b> will pass this option thru to nodes
+with sos version 4.3 or later. This option controls the
+default container runtime plugins will use for collections.
+See <b>man sos-report</b>.</p>
+
+<p style="margin-left:11%;"><b>-e</b> ENABLE_PLUGINS,
+<b>--enable-plugins</b> ENABLE_PLUGINS</p>
+
+<p style="margin-left:22%;">Sosreport option. Use this to
+enable a plugin that would otherwise not be run.</p>
+
+<p style="margin-left:22%; margin-top: 1em">This option
+supports providing a comma-delimited list of plugins.</p>
+
+<p style="margin-left:11%;"><b>--encrypt-key KEY</b></p>
+
+<p style="margin-left:22%;">Encrypts the resulting archive
+that sos collect produces using GPG. KEY must be an existing
+key in the user&rsquo;s keyring as GPG does not allow for
+keyfiles. KEY can be any value accepted by gpg&rsquo;s
+&rsquo;recipient&rsquo; option.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that the
+user running sos collect must match the user owning the
+keyring from which keys will be obtained. In particular this
+means that if sudo is used to run sos collect, the keyring
+must also be set up using sudo (or direct shell access to
+the account).</p>
+
+<p style="margin-left:22%; margin-top: 1em">Users should be
+aware that encrypting the final archive will result in sos
+using double the amount of temporary disk space - the
+encrypted archive must be written as a separate, rather than
+replacement, file within the temp directory that sos writes
+the archive to. However, since the encrypted archive will be
+the same size as the original archive, there is no
+additional space consumption once the temporary directory is
+removed at the end of execution.</p>
+
+<p style="margin-left:22%; margin-top: 1em">This means that
+only the encrypted archive is present on disk after sos
+finishes running.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If encryption
+fails for any reason, the original unencrypted archive is
+preserved instead.</p>
+
+<p style="margin-left:22%; margin-top: 1em">IMPORTANT: As
+of this version of sos collect, only the final archive on
+the local machine running sos collect will be encrypted. The
+individual sos reports that are collected on the nodes will
+be collected unencrypted.</p>
+
+<p style="margin-left:11%;"><b>--encrypt-pass PASS</b></p>
+
+<p style="margin-left:22%;">The same as --encrypt-key, but
+use the provided PASS for symmetric encryption rather than
+key-pair encryption.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>--group</b>
+GROUP</p>
+
+<p style="margin-left:22%;">Specify an existing host group
+definition to use.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Host groups are
+pre-defined settings for the cluster-type, primary node, and
+nodes options saved in JSON-formatted files under
+/var/lib/sos collect/&lt;GROUP&gt;.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If cluster_type
+and/or primary are set in the group, sos collect behaves as
+if these values were specified on the command-line.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If nodes is
+defined, sos collect <b>extends</b> the <b>--nodes</b>
+option, if set, with the nodes or regexes listed in the
+group.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that sos
+collect will only write group definitions to /var/lib/sos
+collect/ however the GROUP value may be a filename for any
+group definitions that exist outside of the default
+location. If you are manually writing these files, use the
+value <b>null</b> when a python NoneType is expected.
+Caveat: use <b>string</b> &rsquo;none&rsquo; if setting
+cluster_type to none.</p>
+
+<p style="margin-left:11%;"><b>--save-group</b> GROUP</p>
+
+<p style="margin-left:22%;">Save the results of this run of
+sos collect to a host group definition.</p>
+
+<p style="margin-left:22%; margin-top: 1em">sos-colllector
+will write a JSON-formatted file with name GROUP to
+/var/lib/sos collect/ with the settings for cluster-type,
+primary, and the node list as discovered by cluster
+enumeration. Note that this means regexes are not directly
+saved to host groups, but the results of matching against
+those regexes are.</p>
+
+<p style="margin-left:11%;"><b>-j</b> JOBS <b>--jobs</b>
+JOBS</p>
+
+<p style="margin-left:22%;">Specify the number of
+concurrent node collections that should be run.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If the number
+of nodes enumerated exceeds the number of JOBS, then sos
+collect will start collecting from the first X number of
+nodes and then continue to iterate through the remaining
+nodes as sosreport collection finishes.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Defaults to
+4.</p>
+
+<p style="margin-left:11%;"><b>--nopasswd-sudo</b></p>
+
+<p style="margin-left:22%;">Use this option when connecting
+as a non-root user that has passwordless sudo
+configured.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If this option
+is omitted and a bogus sudo password is supplied, collection
+of sosreports may exhibit unexpected behavior and/or fail
+entirely.</p>
+
+<p style="margin-left:11%;"><b>-k</b> PLUGIN_OPTION,
+<b>--plugin-option</b> PLUGIN_OPTION</p>
+
+<p style="margin-left:22%;">Sosreport option. Set a plugin
+option to a particular value. This takes the form of
+plugin_name.option_name=value.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Example: To
+enable the kubernetes &quot;all&quot; option in sosreport
+use <b>-k kubernetes.all=on</b>.</p>
+
+<p style="margin-left:11%;"><b>--label</b> LABEL</p>
+
+<p style="margin-left:22%;">Specify a label to be added to
+the archive names. This label will be applied to both the
+sos collect archive and the sosreport archives.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If a cluster
+sets a default label, the user-provided label will be
+appended to that cluster default.</p>
+
+<p style="margin-left:11%;"><b>--log-size</b> SIZE</p>
+
+<p style="margin-left:22%;">Places a limit on the size of
+collected logs and output in MiB. Note that this causes sos
+to capture the last X amount of the file or command output
+collected.</p>
+
+<p style="margin-left:22%; margin-top: 1em">By default,
+this is set to 25 MiB and applies to all files and command
+output collected with the exception of journal collections,
+which are limited to 100 MiB.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Setting this
+value to 0 removes all size limitations, and any files or
+commands collected will be collected in their entirety,
+which may drastically increase the size of the final sos
+report tarball and the memory usage of sos during collection
+of commands, such as very large journals that may be several
+GiB in size.</p>
+
+<p style="margin-left:11%;"><b>-n</b> SKIP_PLUGINS,
+<b>--skip-plugins</b> SKIP_PLUGINS</p>
+
+<p style="margin-left:22%;">Sosreport option. Disable
+(skip) a particular plugin that would otherwise run. This is
+useful if a particular plugin is prone to hanging for one
+reason or another.</p>
+
+<p style="margin-left:22%; margin-top: 1em">This option
+supports providing a comma-delimited list of plugins.</p>
+
+<p style="margin-left:11%;"><b>--nodes</b> NODES</p>
+
+<p style="margin-left:22%;">Provide a comma-delimited list
+of nodes to collect sosreports from, or a regex string to be
+used to compare discovered node names against. If using a
+regex, only nodes matching the regex will be used - i.e. it
+can be used as a whitelist but not a blacklist.</p>
+
+<p style="margin-left:22%; margin-top: 1em">This option can
+be handed multiple regex strings separated by commas.
+Additionally, both whole node names/addresses and regex
+strings may be provided at the same time.</p>
+
+<p style="margin-left:11%;"><b>--no-pkg-check</b></p>
+
+<p style="margin-left:22%;">Do not perform package checks.
+Most cluster profiles check against installed packages to
+determine if the cluster profile should be applied or
+not.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Use this with
+<b>--cluster-type</b> if there are rpm or apt issues on the
+primary/local node.</p>
+
+<p style="margin-left:11%;"><b>--no-local</b></p>
+
+<p style="margin-left:22%;">Do not collect a sosreport from
+the local system.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If
+<b>--primary</b> is not supplied, it is assumed that the
+host running sosreport is part of the cluster that is to be
+collected. Use this option to skip collection of a local
+sosreport.</p>
+
+<p style="margin-left:22%; margin-top: 1em">This option is
+NOT needed if <b>--primary</b> is provided.</p>
+
+<p style="margin-left:11%;"><b>--primary</b> PRIMARY</p>
+
+<p style="margin-left:22%;">Specify a primary node IP
+address or hostname for the cluster.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If provided,
+then sos collect will check the primary node, not localhost,
+for determining the type of cluster in use.</p>
+
+<p style="margin-left:11%;"><b>--image IMAGE</b></p>
+
+<p style="margin-left:22%;">Specify an image to use for the
+temporary container created for collections on containerized
+host, if you do not want to use the default image specifed
+by the host&rsquo;s policy. Note that this should include
+the registry.</p>
+
+<p style="margin-left:11%;"><b>--force-pull-image</b></p>
+
+<p style="margin-left:22%;">Use this option to force the
+container runtime to pull the specified image (even if it is
+the policy default image) even if the image already exists
+on the host. This may be useful to update an older container
+image on containerized hosts.</p>
+
+<p style="margin-left:11%;"><b>--registry-user USER</b></p>
+
+<p style="margin-left:22%;">Specify the username to
+authenticate to the registry with in order to pull the
+container image</p>
+
+<p style="margin-left:11%;"><b>--registry-password
+PASSWORD</b></p>
+
+<p style="margin-left:22%;">Specify the password to
+authenticate to the registry with in order to pull the
+container image. If no password is required, leave this
+blank.</p>
+
+<p style="margin-left:11%;"><b>--registry-authfile
+FILE</b></p>
+
+<p style="margin-left:22%;">Specify the filename to use for
+providing authentication credentials to the registry to pull
+the container image.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that this
+file must exist on the node(s) performing the pull
+operations, not the node from which <b>sos collect</b> was
+run.</p>
+
+<p style="margin-left:11%;"><b>-o</b> ONLY_PLUGINS,
+<b>--only-plugins</b> ONLY_PLUGINS</p>
+
+<p style="margin-left:22%;">Sosreport option. Run ONLY the
+plugins listed.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that a
+cluster profile will NOT override this option. This may
+cause the sosreports generated to not contain the relevant
+output for a given type of cluster.</p>
+
+<p style="margin-left:22%; margin-top: 1em">This option
+supports providing a comma-delimited list of plugins.</p>
+
+<p style="margin-left:11%;"><b>--password</b></p>
+
+<p style="margin-left:22%;">Specifying this option will
+cause sos collect to prompt the user for an SSH password
+that will be used to connect to all nodes.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If you have
+differing passwords for the same user across cluster nodes,
+you should ideally deploy SSH keys, but the
+--password-per-node option is also available.</p>
+
+<p style="margin-left:11%;"><b>--password-per-node</b></p>
+
+<p style="margin-left:22%;">When using this option, sos
+collect will prompt the user for the SSH password for each
+node that will have an sosreport collected from it
+individually before attempting to connect to the nodes.</p>
+
+<p style="margin-left:11%;"><b>--preset</b> PRESET</p>
+
+<p style="margin-left:22%;">Specify a sos preset to use,
+note that this requires sos-3.6 or later to be installed on
+the node. The given preset must also exist on the remote
+node - local presets are not used.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If
+<b>--preset</b> is specified and a given node either does
+not have that preset defined, or has a version of sos prior
+to 3.6, this option is ignored for that node.</p>
+
+<p style="margin-left:11%;"><b>-p</b> SSH_PORT,
+<b>--ssh-port</b> SSH_PORT</p>
+
+<p style="margin-left:22%;">Specify SSH port for all nodes.
+Use this if SSH runs on any port other than 22.</p>
+
+<p style="margin-left:11%;"><b>--skip-commands</b>
+COMMANDS</p>
+
+<p style="margin-left:22%;">A comma delimited list of
+commands to skip execution of, but still allowing the rest
+of the plugin that calls the command to run. This will
+generally need to be some form of UNIX shell-style wildcard
+matching. For example, using a value of <b>hostname</b> will
+skip only that single command, while using <b>hostname*</b>
+will skip all commands with names that begin with the string
+&quot;hostname&quot;.</p>
+
+<p style="margin-left:11%;"><b>--skip-files</b> FILES</p>
+
+<p style="margin-left:22%;">A comma delimited list of files
+or filepath wildcard matches to skip collection of. Values
+may either be exact filepaths or paths using UNIX
+shell-style wildcards, for example <b>/etc/sos/*</b>.</p>
+
+<p style="margin-left:11%;"><b>--ssh-user</b> SSH_USER</p>
+
+<p style="margin-left:22%;">Specify an SSH user for sos
+collect to connect to nodes with. Default is root.</p>
+
+<p style="margin-left:22%; margin-top: 1em">sos collect
+will prompt for a sudo password for non-root users.</p>
+
+<p style="margin-left:11%;"><b>-s</b> SYSROOT,
+<b>--sysroot</b> SYSROOT</p>
+
+<p style="margin-left:22%;">Sosreport option. Specify an
+alternate root file system path.</p>
+
+<p style="margin-left:11%;"><b>--sos-cmd</b> SOS_CMD</p>
+
+<p style="margin-left:22%;">Define all options that
+sosreport should be run with on the nodes. This will
+override any other commandline options as well as any
+options specified by a cluster profile.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The sosreport
+command will execute as &rsquo;sosreport --batch
+SOS_CMD&rsquo;. The BATCH option cannot be removed from the
+sosreport command as it is required to run sosreport
+non-interactively for sos collect to function.</p>
+
+<p style="margin-left:11%;"><b>-t</b> THREADS
+<b>--threads</b> THREADS</p>
+
+<p style="margin-left:22%;">Report option. Specify the
+number of collection threads to run.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The report
+process on each node will run THREADS number of plugins
+concurrently during the collection process.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Defaults to
+4.</p>
+
+<p style="margin-left:11%;"><b>--timeout</b> TIMEOUT</p>
+
+<p style="margin-left:22%;">Timeout for sosreport
+generation on each node, in seconds.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that
+sosreports are collected in parallel, so you can approximate
+the total runtime of sos collect via timeout*(number of
+nodes/jobs).</p>
+
+<p style="margin-left:22%; margin-top: 1em">Default is 180
+seconds.</p>
+
+<p style="margin-left:11%;"><b>--transport</b>
+TRANSPORT</p>
+
+<p style="margin-left:22%;">Specify the type of remote
+transport to use to manage connections to remote nodes.</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>sos
+collect</b> uses locally installed binaries to connect to
+and interact with remote nodes, instead of directly
+establishing those connections. By default, OpenSSH&rsquo;s
+ControlPersist feature is preferred, however certain cluster
+types may have preferences of their own for how remote
+sessions should be established.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The types of
+transports supported are currently as follows:</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>auto</b>
+Allow the cluster type to determine the transport used
+<b><br>
+control_persist</b> Use OpenSSH&rsquo;s ControlPersist
+feature. This is the default behavior <b><br>
+oc</b> Use a <b>locally</b> configured <b>oc</b> binary to
+deploy collection pods on OCP nodes</p>
+
+<p style="margin-left:11%;"><b>--tmp-dir</b> TMP_DIR</p>
+
+<p style="margin-left:22%;">Specify a temporary directory
+to save sos archives to. By default one will be created in
+/tmp and then removed after sos collect has finished
+running.</p>
+
+<p style="margin-left:22%; margin-top: 1em">This is NOT the
+same as specifying a temporary directory for sosreport on
+the remote nodes.</p>
+
+<p style="margin-left:11%;"><b>-v --verbose</b></p>
+
+<p style="margin-left:22%;">Print debug information to
+screen.</p>
+
+<p style="margin-left:11%;"><b>--verfiy</b></p>
+
+<p style="margin-left:22%;">Sosreport option. Passes the
+&quot;--verify&quot; option to sosreport on the nodes which
+causes sosreport to validate plugin-specific data during
+collection.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that this
+option may considerably extend the time it takes sosreport
+to run on the nodes. Consider increasing <b>--timeout</b>
+when using this option.</p>
+
+<p style="margin-left:11%;"><b>-z</b> COMPRESSION,
+<b>--compression-type</b> COMPRESSION</p>
+
+<p style="margin-left:22%;">Sosreport option. Override the
+default compression type.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sos</b>(1)
+<b>sos-report</b>(1) <b>sos-clean</b>(1)
+<b>sos.conf</b>(5)</p>
+
+<h2>MAINTAINER
+<a name="MAINTAINER"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Jake Hunsaker
+&lt;jhunsake@redhat.com&gt;</p>
+<hr>
+</body>
+</html>

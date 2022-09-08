@@ -1,0 +1,2296 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:53:48 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>LVCONVERT</title>
+
+</head>
+<body>
+
+<h1 align="center">LVCONVERT</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#USAGE">USAGE</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#VARIABLES">VARIABLES</a><br>
+<a href="#ENVIRONMENT VARIABLES">ENVIRONMENT VARIABLES</a><br>
+<a href="#ADVANCED USAGE">ADVANCED USAGE</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">lvconvert -
+Change logical volume layout</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert</b>
+<i>option_args position_args</i> <br>
+[ <i>option_args</i> ] <br>
+[ <i>position_args</i> ]</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>--alloc
+contiguous</b>|<b>cling</b>|<b>cling_by_tags</b>|<b>normal</b>|<b>anywhere</b>|<b>inherit
+<br>
+-b</b>|<b>--background <br>
+-H</b>|<b>--cache <br>
+--cachemetadataformat auto</b>|<b>1</b>|<b>2 <br>
+--cachemode writethrough</b>|<b>writeback</b>|<b>passthrough
+<br>
+--cachepolicy</b> <i>String</i> <b><br>
+--cachepool</b> <i>LV</i> <b><br>
+--cachesettings</b> <i>String</i> <b><br>
+--cachevol</b> <i>LV</i> <b><br>
+-c</b>|<b>--chunksize</b> <i>Size</i>[k|UNIT] <b><br>
+--commandprofile</b> <i>String</i> <b><br>
+--compression y</b>|<b>n <br>
+--config</b> <i>String</i> <b><br>
+-d</b>|<b>--debug <br>
+--deduplication y</b>|<b>n <br>
+--discards passdown</b>|<b>nopassdown</b>|<b>ignore <br>
+--driverloaded y</b>|<b>n <br>
+-f</b>|<b>--force <br>
+-h</b>|<b>--help <br>
+-i</b>|<b>--interval</b> <i>Number</i> <b><br>
+--lockopt</b> <i>String</i> <b><br>
+--longhelp <br>
+--merge <br>
+--mergemirrors <br>
+--mergesnapshot <br>
+--mergethin <br>
+--metadataprofile</b> <i>String</i> <b><br>
+--mirrorlog core</b>|<b>disk <br>
+-m</b>|<b>--mirrors</b> [<b>+</b>|<b>-</b>]<i>Number</i>
+<b><br>
+-n</b>|<b>--name</b> <i>String</i> <b><br>
+--nolocking <br>
+--noudevsync <br>
+--originname</b> <i>LV</i> <b><br>
+--poolmetadata</b> <i>LV</i> <b><br>
+--poolmetadatasize</b> <i>Size</i>[m|UNIT] <b><br>
+--poolmetadataspare y</b>|<b>n <br>
+--profile</b> <i>String</i> <b><br>
+-q</b>|<b>--quiet <br>
+-r</b>|<b>--readahead auto</b>|<b>none</b>|<i>Number</i>
+<b><br>
+-R</b>|<b>--regionsize</b> <i>Size</i>[m|UNIT] <b><br>
+--repair <br>
+--replace</b> <i>PV</i> <b><br>
+-s</b>|<b>--snapshot <br>
+--splitcache <br>
+--splitmirrors</b> <i>Number</i> <b><br>
+--splitsnapshot <br>
+--startpoll <br>
+--stripes</b> <i>Number</i> <b><br>
+-I</b>|<b>--stripesize</b> <i>Size</i>[k|UNIT] <b><br>
+--swapmetadata <br>
+-t</b>|<b>--test <br>
+-T</b>|<b>--thin <br>
+--thinpool</b> <i>LV</i> <b><br>
+--trackchanges <br>
+--type
+linear</b>|<b>striped</b>|<b>snapshot</b>|<b>mirror</b>|<b>raid</b>|<b>thin</b>|<b>cache</b>|<b>vdo</b>|<b>thin-pool</b>|<b>cache-pool</b>|<b>vdo-pool
+<br>
+--uncache <br>
+--usepolicies <br>
+--vdopool</b> <i>LV</i> <b><br>
+-v</b>|<b>--verbose <br>
+--version <br>
+-V</b>|<b>--virtualsize</b> <i>Size</i>[m|UNIT] <b><br>
+-y</b>|<b>--yes <br>
+-Z</b>|<b>--zero y</b>|<b>n</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">lvconvert
+changes the LV type and includes utilities for LV data
+maintenance. The LV type controls data layout and
+redundancy. The LV type is also called the segment type or
+segtype.</p>
+
+<p style="margin-left:11%; margin-top: 1em">To display the
+current LV type, run the command:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvs -o
+name,segtype</b> <i>LV</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">In some cases,
+an LV is a single device mapper (dm) layer above physical
+devices. In other cases, hidden LVs (dm devices) are layered
+between the visible LV and physical devices. LVs in the
+middle layers are called sub LVs. A command run on a visible
+LV sometimes operates on a sub LV rather than the specified
+LV. In other cases, a sub LV must be specified directly on
+the command line.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Sub LVs can be
+displayed with the command:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvs
+-a</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>linear</b> type is equivalent to the <b>striped</b> type
+when one stripe exists. In that case, the types can
+sometimes be used interchangably.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In most cases,
+the <b>mirror</b> type is deprecated and the <b>raid1</b>
+type should be used. They are both implementations of
+mirroring.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Striped raid
+types are <b>raid0/raid0_meta</b>, <b>raid5</b> (an alias
+for raid5_ls), <b>raid6</b> (an alias for raid6_zr) and
+<b>raid10</b> (an alias for raid10_near).</p>
+
+<p style="margin-left:11%; margin-top: 1em">As opposed to
+mirroring, raid5 and raid6 stripe data and calculate parity
+blocks. The parity blocks can be used for data block
+recovery in case devices fail. A maximum number of one
+device in a raid5 LV may fail, and two in case of raid6.
+Striped raid types typically rotate the parity and data
+blocks for performance reasons, thus avoiding contention on
+a single device. Specific arrangements of parity and data
+blocks (layouts) can be used to optimize I/O performance, or
+to convert between raid levels. See <b>lvmraid</b>(7) for
+more information.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Layouts of
+raid5 rotating parity blocks can be: left-asymmetric
+(raid5_la), left-symmetric (raid5_ls with alias raid5),
+right-asymmetric (raid5_ra), right-symmetric (raid5_rs) and
+raid5_n, which doesn&rsquo;t rotate parity blocks. Layouts
+of raid6 are: zero-restart (raid6_zr with alias raid6),
+next-restart (raid6_nr), and next-continue (raid6_nc).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Layouts
+including _n allow for conversion between raid levels
+(raid5_n to raid6 or raid5_n to striped/raid0/raid0_meta).
+Additionally, special raid6 layouts for raid level
+conversions between raid5 and raid6 are: raid6_ls_6,
+raid6_rs_6, raid6_la_6 and raid6_ra_6. Those correspond to
+their raid5 counterparts (e.g. raid5_rs can be directly
+converted to raid6_rs_6 and vice-versa).</p>
+
+<p style="margin-left:11%; margin-top: 1em">raid10 (an
+alias for raid10_near) is currently limited to one data copy
+and even number of sub LVs. This is a mirror group layout,
+thus a single sub LV may fail per mirror group without data
+loss.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Striped raid
+types support converting the layout, their stripesize and
+their number of stripes.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The striped
+raid types combined with raid1 allow for conversion from
+linear-&gt; striped/raid0/raid0_meta and vice-versa by e.g.
+linear &lt;-&gt; raid1 &lt;-&gt; raid5_n (then adding
+stripes) &lt;-&gt; striped/raid0/raid0_meta.</p>
+
+<h2>USAGE
+<a name="USAGE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Convert LV to
+linear.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type linear</b> <i>LV</i></p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert LV to
+striped.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type striped</b> <i>LV</i></p>
+
+<p style="margin-left:17%;">[ <b>-I</b>|<b>--stripesize</b>
+<i>Size</i>[k|UNIT] ] <br>
+[ <b>-R</b>|<b>--regionsize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>-i</b>|<b>--interval</b> <i>Number</i> ] <br>
+[ <b>--stripes</b> <i>Number</i> ] <br>
+[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert LV to
+type mirror (also see type raid1),</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type mirror</b> <i>LV</i></p>
+
+<p style="margin-left:17%;">[ <b>-m</b>|<b>--mirrors</b>
+[<b>+</b>|<b>-</b>]<i>Number</i> ] <br>
+[ <b>-I</b>|<b>--stripesize</b> <i>Size</i>[k|UNIT] ] <br>
+[ <b>-R</b>|<b>--regionsize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>-i</b>|<b>--interval</b> <i>Number</i> ] <br>
+[ <b>--stripes</b> <i>Number</i> ] <br>
+[ <b>--mirrorlog core</b>|<b>disk</b> ] <br>
+[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert LV to
+raid or change raid layout <br>
+(a specific raid level must be used, e.g. raid1).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type raid</b> <i>LV</i></p>
+
+<p style="margin-left:17%;">[ <b>-m</b>|<b>--mirrors</b>
+[<b>+</b>|<b>-</b>]<i>Number</i> ] <br>
+[ <b>-I</b>|<b>--stripesize</b> <i>Size</i>[k|UNIT] ] <br>
+[ <b>-R</b>|<b>--regionsize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>-i</b>|<b>--interval</b> <i>Number</i> ] <br>
+[ <b>--stripes</b> <i>Number</i> ] <br>
+[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert LV to
+raid1 or mirror, or change number of mirror images.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+-m</b>|<b>--mirrors</b> [<b>+</b>|<b>-</b>]<i>Number
+LV</i></p>
+
+<p style="margin-left:17%;">[ <b>-R</b>|<b>--regionsize</b>
+<i>Size</i>[m|UNIT] ] <br>
+[ <b>-i</b>|<b>--interval</b> <i>Number</i> ] <br>
+[ <b>--mirrorlog core</b>|<b>disk</b> ] <br>
+[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert raid LV
+to change number of stripe images.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--stripes</b> <i>Number LV_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-i</b>|<b>--interval</b>
+<i>Number</i> ] <br>
+[ <b>-R</b>|<b>--regionsize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>-I</b>|<b>--stripesize</b> <i>Size</i>[k|UNIT] ] <br>
+[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert raid LV
+to change the stripe size.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+-I</b>|<b>--stripesize</b> <i>Size</i>[k|UNIT]
+<i>LV_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-i</b>|<b>--interval</b>
+<i>Number</i> ] <br>
+[ <b>-R</b>|<b>--regionsize</b> <i>Size</i>[m|UNIT] ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Split images
+from a raid1 or mirror LV and use them to create a new
+LV.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--splitmirrors</b> <i>Number</i> <b>-n</b>|<b>--name</b>
+<i>LV_new LV_cache_mirror_raid1</i></p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Split images
+from a raid1 LV and track changes to origin for later
+merge.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--splitmirrors</b> <i>Number</i> <b>--trackchanges</b>
+<i>LV_cache_raid1</i></p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Merge LV images
+that were split from a raid1 LV.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--mergemirrors</b>
+<i>VG</i>|<i>LV_linear_raid</i>|<i>Tag</i> ...</p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert LV to a
+thin LV, using the original LV as an external origin.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type thin --thinpool</b> <i>LV
+LV_linear_striped_thin_cache_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-T</b>|<b>--thin</b> ]
+<br>
+[ <b>-r</b>|<b>--readahead
+auto</b>|<b>none</b>|<i>Number</i> ] <br>
+[ <b>-c</b>|<b>--chunksize</b> <i>Size</i>[k|UNIT] ] <br>
+[ <b>-Z</b>|<b>--zero y</b>|<b>n</b> ] <br>
+[ <b>--originname</b> <i>LV_new</i> ] <br>
+[ <b>--poolmetadata</b> <i>LV</i> ] <br>
+[ <b>--poolmetadatasize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>--poolmetadataspare y</b>|<b>n</b> ] <br>
+[ <b>--metadataprofile</b> <i>String</i> ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Attach a cache
+pool to an LV, converts the LV to type cache.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type cache --cachepool</b> <i>LV
+LV_linear_striped_thinpool_vdo_vdopool_vdopooldata_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-H</b>|<b>--cache</b> ]
+<br>
+[ <b>-Z</b>|<b>--zero y</b>|<b>n</b> ] <br>
+[ <b>-r</b>|<b>--readahead
+auto</b>|<b>none</b>|<i>Number</i> ] <br>
+[ <b>-c</b>|<b>--chunksize</b> <i>Size</i>[k|UNIT] ] <br>
+[ <b>--cachemetadataformat auto</b>|<b>1</b>|<b>2</b> ] <br>
+[ <b>--cachemode
+writethrough</b>|<b>writeback</b>|<b>passthrough</b> ] <br>
+[ <b>--cachepolicy</b> <i>String</i> ] <br>
+[ <b>--cachesettings</b> <i>String</i> ] <br>
+[ <b>--poolmetadata</b> <i>LV</i> ] <br>
+[ <b>--poolmetadatasize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>--poolmetadataspare y</b>|<b>n</b> ] <br>
+[ <b>--metadataprofile</b> <i>String</i> ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Attach a
+writecache to an LV, converts the LV to type writecache.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type writecache --cachevol</b> <i>LV
+LV_linear_striped_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>--cachesettings</b>
+<i>String</i> ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Attach a cache
+to an LV, converts the LV to type cache.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type cache --cachevol</b> <i>LV
+LV_linear_striped_thinpool_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-H</b>|<b>--cache</b> ]
+<br>
+[ <b>-Z</b>|<b>--zero y</b>|<b>n</b> ] <br>
+[ <b>-c</b>|<b>--chunksize</b> <i>Size</i>[k|UNIT] ] <br>
+[ <b>--cachemetadataformat auto</b>|<b>1</b>|<b>2</b> ] <br>
+[ <b>--cachemode
+writethrough</b>|<b>writeback</b>|<b>passthrough</b> ] <br>
+[ <b>--cachepolicy</b> <i>String</i> ] <br>
+[ <b>--cachesettings</b> <i>String</i> ] <br>
+[ <b>--poolmetadatasize</b> <i>Size</i>[m|UNIT] ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert LV to
+type thin-pool.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type thin-pool</b> <i>LV_linear_striped_cache_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-I</b>|<b>--stripesize</b>
+<i>Size</i>[k|UNIT] ] <br>
+[ <b>-r</b>|<b>--readahead
+auto</b>|<b>none</b>|<i>Number</i> ] <br>
+[ <b>-c</b>|<b>--chunksize</b> <i>Size</i>[k|UNIT] ] <br>
+[ <b>-Z</b>|<b>--zero y</b>|<b>n</b> ] <br>
+[ <b>--stripes</b> <i>Number</i> ] <br>
+[ <b>--discards passdown</b>|<b>nopassdown</b>|<b>ignore</b>
+] <br>
+[ <b>--poolmetadata</b> <i>LV</i> ] <br>
+[ <b>--poolmetadatasize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>--poolmetadataspare y</b>|<b>n</b> ] <br>
+[ <b>--metadataprofile</b> <i>String</i> ] <br>
+[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert LV to
+type cache-pool.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type cache-pool</b> <i>LV_linear_striped_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-Z</b>|<b>--zero
+y</b>|<b>n</b> ] <br>
+[ <b>-r</b>|<b>--readahead
+auto</b>|<b>none</b>|<i>Number</i> ] <br>
+[ <b>-c</b>|<b>--chunksize</b> <i>Size</i>[k|UNIT] ] <br>
+[ <b>--cachemetadataformat auto</b>|<b>1</b>|<b>2</b> ] <br>
+[ <b>--cachemode
+writethrough</b>|<b>writeback</b>|<b>passthrough</b> ] <br>
+[ <b>--cachepolicy</b> <i>String</i> ] <br>
+[ <b>--cachesettings</b> <i>String</i> ] <br>
+[ <b>--poolmetadata</b> <i>LV</i> ] <br>
+[ <b>--poolmetadatasize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>--poolmetadataspare y</b>|<b>n</b> ] <br>
+[ <b>--metadataprofile</b> <i>String</i> ] <br>
+[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert LV to
+type vdopool.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type vdo-pool</b> <i>LV_linear_striped_cache_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-n</b>|<b>--name</b>
+<i>LV_new</i> ] <br>
+[ <b>-V</b>|<b>--virtualsize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>--compression y</b>|<b>n</b> ] <br>
+[ <b>--deduplication y</b>|<b>n</b> ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Detach a cache
+from an LV.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--splitcache</b>
+<i>LV_thinpool_cache_cachepool_vdopool_writecache</i></p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Merge thin LV
+into its origin LV.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--mergethin</b> <i>LV_thin</i> ...</p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Merge COW
+snapshot LV into its origin.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--mergesnapshot</b> <i>LV_snapshot</i> ...</p>
+
+<p style="margin-left:17%;">[ <b>-i</b>|<b>--interval</b>
+<i>Number</i> ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Combine a
+former COW snapshot (second arg) with a former <br>
+origin LV (first arg) to reverse a splitsnapshot
+command.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--type snapshot</b> <i>LV LV_linear_striped</i></p>
+
+<p style="margin-left:17%;">[ <b>-s</b>|<b>--snapshot</b> ]
+<br>
+[ <b>-c</b>|<b>--chunksize</b> <i>Size</i>[k|UNIT] ] <br>
+[ <b>-Z</b>|<b>--zero y</b>|<b>n</b> ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Replace failed
+PVs in a raid or mirror LV. <br>
+Repair a thin pool. <br>
+Repair a cache pool.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--repair</b>
+<i>LV_thinpool_cache_cachepool_mirror_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-i</b>|<b>--interval</b>
+<i>Number</i> ] <br>
+[ <b>--usepolicies</b> ] <br>
+[ <b>--poolmetadataspare y</b>|<b>n</b> ] <br>
+[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Replace
+specific PV(s) in a raid LV with another PV.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--replace</b> <i>PV LV_raid</i></p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Poll LV to
+continue conversion.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--startpoll</b> <i>LV_mirror_raid</i></p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Common options
+for command:</p>
+
+<p style="margin-left:17%;">[ <b>-b</b>|<b>--background</b>
+] <br>
+[ <b>-f</b>|<b>--force</b> ] <br>
+[ <b>--alloc
+contiguous</b>|<b>cling</b>|<b>cling_by_tags</b>|<b>normal</b>|<b>anywhere</b>|<b>inherit</b>
+] <br>
+[ <b>--noudevsync</b> ]</p>
+
+<p style="margin-left:11%; margin-top: 1em">Common options
+for lvm:</p>
+
+<p style="margin-left:17%;">[ <b>-d</b>|<b>--debug</b> ]
+<br>
+[ <b>-h</b>|<b>--help</b> ] <br>
+[ <b>-q</b>|<b>--quiet</b> ] <br>
+[ <b>-t</b>|<b>--test</b> ] <br>
+[ <b>-v</b>|<b>--verbose</b> ] <br>
+[ <b>-y</b>|<b>--yes</b> ] <br>
+[ <b>--commandprofile</b> <i>String</i> ] <br>
+[ <b>--config</b> <i>String</i> ] <br>
+[ <b>--driverloaded y</b>|<b>n</b> ] <br>
+[ <b>--lockopt</b> <i>String</i> ] <br>
+[ <b>--longhelp</b> ] <br>
+[ <b>--nolocking</b> ] <br>
+[ <b>--profile</b> <i>String</i> ] <br>
+[ <b>--version</b> ]</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em"><b>--alloc
+contiguous</b>|<b>cling</b>|<b>cling_by_tags</b>|<b>normal</b>|<b>anywhere</b>|<b>inherit</b></p> </td></tr>
+</table>
+
+<p style="margin-left:22%;">Determines the allocation
+policy when a command needs to allocate Physical Extents
+(PEs) from the VG. Each VG and LV has an allocation policy
+which can be changed with vgchange/lvchange, or overriden on
+the command line. <b>normal</b> applies common sense rules
+such as not placing parallel stripes on the same PV.
+<b>inherit</b> applies the VG policy to an LV.
+<b>contiguous</b> requires new PEs be placed adjacent to
+existing PEs. <b>cling</b> places new PEs on the same PV as
+existing PEs in the same stripe of the LV. If there are
+sufficient PEs for an allocation, but normal does not use
+them, <b>anywhere</b> will use them even if it reduces
+performance, e.g. by placing two stripes on the same PV.
+Optional positional PV args on the command line can also be
+used to limit which PVs the command will use for allocation.
+See <b>lvm</b>(8) for more information about allocation.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+
+<p style="margin-top: 1em"><b>-b</b>|<b>--background</b></p> </td>
+<td width="66%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">If the operation requires
+polling, this option causes the command to return before the
+operation is complete, and polling is done in the
+background.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="15%">
+
+
+<p style="margin-top: 1em"><b>-H</b>|<b>--cache</b></p></td>
+<td width="74%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies the command is
+handling a cache LV or cache pool. See --type cache and
+--type cache-pool. See <b>lvmcache</b>(7) for more
+information about LVM caching.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="46%">
+
+
+<p style="margin-top: 1em"><b>--cachemetadataformat
+auto</b>|<b>1</b>|<b>2</b></p> </td>
+<td width="43%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies the cache metadata
+format used by cache target.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="71%">
+
+
+<p style="margin-top: 1em"><b>--cachemode
+writethrough</b>|<b>writeback</b>|<b>passthrough</b></p> </td>
+<td width="18%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies when writes to a
+cache LV should be considered complete. <b>writeback</b>
+considers a write complete as soon as it is stored in the
+cache pool. <b>writethough</b> considers a write complete
+only when it has been stored in both the cache pool and on
+the origin LV. While writethrough may be slower for writes,
+it is more resilient if something should happen to a device
+associated with the cache pool LV. With <b>passthrough</b>,
+all reads are served from the origin LV (all reads miss the
+cache) and all writes are forwarded to the origin LV;
+additionally, write hits cause cache block invalidates. See
+<b>lvmcache</b>(7) for more information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="31%">
+
+
+<p style="margin-top: 1em"><b>--cachepolicy</b>
+<i>String</i></p> </td>
+<td width="58%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies the cache policy for
+a cache LV. See <b>lvmcache</b>(7) for more information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p style="margin-top: 1em"><b>--cachepool</b> <i>LV</i></p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">The name of a cache pool.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="34%">
+
+
+<p style="margin-top: 1em"><b>--cachesettings</b>
+<i>String</i></p> </td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies tunable values for a
+cache LV in &quot;Key = Value&quot; form. Repeat this option
+to specify multiple values. (The default values should
+usually be adequate.) The special string value
+<b>default</b> switches settings back to their default
+kernel values and removes them from the list of settings
+stored in LVM metadata. See <b>lvmcache</b>(7) for more
+information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p style="margin-top: 1em"><b>--cachevol</b> <i>LV</i></p></td>
+<td width="69%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">The name of a cache volume.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="41%">
+
+
+<p style="margin-top: 1em"><b>-c</b>|<b>--chunksize</b>
+<i>Size</i>[k|UNIT]</p> </td>
+<td width="48%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">The size of chunks in a
+snapshot, cache pool or thin pool. For snapshots, the value
+must be a power of 2 between 4KiB and 512KiB and the default
+value is 4. For a cache pool the value must be between 32KiB
+and 1GiB and the default value is 64. For a thin pool the
+value must be between 64KiB and 1GiB and the default value
+starts with 64 and scales up to fit the pool metadata size
+within 128MiB, if the pool metadata size is not specified.
+The value must be a multiple of 64KiB. See <b>lvmthin</b>(7)
+and <b>lvmcache</b>(7) for more information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="35%">
+
+
+<p style="margin-top: 1em"><b>--commandprofile</b>
+<i>String</i></p> </td>
+<td width="54%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">The command profile to use for
+command configuration. See <b>lvm.conf</b>(5) for more
+information about profiles.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="26%">
+
+
+<p style="margin-top: 1em"><b>--compression
+y</b>|<b>n</b></p> </td>
+<td width="63%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Controls whether compression is
+enabled or disable for VDO volume. See <b>lvmvdo</b>(7) for
+more information about VDO usage.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p style="margin-top: 1em"><b>--config</b>
+<i>String</i></p> </td>
+<td width="66%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Config settings for the
+command. These override lvm.conf settings. The String arg
+uses the same format as lvm.conf, or may use section/field
+syntax. See <b>lvm.conf</b>(5) for more information about
+config.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p style="margin-top: 1em"><b>-d</b>|<b>--debug</b> ...</p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Set debug level. Repeat from 1
+to 6 times to increase the detail of messages sent to the
+log file and/or syslog (if configured).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="29%">
+
+
+<p style="margin-top: 1em"><b>--deduplication
+y</b>|<b>n</b></p> </td>
+<td width="60%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Controls whether deduplication
+is enabled or disable for VDO volume. See <b>lvmvdo</b>(7)
+for more information about VDO usage.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="57%">
+
+
+<p style="margin-top: 1em"><b>--discards
+passdown</b>|<b>nopassdown</b>|<b>ignore</b></p> </td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies how the device-mapper
+thin pool layer in the kernel should handle discards.
+<b>ignore</b> causes the thin pool to ignore discards.
+<b>nopassdown</b> causes the thin pool to process discards
+itself to allow reuse of unneeded extents in the thin pool.
+<b>passdown</b> causes the thin pool to process discards
+itself (like nopassdown) and pass the discards to the
+underlying device. See <b>lvmthin</b>(7) for more
+information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="27%">
+
+
+<p style="margin-top: 1em"><b>--driverloaded
+y</b>|<b>n</b></p> </td>
+<td width="62%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">If set to no, the command will
+not attempt to use device-mapper. For testing and
+debugging.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p style="margin-top: 1em"><b>-f</b>|<b>--force</b> ...</p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Override various checks,
+confirmations and protections. Use with extreme caution.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p style="margin-top: 1em"><b>-h</b>|<b>--help</b></p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Display help text.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="31%">
+
+
+<p style="margin-top: 1em"><b>-i</b>|<b>--interval</b>
+<i>Number</i></p> </td>
+<td width="58%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Report progress at regular
+intervals.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="24%">
+
+
+<p style="margin-top: 1em"><b>--lockopt</b>
+<i>String</i></p> </td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Used to pass options for
+special cases to lvmlockd. See <b>lvmlockd</b>(8) for more
+information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="15%">
+
+
+<p style="margin-top: 1em"><b>--longhelp</b></p></td>
+<td width="74%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Display long help text.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="11%">
+
+
+<p style="margin-top: 1em"><b>--merge</b></p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">An alias for --mergethin,
+--mergemirrors, or --mergesnapshot, depending on the type of
+LV.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p style="margin-top: 1em"><b>--mergemirrors</b></p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Merge LV images that were split
+from a raid1 LV. See --splitmirrors with --trackchanges.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p style="margin-top: 1em"><b>--mergesnapshot</b></p></td>
+<td width="66%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Merge COW snapshot LV into its
+origin. When merging a snapshot, if both the origin and
+snapshot LVs are not open, the merge will start immediately.
+Otherwise, the merge will start the first time either the
+origin or snapshot LV are activated and both are closed.
+Merging a snapshot into an origin that cannot be closed, for
+example a root filesystem, is deferred until the next time
+the origin volume is activated. When merging starts, the
+resulting LV will have the origin&rsquo;s name, minor number
+and UUID. While the merge is in progress, reads or writes to
+the origin appear as being directed to the snapshot being
+merged. When the merge finishes, the merged snapshot is
+removed. Multiple snapshots may be specified on the command
+line or a @tag may be used to specify multiple snapshots be
+merged to their respective origin.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="17%">
+
+
+<p style="margin-top: 1em"><b>--mergethin</b></p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Merge thin LV into its origin
+LV. The origin thin LV takes the content of the thin
+snapshot, and the thin snapshot LV is removed. See
+<b>lvmthin</b>(7) for more information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="37%">
+
+
+<p style="margin-top: 1em"><b>--metadataprofile</b>
+<i>String</i></p> </td>
+<td width="52%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">The metadata profile to use for
+command configuration. See <b>lvm.conf</b>(5) for more
+information about profiles.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="32%">
+
+
+<p style="margin-top: 1em"><b>--mirrorlog
+core</b>|<b>disk</b></p> </td>
+<td width="57%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies the type of mirror
+log for LVs with the &quot;mirror&quot; type (does not apply
+to the &quot;raid1&quot; type.) <b>disk</b> is a persistent
+log and requires a small amount of storage space, usually on
+a separate device from the data being mirrored. <b>core</b>
+is not persistent; the log is kept only in memory. In this
+case, the mirror must be synchronized (by copying LV data
+from the first device to others) each time the LV is
+activated, e.g. after reboot. <b>mirrored</b> is a
+persistent log that is itself mirrored, but should be
+avoided. Instead, use the raid1 type for log redundancy.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="37%">
+
+
+<p style="margin-top: 1em"><b>-m</b>|<b>--mirrors</b>
+[<b>+</b>|<b>-</b>]<i>Number</i></p> </td>
+<td width="52%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies the number of mirror
+images in addition to the original LV image, e.g. --mirrors
+1 means there are two images of the data, the original and
+one mirror image. Optional positional PV args on the command
+line can specify the devices the images should be placed on.
+There are two mirroring implementations: &quot;raid1&quot;
+and &quot;mirror&quot;. These are the names of the
+corresponding LV types, or &quot;segment types&quot;. Use
+the --type option to specify which to use (raid1 is default,
+and mirror is legacy) Use lvm.conf
+global/mirror_segtype_default and
+global/raid10_segtype_default to configure the default
+types. The plus prefix <b>+</b> can be used, in which case
+the number is added to the current number of images, or the
+minus prefix <b>-</b> can be used, in which case the number
+is subtracted from the current number of images. See
+<b>lvmraid</b>(7) for more information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="24%">
+
+
+<p style="margin-top: 1em"><b>-n</b>|<b>--name</b>
+<i>String</i></p> </td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies the name of a new LV.
+When unspecified, a default name of &quot;lvol#&quot; is
+generated, where # is a number generated by LVM.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="17%">
+
+
+<p style="margin-top: 1em"><b>--nolocking</b></p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Disable locking.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="18%">
+
+
+<p style="margin-top: 1em"><b>--noudevsync</b></p></td>
+<td width="71%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Disables udev synchronisation.
+The process will not wait for notification from udev. It
+will continue irrespective of any possible udev processing
+in the background. Only use this if udev is not running or
+has rules that ignore the devices LVM creates.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p style="margin-top: 1em"><b>--originname</b>
+<i>LV</i></p> </td>
+<td width="66%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies the name to use for
+the external origin LV when converting an LV to a thin LV.
+The LV being converted becomes a read-only external origin
+with this name.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="26%">
+
+
+<p style="margin-top: 1em"><b>--poolmetadata</b>
+<i>LV</i></p> </td>
+<td width="63%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">The name of a an LV to use for
+storing pool metadata.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="47%">
+
+
+<p style="margin-top: 1em"><b>--poolmetadatasize</b>
+<i>Size</i>[m|UNIT]</p> </td>
+<td width="42%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies the size of the new
+pool metadata LV.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="35%">
+
+
+<p style="margin-top: 1em"><b>--poolmetadataspare
+y</b>|<b>n</b></p> </td>
+<td width="54%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Enable or disable the automatic
+creation and management of a spare pool metadata LV in the
+VG. A spare metadata LV is reserved space that can be used
+when repairing a pool.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="24%">
+
+
+<p style="margin-top: 1em"><b>--profile</b>
+<i>String</i></p> </td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">An alias for --commandprofile
+or --metadataprofile, depending on the command.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p style="margin-top: 1em"><b>-q</b>|<b>--quiet</b> ...</p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Suppress output and log
+messages. Overrides --debug and --verbose. Repeat once to
+also suppress any prompts with answer &rsquo;no&rsquo;.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="47%">
+
+
+<p style="margin-top: 1em"><b>-r</b>|<b>--readahead
+auto</b>|<b>none</b>|<i>Number</i></p> </td>
+<td width="42%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Sets read ahead sector count of
+an LV. <b>auto</b> is the default which allows the kernel to
+choose a suitable value automatically. <b>none</b> is
+equivalent to zero.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="43%">
+
+
+<p style="margin-top: 1em"><b>-R</b>|<b>--regionsize</b>
+<i>Size</i>[m|UNIT]</p> </td>
+<td width="46%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Size of each raid or mirror
+synchronization region. lvm.conf activation/raid_region_size
+can be used to configure a default.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p style="margin-top: 1em"><b>--repair</b></p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Replace failed PVs in a raid or
+mirror LV, or run a repair utility on a thin pool. See
+<b>lvmraid</b>(7) and <b>lvmthin</b>(7) for more
+information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="18%">
+
+
+<p style="margin-top: 1em"><b>--replace</b> <i>PV</i></p></td>
+<td width="71%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Replace a specific PV in a raid
+LV with another PV. The new PV to use can be optionally
+specified after the LV. Multiple PVs can be replaced by
+repeating this option. See <b>lvmraid</b>(7) for more
+information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p style="margin-top: 1em"><b>-s</b>|<b>--snapshot</b></p></td>
+<td width="69%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Combine a former COW snapshot
+LV with a former origin LV to reverse a previous
+--splitsnapshot command.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="18%">
+
+
+<p style="margin-top: 1em"><b>--splitcache</b></p></td>
+<td width="71%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Separates a cache pool from a
+cache LV, and keeps the unused cache pool LV. Before the
+separation, the cache is flushed. Also see --uncache.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="32%">
+
+
+<p style="margin-top: 1em"><b>--splitmirrors</b>
+<i>Number</i></p> </td>
+<td width="57%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Splits the specified number of
+images from a raid1 or mirror LV and uses them to create a
+new LV. If --trackchanges is also specified, changes to the
+raid1 LV are tracked while the split LV remains detached. If
+--name is specified, then the images are permanently split
+from the original LV and changes are not tracked.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p style="margin-top: 1em"><b>--splitsnapshot</b></p></td>
+<td width="66%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Separates a COW snapshot from
+its origin LV. The LV that is split off contains the chunks
+that differ from the origin LV along with metadata
+describing them. This LV can be wiped and then destroyed
+with lvremove.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="17%">
+
+
+<p style="margin-top: 1em"><b>--startpoll</b></p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Start polling an LV to continue
+processing a conversion.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="24%">
+
+
+<p style="margin-top: 1em"><b>--stripes</b>
+<i>Number</i></p> </td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies the number of stripes
+in a striped LV. This is the number of PVs (devices) that a
+striped LV is spread across. Data that appears sequential in
+the LV is spread across multiple devices in units of the
+stripe size (see --stripesize). This does not apply to
+existing allocated space, only newly allocated space can be
+striped.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="43%">
+
+
+<p style="margin-top: 1em"><b>-I</b>|<b>--stripesize</b>
+<i>Size</i>[k|UNIT]</p> </td>
+<td width="46%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">The amount of data that is
+written to one device before moving to the next in a striped
+LV.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p style="margin-top: 1em"><b>--swapmetadata</b></p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Extracts the metadata LV from a
+pool and replaces it with another specified LV. The
+extracted LV is preserved and given the name of the LV that
+replaced it. Use for repair only. When the metadata LV is
+swapped out of the pool, it can be activated directly and
+used with thin provisioning tools: <b>cache_dump</b>(8),
+<b>cache_repair</b>(8), <b>cache_restore</b>(8),
+<b>thin_dump</b>(8), <b>thin_repair</b>(8),
+<b>thin_restore</b>(8).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p style="margin-top: 1em"><b>-t</b>|<b>--test</b></p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Run in test mode. Commands will
+not update metadata. This is implemented by disabling all
+metadata writing but nevertheless returning success to the
+calling function. This may lead to unusual error messages in
+multi-stage operations if a tool relies on reading back
+metadata it believes has changed but hasn&rsquo;t.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p style="margin-top: 1em"><b>-T</b>|<b>--thin</b></p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Specifies the command is
+handling a thin LV or thin pool. See --type thin, --type
+thin-pool, and --virtualsize. See <b>lvmthin</b>(7) for more
+information about LVM thin provisioning.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p style="margin-top: 1em"><b>--thinpool</b> <i>LV</i></p></td>
+<td width="69%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">The name of a thin pool LV.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p style="margin-top: 1em"><b>--trackchanges</b></p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Can be used with --splitmirrors
+on a raid1 LV. This causes changes to the original raid1 LV
+to be tracked while the split images remain detached. This
+is a temporary state that allows the read-only detached
+image to be merged efficiently back into the raid1 LV later.
+Only the regions with changed data are resynchronized during
+merge. While a raid1 LV is tracking changes, operations on
+it are limited to merging the split image (see
+--mergemirrors) or permanently splitting the image (see
+--splitmirrors with --name.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em"><b>--type
+linear</b>|<b>striped</b>|<b>snapshot</b>|<b>mirror</b>|<b>raid</b>|<b>thin</b>|<b>cache</b>|<b>vdo</b>|<b>thin-pool</b>|<b>cache-pool</b>|<b>vdo-pool</b></p> </td></tr>
+</table>
+
+<p style="margin-left:22%;">The LV type, also known as
+&quot;segment type&quot; or &quot;segtype&quot;. See usage
+descriptions for the specific ways to use these types. For
+more information about redundancy and performance
+(<b>raid</b>&lt;N&gt;, <b>mirror</b>, <b>striped</b>,
+<b>linear</b>) see <b>lvmraid</b>(7). For thin provisioning
+(<b>thin</b>, <b>thin-pool</b>) see <b>lvmthin</b>(7). For
+performance caching (<b>cache</b>, <b>cache-pool</b>) see
+<b>lvmcache</b>(7). For copy-on-write snapshots
+(<b>snapshot</b>) see usage definitions. For VDO
+(<b>vdo</b>) see <b>lvmvdo</b>(7). Several commands omit an
+explicit type option because the type is inferred from other
+options or shortcuts (e.g. --stripes, --mirrors, --snapshot,
+--virtualsize, --thin, --cache, --vdo). Use inferred types
+with care because it can lead to unexpected results.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p style="margin-top: 1em"><b>--uncache</b></p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Separates a cache pool from a
+cache LV, and deletes the unused cache pool LV. Before the
+separation, the cache is flushed. Also see --splitcache.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p style="margin-top: 1em"><b>--usepolicies</b></p></td>
+<td width="69%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Perform an operation according
+to the policy configured in lvm.conf or a profile.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="18%">
+
+
+<p style="margin-top: 1em"><b>--vdopool</b> <i>LV</i></p></td>
+<td width="71%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">The name of a VDO pool LV. See
+<b>lvmvdo</b>(7) for more information about VDO usage.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="24%">
+
+
+<p style="margin-top: 1em"><b>-v</b>|<b>--verbose</b>
+...</p> </td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Set verbose level. Repeat from
+1 to 4 times to increase the detail of messages sent to
+stdout and stderr.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p style="margin-top: 1em"><b>--version</b></p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Display version
+information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="44%">
+
+
+<p style="margin-top: 1em"><b>-V</b>|<b>--virtualsize</b>
+<i>Size</i>[m|UNIT]</p> </td>
+<td width="45%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">The virtual size of a new thin
+LV. See <b>lvmthin</b>(7) for more information about LVM
+thin provisioning. Using virtual size (-V) and actual size
+(-L) together creates a sparse LV. lvm.conf
+global/sparse_segtype_default determines the default segment
+type used to create a sparse LV. Anything written to a
+sparse LV will be returned when reading from it. Reading
+from other areas of the LV will return blocks of zeros. When
+using a snapshot to create a sparse LV, a hidden virtual
+device is created using the zero target, and the LV has the
+suffix _vorigin. Snapshots are less efficient than thin
+provisioning when creating large sparse LVs (GiB).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p style="margin-top: 1em"><b>-y</b>|<b>--yes</b></p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Do not prompt for confirmation
+interactively but always assume the answer yes. Use with
+extreme caution. (For automatic no, see -qq.)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p style="margin-top: 1em"><b>-Z</b>|<b>--zero
+y</b>|<b>n</b></p> </td>
+<td width="69%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">For snapshots, this controls
+zeroing of the first 4KiB of data in the snapshot. If the LV
+is read-only, the snapshot will not be zeroed. For thin
+pools, this controls zeroing of provisioned blocks.
+Provisioning of large zeroed chunks negatively impacts
+performance.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+
+
+<h2>VARIABLES
+<a name="VARIABLES"></a>
+</h2>
+<td width="11%"></td>
+<td width="3%"></td>
+<td width="86%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><i>VG</i></p></td>
+<td width="86%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Volume Group name. See
+<b>lvm</b>(8) for valid names.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em"><i>LV</i></p></td>
+<td width="86%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Logical Volume name. See
+<b>lvm</b>(8) for valid names. An LV positional arg
+generally includes the VG name and LV name, e.g. VG/LV. LV
+followed by _&lt;type&gt; indicates that an LV of the given
+type is required. (raid represents raid&lt;N&gt; type)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em"><i>PV</i></p></td>
+<td width="86%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Physical Volume name, a device
+path under /dev. For commands managing physical extents, a
+PV positional arg generally accepts a suffix indicating a
+range (or multiple ranges) of physical extents (PEs). When
+the first PE is omitted, it defaults to the start of the
+device, and when the last PE is omitted it defaults to end.
+Start and end range (inclusive):
+<i>PV</i>[<b>:</b><i>PE</i><b>-</b><i>PE</i>]... Start and
+length range (counting from 0):
+<i>PV</i>[<b>:</b><i>PE</i><b>+</b><i>PE</i>]...</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p style="margin-top: 1em"><i>Tag</i></p></td>
+<td width="85%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Tag name. See <b>lvm</b>(8) for
+information about tag names and using tags in place of a VG,
+LV or PV.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p style="margin-top: 1em"><i>String</i></p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">See the option description for
+information about the string content.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="15%">
+
+
+<p style="margin-top: 1em"><i>Size</i>[UNIT]</p></td>
+<td width="74%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;">Size is an input number that
+accepts an optional unit. Input units are always treated as
+base two values, regardless of capitalization, e.g.
+&rsquo;k&rsquo; and &rsquo;K&rsquo; both refer to 1024. The
+default input unit is specified by letter, followed by
+|UNIT. UNIT represents other possible input units:
+<b>bBsSkKmMgGtTpPeE</b>. b|B is bytes, s|S is sectors of 512
+bytes, k|K is kilobytes, m|M is megabytes, g|G is gigabytes,
+t|T is terabytes, p|P is petabytes, e|E is exabytes. (This
+should not be confused with the output control --units,
+where capital letters mean multiple of 1000.)</p>
+
+<h2>ENVIRONMENT VARIABLES
+<a name="ENVIRONMENT VARIABLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">See
+<b>lvm</b>(8) for information about environment variables
+used by lvm. For example, LVM_VG_NAME can generally be
+substituted for a required VG parameter.</p>
+
+<h2>ADVANCED USAGE
+<a name="ADVANCED USAGE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Alternate
+command forms, advanced command usage, and listing of all
+valid syntax for completeness.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Change the
+region size of an LV.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+-R</b>|<b>--regionsize</b> <i>Size</i>[m|UNIT]
+<i>LV_raid</i></p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Change the type
+of mirror log used by a mirror LV.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--mirrorlog core</b>|<b>disk</b> <i>LV_mirror</i></p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ] <br>
+[ <i>PV</i> ... ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert LV to a
+thin LV, using the original LV as an external origin <br>
+(infers --type thin).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+-T</b>|<b>--thin --thinpool</b> <i>LV
+LV_linear_striped_thin_cache_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-r</b>|<b>--readahead
+auto</b>|<b>none</b>|<i>Number</i> ] <br>
+[ <b>-c</b>|<b>--chunksize</b> <i>Size</i>[k|UNIT] ] <br>
+[ <b>-Z</b>|<b>--zero y</b>|<b>n</b> ] <br>
+[ <b>--type thin</b> ] <br>
+[ <b>--originname</b> <i>LV_new</i> ] <br>
+[ <b>--poolmetadata</b> <i>LV</i> ] <br>
+[ <b>--poolmetadatasize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>--poolmetadataspare y</b>|<b>n</b> ] <br>
+[ <b>--metadataprofile</b> <i>String</i> ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Attach a cache
+pool to an LV (infers --type cache).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+-H</b>|<b>--cache --cachepool</b> <i>LV
+LV_linear_striped_thinpool_vdo_vdopool_vdopooldata_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-Z</b>|<b>--zero
+y</b>|<b>n</b> ] <br>
+[ <b>-r</b>|<b>--readahead
+auto</b>|<b>none</b>|<i>Number</i> ] <br>
+[ <b>-c</b>|<b>--chunksize</b> <i>Size</i>[k|UNIT] ] <br>
+[ <b>--type cache</b> ] <br>
+[ <b>--cachemetadataformat auto</b>|<b>1</b>|<b>2</b> ] <br>
+[ <b>--cachemode
+writethrough</b>|<b>writeback</b>|<b>passthrough</b> ] <br>
+[ <b>--cachepolicy</b> <i>String</i> ] <br>
+[ <b>--cachesettings</b> <i>String</i> ] <br>
+[ <b>--poolmetadata</b> <i>LV</i> ] <br>
+[ <b>--poolmetadatasize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>--poolmetadataspare y</b>|<b>n</b> ] <br>
+[ <b>--metadataprofile</b> <i>String</i> ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Attach a cache
+to an LV, converts the LV to type cache.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+-H</b>|<b>--cache --cachevol</b> <i>LV
+LV_linear_striped_thinpool_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-Z</b>|<b>--zero
+y</b>|<b>n</b> ] <br>
+[ <b>-c</b>|<b>--chunksize</b> <i>Size</i>[k|UNIT] ] <br>
+[ <b>--cachemetadataformat auto</b>|<b>1</b>|<b>2</b> ] <br>
+[ <b>--cachemode
+writethrough</b>|<b>writeback</b>|<b>passthrough</b> ] <br>
+[ <b>--cachepolicy</b> <i>String</i> ] <br>
+[ <b>--cachesettings</b> <i>String</i> ] <br>
+[ <b>--poolmetadatasize</b> <i>Size</i>[m|UNIT] ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert LV to
+type vdopool.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--vdopool</b> <i>LV_linear_striped_cache_raid</i></p>
+
+<p style="margin-left:17%;">[ <b>-n</b>|<b>--name</b>
+<i>LV_new</i> ] <br>
+[ <b>-V</b>|<b>--virtualsize</b> <i>Size</i>[m|UNIT] ] <br>
+[ <b>--type vdo-pool</b> ] <br>
+[ <b>--compression y</b>|<b>n</b> ] <br>
+[ <b>--deduplication y</b>|<b>n</b> ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Detach and
+delete a cache from an LV.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--uncache</b>
+<i>LV_thinpool_cache_vdopool_writecache</i></p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Swap metadata
+LV in a thin pool or cache pool (for repair only).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--swapmetadata --poolmetadata</b> <i>LV
+LV_thinpool_cachepool</i></p>
+
+<p style="margin-left:17%;">[ <b>-c</b>|<b>--chunksize</b>
+<i>Size</i>[k|UNIT] ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Merge LV that
+was split from a mirror (variant, use --mergemirrors). <br>
+Merge thin LV into its origin LV (variant, use --mergethin).
+<br>
+Merge COW snapshot LV into its origin (variant, use
+--mergesnapshot).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--merge</b>
+<i>VG</i>|<i>LV_linear_striped_snapshot_thin_raid</i>|<i>Tag</i>
+...</p>
+
+<p style="margin-left:17%;">[ <b>-i</b>|<b>--interval</b>
+<i>Number</i> ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Separate a COW
+snapshot from its origin LV.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+--splitsnapshot</b> <i>LV_snapshot</i></p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Combine a
+former COW snapshot (second arg) with a former <br>
+origin LV (first arg) to reverse a splitsnapshot
+command.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert
+-s</b>|<b>--snapshot</b> <i>LV LV_linear_striped</i></p>
+
+<p style="margin-left:17%;">[ <b>-c</b>|<b>--chunksize</b>
+<i>Size</i>[k|UNIT] ] <br>
+[ <b>-Z</b>|<b>--zero y</b>|<b>n</b> ] <br>
+[ <b>--type snapshot</b> ] <br>
+[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<p style="margin-left:11%; margin-top: 1em">Poll LV to
+continue conversion (also see --startpoll) <br>
+or waits till conversion/mirror syncing is finished</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvconvert</b>
+<i>LV_mirror_raid</i></p>
+
+<p style="margin-left:17%;">[ COMMON_OPTIONS ]</p>
+
+<p style="margin-left:11%;">-</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This previous
+command syntax would perform two different operations:
+<b><br>
+lvconvert --thinpool</b> <i>LV1</i> <b>--poolmetadata</b>
+<i>LV2</i> <br>
+If LV1 was not a thin pool, the command would convert LV1 to
+a thin pool, optionally using a specified LV for metadata.
+But, if LV1 was already a thin pool, the command would swap
+the current metadata LV with LV2 (for repair purposes.)</p>
+
+<p style="margin-left:11%; margin-top: 1em">In the same
+way, this previous command syntax would perform two
+different operations: <b><br>
+lvconvert --cachepool</b> <i>LV1</i> <b>--poolmetadata</b>
+<i>LV2</i> <br>
+If LV1 was not a cache pool, the command would convert LV1
+to a cache pool, optionally using a specified LV for
+metadata. But, if LV1 was already a cache pool, the command
+would swap the current metadata LV with LV2 (for repair
+purposes.)</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Convert a
+linear LV to a two-way mirror LV. <b><br>
+lvconvert --type mirror --mirrors 1 vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert a
+linear LV to a two-way RAID1 LV. <b><br>
+lvconvert --type raid1 --mirrors 1 vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert a
+mirror LV to use an in-memory log. <b><br>
+lvconvert --mirrorlog core vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert a
+mirror LV to use a disk log. <b><br>
+lvconvert --mirrorlog disk vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert a
+mirror or raid1 LV to a linear LV. <b><br>
+lvconvert --type linear vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert a
+mirror LV to a raid1 LV with the same number of images.
+<b><br>
+lvconvert --type raid1 vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert a
+linear LV to a two-way mirror LV, allocating new extents
+from specific PV ranges. <b><br>
+lvconvert --mirrors 1 vg/lvol1 /dev/sda:0-15
+/dev/sdb:0-15</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert a
+mirror LV to a linear LV, freeing physical extents from a
+specific PV. <b><br>
+lvconvert --type linear vg/lvol1 /dev/sda</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Split one image
+from a mirror or raid1 LV, making it a new LV. <b><br>
+lvconvert --splitmirrors 1 --name lv_split vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Split one image
+from a raid1 LV, and track changes made to the raid1 LV
+while the split image remains detached. <b><br>
+lvconvert --splitmirrors 1 --trackchanges vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Merge an image
+(that was previously created with --splitmirrors and
+--trackchanges) back into the original raid1 LV. <b><br>
+lvconvert --mergemirrors vg/lvol1_rimage_1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Replace PV
+/dev/sdb1 with PV /dev/sdf1 in a raid1/4/5/6/10 LV. <b><br>
+lvconvert --replace /dev/sdb1 vg/lvol1 /dev/sdf1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Replace 3 PVs
+/dev/sd[b-d]1 with PVs /dev/sd[f-h]1 in a raid1 LV. <b><br>
+lvconvert --replace /dev/sdb1 --replace /dev/sdc1 --replace
+/dev/sdd1</b></p>
+
+<p style="margin-left:22%;"><b>vg/lvol1
+/dev/sd[fgh]1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Replace the
+maximum of 2 PVs /dev/sd[bc]1 with PVs /dev/sd[gh]1 in a
+raid6 LV. <b><br>
+lvconvert --replace /dev/sdb1 --replace /dev/sdc1 vg/lvol1
+/dev/sd[gh]1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert an LV
+into a thin LV in the specified thin pool. The existing LV
+is used as an external read-only origin for the new thin LV.
+<b><br>
+lvconvert --type thin --thinpool vg/tpool1 vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert an LV
+into a thin LV in the specified thin pool. The existing LV
+is used as an external read-only origin for the new thin LV,
+and is renamed &quot;external&quot;. <b><br>
+lvconvert --type thin --thinpool vg/tpool1</b></p>
+
+<p style="margin-left:22%;"><b>--originname external
+vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert an LV
+to a cache pool LV using another specified LV for cache pool
+metadata. <b><br>
+lvconvert --type cache-pool --poolmetadata vg/poolmeta1
+vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Convert an LV
+to a cache LV using the specified cache pool and chunk size.
+<b><br>
+lvconvert --type cache --cachepool vg/cpool1 -c 128
+vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Detach and keep
+the cache pool from a cache LV. <b><br>
+lvconvert --splitcache vg/lvol1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Detach and
+remove the cache pool from a cache LV. <b><br>
+lvconvert --uncache vg/lvol1</b></p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvm</b>(8)
+<b>lvm.conf</b>(5) <b>lvmconfig</b>(8)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>pvchange</b>(8)
+<b>pvck</b>(8) <b>pvcreate</b>(8) <b>pvdisplay</b>(8)
+<b>pvmove</b>(8) <b>pvremove</b>(8) <b>pvresize</b>(8)
+<b>pvs</b>(8) <b>pvscan</b>(8)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>vgcfgbackup</b>(8)
+<b>vgcfgrestore</b>(8) <b>vgchange</b>(8) <b>vgck</b>(8)
+<b>vgcreate</b>(8) <b>vgconvert</b>(8) <b>vgdisplay</b>(8)
+<b>vgexport</b>(8) <b>vgextend</b>(8) <b>vgimport</b>(8)
+<b>vgimportclone</b>(8) <b>vgmerge</b>(8)
+<b>vgmknodes</b>(8) <b>vgreduce</b>(8) <b>vgremove</b>(8)
+<b>vgrename</b>(8) <b>vgs</b>(8) <b>vgscan</b>(8)
+<b>vgsplit</b>(8)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvcreate</b>(8)
+<b>lvchange</b>(8) <b>lvconvert</b>(8) <b>lvdisplay</b>(8)
+<b>lvextend</b>(8) <b>lvreduce</b>(8) <b>lvremove</b>(8)
+<b>lvrename</b>(8) <b>lvresize</b>(8) <b>lvs</b>(8)
+<b>lvscan</b>(8)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvm-fullreport</b>(8)
+<b>lvm-lvpoll</b>(8) <b>lvm2-activation-generator</b>(8)
+<b>blkdeactivate</b>(8) <b>lvmdump</b>(8)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>dmeventd</b>(8)
+<b>lvmpolld</b>(8) <b>lvmlockd</b>(8) <b>lvmlockctl</b>(8)
+<b>cmirrord</b>(8) <b>lvmdbusd</b>(8)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lvmsystemid</b>(7)
+<b>lvmreport</b>(7) <b>lvmraid</b>(7) <b>lvmthin</b>(7)
+<b>lvmcache</b>(7)</p>
+<hr>
+</body>
+</html>

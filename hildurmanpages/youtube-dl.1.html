@@ -1,0 +1,4276 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:15:32 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>YOUTUBE-DL</title>
+
+</head>
+<body>
+
+<h1 align="center">YOUTUBE-DL</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#CONFIGURATION">CONFIGURATION</a><br>
+<a href="#OUTPUT TEMPLATE">OUTPUT TEMPLATE</a><br>
+<a href="#FORMAT SELECTION">FORMAT SELECTION</a><br>
+<a href="#VIDEO SELECTION">VIDEO SELECTION</a><br>
+<a href="#FAQ">FAQ</a><br>
+<a href="#Why do I need to go through that much red tape when filing bugs?">Why do I need to go through that much red tape when filing bugs?</a><br>
+<a href="#DEVELOPER INSTRUCTIONS">DEVELOPER INSTRUCTIONS</a><br>
+<a href="#EMBEDDING YOUTUBE-DL">EMBEDDING YOUTUBE-DL</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">youtube-dl -
+download videos from youtube.com or other video
+platforms</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>youtube-dl</b>
+[OPTIONS] URL [URL...]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>youtube-dl</b>
+is a command-line program to download videos from
+YouTube.com and a few more sites. It requires the Python
+interpreter, version 2.6, 2.7, or 3.2+, and it is not
+platform specific. It should work on your Unix box, on
+Windows or on macOS. It is released to the public domain,
+which means you can modify it, redistribute it or use it
+however you like.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h,
+--help</b></p>
+
+<p style="margin-left:22%;">Print this help text and
+exit</p>
+
+<p style="margin-left:11%;"><b>--version</b></p>
+
+<p style="margin-left:22%;">Print program version and
+exit</p>
+
+<p style="margin-left:11%;"><b>-i, --ignore-errors</b></p>
+
+<p style="margin-left:22%;">Continue on download errors,
+for example to skip unavailable videos in a playlist</p>
+
+<p style="margin-left:11%;"><b>--abort-on-error</b></p>
+
+<p style="margin-left:22%;">Abort downloading of further
+videos (in the playlist or the command line) if an error
+occurs</p>
+
+<p style="margin-left:11%;"><b>--dump-user-agent</b></p>
+
+<p style="margin-left:22%;">Display the current browser
+identification</p>
+
+<p style="margin-left:11%;"><b>--list-extractors</b></p>
+
+<p style="margin-left:22%;">List all supported
+extractors</p>
+
+
+<p style="margin-left:11%;"><b>--extractor-descriptions</b></p>
+
+<p style="margin-left:22%;">Output descriptions of all
+supported extractors</p>
+
+
+<p style="margin-left:11%;"><b>--force-generic-extractor</b></p>
+
+<p style="margin-left:22%;">Force extraction to use the
+generic extractor</p>
+
+<p style="margin-left:11%;"><b>--default-search</b>
+<i>PREFIX</i></p>
+
+<p style="margin-left:22%;">Use this prefix for unqualified
+URLs. For example &quot;gvsearch2:&quot; downloads two
+videos from google videos for youtube-dl &quot;large
+apple&quot;. Use the value &quot;auto&quot; to let
+youtube-dl guess (&quot;auto_warning&quot; to emit a warning
+when guessing). &quot;error&quot; just throws an error. The
+default value &quot;fixup_error&quot; repairs broken URLs,
+but emits an error if this is not possible instead of
+searching.</p>
+
+<p style="margin-left:11%;"><b>--ignore-config</b></p>
+
+<p style="margin-left:22%;">Do not read configuration
+files. When given in the global configuration file
+/etc/youtube-dl.conf: Do not read the user configuration in
+~/.config/youtube- dl/config
+(%APPDATA%/youtube-dl/config.txt on Windows)</p>
+
+<p style="margin-left:11%;"><b>--config-location</b>
+<i>PATH</i></p>
+
+<p style="margin-left:22%;">Location of the configuration
+file; either the path to the config or its containing
+directory.</p>
+
+<p style="margin-left:11%;"><b>--flat-playlist</b></p>
+
+<p style="margin-left:22%;">Do not extract the videos of a
+playlist, only list them.</p>
+
+<p style="margin-left:11%;"><b>--mark-watched</b></p>
+
+<p style="margin-left:22%;">Mark videos watched (YouTube
+only)</p>
+
+<p style="margin-left:11%;"><b>--no-mark-watched</b></p>
+
+<p style="margin-left:22%;">Do not mark videos watched
+(YouTube only)</p>
+
+<p style="margin-left:11%;"><b>--no-color</b></p>
+
+<p style="margin-left:22%;">Do not emit color codes in
+output</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Network
+Options: <br>
+--proxy</b> <i>URL</i></p>
+
+<p style="margin-left:22%;">Use the specified
+HTTP/HTTPS/SOCKS proxy. To enable SOCKS proxy, specify a
+proper scheme. For example socks5://127.0.0.1:1080/. Pass in
+an empty string (--proxy &quot;&quot;) for direct
+connection</p>
+
+<p style="margin-left:11%;"><b>--socket-timeout</b>
+<i>SECONDS</i></p>
+
+<p style="margin-left:22%;">Time to wait before giving up,
+in seconds</p>
+
+<p style="margin-left:11%;"><b>--source-address</b>
+<i>IP</i></p>
+
+<p style="margin-left:22%;">Client-side IP address to bind
+to</p>
+
+<p style="margin-left:11%;"><b>-4, --force-ipv4</b></p>
+
+<p style="margin-left:22%;">Make all connections via
+IPv4</p>
+
+<p style="margin-left:11%;"><b>-6, --force-ipv6</b></p>
+
+<p style="margin-left:22%;">Make all connections via
+IPv6</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Geo
+Restriction: <br>
+--geo-verification-proxy</b> <i>URL</i></p>
+
+<p style="margin-left:22%;">Use this proxy to verify the IP
+address for some geo-restricted sites. The default proxy
+specified by --proxy (or none, if the option is not present)
+is used for the actual downloading.</p>
+
+<p style="margin-left:11%;"><b>--geo-bypass</b></p>
+
+<p style="margin-left:22%;">Bypass geographic restriction
+via faking X-Forwarded-For HTTP header</p>
+
+<p style="margin-left:11%;"><b>--no-geo-bypass</b></p>
+
+<p style="margin-left:22%;">Do not bypass geographic
+restriction via faking X-Forwarded-For HTTP header</p>
+
+<p style="margin-left:11%;"><b>--geo-bypass-country</b>
+<i>CODE</i></p>
+
+<p style="margin-left:22%;">Force bypass geographic
+restriction with explicitly provided two-letter ISO 3166-2
+country code</p>
+
+<p style="margin-left:11%;"><b>--geo-bypass-ip-block</b>
+<i>IP_BLOCK</i></p>
+
+<p style="margin-left:22%;">Force bypass geographic
+restriction with explicitly provided IP block in CIDR
+notation</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Video
+Selection: <br>
+--playlist-start</b> <i>NUMBER</i></p>
+
+<p style="margin-left:22%;">Playlist video to start at
+(default is 1)</p>
+
+<p style="margin-left:11%;"><b>--playlist-end</b>
+<i>NUMBER</i></p>
+
+<p style="margin-left:22%;">Playlist video to end at
+(default is last)</p>
+
+<p style="margin-left:11%;"><b>--playlist-items</b>
+<i>ITEM_SPEC</i></p>
+
+<p style="margin-left:22%;">Playlist video items to
+download. Specify indices of the videos in the playlist
+separated by commas like: &quot;--playlist-items
+1,2,5,8&quot; if you want to download videos indexed 1, 2,
+5, 8 in the playlist. You can specify range:
+&quot;--playlist-items 1-3,7,10-13&quot;, it will download
+the videos at index 1, 2, 3, 7, 10, 11, 12 and 13.</p>
+
+<p style="margin-left:11%;"><b>--match-title</b>
+<i>REGEX</i></p>
+
+<p style="margin-left:22%;">Download only matching titles
+(regex or caseless sub-string)</p>
+
+<p style="margin-left:11%;"><b>--reject-title</b>
+<i>REGEX</i></p>
+
+<p style="margin-left:22%;">Skip download for matching
+titles (regex or caseless sub-string)</p>
+
+<p style="margin-left:11%;"><b>--max-downloads</b>
+<i>NUMBER</i></p>
+
+<p style="margin-left:22%;">Abort after downloading NUMBER
+files</p>
+
+<p style="margin-left:11%;"><b>--min-filesize</b>
+<i>SIZE</i></p>
+
+<p style="margin-left:22%;">Do not download any videos
+smaller than SIZE (e.g. 50k or 44.6m)</p>
+
+<p style="margin-left:11%;"><b>--max-filesize</b>
+<i>SIZE</i></p>
+
+<p style="margin-left:22%;">Do not download any videos
+larger than SIZE (e.g. 50k or 44.6m)</p>
+
+<p style="margin-left:11%;"><b>--date</b> <i>DATE</i></p>
+
+<p style="margin-left:22%;">Download only videos uploaded
+in this date</p>
+
+<p style="margin-left:11%;"><b>--datebefore</b>
+<i>DATE</i></p>
+
+<p style="margin-left:22%;">Download only videos uploaded
+on or before this date (i.e. inclusive)</p>
+
+<p style="margin-left:11%;"><b>--dateafter</b>
+<i>DATE</i></p>
+
+<p style="margin-left:22%;">Download only videos uploaded
+on or after this date (i.e. inclusive)</p>
+
+<p style="margin-left:11%;"><b>--min-views</b>
+<i>COUNT</i></p>
+
+<p style="margin-left:22%;">Do not download any videos with
+less than COUNT views</p>
+
+<p style="margin-left:11%;"><b>--max-views</b>
+<i>COUNT</i></p>
+
+<p style="margin-left:22%;">Do not download any videos with
+more than COUNT views</p>
+
+<p style="margin-left:11%;"><b>--match-filter</b>
+<i>FILTER</i></p>
+
+<p style="margin-left:22%;">Generic video filter. Specify
+any key (see the &quot;OUTPUT TEMPLATE&quot; for a list of
+available keys) to match if the key is present, !key to
+check if the key is not present, key &gt; NUMBER (like
+&quot;comment_count &gt; 12&quot;, also works with &gt;=,
+&lt;, &lt;=, !=, =) to compare against a number, key =
+'LITERAL' (like &quot;uploader = 'Mike Smith'&quot;, also
+works with !=) to match against a string literal and &amp;
+to require multiple matches. Values which are not known are
+excluded unless you put a question mark (?) after the
+operator. For example, to only match videos that have been
+liked more than 100 times and disliked less than 50 times
+(or the dislike functionality is not available at the given
+service), but who also have a description, use
+--match-filter &quot;like_count &gt; 100 &amp; dislike_count
+&lt;? 50 &amp; description&quot; .</p>
+
+<p style="margin-left:11%;"><b>--no-playlist</b></p>
+
+<p style="margin-left:22%;">Download only the video, if the
+URL refers to a video and a playlist.</p>
+
+<p style="margin-left:11%;"><b>--yes-playlist</b></p>
+
+<p style="margin-left:22%;">Download the playlist, if the
+URL refers to a video and a playlist.</p>
+
+<p style="margin-left:11%;"><b>--age-limit</b>
+<i>YEARS</i></p>
+
+<p style="margin-left:22%;">Download only videos suitable
+for the given age</p>
+
+<p style="margin-left:11%;"><b>--download-archive</b>
+<i>FILE</i></p>
+
+<p style="margin-left:22%;">Download only videos not listed
+in the archive file. Record the IDs of all downloaded videos
+in it.</p>
+
+<p style="margin-left:11%;"><b>--include-ads</b></p>
+
+<p style="margin-left:22%;">Download advertisements as well
+(experimental)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Download
+Options: <br>
+-r, --limit-rate</b> <i>RATE</i></p>
+
+<p style="margin-left:22%;">Maximum download rate in bytes
+per second (e.g. 50K or 4.2M)</p>
+
+<p style="margin-left:11%;"><b>-R, --retries</b>
+<i>RETRIES</i></p>
+
+<p style="margin-left:22%;">Number of retries (default is
+10), or &quot;infinite&quot;.</p>
+
+<p style="margin-left:11%;"><b>--fragment-retries</b>
+<i>RETRIES</i></p>
+
+<p style="margin-left:22%;">Number of retries for a
+fragment (default is 10), or &quot;infinite&quot; (DASH,
+hlsnative and ISM)</p>
+
+
+<p style="margin-left:11%;"><b>--skip-unavailable-fragments</b></p>
+
+<p style="margin-left:22%;">Skip unavailable fragments
+(DASH, hlsnative and ISM)</p>
+
+
+<p style="margin-left:11%;"><b>--abort-on-unavailable-fragment</b></p>
+
+<p style="margin-left:22%;">Abort downloading when some
+fragment is not available</p>
+
+<p style="margin-left:11%;"><b>--keep-fragments</b></p>
+
+<p style="margin-left:22%;">Keep downloaded fragments on
+disk after downloading is finished; fragments are erased by
+default</p>
+
+<p style="margin-left:11%;"><b>--buffer-size</b>
+<i>SIZE</i></p>
+
+<p style="margin-left:22%;">Size of download buffer (e.g.
+1024 or 16K) (default is 1024)</p>
+
+<p style="margin-left:11%;"><b>--no-resize-buffer</b></p>
+
+<p style="margin-left:22%;">Do not automatically adjust the
+buffer size. By default, the buffer size is automatically
+resized from an initial value of SIZE.</p>
+
+<p style="margin-left:11%;"><b>--http-chunk-size</b>
+<i>SIZE</i></p>
+
+<p style="margin-left:22%;">Size of a chunk for chunk-based
+HTTP downloading (e.g. 10485760 or 10M) (default is
+disabled). May be useful for bypassing bandwidth throttling
+imposed by a webserver (experimental)</p>
+
+<p style="margin-left:11%;"><b>--playlist-reverse</b></p>
+
+<p style="margin-left:22%;">Download playlist videos in
+reverse order</p>
+
+<p style="margin-left:11%;"><b>--playlist-random</b></p>
+
+<p style="margin-left:22%;">Download playlist videos in
+random order</p>
+
+
+<p style="margin-left:11%;"><b>--xattr-set-filesize</b></p>
+
+<p style="margin-left:22%;">Set file xattribute
+ytdl.filesize with expected file size</p>
+
+<p style="margin-left:11%;"><b>--hls-prefer-native</b></p>
+
+<p style="margin-left:22%;">Use the native HLS downloader
+instead of ffmpeg</p>
+
+<p style="margin-left:11%;"><b>--hls-prefer-ffmpeg</b></p>
+
+<p style="margin-left:22%;">Use ffmpeg instead of the
+native HLS downloader</p>
+
+<p style="margin-left:11%;"><b>--hls-use-mpegts</b></p>
+
+<p style="margin-left:22%;">Use the mpegts container for
+HLS videos, allowing to play the video while downloading
+(some players may not be able to play it)</p>
+
+<p style="margin-left:11%;"><b>--external-downloader</b>
+<i>COMMAND</i></p>
+
+<p style="margin-left:22%;">Use the specified external
+downloader. Currently supports
+aria2c,avconv,axel,curl,ffmpeg,httpie,wget</p>
+
+
+<p style="margin-left:11%;"><b>--external-downloader-args</b>
+<i>ARGS</i></p>
+
+<p style="margin-left:22%;">Give these arguments to the
+external downloader</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Filesystem
+Options: <br>
+-a, --batch-file</b> <i>FILE</i></p>
+
+<p style="margin-left:22%;">File containing URLs to
+download ('-' for stdin), one URL per line. Lines starting
+with '#', ';' or ']' are considered as comments and
+ignored.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>--id</b></p></td>
+<td width="5%"></td>
+<td width="46%">
+
+
+<p>Use only video ID in file name</p></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-o, --output</b>
+<i>TEMPLATE</i></p>
+
+<p style="margin-left:22%;">Output filename template, see
+the &quot;OUTPUT TEMPLATE&quot; for all the info</p>
+
+<p style="margin-left:11%;"><b>--autonumber-start</b>
+<i>NUMBER</i></p>
+
+<p style="margin-left:22%;">Specify the start value for
+%(autonumber)s (default is 1)</p>
+
+
+<p style="margin-left:11%;"><b>--restrict-filenames</b></p>
+
+<p style="margin-left:22%;">Restrict filenames to only
+ASCII characters, and avoid &quot;&amp;&quot; and spaces in
+filenames</p>
+
+<p style="margin-left:11%;"><b>-w, --no-overwrites</b></p>
+
+<p style="margin-left:22%;">Do not overwrite files</p>
+
+<p style="margin-left:11%;"><b>-c, --continue</b></p>
+
+<p style="margin-left:22%;">Force resume of partially
+downloaded files. By default, youtube-dl will resume
+downloads if possible.</p>
+
+<p style="margin-left:11%;"><b>--no-continue</b></p>
+
+<p style="margin-left:22%;">Do not resume partially
+downloaded files (restart from beginning)</p>
+
+<p style="margin-left:11%;"><b>--no-part</b></p>
+
+<p style="margin-left:22%;">Do not use .part files - write
+directly into output file</p>
+
+<p style="margin-left:11%;"><b>--no-mtime</b></p>
+
+<p style="margin-left:22%;">Do not use the Last-modified
+header to set the file modification time</p>
+
+<p style="margin-left:11%;"><b>--write-description</b></p>
+
+<p style="margin-left:22%;">Write video description to a
+.description file</p>
+
+<p style="margin-left:11%;"><b>--write-info-json</b></p>
+
+<p style="margin-left:22%;">Write video metadata to a
+.info.json file</p>
+
+<p style="margin-left:11%;"><b>--write-annotations</b></p>
+
+<p style="margin-left:22%;">Write video annotations to a
+.annotations.xml file</p>
+
+<p style="margin-left:11%;"><b>--load-info-json</b>
+<i>FILE</i></p>
+
+<p style="margin-left:22%;">JSON file containing the video
+information (created with the &quot;--write-info-json&quot;
+option)</p>
+
+<p style="margin-left:11%;"><b>--cookies</b>
+<i>FILE</i></p>
+
+<p style="margin-left:22%;">File to read cookies from and
+dump cookie jar in</p>
+
+<p style="margin-left:11%;"><b>--cache-dir</b>
+<i>DIR</i></p>
+
+<p style="margin-left:22%;">Location in the filesystem
+where youtube-dl can store some downloaded information
+permanently. By default $XDG_CACHE_HOME/youtube-dl or
+~/.cache/youtube-dl . At the moment, only YouTube player
+files (for videos with obfuscated signatures) are cached,
+but that may change.</p>
+
+<p style="margin-left:11%;"><b>--no-cache-dir</b></p>
+
+<p style="margin-left:22%;">Disable filesystem caching</p>
+
+<p style="margin-left:11%;"><b>--rm-cache-dir</b></p>
+
+<p style="margin-left:22%;">Delete all filesystem cache
+files</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Thumbnail
+images: <br>
+--write-thumbnail</b></p>
+
+<p style="margin-left:22%;">Write thumbnail image to
+disk</p>
+
+
+<p style="margin-left:11%;"><b>--write-all-thumbnails</b></p>
+
+<p style="margin-left:22%;">Write all thumbnail image
+formats to disk</p>
+
+<p style="margin-left:11%;"><b>--list-thumbnails</b></p>
+
+<p style="margin-left:22%;">Simulate and list all available
+thumbnail formats</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Verbosity /
+Simulation Options: <br>
+-q, --quiet</b></p>
+
+<p style="margin-left:22%;">Activate quiet mode</p>
+
+<p style="margin-left:11%;"><b>--no-warnings</b></p>
+
+<p style="margin-left:22%;">Ignore warnings</p>
+
+<p style="margin-left:11%;"><b>-s, --simulate</b></p>
+
+<p style="margin-left:22%;">Do not download the video and
+do not write anything to disk</p>
+
+<p style="margin-left:11%;"><b>--skip-download</b></p>
+
+<p style="margin-left:22%;">Do not download the video</p>
+
+<p style="margin-left:11%;"><b>-g, --get-url</b></p>
+
+<p style="margin-left:22%;">Simulate, quiet but print
+URL</p>
+
+<p style="margin-left:11%;"><b>-e, --get-title</b></p>
+
+<p style="margin-left:22%;">Simulate, quiet but print
+title</p>
+
+<p style="margin-left:11%;"><b>--get-id</b></p>
+
+<p style="margin-left:22%;">Simulate, quiet but print
+id</p>
+
+<p style="margin-left:11%;"><b>--get-thumbnail</b></p>
+
+<p style="margin-left:22%;">Simulate, quiet but print
+thumbnail URL</p>
+
+<p style="margin-left:11%;"><b>--get-description</b></p>
+
+<p style="margin-left:22%;">Simulate, quiet but print video
+description</p>
+
+<p style="margin-left:11%;"><b>--get-duration</b></p>
+
+<p style="margin-left:22%;">Simulate, quiet but print video
+length</p>
+
+<p style="margin-left:11%;"><b>--get-filename</b></p>
+
+<p style="margin-left:22%;">Simulate, quiet but print
+output filename</p>
+
+<p style="margin-left:11%;"><b>--get-format</b></p>
+
+<p style="margin-left:22%;">Simulate, quiet but print
+output format</p>
+
+<p style="margin-left:11%;"><b>-j, --dump-json</b></p>
+
+<p style="margin-left:22%;">Simulate, quiet but print JSON
+information. See the &quot;OUTPUT TEMPLATE&quot; for a
+description of available keys.</p>
+
+<p style="margin-left:11%;"><b>-J,
+--dump-single-json</b></p>
+
+<p style="margin-left:22%;">Simulate, quiet but print JSON
+information for each command-line argument. If the URL
+refers to a playlist, dump the whole playlist information in
+a single line.</p>
+
+<p style="margin-left:11%;"><b>--print-json</b></p>
+
+<p style="margin-left:22%;">Be quiet and print the video
+information as JSON (video is still being downloaded).</p>
+
+<p style="margin-left:11%;"><b>--newline</b></p>
+
+<p style="margin-left:22%;">Output progress bar as new
+lines</p>
+
+<p style="margin-left:11%;"><b>--no-progress</b></p>
+
+<p style="margin-left:22%;">Do not print progress bar</p>
+
+<p style="margin-left:11%;"><b>--console-title</b></p>
+
+<p style="margin-left:22%;">Display progress in console
+titlebar</p>
+
+<p style="margin-left:11%;"><b>-v, --verbose</b></p>
+
+<p style="margin-left:22%;">Print various debugging
+information</p>
+
+<p style="margin-left:11%;"><b>--dump-pages</b></p>
+
+<p style="margin-left:22%;">Print downloaded pages encoded
+using base64 to debug problems (very verbose)</p>
+
+<p style="margin-left:11%;"><b>--write-pages</b></p>
+
+<p style="margin-left:22%;">Write downloaded intermediary
+pages to files in the current directory to debug
+problems</p>
+
+<p style="margin-left:11%;"><b>--print-traffic</b></p>
+
+<p style="margin-left:22%;">Display sent and read HTTP
+traffic</p>
+
+<p style="margin-left:11%;"><b>-C, --call-home</b></p>
+
+<p style="margin-left:22%;">Contact the youtube-dl server
+for debugging</p>
+
+<p style="margin-left:11%;"><b>--no-call-home</b></p>
+
+<p style="margin-left:22%;">Do NOT contact the youtube-dl
+server for debugging</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Workarounds:
+<br>
+--encoding</b> <i>ENCODING</i></p>
+
+<p style="margin-left:22%;">Force the specified encoding
+(experimental)</p>
+
+
+<p style="margin-left:11%;"><b>--no-check-certificate</b></p>
+
+<p style="margin-left:22%;">Suppress HTTPS certificate
+validation</p>
+
+<p style="margin-left:11%;"><b>--prefer-insecure</b></p>
+
+<p style="margin-left:22%;">Use an unencrypted connection
+to retrieve information about the video. (Currently
+supported only for YouTube)</p>
+
+<p style="margin-left:11%;"><b>--user-agent</b>
+<i>UA</i></p>
+
+<p style="margin-left:22%;">Specify a custom user agent</p>
+
+<p style="margin-left:11%;"><b>--referer</b> <i>URL</i></p>
+
+<p style="margin-left:22%;">Specify a custom referer, use
+if the video access is restricted to one domain</p>
+
+<p style="margin-left:11%;"><b>--add-header</b>
+<i>FIELD:VALUE</i></p>
+
+<p style="margin-left:22%;">Specify a custom HTTP header
+and its value, separated by a colon ':'. You can use this
+option multiple times</p>
+
+<p style="margin-left:11%;"><b>--bidi-workaround</b></p>
+
+<p style="margin-left:22%;">Work around terminals that lack
+bidirectional text support. Requires bidiv or fribidi
+executable in PATH</p>
+
+<p style="margin-left:11%;"><b>--sleep-interval</b>
+<i>SECONDS</i></p>
+
+<p style="margin-left:22%;">Number of seconds to sleep
+before each download when used alone or a lower bound of a
+range for randomized sleep before each download (minimum
+possible number of seconds to sleep) when used along with
+--max-sleep-interval.</p>
+
+<p style="margin-left:11%;"><b>--max-sleep-interval</b>
+<i>SECONDS</i></p>
+
+<p style="margin-left:22%;">Upper bound of a range for
+randomized sleep before each download (maximum possible
+number of seconds to sleep). Must only be used along with
+--min-sleep-interval.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Video Format
+Options: <br>
+-f, --format</b> <i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Video format code, see the
+&quot;FORMAT SELECTION&quot; for all the info</p>
+
+<p style="margin-left:11%;"><b>--all-formats</b></p>
+
+<p style="margin-left:22%;">Download all available video
+formats</p>
+
+
+<p style="margin-left:11%;"><b>--prefer-free-formats</b></p>
+
+<p style="margin-left:22%;">Prefer free video formats
+unless a specific one is requested</p>
+
+<p style="margin-left:11%;"><b>-F, --list-formats</b></p>
+
+<p style="margin-left:22%;">List all available formats of
+requested videos</p>
+
+
+<p style="margin-left:11%;"><b>--youtube-skip-dash-manifest</b></p>
+
+<p style="margin-left:22%;">Do not download the DASH
+manifests and related data on YouTube videos</p>
+
+<p style="margin-left:11%;"><b>--merge-output-format</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">If a merge is required (e.g.
+bestvideo+bestaudio), output to given container format. One
+of mkv, mp4, ogg, webm, flv. Ignored if no merge is
+required</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Subtitle
+Options: <br>
+--write-sub</b></p>
+
+<p style="margin-left:22%;">Write subtitle file</p>
+
+<p style="margin-left:11%;"><b>--write-auto-sub</b></p>
+
+<p style="margin-left:22%;">Write automatically generated
+subtitle file (YouTube only)</p>
+
+<p style="margin-left:11%;"><b>--all-subs</b></p>
+
+<p style="margin-left:22%;">Download all the available
+subtitles of the video</p>
+
+<p style="margin-left:11%;"><b>--list-subs</b></p>
+
+<p style="margin-left:22%;">List all available subtitles
+for the video</p>
+
+<p style="margin-left:11%;"><b>--sub-format</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Subtitle format, accepts
+formats preference, for example: &quot;srt&quot; or
+&quot;ass/srt/best&quot;</p>
+
+<p style="margin-left:11%;"><b>--sub-lang</b>
+<i>LANGS</i></p>
+
+<p style="margin-left:22%;">Languages of the subtitles to
+download (optional) separated by commas, use --list- subs
+for available language tags</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Authentication
+Options: <br>
+-u, --username</b> <i>USERNAME</i></p>
+
+<p style="margin-left:22%;">Login with this account ID</p>
+
+<p style="margin-left:11%;"><b>-p, --password</b>
+<i>PASSWORD</i></p>
+
+<p style="margin-left:22%;">Account password. If this
+option is left out, youtube-dl will ask interactively.</p>
+
+<p style="margin-left:11%;"><b>-2, --twofactor</b>
+<i>TWOFACTOR</i></p>
+
+<p style="margin-left:22%;">Two-factor authentication
+code</p>
+
+<p style="margin-left:11%;"><b>-n, --netrc</b></p>
+
+<p style="margin-left:22%;">Use .netrc authentication
+data</p>
+
+<p style="margin-left:11%;"><b>--video-password</b>
+<i>PASSWORD</i></p>
+
+<p style="margin-left:22%;">Video password (vimeo, smotri,
+youku)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Adobe Pass
+Options: <br>
+--ap-mso</b> <i>MSO</i></p>
+
+<p style="margin-left:22%;">Adobe Pass multiple-system
+operator (TV provider) identifier, use --ap-list-mso for a
+list of available MSOs</p>
+
+<p style="margin-left:11%;"><b>--ap-username</b>
+<i>USERNAME</i></p>
+
+<p style="margin-left:22%;">Multiple-system operator
+account login</p>
+
+<p style="margin-left:11%;"><b>--ap-password</b>
+<i>PASSWORD</i></p>
+
+<p style="margin-left:22%;">Multiple-system operator
+account password. If this option is left out, youtube-dl
+will ask interactively.</p>
+
+<p style="margin-left:11%;"><b>--ap-list-mso</b></p>
+
+<p style="margin-left:22%;">List all supported
+multiple-system operators</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Post-processing
+Options: <br>
+-x, --extract-audio</b></p>
+
+<p style="margin-left:22%;">Convert video files to
+audio-only files (requires ffmpeg or avconv and ffprobe or
+avprobe)</p>
+
+<p style="margin-left:11%;"><b>--audio-format</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Specify audio format:
+&quot;best&quot;, &quot;aac&quot;, &quot;flac&quot;,
+&quot;mp3&quot;, &quot;m4a&quot;, &quot;opus&quot;,
+&quot;vorbis&quot;, or &quot;wav&quot;; &quot;best&quot; by
+default; No effect without -x</p>
+
+<p style="margin-left:11%;"><b>--audio-quality</b>
+<i>QUALITY</i></p>
+
+<p style="margin-left:22%;">Specify ffmpeg/avconv audio
+quality, insert a value between 0 (better) and 9 (worse) for
+VBR or a specific bitrate like 128K (default 5)</p>
+
+<p style="margin-left:11%;"><b>--recode-video</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Encode the video to another
+format if necessary (currently supported:
+mp4|flv|ogg|webm|mkv|avi)</p>
+
+<p style="margin-left:11%;"><b>--postprocessor-args</b>
+<i>ARGS</i></p>
+
+<p style="margin-left:22%;">Give these arguments to the
+postprocessor</p>
+
+<p style="margin-left:11%;"><b>-k, --keep-video</b></p>
+
+<p style="margin-left:22%;">Keep the video file on disk
+after the post- processing; the video is erased by
+default</p>
+
+
+<p style="margin-left:11%;"><b>--no-post-overwrites</b></p>
+
+<p style="margin-left:22%;">Do not overwrite post-processed
+files; the post-processed files are overwritten by
+default</p>
+
+<p style="margin-left:11%;"><b>--embed-subs</b></p>
+
+<p style="margin-left:22%;">Embed subtitles in the video
+(only for mp4, webm and mkv videos)</p>
+
+<p style="margin-left:11%;"><b>--embed-thumbnail</b></p>
+
+<p style="margin-left:22%;">Embed thumbnail in the audio as
+cover art</p>
+
+<p style="margin-left:11%;"><b>--add-metadata</b></p>
+
+<p style="margin-left:22%;">Write metadata to the video
+file</p>
+
+<p style="margin-left:11%;"><b>--metadata-from-title</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Parse additional metadata like
+song title / artist from the video title. The format syntax
+is the same as --output. Regular expression with named
+capture groups may also be used. The parsed parameters
+replace existing values. Example: --metadata-from- title
+&quot;%(artist)s - %(title)s&quot; matches a title like
+&quot;Coldplay - Paradise&quot;. Example (regex):
+--metadata-from-title &quot;(?P.+?) - (?P <br>
+.+)&quot;</p>
+
+<p style="margin-left:11%;"><b>--xattrs</b></p>
+
+<p style="margin-left:22%;">Write metadata to the video
+file's xattrs (using dublin core and xdg standards)</p>
+
+<p style="margin-left:11%;"><b>--fixup</b>
+<i>POLICY</i></p>
+
+<p style="margin-left:22%;">Automatically correct known
+faults of the file. One of never (do nothing), warn (only
+emit a warning), detect_or_warn (the default; fix file if we
+can, warn otherwise)</p>
+
+<p style="margin-left:11%;"><b>--prefer-avconv</b></p>
+
+<p style="margin-left:22%;">Prefer avconv over ffmpeg for
+running the postprocessors</p>
+
+<p style="margin-left:11%;"><b>--prefer-ffmpeg</b></p>
+
+<p style="margin-left:22%;">Prefer ffmpeg over avconv for
+running the postprocessors (default)</p>
+
+<p style="margin-left:11%;"><b>--ffmpeg-location</b>
+<i>PATH</i></p>
+
+<p style="margin-left:22%;">Location of the ffmpeg/avconv
+binary; either the path to the binary or its containing
+directory.</p>
+
+<p style="margin-left:11%;"><b>--exec</b> <i>CMD</i></p>
+
+<p style="margin-left:22%;">Execute a command on the file
+after downloading, similar to find's -exec syntax. Example:
+--exec 'adb push {} /sdcard/Music/ &amp;&amp; rm {}'</p>
+
+<p style="margin-left:11%;"><b>--convert-subs</b>
+<i>FORMAT</i></p>
+
+<p style="margin-left:22%;">Convert the subtitles to other
+format (currently supported: srt|ass|vtt|lrc)</p>
+
+<h2>CONFIGURATION
+<a name="CONFIGURATION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">You can
+configure youtube-dl by placing any supported command line
+option to a configuration file. On Linux and macOS, the
+system wide configuration file is located at
+<tt>/etc/youtube-dl.conf</tt> and the user wide
+configuration file at <tt>~/.config/youtube-dl/config</tt>.
+On Windows, the user wide configuration file locations are
+<tt>%APPDATA%\youtube-dl\config.txt</tt> or
+<tt>C:\Users\&lt;user name&gt;\youtube-dl.conf</tt>. Note
+that by default configuration file may not exist so you may
+need to create it yourself.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For example,
+with the following configuration file youtube-dl will always
+extract the audio, not copy the mtime, use a proxy and save
+all videos under <tt>Movies</tt> directory in your home
+directory:</p>
+<pre style="margin-left:22%; margin-top: 1em"># Lines starting with # are comments
+
+# Always extract audio
+-x
+
+# Do not copy the mtime
+--no-mtime
+
+# Use this proxy
+--proxy 127.0.0.1:3128
+
+
+# Save all videos under Movies directory in your home directory
+-o ~/Movies/%(title)s.%(ext)s</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+options in configuration file are just the same options aka
+switches used in regular command line calls thus there
+<b>must be no whitespace</b> after <tt>-</tt> or
+<tt>--</tt>, e.g. <tt>-o</tt> or <tt>--proxy</tt> but not
+<tt>- o</tt> or <tt>-- proxy</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can use
+<tt>--ignore-config</tt> if you want to disable the
+configuration file for a particular youtube-dl run.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can also
+use <tt>--config-location</tt> if you want to use custom
+configuration file for a particular youtube-dl run.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Authentication
+with</b> <tt>.netrc</tt> file <br>
+You may also want to configure automatic credentials storage
+for extractors that support authentication (by providing
+login and password with <tt>--username</tt> and
+<tt>--password</tt>) in order not to pass credentials as
+command line arguments on every youtube-dl execution and
+prevent tracking plain text passwords in the shell command
+history. You can achieve this using a <tt>.netrc</tt> file
+(https://stackoverflow.com/tags/.netrc/info) on a per
+extractor basis. For that you will need to create a
+<tt>.netrc</tt> file in your <tt>$HOME</tt> and restrict
+permissions to read/write by only you:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">touch $HOME/.netrc
+chmod a-rwx,u+rw $HOME/.netrc</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">After that you
+can add credentials for an extractor in the following
+format, where <i>extractor</i> is the name of the extractor
+in lowercase:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">machine &lt;extractor&gt; login &lt;login&gt; password &lt;password&gt;</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">For
+example:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">machine youtube login myaccount@gmail.com password my_youtube_password
+machine twitch login my_twitch_account_name password my_twitch_password</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">To activate
+authentication with the <tt>.netrc</tt> file you should pass
+<tt>--netrc</tt> to youtube-dl or place it in the
+configuration file.</p>
+
+<p style="margin-left:11%; margin-top: 1em">On Windows you
+may also need to setup the <tt>%HOME%</tt> environment
+variable manually. For example:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">set HOME=%USERPROFILE%</pre>
+
+
+<h2>OUTPUT TEMPLATE
+<a name="OUTPUT TEMPLATE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The <tt>-o</tt>
+option allows users to indicate a template for the output
+file names.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>tl;dr:</b>
+navigate me to examples.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The basic usage
+is not to set any template arguments when downloading a
+single file, like in <tt>youtube-dl -o funny_video.flv
+&quot;https://some/video&quot;</tt>. However, it may contain
+special sequences that will be replaced when downloading
+each video. The special sequences may be formatted according
+to python string formatting operations
+(https://docs.python.org/2/library/stdtypes.html#string-formatting).
+For example, <tt>%(NAME)s</tt> or <tt>%(NAME)05d</tt>. To
+clarify, that is a percent symbol followed by a name in
+parentheses, followed by formatting operations. Allowed
+names along with sequence type are:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>id</tt> (string): Video identifier</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>title</tt> (string): Video title</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>url</tt> (string): Video URL</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>ext</tt> (string): Video filename extension</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>alt_title</tt> (string): A secondary title of the
+video</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>display_id</tt> (string): An alternative identifier
+for the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>uploader</tt> (string): Full name of the video
+uploader</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>license</tt> (string): License name the video is
+licensed under</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>creator</tt> (string): The creator of the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>release_date</tt> (string): The date (YYYYMMDD) when
+the video was released</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>timestamp</tt> (numeric): UNIX timestamp of the
+moment the video became available</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>upload_date</tt> (string): Video upload date
+(YYYYMMDD)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>uploader_id</tt> (string): Nickname or id of the
+video uploader</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>channel</tt> (string): Full name of the channel the
+video is uploaded on</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>channel_id</tt> (string): Id of the channel</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>location</tt> (string): Physical location where the
+video was filmed</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>duration</tt> (numeric): Length of the video in
+seconds</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>view_count</tt> (numeric): How many users have
+watched the video on the platform</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>like_count</tt> (numeric): Number of positive
+ratings of the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>dislike_count</tt> (numeric): Number of negative
+ratings of the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>repost_count</tt> (numeric): Number of reposts of
+the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>average_rating</tt> (numeric): Average rating give
+by users, the scale used depends on the webpage</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>comment_count</tt> (numeric): Number of comments on
+the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>age_limit</tt> (numeric): Age restriction for the
+video (years)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>is_live</tt> (boolean): Whether this video is a live
+stream or a fixed-length video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>start_time</tt> (numeric): Time in seconds where the
+reproduction should start, as specified in the URL</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>end_time</tt> (numeric): Time in seconds where the
+reproduction should end, as specified in the URL</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>format</tt> (string): A human-readable description
+of the format</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>format_id</tt> (string): Format code specified by
+<tt>--format</tt></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>format_note</tt> (string): Additional info about the
+format</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>width</tt> (numeric): Width of the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>height</tt> (numeric): Height of the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>resolution</tt> (string): Textual description of
+width and height</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>tbr</tt> (numeric): Average bitrate of audio and
+video in KBit/s</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>abr</tt> (numeric): Average audio bitrate in
+KBit/s</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>acodec</tt> (string): Name of the audio codec in
+use</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>asr</tt> (numeric): Audio sampling rate in Hertz</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>vbr</tt> (numeric): Average video bitrate in
+KBit/s</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>fps</tt> (numeric): Frame rate</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>vcodec</tt> (string): Name of the video codec in
+use</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>container</tt> (string): Name of the container
+format</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>filesize</tt> (numeric): The number of bytes, if
+known in advance</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>filesize_approx</tt> (numeric): An estimate for the
+number of bytes</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>protocol</tt> (string): The protocol that will be
+used for the actual download</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>extractor</tt> (string): Name of the extractor</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>extractor_key</tt> (string): Key name of the
+extractor</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>epoch</tt> (numeric): Unix epoch when creating the
+file</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>autonumber</tt> (numeric): Five-digit number that
+will be increased with each download, starting at zero</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist</tt> (string): Name or id of the playlist
+that contains the video</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_index</tt> (numeric): Index of the video in
+the playlist padded with leading zeros according to the
+total length of the playlist</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_id</tt> (string): Playlist identifier</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_title</tt> (string): Playlist title</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_uploader</tt> (string): Full name of the
+playlist uploader</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>playlist_uploader_id</tt> (string): Nickname or id
+of the playlist uploader</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Available for
+the video that belongs to some logical chapter or
+section:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>chapter</tt> (string): Name
+or title of the chapter the video belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>chapter_number</tt> (numeric): Number of the chapter
+the video belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>chapter_id</tt> (string): Id of the chapter the
+video belongs to</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Available for
+the video that is an episode of some series or
+programme:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>series</tt> (string): Title
+of the series or programme the video episode belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>season</tt> (string): Title of the season the video
+episode belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>season_number</tt> (numeric): Number of the season
+the video episode belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>season_id</tt> (string): Id of the season the video
+episode belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>episode</tt> (string): Title of the video
+episode</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>episode_number</tt> (numeric): Number of the video
+episode within a season</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>episode_id</tt> (string): Id of the video
+episode</p> </td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Available for
+the media that is a track or a part of a music album:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>track</tt> (string): Title
+of the track</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>track_number</tt> (numeric): Number of the track
+within an album or a disc</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>track_id</tt> (string): Id of the track</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>artist</tt> (string): Artist(s) of the track</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>genre</tt> (string): Genre(s) of the track</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>album</tt> (string): Title of the album the track
+belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>album_type</tt> (string): Type of the album</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>album_artist</tt> (string): List of all artists
+appeared on the album</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>disc_number</tt> (numeric): Number of the disc or
+other physical medium the track belongs to</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>release_year</tt> (numeric): Year (YYYY) when the
+album was released</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Each
+aforementioned sequence when referenced in an output
+template will be replaced by the actual value corresponding
+to the sequence name. Note that some of the sequences are
+not guaranteed to be present since they depend on the
+metadata obtained by a particular extractor. Such sequences
+will be replaced with <tt>NA</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For example for
+<tt>-o %(title)s-%(id)s.%(ext)s</tt> and an mp4 video with
+title <tt>youtube-dl test video</tt> and id
+<tt>BaW_jenozKcj</tt>, this will result in a <tt>youtube-dl
+test video-BaW_jenozKcj.mp4</tt> file created in the current
+directory.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For numeric
+sequences you can use numeric related formatting, for
+example, <tt>%(view_count)05d</tt> will result in a string
+with view count padded with zeros up to 5 characters, like
+in <tt>00042</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Output
+templates can also contain arbitrary hierarchical path, e.g.
+<tt>-o '%(playlist)s/%(playlist_index)s -
+%(title)s.%(ext)s'</tt> which will result in downloading
+each video in a directory corresponding to this path
+template. Any missing directory will be automatically
+created for you.</p>
+
+<p style="margin-left:11%; margin-top: 1em">To use percent
+literals in an output template use <tt>%%</tt>. To output to
+stdout use <tt>-o -</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The current
+default template is <tt>%(title)s-%(id)s.%(ext)s</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In some cases,
+you don't want special characters such as &#20013; , spaces,
+or &amp;, such as when transferring the downloaded filename
+to a Windows system or the filename through an 8bit-unsafe
+channel. In these cases, add the
+<tt>--restrict-filenames</tt> flag to get a shorter
+title:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Output
+template and Windows batch files</b> <br>
+If you are using an output template inside a Windows batch
+file then you must escape plain percent characters
+(<tt>%</tt>) by doubling, so that <tt>-o
+&quot;%(title)s-%(id)s.%(ext)s&quot;</tt> should become
+<tt>-o &quot;%%(title)s-%%(id)s.%%(ext)s&quot;</tt>. However
+you should not touch <tt>%</tt>'s that are not plain
+characters, e.g. environment variables for expansion should
+stay intact: <tt>-o
+&quot;C:\%HOMEPATH%\Desktop\%%(title)s.%%(ext)s&quot;</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Output
+template examples</b> <br>
+Note that on Windows you may need to use double quotes
+instead of single.</p>
+<pre style="margin-left:22%; margin-top: 1em">$ youtube-dl --get-filename -o '%(title)s.%(ext)s' BaW_jenozKc
+youtube-dl test video ''_&auml;&#8621;&#120144;.mp4    # All kinds of weird characters
+
+$ youtube-dl --get-filename -o '%(title)s.%(ext)s' BaW_jenozKc --restrict-filenames
+youtube-dl_test_video_.mp4          # A simple file name
+
+# Download YouTube playlist videos in separate directory indexed by video order in a playlist
+$ youtube-dl -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' https://www.youtube.com/playlist?list=PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re
+
+# Download all playlists of YouTube channel/user keeping each playlist in separate directory:
+$ youtube-dl -o '%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' https://www.youtube.com/user/TheLinuxFoundation/playlists
+
+# Download Udemy course keeping each chapter in separate directory under MyVideos directory in your home
+$ youtube-dl -u user -p password -o '~/MyVideos/%(playlist)s/%(chapter_number)s - %(chapter)s/%(title)s.%(ext)s' https://www.udemy.com/java-tutorial/
+
+# Download entire series season keeping each series and each season in separate directory under C:/MyVideos
+$ youtube-dl -o &quot;C:/MyVideos/%(series)s/%(season_number)s - %(season)s/%(episode_number)s - %(episode)s.%(ext)s&quot; https://videomore.ru/kino_v_detalayah/5_sezon/367617
+
+
+# Stream the video being downloaded to stdout
+$ youtube-dl -o - BaW_jenozKc</pre>
+
+
+<h2>FORMAT SELECTION
+<a name="FORMAT SELECTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">By default
+youtube-dl tries to download the best available quality,
+i.e. if you want the best quality you <b>don't need</b> to
+pass any special options, youtube-dl will guess it for you
+by <b>default</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">But sometimes
+you may want to download in a different format, for example
+when you are on a slow or intermittent connection. The key
+mechanism for achieving this is so-called <i>format
+selection</i> based on which you can explicitly specify
+desired format, select formats based on some criterion or
+criteria, setup precedence and much more.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The general
+syntax for format selection is <tt>--format FORMAT</tt> or
+shorter <tt>-f FORMAT</tt> where <tt>FORMAT</tt> is a
+<i>selector expression</i>, i.e. an expression that
+describes format or formats you would like to download.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>tl;dr:</b>
+navigate me to examples.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The simplest
+case is requesting a specific format, for example with
+<tt>-f 22</tt> you can download the format with format code
+equal to 22. You can get the list of available format codes
+for particular video using <tt>--list-formats</tt> or
+<tt>-F</tt>. Note that these format codes are extractor
+specific.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can also
+use a file extension (currently <tt>3gp</tt>, <tt>aac</tt>,
+<tt>flv</tt>, <tt>m4a</tt>, <tt>mp3</tt>, <tt>mp4</tt>,
+<tt>ogg</tt>, <tt>wav</tt>, <tt>webm</tt> are supported) to
+download the best quality format of a particular file
+extension served as a single file, e.g. <tt>-f webm</tt>
+will download the best quality format with the <tt>webm</tt>
+extension served as a single file.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can also
+use special names to select particular edge case
+formats:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>best</tt>: Select the best
+quality format represented by a single file with video and
+audio.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>worst</tt>: Select the worst quality format
+represented by a single file with video and audio.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>bestvideo</tt>: Select the best quality video-only
+format (e.g. DASH video). May not be available.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>worstvideo</tt>: Select the worst quality video-only
+format. May not be available.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>bestaudio</tt>: Select the best quality audio
+only-format. May not be available.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>worstaudio</tt>: Select the worst quality audio
+only-format. May not be available.</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">For example, to
+download the worst quality video-only format you can use
+<tt>-f worstvideo</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+download multiple videos and they don't have the same
+formats available, you can specify the order of preference
+using slashes. Note that slash is left-associative, i.e.
+formats on the left hand side are preferred, for example
+<tt>-f 22/17/18</tt> will download format 22 if it's
+available, otherwise it will download format 17 if it's
+available, otherwise it will download format 18 if it's
+available, otherwise it will complain that no suitable
+formats are available for download.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+download several formats of the same video use a comma as a
+separator, e.g. <tt>-f 22,17,18</tt> will download all these
+three formats, of course if they are available. Or a more
+sophisticated example combined with the precedence feature:
+<tt>-f 136/137/mp4/bestvideo,140/m4a/bestaudio</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can also
+filter the video formats by putting a condition in brackets,
+as in <tt>-f &quot;best[height=720]&quot;</tt> (or <tt>-f
+&quot;[filesize&gt;10M]&quot;</tt>).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The following
+numeric meta fields can be used with comparisons
+<tt>&lt;</tt>, <tt>&lt;=</tt>, <tt>&gt;</tt>,
+<tt>&gt;=</tt>, <tt>=</tt> (equals), <tt>!=</tt> (not
+equals):</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p style="margin-top: 1em"><tt>filesize</tt>: The number of
+bytes, if known in advance</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>width</tt>: Width of the video, if known</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>height</tt>: Height of the video, if known</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>tbr</tt>: Average bitrate of audio and video in
+KBit/s</p> </td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>abr</tt>: Average audio bitrate in KBit/s</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>vbr</tt>: Average video bitrate in KBit/s</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>asr</tt>: Audio sampling rate in Hertz</p></td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="77%">
+
+
+<p><tt>fps</tt>: Frame rate</p></td>
+<td width="9%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Also filtering
+work for comparisons <tt>=</tt> (equals), <tt>^=</tt>
+(starts with), <tt>$=</tt> (ends with), <tt>*=</tt>
+(contains) and following string meta fields:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>ext</tt>: File extension</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>acodec</tt>: Name of the audio codec in use</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>vcodec</tt>: Name of the video codec in use</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>container</tt>: Name of the container format</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>protocol</tt>: The protocol that will be used for
+the actual download, lower-case (<tt>http</tt>,
+<tt>https</tt>, <tt>rtsp</tt>, <tt>rtmp</tt>,
+<tt>rtmpe</tt>, <tt>mms</tt>, <tt>f4m</tt>, <tt>ism</tt>,
+<tt>http_dash_segments</tt>, <tt>m3u8</tt>, or
+<tt>m3u8_native</tt>)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>format_id</tt>: A short description of the
+format</p> </td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Any string
+comparison may be prefixed with negation <tt>!</tt> in order
+to produce an opposite comparison, e.g. <tt>!*=</tt> (does
+not contain).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that none
+of the aforementioned meta fields are guaranteed to be
+present since this solely depends on the metadata obtained
+by particular extractor, i.e. the metadata offered by the
+video hoster.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Formats for
+which the value is not known are excluded unless you put a
+question mark (<tt>?</tt>) after the operator. You can
+combine format filters, so <tt>-f &quot;[height &lt;=?
+720][tbr&gt;500]&quot;</tt> selects up to 720p videos (or
+videos where the height is not known) with a bitrate of at
+least 500 KBit/s.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can merge
+the video and audio of two formats into a single file using
+<tt>-f &lt;video-format&gt;+&lt;audio-format&gt;</tt>
+(requires ffmpeg or avconv installed), for example <tt>-f
+bestvideo+bestaudio</tt> will download the best video-only
+format, the best audio-only format and mux them together
+with ffmpeg/avconv.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Format
+selectors can also be grouped using parentheses, for example
+if you want to download the best mp4 and webm formats with a
+height lower than 480 you can use <tt>-f
+'(mp4,webm)[height&lt;480]'</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Since the end
+of April 2015 and version 2015.04.26, youtube-dl uses <tt>-f
+bestvideo+bestaudio/best</tt> as the default format
+selection (see #5447
+(https://github.com/ytdl-org/youtube-dl/issues/5447), #5456
+(https://github.com/ytdl-org/youtube-dl/issues/5456)). If
+ffmpeg or avconv are installed this results in downloading
+<tt>bestvideo</tt> and <tt>bestaudio</tt> separately and
+muxing them together into a single file giving the best
+overall quality available. Otherwise it falls back to
+<tt>best</tt> and results in downloading the best available
+quality served as a single file. <tt>best</tt> is also
+needed for videos that don't come from YouTube because they
+don't provide the audio and video in two different files. If
+you want to only download some DASH formats (for example if
+you are not interested in getting videos with a resolution
+higher than 1080p), you can add <tt>-f
+bestvideo[height&lt;=?1080]+bestaudio/best</tt> to your
+configuration file. Note that if you use youtube-dl to
+stream to <tt>stdout</tt> (and most likely to pipe it to
+your media player then), i.e. you explicitly specify output
+template as <tt>-o -</tt>, youtube-dl still uses <tt>-f
+best</tt> format selection in order to start content
+delivery immediately to your player and not to wait until
+<tt>bestvideo</tt> and <tt>bestaudio</tt> are downloaded and
+muxed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+preserve the old format selection behavior (prior to
+youtube-dl 2015.04.26), i.e. you want to download the best
+available quality media served as a single file, you should
+explicitly specify your choice with <tt>-f best</tt>. You
+may want to add it to the configuration file in order not to
+type it every time you run youtube-dl.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Format
+selection examples</b> <br>
+Note that on Windows you may need to use double quotes
+instead of single.</p>
+<pre style="margin-left:22%; margin-top: 1em"># Download best mp4 format available or any other best if no mp4 available
+$ youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
+
+# Download best format available but no better than 480p
+$ youtube-dl -f 'bestvideo[height&lt;=480]+bestaudio/best[height&lt;=480]'
+
+# Download best video only format but no bigger than 50 MB
+$ youtube-dl -f 'best[filesize&lt;50M]'
+
+# Download best format available via direct link over HTTP/HTTPS protocol
+$ youtube-dl -f '(bestvideo+bestaudio/best)[protocol^=http]'
+
+
+# Download the best video format and the best audio format without merging them
+$ youtube-dl -f 'bestvideo,bestaudio' -o '%(title)s.f%(format_id)s.%(ext)s'</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Note that in
+the last example, an output template is recommended as
+bestvideo and bestaudio may have the same file name.</p>
+
+<h2>VIDEO SELECTION
+<a name="VIDEO SELECTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Videos can be
+filtered by their upload date using the options
+<tt>--date</tt>, <tt>--datebefore</tt> or
+<tt>--dateafter</tt>. They accept dates in two formats:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em">Absolute dates: Dates in the
+format <tt>YYYYMMDD</tt>.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p>Relative dates: Dates in the format
+<tt>(now|today)[+-][0-9](day|week|month|year)(s)?</tt></p> </td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Examples:</p>
+<pre style="margin-left:22%; margin-top: 1em"># Download only the videos uploaded in the last 6 months
+$ youtube-dl --dateafter now-6months
+
+# Download only the videos uploaded on January 1, 1970
+$ youtube-dl --date 19700101
+
+
+$ # Download only the videos uploaded in the 200x decade
+$ youtube-dl --dateafter 20000101 --datebefore 20091231</pre>
+
+
+<h2>FAQ
+<a name="FAQ"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>How do I
+update youtube-dl?</b> <br>
+If you've followed our manual installation instructions
+(https://ytdl-org.github.io/youtube-dl/download.html), you
+can simply run <tt>youtube-dl -U</tt> (or, on Linux,
+<tt>sudo youtube-dl -U</tt>).</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you have
+used pip, a simple <tt>sudo pip install -U youtube-dl</tt>
+is sufficient to update.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you have
+installed youtube-dl using a package manager like
+<i>apt-get</i> or <i>yum</i>, use the standard system update
+mechanism to update. Note that distribution packages are
+often outdated. As a rule of thumb, youtube-dl releases at
+least once a month, and often weekly or even daily. Simply
+go to https://yt-dl.org to find out the current version.
+Unfortunately, there is nothing we youtube-dl developers can
+do if your distribution serves a really outdated version.
+You can (and should) complain to your distribution in their
+bugtracker or support forum.</p>
+
+<p style="margin-left:11%; margin-top: 1em">As a last
+resort, you can also uninstall the version installed by your
+package manager and follow our manual installation
+instructions. For that, remove the distribution's package,
+with a line like</p>
+
+<pre style="margin-left:22%; margin-top: 1em">sudo apt-get remove -y youtube-dl</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Afterwards,
+simply follow our manual installation instructions
+(https://ytdl-org.github.io/youtube-dl/download.html):</p>
+
+<pre style="margin-left:22%; margin-top: 1em">sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+hash -r</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Again, from
+then on you'll be able to update with <tt>sudo youtube-dl
+-U</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>youtube-dl
+is extremely slow to start on Windows</b> <br>
+Add a file exclusion for <tt>youtube-dl.exe</tt> in Windows
+Defender settings.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>I'm getting
+an error</b> <tt>Unable to extract OpenGraph title</tt> on
+YouTube playlists <br>
+YouTube changed their playlist format in March 2014 and
+later on, so you'll need at least youtube-dl 2014.07.25 to
+download all YouTube videos.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you have
+installed youtube-dl with a package manager, pip, setup.py
+or a tarball, please use that to update. Note that Ubuntu
+packages do not seem to get updated anymore. Since we are
+not affiliated with Ubuntu, there is little we can do. Feel
+free to report bugs
+(https://bugs.launchpad.net/ubuntu/+source/youtube-dl/+filebug)
+to the Ubuntu packaging people
+(mailto:ubuntu-motu@lists.ubuntu.com?subject=outdated%20version%20of%20youtube-dl)
+- all they have to do is update the package to a somewhat
+recent version. See above for a way to update.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>I'm getting
+an error when trying to use output template:</b> <tt>error:
+using output template conflicts with using title, video ID
+or auto number</tt> <br>
+Make sure you are not using <tt>-o</tt> with any of these
+options <tt>-t</tt>, <tt>--title</tt>, <tt>--id</tt>,
+<tt>-A</tt> or <tt>--auto-number</tt> set in command line or
+in a configuration file. Remove the latter if any.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Do I always
+have to pass</b> <tt>-citw</tt>? <br>
+By default, youtube-dl intends to have the best options
+(incidentally, if you have a convincing case that these
+should be different, please file an issue where you explain
+that (https://yt-dl.org/bug)). Therefore, it is unnecessary
+and sometimes harmful to copy long option strings from
+webpages. In particular, the only option out of
+<tt>-citw</tt> that is regularly useful is <tt>-i</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Can you
+please put the</b> <tt>-b</tt> option back? <br>
+Most people asking this question are not aware that
+youtube-dl now defaults to downloading the highest available
+quality as reported by YouTube, which will be 1080p or 720p
+in some cases, so you no longer need the <tt>-b</tt> option.
+For some specific videos, maybe YouTube does not report them
+to be available in a specific high quality format you're
+interested in. In that case, simply request it with the
+<tt>-f</tt> option and youtube-dl will try to download
+it.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>I get HTTP
+error 402 when trying to download a video. What's this?</b>
+<br>
+Apparently YouTube requires you to pass a CAPTCHA test if
+you download too much. We're considering to provide a way to
+let you solve the CAPTCHA
+(https://github.com/ytdl-org/youtube-dl/issues/154), but at
+the moment, your best course of action is pointing a web
+browser to the youtube URL, solving the CAPTCHA, and restart
+youtube-dl.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Do I need
+any other programs?</b> <br>
+youtube-dl works fine on its own on most sites. However, if
+you want to convert video/audio, you'll need avconv
+(https://libav.org/) or ffmpeg (https://www.ffmpeg.org/). On
+some sites - most notably YouTube - videos can be retrieved
+in a higher quality format without sound. youtube-dl will
+detect whether avconv/ffmpeg is present and automatically
+pick the best option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Videos or video
+formats streamed via RTMP protocol can only be downloaded
+when rtmpdump (https://rtmpdump.mplayerhq.hu/) is installed.
+Downloading MMS and RTSP videos requires either mplayer
+(https://mplayerhq.hu/) or mpv (https://mpv.io/) to be
+installed.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>I have
+downloaded a video but how can I play it?</b> <br>
+Once the video is fully downloaded, use any video player,
+such as mpv (https://mpv.io/), vlc
+(https://www.videolan.org/) or mplayer
+(https://www.mplayerhq.hu/).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>I extracted
+a video URL with</b> <tt>-g</tt>, but it does not play on
+another machine / in my web browser. <br>
+It depends a lot on the service. In many cases, requests for
+the video (to download/play it) must come from the same IP
+address and with the same cookies and/or HTTP headers. Use
+the <tt>--cookies</tt> option to write the required cookies
+into a file, and advise your downloader to read cookies from
+that file. Some sites also require a common user agent to be
+used, use <tt>--dump-user-agent</tt> to see the one in use
+by youtube-dl. You can also get necessary cookies and HTTP
+headers from JSON output obtained with
+<tt>--dump-json</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">It may be
+beneficial to use IPv6; in some cases, the restrictions are
+only applied to IPv4. Some services (sometimes only for a
+subset of videos) do not restrict the video URL by IP
+address, cookie, or user-agent, but these are the exception
+rather than the rule.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Please bear in
+mind that some URL protocols are <b>not</b> supported by
+browsers out of the box, including RTMP. If you are using
+<tt>-g</tt>, your own downloader must support these as
+well.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+play the video on a machine that is not running youtube-dl,
+you can relay the video content from the machine that runs
+youtube-dl. You can use <tt>-o -</tt> to let youtube-dl
+stream a video to stdout, or simply allow the player to
+download the files written by youtube-dl in turn.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ERROR: no
+fmt_url_map or conn information found in video info</b> <br>
+YouTube has switched to a new video info format in July 2011
+which is not supported by old versions of youtube-dl. See
+above for how to update youtube-dl.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ERROR:
+unable to download video</b> <br>
+YouTube requires an additional signature since September
+2012 which is not supported by old versions of youtube-dl.
+See above for how to update youtube-dl.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Video URL
+contains an ampersand and I'm getting some strange
+output</b> <tt>[1] 2839</tt> or <tt>'v' is not recognized as
+an internal or external command</tt> <br>
+That's actually the output from your shell. Since ampersand
+is one of the special shell characters it's interpreted by
+the shell preventing you from passing the whole URL to
+youtube-dl. To disable your shell from interpreting the
+ampersands (or any other special characters) you have to
+either put the whole URL in quotes or escape them with a
+backslash (which approach will work depends on your
+shell).</p>
+
+<p style="margin-left:11%; margin-top: 1em">For example if
+your URL is
+https://www.youtube.com/watch?t=4&amp;v=BaW_jenozKc you
+should end up with following command:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><tt>youtube-dl
+'https://www.youtube.com/watch?t=4&amp;v=BaW_jenozKc'</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">or</p>
+
+<p style="margin-left:11%; margin-top: 1em"><tt>youtube-dl
+https://www.youtube.com/watch?t=4\&amp;v=BaW_jenozKc</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">For Windows you
+have to use the double quotes:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><tt>youtube-dl
+&quot;https://www.youtube.com/watch?t=4&amp;v=BaW_jenozKc&quot;</tt></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ExtractorError:
+Could not find JS function u'OF'</b> <br>
+In February 2015, the new YouTube player contained a
+character sequence in a string that was misinterpreted by
+old versions of youtube-dl. See above for how to update
+youtube-dl.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>HTTP Error
+429: Too Many Requests or 402: Payment Required</b> <br>
+These two error codes indicate that the service is blocking
+your IP address because of overuse. Usually this is a soft
+block meaning that you can gain access again after solving
+CAPTCHA. Just open a browser and solve a CAPTCHA the service
+suggests you and after that pass cookies to youtube-dl. Note
+that if your machine has multiple external IPs then you
+should also pass exactly the same IP you've used for solving
+CAPTCHA with <tt>--source-address</tt>. Also you may need to
+pass a <tt>User-Agent</tt> HTTP header of your browser with
+<tt>--user-agent</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If this is not
+the case (no CAPTCHA suggested to solve by the service) then
+you can contact the service and ask them to unblock your IP
+address, or - if you have acquired a whitelisted IP address
+already - use the <tt>--proxy</tt> or
+<tt>--source-address</tt> options to select another IP
+address.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>SyntaxError:
+Non-ASCII character</b> <br>
+The error</p>
+
+<pre style="margin-left:22%; margin-top: 1em">File &quot;youtube-dl&quot;, line 2
+SyntaxError: Non-ASCII character '\x93' ...</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">means you're
+using an outdated version of Python. Please update to Python
+2.6 or 2.7.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>What is this
+binary file? Where has the code gone?</b> <br>
+Since June 2012 (#342
+(https://github.com/ytdl-org/youtube-dl/issues/342))
+youtube-dl is packed as an executable zipfile, simply unzip
+it (might need renaming to <tt>youtube-dl.zip</tt> first on
+some systems) or clone the git repository, as laid out
+above. If you modify the code, you can run it by executing
+the <tt>__main__.py</tt> file. To recompile the executable,
+run <tt>make youtube-dl</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>The exe
+throws an error due to missing</b> <tt>MSVCR100.dll</tt>
+<br>
+To run the exe you need to install first the Microsoft
+Visual C++ 2010 Redistributable Package (x86)
+(https://www.microsoft.com/en-US/download/details.aspx?id=5555).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>On Windows,
+how should I set up ffmpeg and youtube-dl? Where should I
+put the exe files?</b> <br>
+If you put youtube-dl and ffmpeg in the same directory that
+you're running the command from, it will work, but that's
+rather cumbersome.</p>
+
+<p style="margin-left:11%; margin-top: 1em">To make a
+different directory work - either for ffmpeg, or for
+youtube-dl, or for both - simply create the directory (say,
+<tt>C:\bin</tt>, or <tt>C:\Users\&lt;User
+name&gt;\bin</tt>), put all the executables directly in
+there, and then set your PATH environment variable
+(https://www.java.com/en/download/help/path.xml) to include
+that directory.</p>
+
+<p style="margin-left:11%; margin-top: 1em">From then on,
+after restarting your shell, you will be able to access both
+youtube-dl and ffmpeg (and youtube-dl will be able to find
+ffmpeg) by simply typing <tt>youtube-dl</tt> or
+<tt>ffmpeg</tt>, no matter what directory you're in.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>How do I put
+downloads into a specific folder?</b> <br>
+Use the <tt>-o</tt> to specify an output template, for
+example <tt>-o
+&quot;/home/user/videos/%(title)s-%(id)s.%(ext)s&quot;</tt>.
+If you want this for all of your downloads, put the option
+into your configuration file.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>How do I
+download a video starting with a</b> <tt>-</tt>? <br>
+Either prepend <tt>https://www.youtube.com/watch?v=</tt> or
+separate the ID from the options with <tt>--</tt>:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">youtube-dl -- -wNyEUrxzFU
+youtube-dl &quot;https://www.youtube.com/watch?v=-wNyEUrxzFU&quot;</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>How do I
+pass cookies to youtube-dl?</b> <br>
+Use the <tt>--cookies</tt> option, for example <tt>--cookies
+/path/to/cookies/file.txt</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In order to
+extract cookies from browser use any conforming browser
+extension for exporting cookies. For example, cookies.txt
+(https://chrome.google.com/webstore/detail/cookiestxt/njabckikapfpffapmjgojcnbfjonfjfg)
+(for Chrome) or cookies.txt
+(https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/)
+(for Firefox).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that the
+cookies file must be in Mozilla/Netscape format and the
+first line of the cookies file must be either <tt># HTTP
+Cookie File</tt> or <tt># Netscape HTTP Cookie File</tt>.
+Make sure you have correct newline format
+(https://en.wikipedia.org/wiki/Newline) in the cookies file
+and convert newlines if necessary to correspond with your
+OS, namely <tt>CRLF</tt> (<tt>\r\n</tt>) for Windows and
+<tt>LF</tt> (<tt>\n</tt>) for Unix and Unix-like systems
+(Linux, macOS, etc.). <tt>HTTP Error 400: Bad Request</tt>
+when using <tt>--cookies</tt> is a good sign of invalid
+newline format.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Passing cookies
+to youtube-dl is a good way to workaround login when a
+particular extractor does not implement it explicitly.
+Another use case is working around CAPTCHA
+(https://en.wikipedia.org/wiki/CAPTCHA) some websites
+require you to solve in particular cases in order to get
+access (e.g. YouTube, CloudFlare).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>How do I
+stream directly to media player?</b> <br>
+You will first need to tell youtube-dl to stream media to
+stdout with <tt>-o -</tt>, and also tell your media player
+to read from stdin (it must be capable of this for
+streaming) and then pipe former to latter. For example,
+streaming to vlc (https://www.videolan.org/) can be achieved
+with:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">youtube-dl -o - &quot;https://www.youtube.com/watch?v=BaW_jenozKcj&quot; | vlc -</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>How do I
+download only new videos from a playlist?</b> <br>
+Use download-archive feature. With this feature you should
+initially download the complete playlist with
+<tt>--download-archive
+/path/to/download/archive/file.txt</tt> that will record
+identifiers of all the videos in a special file. Each
+subsequent run with the same <tt>--download-archive</tt>
+will download only new videos and skip all videos that have
+been downloaded before. Note that only successful downloads
+are recorded in the file.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For example, at
+first,</p>
+
+<pre style="margin-left:22%; margin-top: 1em">youtube-dl --download-archive archive.txt &quot;https://www.youtube.com/playlist?list=PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re&quot;</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">will download
+the complete <tt>PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re</tt>
+playlist and create a file <tt>archive.txt</tt>. Each
+subsequent run will only download new videos if any:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">youtube-dl --download-archive archive.txt &quot;https://www.youtube.com/playlist?list=PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re&quot;</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Should I
+add</b> <tt>--hls-prefer-native</tt> into my config? <br>
+When youtube-dl detects an HLS video, it can download it
+either with the built-in downloader or ffmpeg. Since many
+HLS streams are slightly invalid and ffmpeg/youtube-dl each
+handle some invalid cases better than the other, there is an
+option to switch the downloader if needed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">When youtube-dl
+knows that one particular downloader works better for a
+given website, that downloader will be picked. Otherwise,
+youtube-dl will pick the best downloader for general
+compatibility, which at the moment happens to be ffmpeg.
+This choice may change in future versions of youtube-dl,
+with improvements of the built-in downloader and/or
+ffmpeg.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In particular,
+the generic extractor (used when your website is not in the
+list of supported sites by youtube-dl
+(https://ytdl-org.github.io/youtube-dl/supportedsites.html)
+cannot mandate one specific downloader.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you put
+either <tt>--hls-prefer-native</tt> or
+<tt>--hls-prefer-ffmpeg</tt> into your configuration, a
+different subset of videos will fail to download correctly.
+Instead, it is much better to file an issue
+(https://yt-dl.org/bug) or a pull request which details why
+the native or the ffmpeg HLS downloader is a better choice
+for your use case.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Can you add
+support for this anime video site, or site which shows
+current movies for free?</b> <br>
+As a matter of policy (as well as legality), youtube-dl does
+not include support for services that specialize in
+infringing copyright. As a rule of thumb, if you cannot
+easily find a video that the service is quite obviously
+allowed to distribute (i.e. that has been uploaded by the
+creator, the creator's distributor, or is published under a
+free license), the service is probably unfit for inclusion
+to youtube-dl.</p>
+
+<p style="margin-left:11%; margin-top: 1em">A note on the
+service that they don't host the infringing content, but
+just link to those who do, is evidence that the service
+should <b>not</b> be included into youtube-dl. The same goes
+for any DMCA note when the whole front page of the service
+is filled with videos they are not allowed to distribute. A
+&quot;fair use&quot; note is equally unconvincing if the
+service shows copyright-protected videos in full without
+authorization.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Support
+requests for services that <b>do</b> purchase the rights to
+distribute their content are perfectly fine though. If in
+doubt, you can simply include a source that mentions the
+legitimate purchase of content.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>How can I
+speed up work on my issue?</b> <br>
+(Also known as: Help, my important issue not being solved!)
+The youtube-dl core developer team is quite small. While we
+do our best to solve as many issues as possible, sometimes
+that can take quite a while. To speed up your issue, here's
+what you can do:</p>
+
+<p style="margin-left:11%; margin-top: 1em">First of all,
+please do report the issue at our issue tracker
+(https://yt-dl.org/bugs). That allows us to coordinate all
+efforts by users and developers, and serves as a unified
+point. Unfortunately, the youtube-dl project has grown too
+large to use personal email as an effective communication
+channel.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Please read the
+bug reporting instructions below. A lot of bugs lack all the
+necessary information. If you can, offer proxy, VPN, or
+shell access to the youtube-dl developers. If you are able
+to, test the issue from multiple computers in multiple
+countries to exclude local censorship or misconfiguration
+issues.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If nobody is
+interested in solving your issue, you are welcome to take
+matters into your own hands and submit a pull request (or
+coerce/pay somebody else to do so).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Feel free to
+bump the issue from time to time by writing a small comment
+(&quot;Issue is still present in youtube-dl version ...from
+France, but fixed from Belgium&quot;), but please not more
+than once a month. Please do not declare your issue as
+<tt>important</tt> or <tt>urgent</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>How can I
+detect whether a given URL is supported by youtube-dl?</b>
+<br>
+For one, have a look at the list of supported sites
+(docs/supportedsites.md). Note that it can sometimes happen
+that the site changes its URL scheme (say, from
+https://example.com/video/1234567 to
+https://example.com/v/1234567 ) and youtube-dl reports an
+URL of a service in that list as unsupported. In that case,
+simply report a bug.</p>
+
+<p style="margin-left:11%; margin-top: 1em">It is
+<i>not</i> possible to detect whether a URL is supported or
+not. That's because youtube-dl contains a generic extractor
+which matches <b>all</b> URLs. You may be tempted to
+disable, exclude, or remove the generic extractor, but the
+generic extractor not only allows users to extract videos
+from lots of websites that embed a video from another
+service, but may also be used to extract video from a
+service that it's hosting itself. Therefore, we neither
+recommend nor support disabling, excluding, or removing the
+generic extractor.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+find out whether a given URL is supported, simply call
+youtube-dl with it. If you get no videos back, chances are
+the URL is either not referring to a video or unsupported.
+You can find out which by examining the output (if you run
+youtube-dl on the console) or catching an
+<tt>UnsupportedError</tt> exception if you run it from a
+Python program.</p>
+
+<h2>Why do I need to go through that much red tape when filing bugs?
+<a name="Why do I need to go through that much red tape when filing bugs?"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Before we had
+the issue template, despite our extensive bug reporting
+instructions, about 80% of the issue reports we got were
+useless, for instance because people used ancient versions
+hundreds of releases old, because of simple syntactic errors
+(not in youtube-dl but in general shell usage), because the
+problem was already reported multiple times before, because
+people did not actually read an error message, even if it
+said &quot;please install ffmpeg&quot;, because people did
+not mention the URL they were trying to download and many
+more simple, easy-to-avoid problems, many of whom were
+totally unrelated to youtube-dl.</p>
+
+<p style="margin-left:11%; margin-top: 1em">youtube-dl is
+an open-source project manned by too few volunteers, so we'd
+rather spend time fixing bugs where we are certain none of
+those simple problems apply, and where we can be reasonably
+confident to be able to reproduce the issue without asking
+the reporter repeatedly. As such, the output of
+<tt>youtube-dl -v YOUR_URL_HERE</tt> is really all that's
+required to file an issue. The issue template also guides
+you through some basic steps you can do, such as checking
+that your version of youtube-dl is current.</p>
+
+<h2>DEVELOPER INSTRUCTIONS
+<a name="DEVELOPER INSTRUCTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Most users do
+not need to build youtube-dl and can download the builds
+(https://ytdl-org.github.io/youtube-dl/download.html) or get
+them from their distribution.</p>
+
+<p style="margin-left:11%; margin-top: 1em">To run
+youtube-dl as a developer, you don't need to build anything
+either. Simply execute</p>
+
+<pre style="margin-left:22%; margin-top: 1em">python -m youtube_dl</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">To run the
+test, simply invoke your favorite test runner, or execute a
+test file directly; any of the following work:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">python -m unittest discover
+python test/test_download.py
+nosetests</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">See item 6 of
+new extractor tutorial for how to run extractor specific
+test cases.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If you want to
+create a build of youtube-dl yourself, you'll need</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="51%">
+
+
+<p style="margin-top: 1em">python</p></td>
+<td width="35%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="51%">
+
+
+<p>make (only GNU make is supported)</p></td>
+<td width="35%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="51%">
+
+
+<p>pandoc</p></td>
+<td width="35%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="51%">
+
+
+<p>zip</p></td>
+<td width="35%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="51%">
+
+
+<p>nosetests</p></td>
+<td width="35%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Adding
+support for a new site</b> <br>
+If you want to add support for a new site, first of all
+<b>make sure</b> this site is <b>not dedicated to copyright
+infringement
+(README.md#can-you-add-support-for-this-anime-video-site-or-site-which-shows-current-movies-for-free)</b>.
+youtube-dl does <b>not support</b> such sites thus pull
+requests adding support for them <b>will be
+rejected</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">After you have
+ensured this site is distributing its content legally, you
+can follow this quick list (assuming your service is called
+<tt>yourextractor</tt>):</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p style="margin-top: 1em">Fork this repository
+(https://github.com/ytdl-org/youtube-dl/fork)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+<p>2.</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>Check out the source code with:</p></td></tr>
+</table>
+
+<pre style="margin-left:28%; margin-top: 1em"> git clone git@github.com:YOUR_GITHUB_USERNAME/youtube-dl.git</pre>
+
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="2%"></td>
+<td width="41%">
+
+
+<p style="margin-top: 1em">Start a new git branch with</p></td>
+<td width="42%">
+</td></tr>
+</table>
+
+<pre style="margin-left:28%; margin-top: 1em"> cd youtube-dl
+ git checkout -b yourextractor</pre>
+
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em">4.</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p style="margin-top: 1em">Start with this simple template
+and save it to
+<tt>youtube_dl/extractor/yourextractor.py</tt>:</p> </td></tr>
+</table>
+<pre style="margin-left:28%; margin-top: 1em"># coding: utf-8
+from __future__ import unicode_literals
+
+from .common import InfoExtractor
+
+
+class YourExtractorIE(InfoExtractor):
+    _VALID_URL = r'https?://(?:www\.)?yourextractor\.com/watch/(?P&lt;id&gt;[0-9]+)'
+    _TEST = {
+        'url': 'https://yourextractor.com/watch/42',
+        'md5': 'TODO: md5 sum of the first 10241 bytes of the video file (use --test)',
+        'info_dict': {
+            'id': '42',
+            'ext': 'mp4',
+            'title': 'Video title goes here',
+            'thumbnail': r're:^https?://.*\.jpg$',
+            # TODO more properties, either as:
+            # * A value
+            # * MD5 checksum; start the string with md5:
+            # * A regular expression; start the string with re:
+            # * Any Python type (for example int or float)
+        }
+    }
+
+    def _real_extract(self, url):
+        video_id = self._match_id(url)
+        webpage = self._download_webpage(url, video_id)
+
+        # TODO more code goes here, for example ...
+        title = self._html_search_regex(r'&lt;h1&gt;(.+?)&lt;/h1&gt;', webpage, 'title')
+
+
+        return {
+            'id': video_id,
+            'title': title,
+            'description': self._og_search_description(webpage),
+            'uploader': self._search_regex(r'&lt;div[^&gt;]+id=&quot;uploader&quot;[^&gt;]*&gt;([^&lt;]+)&lt;', webpage, 'uploader', fatal=False),
+            # TODO more properties (see youtube_dl/extractor/common.py)
+        }</pre>
+
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em">5.</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p style="margin-top: 1em">Add an import in
+<tt>youtube_dl/extractor/extractors.py</tt>
+(https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/extractors.py).</p> </td></tr>
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+<p>6.</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>Run <tt>python test/test_download.py
+TestDownload.test_YourExtractor</tt>. This <i>should
+fail</i> at first, but you can continually re-run it until
+you're done. If you decide to add more than one test, then
+rename <tt>_TEST</tt> to <tt>_TESTS</tt> and make it into a
+list of dictionaries. The tests will then be named
+<tt>TestDownload.test_YourExtractor</tt>,
+<tt>TestDownload.test_YourExtractor_1</tt>,
+<tt>TestDownload.test_YourExtractor_2</tt>, etc. Note that
+tests with <tt>only_matching</tt> key in test's dict are not
+counted in.</p></td></tr>
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+<p>7.</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>Have a look at <tt>youtube_dl/extractor/common.py</tt>
+(https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/common.py)
+for possible helper methods and a detailed description of
+what your extractor should and may return
+(https://github.com/ytdl-org/youtube-dl/blob/7f41a598b3fba1bcab2817de64a08941200aa3c8/youtube_dl/extractor/common.py#L94-L303).
+Add tests and code for as many as you want.</p></td></tr>
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+<p>8.</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>Make sure your code follows youtube-dl coding
+conventions and check the code with flake8
+(http://flake8.pycqa.org/en/latest/index.html#quickstart):</p> </td></tr>
+</table>
+
+<pre style="margin-left:28%; margin-top: 1em"> $ flake8 youtube_dl/extractor/yourextractor.py</pre>
+
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p style="margin-top: 1em">9.</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p style="margin-top: 1em">Make sure your code works under
+all Python (https://www.python.org/) versions claimed
+supported by youtube-dl, namely 2.6, 2.7, and 3.2+.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p>10.</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p>When the tests pass, add
+(https://git-scm.com/docs/git-add) the new files and commit
+(https://git-scm.com/docs/git-commit) them and push
+(https://git-scm.com/docs/git-push) the result, like
+this:</p> </td></tr>
+</table>
+
+<pre style="margin-left:28%; margin-top: 1em">$ git add youtube_dl/extractor/extractors.py
+$ git add youtube_dl/extractor/yourextractor.py
+$ git commit -m '[yourextractor] Add new extractor'
+$ git push origin yourextractor</pre>
+
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p style="margin-top: 1em">11.</p></td>
+<td width="2%"></td>
+<td width="83%">
+
+
+<p style="margin-top: 1em">Finally, create a pull request
+(https://help.github.com/articles/creating-a-pull-request).
+We'll then review and merge it.</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">In any case,
+thank you very much for your contributions!</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>youtube-dl
+coding conventions</b> <br>
+This section introduces a guide lines for writing idiomatic,
+robust and future-proof extractor code.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Extractors are
+very fragile by nature since they depend on the layout of
+the source data provided by 3rd party media hosters out of
+your control and this layout tends to change. As an
+extractor implementer your task is not only to write code
+that will extract media links and metadata correctly but
+also to minimize dependency on the source's layout and even
+to make the code foresee potential future changes and be
+ready for that. This is important because it will allow the
+extractor not to break on minor layout changes thus keeping
+old youtube-dl versions working. Even though this breakage
+issue is easily fixed by emitting a new version of
+youtube-dl with a fix incorporated, all the previous
+versions become broken in all repositories and distros'
+packages that may not be so prompt in fetching the update
+from us. Needless to say, some non rolling release distros
+may never receive an update at all.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Mandatory
+and optional metafields</b> <br>
+For extraction to work youtube-dl relies on metadata your
+extractor extracts and provides to youtube-dl expressed by
+an information dictionary
+(https://github.com/ytdl-org/youtube-dl/blob/7f41a598b3fba1bcab2817de64a08941200aa3c8/youtube_dl/extractor/common.py#L94-L303)
+or simply <i>info dict</i>. Only the following meta fields
+in the <i>info dict</i> are considered mandatory for a
+successful extraction process by youtube-dl:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="54%">
+
+
+<p style="margin-top: 1em"><tt>id</tt> (media
+identifier)</p> </td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="54%">
+
+
+<p><tt>title</tt> (media title)</p></td>
+<td width="32%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="54%">
+
+
+<p><tt>url</tt> (media download URL) or
+<tt>formats</tt></p> </td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">In fact only
+the last option is technically mandatory (i.e. if you can't
+figure out the download location of the media the extraction
+does not make any sense). But by convention youtube-dl also
+treats <tt>id</tt> and <tt>title</tt> as mandatory. Thus the
+aforementioned metafields are the critical data that the
+extraction does not make any sense without and if any of
+them fail to be extracted then the extractor is considered
+completely broken.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Any field
+(https://github.com/ytdl-org/youtube-dl/blob/7f41a598b3fba1bcab2817de64a08941200aa3c8/youtube_dl/extractor/common.py#L188-L303)
+apart from the aforementioned ones are considered
+<b>optional</b>. That means that extraction should be
+<b>tolerant</b> to situations when sources for these fields
+can potentially be unavailable (even if they are always
+available at the moment) and <b>future-proof</b> in order
+not to break the extraction of general purpose mandatory
+fields.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Example</b>
+<br>
+Say you have some source dictionary <tt>meta</tt> that
+you've fetched as JSON with HTTP request and it has a key
+<tt>summary</tt>:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">meta = self._download_json(url, video_id)</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Assume at this
+point <tt>meta</tt>'s layout is:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">{
+    ...
+    &quot;summary&quot;: &quot;some fancy summary text&quot;,
+    ...
+}</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Assume you want
+to extract <tt>summary</tt> and put it into the resulting
+info dict as <tt>description</tt>. Since
+<tt>description</tt> is an optional meta field you should be
+ready that this key may be missing from the <tt>meta</tt>
+dict, so that you should extract it like:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">description = meta.get('summary')  # correct</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">and not
+like:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">description = meta['summary']  # incorrect</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">The latter will
+break extraction process with <tt>KeyError</tt> if
+<tt>summary</tt> disappears from <tt>meta</tt> at some later
+time but with the former approach extraction will just go
+ahead with <tt>description</tt> set to <tt>None</tt> which
+is perfectly fine (remember <tt>None</tt> is equivalent to
+the absence of data).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Similarly, you
+should pass <tt>fatal=False</tt> when extracting optional
+data from a webpage with <tt>_search_regex</tt>,
+<tt>_html_search_regex</tt> or similar methods, for
+instance:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">description = self._search_regex(
+    r'&lt;span[^&gt;]+id=&quot;title&quot;[^&gt;]*&gt;([^&lt;]+)&lt;',
+    webpage, 'description', fatal=False)</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">With
+<tt>fatal</tt> set to <tt>False</tt> if
+<tt>_search_regex</tt> fails to extract <tt>description</tt>
+it will emit a warning and continue extraction.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can also
+pass <tt>default=&lt;some fallback value&gt;</tt>, for
+example:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">description = self._search_regex(
+    r'&lt;span[^&gt;]+id=&quot;title&quot;[^&gt;]*&gt;([^&lt;]+)&lt;',
+    webpage, 'description', default=None)</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">On failure this
+code will silently continue the extraction with
+<tt>description</tt> set to <tt>None</tt>. That is useful
+for metafields that may or may not be present.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Provide
+fallbacks</b> <br>
+When extracting metadata try to do so from multiple sources.
+For example if <tt>title</tt> is present in several places,
+try extracting from at least some of them. This makes it
+more future-proof in case some of the sources become
+unavailable.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Example</b>
+<br>
+Say <tt>meta</tt> from the previous example has a
+<tt>title</tt> and you are about to extract it. Since
+<tt>title</tt> is a mandatory meta field you should end up
+with something like:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">title = meta['title']</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">If
+<tt>title</tt> disappears from <tt>meta</tt> in future due
+to some changes on the hoster's side the extraction would
+fail since <tt>title</tt> is mandatory. That's expected.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Assume that you
+have some another source you can extract <tt>title</tt>
+from, for example <tt>og:title</tt> HTML meta of a
+<tt>webpage</tt>. In this case you can provide a fallback
+scenario:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">title = meta.get('title') or self._og_search_title(webpage)</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">This code will
+try to extract from <tt>meta</tt> first and if it fails it
+will try extracting <tt>og:title</tt> from a
+<tt>webpage</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Regular
+expressions <br>
+Don't capture groups you don't use</b> <br>
+Capturing group must be an indication that it's used
+somewhere in the code. Any group that is not used must be
+non capturing.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Example</b>
+<br>
+Don't capture id attribute name here since you can't use it
+for anything anyway.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Correct:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">r'(?:id|ID)=(?P&lt;id&gt;\d+)'</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Incorrect:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">r'(id|ID)=(?P&lt;id&gt;\d+)'</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Make regular
+expressions relaxed and flexible</b> <br>
+When using regular expressions try to write them fuzzy,
+relaxed and flexible, skipping insignificant parts that are
+more likely to change, allowing both single and double
+quotes for quoted values and so on.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Example</b>
+<br>
+Say you need to extract <tt>title</tt> from the following
+HTML code:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">&lt;span style=&quot;position: absolute; left: 910px; width: 90px; float: right; z-index: 9999;&quot; class=&quot;title&quot;&gt;some fancy title&lt;/span&gt;</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">The code for
+that task should look similar to:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">title = self._search_regex(
+    r'&lt;span[^&gt;]+class=&quot;title&quot;[^&gt;]*&gt;([^&lt;]+)', webpage, 'title')</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Or even
+better:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">title = self._search_regex(
+    r'&lt;span[^&gt;]+class=([&quot;\'])title\1[^&gt;]*&gt;(?P&lt;title&gt;[^&lt;]+)',
+    webpage, 'title', group='title')</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Note how you
+tolerate potential changes in the <tt>style</tt> attribute's
+value or switch from using double quotes to single for
+<tt>class</tt> attribute:</p>
+
+<p style="margin-left:11%; margin-top: 1em">The code
+definitely should not look like:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">title = self._search_regex(
+    r'&lt;span style=&quot;position: absolute; left: 910px; width: 90px; float: right; z-index: 9999;&quot; class=&quot;title&quot;&gt;(.*?)&lt;/span&gt;',
+    webpage, 'title', group='title')</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Long lines
+policy</b> <br>
+There is a soft limit to keep lines of code under 80
+characters long. This means it should be respected if
+possible and if it does not make readability and code
+maintenance worse.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For example,
+you should <b>never</b> split long string literals like URLs
+or some other often copied entities over multiple lines to
+fit this limit:</p>
+
+<p style="margin-left:11%; margin-top: 1em">Correct:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">'https://www.youtube.com/watch?v=FqZTN594JQw&amp;list=PLMYEtVRpaqY00V9W81Cwmzp6N6vZqfUKD4'</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Incorrect:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">'https://www.youtube.com/watch?v=FqZTN594JQw&amp;list='
+'PLMYEtVRpaqY00V9W81Cwmzp6N6vZqfUKD4'</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Inline
+values</b> <br>
+Extracting variables is acceptable for reducing code
+duplication and improving readability of complex
+expressions. However, you should avoid extracting variables
+used only once and moving them to opposite parts of the
+extractor file, which makes reading the linear flow
+difficult.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Example</b>
+<br>
+Correct:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">title = self._html_search_regex(r'&lt;title&gt;([^&lt;]+)&lt;/title&gt;', webpage, 'title')</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Incorrect:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">TITLE_RE = r'&lt;title&gt;([^&lt;]+)&lt;/title&gt;'
+# ...some lines of code...
+title = self._html_search_regex(TITLE_RE, webpage, 'title')</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Collapse
+fallbacks</b> <br>
+Multiple fallback values can quickly become unwieldy.
+Collapse multiple fallback values into a single expression
+via a list of patterns.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Example</b>
+<br>
+Good:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">description = self._html_search_meta(
+    ['og:description', 'description', 'twitter:description'],
+    webpage, 'description', default=None)</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Unwieldy:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">description = (
+    self._og_search_description(webpage, default=None)
+    or self._html_search_meta('description', webpage, default=None)
+    or self._html_search_meta('twitter:description', webpage, default=None))</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Methods
+supporting list of patterns are: <tt>_search_regex</tt>,
+<tt>_html_search_regex</tt>, <tt>_og_search_property</tt>,
+<tt>_html_search_meta</tt>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Trailing
+parentheses</b> <br>
+Always move trailing parentheses after the last
+argument.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Example</b>
+<br>
+Correct:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">    lambda x: x['ResultSet']['Result'][0]['VideoUrlSet']['VideoUrl'],
+    list)</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Incorrect:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">    lambda x: x['ResultSet']['Result'][0]['VideoUrlSet']['VideoUrl'],
+    list,
+)</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Use
+convenience conversion and parsing functions</b> <br>
+Wrap all extracted numeric data into safe functions from
+<tt>youtube_dl/utils.py</tt>
+(https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/utils.py):
+<tt>int_or_none</tt>, <tt>float_or_none</tt>. Use them for
+string to number conversions as well.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Use
+<tt>url_or_none</tt> for safe URL processing.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Use
+<tt>try_get</tt> for safe metadata extraction from parsed
+JSON.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Use
+<tt>unified_strdate</tt> for uniform <tt>upload_date</tt> or
+any <tt>YYYYMMDD</tt> meta field extraction,
+<tt>unified_timestamp</tt> for uniform <tt>timestamp</tt>
+extraction, <tt>parse_filesize</tt> for <tt>filesize</tt>
+extraction, <tt>parse_count</tt> for count meta fields
+extraction, <tt>parse_resolution</tt>,
+<tt>parse_duration</tt> for <tt>duration</tt> extraction,
+<tt>parse_age_limit</tt> for <tt>age_limit</tt>
+extraction.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Explore
+<tt>youtube_dl/utils.py</tt>
+(https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/utils.py)
+for more useful convenience functions.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>More
+examples <br>
+Safely extract optional description from parsed JSON</b></p>
+
+<pre style="margin-left:22%;">description = try_get(response, lambda x: x['result']['video'][0]['summary'], compat_str)</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Safely
+extract more optional metadata</b></p>
+
+<pre style="margin-left:22%;">video = try_get(response, lambda x: x['result']['video'][0], dict) or {}
+description = video.get('summary')
+duration = float_or_none(video.get('durationMs'), scale=1000)
+view_count = int_or_none(video.get('views'))</pre>
+
+
+<h2>EMBEDDING YOUTUBE-DL
+<a name="EMBEDDING YOUTUBE-DL"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">youtube-dl
+makes the best effort to be a good command-line program, and
+thus should be callable from any programming language. If
+you encounter any problems parsing its output, feel free to
+create a report
+(https://github.com/ytdl-org/youtube-dl/issues/new).</p>
+
+<p style="margin-left:11%; margin-top: 1em">From a Python
+program, you can embed youtube-dl in a more powerful
+fashion, like this:</p>
+<pre style="margin-left:22%; margin-top: 1em">from __future__ import unicode_literals
+import youtube_dl
+
+
+ydl_opts = {}
+with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+    ydl.download(['https://www.youtube.com/watch?v=BaW_jenozKc'])</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em">Most likely,
+you'll want to use various options. For a list of options
+available, have a look at <tt>youtube_dl/YoutubeDL.py</tt>
+(https://github.com/ytdl-org/youtube-dl/blob/3e4cedf9e8cd3157df2457df7274d0c842421945/youtube_dl/YoutubeDL.py#L137-L312).
+For a start, if you want to intercept youtube-dl's output,
+set a <tt>logger</tt> object.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Here's a more
+complete example of a program that outputs only errors (and
+a short message after the download is finished), and
+downloads/converts the video to an mp3 file:</p>
+<pre style="margin-left:22%; margin-top: 1em">from __future__ import unicode_literals
+import youtube_dl
+
+
+class MyLogger(object):
+    def debug(self, msg):
+        pass
+
+    def warning(self, msg):
+        pass
+
+    def error(self, msg):
+        print(msg)
+
+
+def my_hook(d):
+    if d['status'] == 'finished':
+        print('Done downloading, now converting ...')
+
+
+
+ydl_opts = {
+    'format': 'bestaudio/best',
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192',
+    }],
+    'logger': MyLogger(),
+    'progress_hooks': [my_hook],
+}
+with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+    ydl.download(['https://www.youtube.com/watch?v=BaW_jenozKc'])</pre>
+
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Bugs and
+suggestions should be reported at:
+&lt;https://github.com/ytdl-org/youtube-dl/issues&gt;.
+Unless you were prompted to or there is another pertinent
+reason (e.g. GitHub fails to accept the bug report), please
+do not send bug reports via personal email. For discussions,
+join us in the IRC channel #youtube-dl
+(irc://chat.freenode.net/#youtube-dl) on freenode (webchat
+(https://webchat.freenode.net/?randomnick=1&amp;channels=youtube-dl)).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Please
+include the full output of youtube-dl when run with -v</b>,
+i.e. <b>add</b> <tt>-v</tt> flag to <b>your command
+line</b>, copy the <b>whole</b> output and post it in the
+issue body wrapped in ``` for better formatting. It should
+look similar to this:</p>
+
+<pre style="margin-left:22%; margin-top: 1em">$ youtube-dl -v &lt;your command line&gt;
+[debug] System config: []
+[debug] User config: []
+[debug] Command-line args: [u'-v', u'https://www.youtube.com/watch?v=BaW_jenozKcj']
+[debug] Encodings: locale cp1251, fs mbcs, out cp866, pref cp1251
+[debug] youtube-dl version 2015.12.06
+[debug] Git HEAD: 135392e
+[debug] Python version 2.6.6 - Windows-2003Server-5.2.3790-SP2
+[debug] exe versions: ffmpeg N-75573-g1d0487f, ffprobe N-75573-g1d0487f, rtmpdump 2.4
+[debug] Proxy map: {}
+...</pre>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Do not post
+screenshots of verbose logs; only plain text is
+acceptable.</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">The output
+(including the first lines) contains important debugging
+information. Issues without the full output are often not
+reproducible and therefore do not get solved in short order,
+if ever.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Please re-read
+your issue once again to avoid a couple of common mistakes
+(you can and should use this as a checklist):</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Is the
+description of the issue itself sufficient?</b> <br>
+We often get issue reports that we cannot really decipher.
+While in most cases we eventually get the required
+information after asking back multiple times, this poses an
+unnecessary drain on our resources. Many contributors,
+including myself, are also not native speakers, so we may
+misread some parts.</p>
+
+<p style="margin-left:11%; margin-top: 1em">So please
+elaborate on what feature you are requesting, or what bug
+you want to be fixed. Make sure that it's obvious</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="64%">
+
+
+<p style="margin-top: 1em">What the problem is</p></td>
+<td width="22%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="64%">
+
+
+<p>How it could be fixed</p></td>
+<td width="22%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="64%">
+
+
+<p>How your proposed solution would look like</p></td>
+<td width="22%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">If your report
+is shorter than two lines, it is almost certainly missing
+some of these, which makes it hard for us to respond to it.
+We're often too polite to close the issue outright, but the
+missing info makes misinterpretation likely. As a committer
+myself, I often get frustrated by these issues, since the
+only possible way for me to move forward on them is to ask
+for clarification over and over.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For bug
+reports, this means that your report should contain the
+<i>complete</i> output of youtube-dl when called with the
+<tt>-v</tt> flag. The error message you get for (most) bugs
+even says so, but you would not believe how many of our bug
+reports do not contain this information.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If your server
+has multiple IPs or you suspect censorship, adding
+<tt>--call-home</tt> may be a good idea to get more
+diagnostics. If the error is <tt>ERROR: Unable to extract
+...</tt> and you cannot reproduce it from multiple
+countries, add <tt>--dump-pages</tt> (warning: this will
+yield a rather large output, redirect it to the file
+<tt>log.txt</tt> by adding <tt>&gt;log.txt 2&gt;&amp;1</tt>
+to your command-line) or upload the <tt>.dump</tt> files you
+get when you add <tt>--write-pages</tt> somewhere
+(https://gist.github.com/).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Site support
+requests must contain an example URL</b>. An example URL is
+a URL you might want to download, like
+<tt>https://www.youtube.com/watch?v=BaW_jenozKc</tt>. There
+should be an obvious video present. Except under very
+special circumstances, the main page of a video service
+(e.g. <tt>https://www.youtube.com/</tt>) is <i>not</i> an
+example URL.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Are you
+using the latest version?</b> <br>
+Before reporting any issue, type <tt>youtube-dl -U</tt>.
+This should report that you're up-to-date. About 20% of the
+reports we receive are already fixed, but people are using
+outdated versions. This goes for feature requests as
+well.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Is the issue
+already documented?</b> <br>
+Make sure that someone has not already opened the issue
+you're trying to open. Search at the top of the window or
+browse the GitHub Issues
+(https://github.com/ytdl-org/youtube-dl/search?type=Issues)
+of this repository. If there is an issue, feel free to write
+something along the lines of &quot;This affects me as well,
+with version 2015.01.01. Here is some more information on
+the issue: ...&quot;. While some issues may be old, a new
+post into them often spurs rapid activity.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Why are
+existing options not enough?</b> <br>
+Before requesting a new feature, please have a quick peek at
+the list of supported options
+(https://github.com/ytdl-org/youtube-dl/blob/master/README.md#options).
+Many feature requests are for features that actually exist
+already! Please, absolutely do show off your work in the
+issue report and detail how the existing similar options do
+<i>not</i> solve your problem.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Is there
+enough context in your bug report?</b> <br>
+People want to solve problems, and often think they do us a
+favor by breaking down their larger problems (e.g. wanting
+to skip already downloaded files) to a specific request
+(e.g. requesting us to look whether the file exists before
+downloading the info page). However, what often happens is
+that they break down the problem into two steps: One simple,
+and one impossible (or extremely complicated one).</p>
+
+<p style="margin-left:11%; margin-top: 1em">We are then
+presented with a very complicated request when the original
+problem could be solved far easier, e.g. by recording the
+downloaded video IDs in a separate file. To avoid this, you
+must include the greater context where it is non-obvious. In
+particular, every feature request that does not consist of
+adding support for a new site should contain a use case
+scenario that explains in what situation the missing feature
+would be useful.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Does the
+issue involve one problem, and one problem only?</b> <br>
+Some of our users seem to think there is a limit of issues
+they can or should open. There is no limit of issues they
+can or should open. While it may seem appealing to be able
+to dump all your issues into one ticket, that means that
+someone who solves one of your issues cannot mark the issue
+as closed. Typically, reporting a bunch of issues leads to
+the ticket lingering since nobody wants to attack that
+behemoth, until someone mercifully splits the issue into
+multiple ones.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In particular,
+every site support request issue should only pertain to
+services at one site (generally under a common domain, but
+always using the same backend technology). Do not request
+support for vimeo user videos, White house podcasts, and
+Google Plus pages in the same issue. Also, make sure that
+you don't post bug reports alongside feature requests. As a
+rule of thumb, a feature request does not include outputs of
+youtube-dl that are not immediately related to the feature
+at hand. Do not post reports of a network error alongside
+the request for a new video service.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Is anyone
+going to need the feature?</b> <br>
+Only post features that you (or an incapacitated friend you
+can personally talk to) require. Do not post features
+because they seem like a good idea. If they are really
+useful, they will be requested by someone who requires
+them.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Is your
+question about youtube-dl?</b> <br>
+It may sound strange, but some bug reports we receive are
+completely unrelated to youtube-dl and relate to a
+different, or even the reporter's own, application. Please
+make sure that you are actually using youtube-dl. If you are
+using a UI for youtube-dl, report the bug to the maintainer
+of the actual application providing the UI. On the other
+hand, if your UI for youtube-dl fails in some way you
+believe is related to youtube-dl, by all means, go ahead and
+report the bug.</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">youtube-dl is
+released into the public domain by the copyright
+holders.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This README
+file was originally written by Daniel Bolton
+(https://github.com/dbbolton) and is likewise released into
+the public domain.</p>
+<hr>
+</body>
+</html>

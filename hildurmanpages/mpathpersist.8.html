@@ -1,0 +1,436 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:55:36 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>MPATHPERSIST</title>
+
+</head>
+<body>
+
+<h1 align="center">MPATHPERSIST</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXAMPLE">EXAMPLE</a><br>
+<a href="#BATCH FILES">BATCH FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">mpathpersist -
+Manages SCSI persistent reservations on dm multipath
+devices.</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mpathpersist</b>
+[<b>OPTIONS</b>] <i>device</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This utility is
+used to manage SCSI persistent reservations on Device Mapper
+Multipath devices. To be able to use this functionality, the
+<i>reservation_key</i> attribute must be defined in the
+<i>/etc/multipath.conf</i> file. Otherwise the
+<b>multipathd</b> daemon will not check for persistent
+reservation for newly discovered paths or reinstated
+paths.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mpathpersist</b>
+supports the same command-line options as the
+<b>sg_persist</b> utility. Consult the <b>sg_persist (8)</b>
+manual page for an in-depth discussion of the various
+options.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-verbose|-v</b>
+<i>level</i></p>
+
+<p style="margin-left:22%;">Verbosity:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="1%">
+
+
+<p><i>0</i></p></td>
+<td width="6%"></td>
+<td width="65%">
+
+
+<p>Critical messages.</p></td>
+<td width="6%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="1%">
+
+
+<p><i>1</i></p></td>
+<td width="6%"></td>
+<td width="65%">
+
+
+<p>Error messages.</p></td>
+<td width="6%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="1%">
+
+
+<p><i>2</i></p></td>
+<td width="6%"></td>
+<td width="65%">
+
+
+<p>Warning messages.</p></td>
+<td width="6%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="1%">
+
+
+<p><i>3</i></p></td>
+<td width="6%"></td>
+<td width="65%">
+
+
+<p>Informational messages.</p></td>
+<td width="6%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="1%">
+
+
+<p><i>4</i></p></td>
+<td width="6%"></td>
+<td width="65%">
+
+
+<p>Informational messages with trace enabled.</p></td>
+<td width="6%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:11%;"><b>--device=</b><i>DEVICE</i><b>|-d</b>
+<i>DEVICE</i></p>
+
+<p style="margin-left:22%;">Query or change DEVICE.</p>
+
+
+<p style="margin-left:11%;"><b>--batch-file=</b><i>DEVICE</i><b>|-f</b>
+<i>FILE</i></p>
+
+<p style="margin-left:22%;">Read commands from <i>FILE</i>.
+See section &quot;BATCH FILES&quot; below. This option can
+be given at most once.</p>
+
+<p style="margin-left:11%;"><b>--help|-h</b></p>
+
+<p style="margin-left:22%;">Output this usage message.</p>
+
+<p style="margin-left:11%;"><b>--hex|-H</b></p>
+
+<p style="margin-left:22%;">Output response in hex.</p>
+
+<p style="margin-left:11%;"><b>--in|-i</b></p>
+
+<p style="margin-left:22%;">Request PR In command.</p>
+
+<p style="margin-left:11%;"><b>--out|-o</b></p>
+
+<p style="margin-left:22%;">Request PR Out command.</p>
+
+<p style="margin-left:11%;"><b>--param-alltgpt|-Y</b></p>
+
+<p style="margin-left:22%;">PR Out parameter
+&rsquo;ALL_TG_PT&rsquo;.</p>
+
+<p style="margin-left:11%;"><b>--param-aptpl|-Z</b></p>
+
+<p style="margin-left:22%;">PR Out parameter
+&rsquo;APTPL&rsquo;.</p>
+
+<p style="margin-left:11%;"><b>--read-keys|-k</b></p>
+
+<p style="margin-left:22%;">PR In: Read Keys.</p>
+
+
+<p style="margin-left:11%;"><b>--param-rk=</b><i>RK</i><b>|-K</b>
+<i>RK</i></p>
+
+<p style="margin-left:22%;">PR Out parameter reservation
+key (RK is in hex, up to 8 bytes).</p>
+
+
+<p style="margin-left:11%;"><b>--param-sark=</b><i>SARK</i><b>|-S</b>
+<i>SARK</i></p>
+
+<p style="margin-left:22%;">PR Out parameter service action
+reservation key (SARK is in hex).</p>
+
+<p style="margin-left:11%;"><b>--preempt|-P</b></p>
+
+<p style="margin-left:22%;">PR Out: Preempt.</p>
+
+<p style="margin-left:11%;"><b>--clear|-C</b></p>
+
+<p style="margin-left:22%;">PR Out: Clear
+registrations.</p>
+
+<p style="margin-left:11%;"><b>--preempt-abort|-A</b></p>
+
+<p style="margin-left:22%;">PR Out: Preempt and Abort.</p>
+
+
+<p style="margin-left:11%;"><b>--prout-type=</b><i>TYPE</i><b>|-T</b>
+<i>TYPE</i></p>
+
+<p style="margin-left:22%;">PR Out command type.</p>
+
+
+<p style="margin-left:11%;"><b>--read-full-status|-s</b></p>
+
+<p style="margin-left:22%;">PR In: Read Full Status.</p>
+
+<p style="margin-left:11%;"><b>--read-keys|-k</b></p>
+
+<p style="margin-left:22%;">PR In: Read Keys.</p>
+
+
+<p style="margin-left:11%;"><b>--read-reservation|-r</b></p>
+
+<p style="margin-left:22%;">PR In: Read Reservation.</p>
+
+<p style="margin-left:11%;"><b>--register|-G</b></p>
+
+<p style="margin-left:22%;">PR Out: Register.</p>
+
+
+<p style="margin-left:11%;"><b>--register-ignore|-I</b></p>
+
+<p style="margin-left:22%;">PR Out: Register and
+Ignore.</p>
+
+<p style="margin-left:11%;"><b>--release|-L</b></p>
+
+<p style="margin-left:22%;">PR Out: Release.</p>
+
+
+<p style="margin-left:11%;"><b>--report-capabilities|-c</b></p>
+
+<p style="margin-left:22%;">PR In: Report Capabilities.</p>
+
+<p style="margin-left:11%;"><b>--reserve|-R</b></p>
+
+<p style="margin-left:22%;">PR Out: Reserve.</p>
+
+
+<p style="margin-left:11%;"><b>--transport-id=</b><i>TIDS</i><b>|-X</b>
+<i>TIDS</i></p>
+
+<p style="margin-left:22%;">TransportIDs can be mentioned
+in several forms.</p>
+
+
+<p style="margin-left:11%;"><b>--alloc-length=</b><i>LEN</i><b>|-l</b>
+<i>LEN</i></p>
+
+<p style="margin-left:22%;">PR In: maximum allocation
+length. LEN is a decimal number between 0 and 8192.</p>
+
+<h2>EXAMPLE
+<a name="EXAMPLE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Register the
+key &quot;123abc&quot; for the /dev/mapper/mpath9
+device:</p>
+
+<p style="margin-left:22%;"><b>mpathpersist --out
+--register --param-sark=</b><i>123abc
+/dev/mapper/mpath9</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">Read registered
+reservation keys for the /dev/mapper/mpath9 device:</p>
+
+<p style="margin-left:22%;"><b>mpathpersist -i -k</b>
+<i>/dev/mapper/mpath9</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">Create a
+reservation for the /dev/mapper/mpath9 device with the given
+reservation key:</p>
+
+<p style="margin-left:22%;"><b>mpathpersist --out --reserve
+--param-rk=</b><i>123abc</i> <b>--prout-type=</b><i>8</i>
+<b>-d</b> <i>/dev/mapper/mpath9</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">Read the
+reservation status of the /dev/mapper/mpath9 device:</p>
+
+<p style="margin-left:22%;"><b>mpathpersist -i -s -d</b>
+<i>/dev/mapper/mpath9</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">Release the
+previously created reservation (note that the prout-type
+needs to be the same as above):</p>
+
+<p style="margin-left:22%;"><b>mpathpersist --out --release
+--param-rk=</b><i>123abc</i> <b>--prout-type=</b><i>8</i>
+<b>-d</b> <i>/dev/mapper/mpath9</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">Remove the
+current key registered for this host (i.e. reset it to
+0):</p>
+
+<p style="margin-left:22%;"><b>mpathpersist --out
+--register-ignore -K</b> <i>123abc</i> <b>-S</b> <i>0
+/dev/mapper/mpath9</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">Remove current
+reservation, and unregister all registered keys from all I_T
+nexuses:</p>
+
+<p style="margin-left:22%;"><b>mpathpersist -oCK</b>
+<i>123abc /dev/mapper/mpath9</i></p>
+
+<h2>BATCH FILES
+<a name="BATCH FILES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The option
+<i>--batch-file</i> (<i>-f</i>) sets an input file to be
+processed by <b>mpathpersist</b>. Grouping commands in batch
+files can provide a speed improvement in particular on large
+installments, because <b>mpathpersist</b> needs to scan
+existing paths and maps only once during startup.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The input file
+is a text file that is parsed line by line. Every line of
+the file is interpreted as a command line (i.e. list of
+options and parameters) for <b>mpathpersist</b>. Options and
+parameters are separated by one or more whitespace
+characters (space or TAB). Lines can, but do not have to,
+begin with the word &quot;mpathpersist&quot;. The
+&quot;#&quot; character, either at the beginning of the line
+or following some whitespace, denotes the start of a comment
+that lasts until the end of the line. Empty lines are
+allowed. Continuation of mpathpersist commands over multiple
+lines is not supported.</p>
+
+<p style="margin-left:11%; margin-top: 1em">All options
+listed in this man page, except <i>-f</i> and <i>-v</i>, are
+allowed in batch files. Both short and long option formats
+may be used. Using the <i>-f</i> option inside the batch
+file is an error. The <i>-v</i> option is ignored in batch
+files.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The multipath
+map on which to act must be specified on every input line,
+e.g. using the <i>-d</i> option. Commands acting on
+different multipath maps may be combined in a batch file,
+and multiple commands may act on the same multipath map.
+Commands are executed one by one, so that commands further
+down in the file see status changes caused by previous
+commands. If <b>mpathpersist</b> encounters an error while
+processing a line in the batch file, batch file processing
+is <b>not</b> aborted; subsequent commands are executed
+nonetheless. The exit status of <b>mpathpersist</b> is the
+status of the first failed command, or 0 if all commands
+succeeded.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If other
+options and parameters are used along with <i>-f</i> on the
+<b>mpathpersist</b> command line, the command line will be
+executed first, followed by the commands from the the batch
+file.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Below is an
+example of a valid batch input file.</p>
+
+<p style="margin-left:22%; margin-top: 1em"># This is an
+mpathpersist input file. <br>
+# Short and long forms of the same command <br>
+-i -k /dev/dm-1 # short form, this comment is ignored <br>
+mpathpersist --in --read-keys --device=/dev/dm-1</p>
+
+<p style="margin-left:22%; margin-top: 1em"># Mixing of
+long and short options, variable white space <br>
+--out --register -S abcde /dev/dm-1</p>
+
+<p style="margin-left:22%; margin-top: 1em"># Mixing of
+commands for different maps <br>
+-ir /dev/dm-0 <br>
+-ir /dev/dm-1</p>
+
+<p style="margin-left:22%; margin-top: 1em">mpathpersist
+--out --param-rk abcde --reserve --prout-type 5 /dev/dm-1
+<br>
+# This should now show a reservation <br>
+-ir /dev/dm-1 <br>
+-oCK abcde /dev/dm-1 <br>
+--in --read-reservation /dev/dm-1</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>multipath</b>(8),
+<b>multipathd</b>(8), <b>sg_persist</b>(8).</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>multipath-tools</i>
+was developed by Christophe Varoqui
+&lt;christophe.varoqui@opensvc.com&gt; and others.</p>
+<hr>
+</body>
+</html>

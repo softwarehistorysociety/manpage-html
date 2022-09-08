@@ -1,0 +1,445 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:38:11 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>DMESG</title>
+
+</head>
+<body>
+
+<h1 align="center">DMESG</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#COLORS">COLORS</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">dmesg - print
+or control the kernel ring buffer</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>dmesg</b>
+[options]</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>dmesg
+--clear <br>
+dmesg --read-clear</b> [options] <b><br>
+dmesg --console-level</b> <i>level</i> <b><br>
+dmesg --console-on <br>
+dmesg --console-off</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>dmesg</b> is
+used to examine or control the kernel ring buffer.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The default
+action is to display all messages from the kernel ring
+buffer.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>--clear</b>, <b>--read-clear</b>, <b>--console-on</b>,
+<b>--console-off</b>, and <b>--console-level</b> options are
+mutually exclusive. <b><br>
+-C</b>, <b>--clear</b></p>
+
+<p style="margin-left:22%;">Clear the ring buffer.</p>
+
+<p style="margin-left:11%;"><b>-c</b>,
+<b>--read-clear</b></p>
+
+<p style="margin-left:22%;">Clear the ring buffer after
+first printing its contents.</p>
+
+<p style="margin-left:11%;"><b>-D</b>,
+<b>--console-off</b></p>
+
+<p style="margin-left:22%;">Disable the printing of
+messages to the console.</p>
+
+<p style="margin-left:11%;"><b>-d</b>,
+<b>--show-delta</b></p>
+
+<p style="margin-left:22%;">Display the timestamp and the
+time delta spent between messages. If used together with
+<b>--notime</b> then only the time delta without the
+timestamp is printed.</p>
+
+<p style="margin-left:11%;"><b>-E</b>,
+<b>--console-on</b></p>
+
+<p style="margin-left:22%;">Enable printing messages to the
+console.</p>
+
+<p style="margin-left:11%;"><b>-e</b>, <b>--reltime</b></p>
+
+<p style="margin-left:22%;">Display the local time and the
+delta in human-readable format. Be aware that conversion to
+the local time could be inaccurate (see <b>-T</b> for more
+details).</p>
+
+<p style="margin-left:11%;"><b>-F</b>, <b>--file</b>
+<i>file</i></p>
+
+<p style="margin-left:22%;">Read the syslog messages from
+the given <i>file</i>. Note that <b>-F</b> does not support
+messages in kmsg format. The old syslog format is supported
+only.</p>
+
+<p style="margin-left:11%;"><b>-f</b>, <b>--facility</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Restrict output to the given
+(comma-separated) <i>list</i> of facilities. For
+example:</p>
+
+<p style="margin-left:32%; margin-top: 1em"><b>dmesg
+--facility=daemon</b></p>
+
+<p style="margin-left:22%; margin-top: 1em">will print
+messages from system daemons only. For all supported
+facilities see the <b>--help</b> output.</p>
+
+<p style="margin-left:11%;"><b>-H</b>, <b>--human</b></p>
+
+<p style="margin-left:22%;">Enable human-readable output.
+See also <b>--color</b>, <b>--reltime</b> and
+<b>--nopager</b>.</p>
+
+<p style="margin-left:11%;"><b>-k</b>, <b>--kernel</b></p>
+
+<p style="margin-left:22%;">Print kernel messages.</p>
+
+<p style="margin-left:11%;"><b>-L</b>,
+<b>--color</b>[=<i>when</i>]</p>
+
+<p style="margin-left:22%;">Colorize the output. The
+optional argument <i>when</i> can be <b>auto</b>,
+<b>never</b> or <b>always</b>. If the <i>when</i> argument
+is omitted, it defaults to <b>auto</b>. The colors can be
+disabled; for the current built-in default see the
+<b>--help</b> output. See also the <b>COLORS</b> section
+below.</p>
+
+<p style="margin-left:11%;"><b>-l</b>, <b>--level</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Restrict output to the given
+(comma-separated) <i>list</i> of levels. For example:</p>
+
+<p style="margin-left:32%; margin-top: 1em"><b>dmesg
+--level=err,warn</b></p>
+
+<p style="margin-left:22%; margin-top: 1em">will print
+error and warning messages only. For all supported levels
+see the <b>--help</b> output.</p>
+
+<p style="margin-left:11%;"><b>-n</b>,
+<b>--console-level</b> <i>level</i></p>
+
+<p style="margin-left:22%;">Set the <i>level</i> at which
+printing of messages is done to the console. The
+<i>level</i> is a level number or abbreviation of the level
+name. For all supported levels see the <b>--help</b>
+output.</p>
+
+<p style="margin-left:22%; margin-top: 1em">For example,
+<b>-n 1</b> or <b>-n emerg</b> prevents all messages, except
+emergency (panic) messages, from appearing on the console.
+All levels of messages are still written to
+<i>/proc/kmsg</i>, so <b>syslogd</b>(8) can still be used to
+control exactly where kernel messages appear. When the
+<b>-n</b> option is used, <b>dmesg</b> will <i>not</i> print
+or clear the kernel ring buffer.</p>
+
+<p style="margin-left:11%;"><b>-P</b>, <b>--nopager</b></p>
+
+<p style="margin-left:22%;">Do not pipe output into a
+pager. A pager is enabled by default for <b>--human</b>
+output.</p>
+
+<p style="margin-left:11%;"><b>-p</b>,
+<b>--force-prefix</b></p>
+
+<p style="margin-left:22%;">Add facility, level or
+timestamp information to each line of a multi-line
+message.</p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--raw</b></p>
+
+<p style="margin-left:22%;">Print the raw message buffer,
+i.e. do not strip the log-level prefixes.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that the
+real raw format depends on the method how <b>dmesg</b>(1)
+reads kernel messages. The /dev/kmsg device uses a different
+format than <b>syslog</b>(2). For backward compatibility,
+<b>dmesg</b>(1) returns data always in the <b>syslog</b>(2)
+format. It is possible to read the real raw data from
+/dev/kmsg by, for example, the command &rsquo;dd
+if=/dev/kmsg iflag=nonblock&rsquo;.</p>
+
+<p style="margin-left:11%;"><b>-S</b>, <b>--syslog</b></p>
+
+<p style="margin-left:22%;">Force <b>dmesg</b> to use the
+<b>syslog</b>(2) kernel interface to read kernel messages.
+The default is to use /dev/kmsg rather than <b>syslog</b>(2)
+since kernel 3.5.0.</p>
+
+<p style="margin-left:11%;"><b>-s</b>, <b>--buffer-size</b>
+<i>size</i></p>
+
+<p style="margin-left:22%;">Use a buffer of <i>size</i> to
+query the kernel ring buffer. This is 16392 by default. (The
+default kernel syslog buffer size was 4096 at first, 8192
+since 1.3.54, 16384 since 2.1.113.) If you have set the
+kernel buffer to be larger than the default, then this
+option can be used to view the entire buffer.</p>
+
+<p style="margin-left:11%;"><b>-T</b>, <b>--ctime</b></p>
+
+<p style="margin-left:22%;">Print human-readable
+timestamps.</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>Be aware
+that the timestamp could be inaccurate!</b> The <b>time</b>
+source used for the logs is <b>not updated after</b> system
+<b>SUSPEND</b>/<b>RESUME</b>.</p>
+
+<p style="margin-left:11%;"><b>-t</b>, <b>--notime</b></p>
+
+<p style="margin-left:22%;">Do not print kernel&rsquo;s
+timestamps.</p>
+
+<p style="margin-left:11%;"><b>--time-format</b>
+<i>format</i></p>
+
+<p style="margin-left:22%;">Print timestamps using the
+given <i>format</i>, which can be <b>ctime</b>,
+<b>reltime</b>, <b>delta</b> or <b>iso</b>. The first three
+formats are aliases of the time-format-specific options. The
+<b>iso</b> format is a <b>dmesg</b> implementation of the
+ISO-8601 timestamp format. The purpose of this format is to
+make the comparing of timestamps between two systems, and
+any other parsing, easy. The definition of the <b>iso</b>
+timestamp is:
+YYYY-MM-DD&lt;T&gt;HH:MM:SS,&lt;microseconds&gt;&lt;-+&gt;&lt;timezone
+offset from UTC&gt;.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The <b>iso</b>
+format has the same issue as <b>ctime</b>: the time may be
+inaccurate when a system is suspended and resumed.</p>
+
+<p style="margin-left:11%;"><b>-u</b>,
+<b>--userspace</b></p>
+
+<p style="margin-left:22%;">Print userspace messages.</p>
+
+<p style="margin-left:11%;"><b>-w</b>, <b>--follow</b></p>
+
+<p style="margin-left:22%;">Wait for new messages. This
+feature is supported only on systems with a readable
+/dev/kmsg (since kernel 3.5.0).</p>
+
+<p style="margin-left:11%;"><b>-x</b>, <b>--decode</b></p>
+
+<p style="margin-left:22%;">Decode facility and level
+(priority) numbers to human-readable prefixes.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<h2>COLORS
+<a name="COLORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Implicit
+coloring can be disabled by an empty file
+<i>/etc/terminal-colors.d/dmesg.disable</i>. See
+<b>terminal-colors.d</b>(5) for more details about
+colorization configuration.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The logical
+color names supported by <b>dmesg</b> are:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>subsys</b></p></td>
+<td width="2%"></td>
+<td width="69%">
+
+
+<p>The message sub-system prefix (e.g.
+&quot;ACPI:&quot;).</p> </td>
+<td width="9%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>time</b></p></td>
+<td width="2%"></td>
+<td width="69%">
+
+
+<p>The message timestamp.</p></td>
+<td width="9%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>timebreak</b></p>
+
+<p style="margin-left:22%;">The message timestamp in short
+ctime format in <b>--reltime</b> or <b>--human</b>
+output.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p><b>alert</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p>The text of the message with the alert log priority.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p><b>crit</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p>The text of the message with the critical log
+priority.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p><b>err</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p>The text of the message with the error log priority.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p><b>warn</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p>The text of the message with the warning log
+priority.</p> </td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>segfault</b></p>
+
+<p style="margin-left:22%;">The text of the message that
+inform about segmentation fault.</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>dmesg</b>
+can fail reporting permission denied error. This is usually
+caused by <b>dmesg_restrict</b> kernel setting, please see
+<b>syslog</b>(2) for more details.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>terminal-colors.d</b>(5),
+<b>syslogd</b>(8)</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><a href="mailto:kzak@redhat.com">Karel
+Zak</a></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>dmesg</b>
+was originally written by
+<a href="mailto:tytso@athena.mit.edu">Theodore
+Ts&rsquo;o</a></p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The dmesg
+command is part of the util-linux package and is available
+from
+<a href="https://www.kernel.org/pub/linux/utils/util-linux/">Linux
+Kernel Archive</a>.</p>
+<hr>
+</body>
+</html>

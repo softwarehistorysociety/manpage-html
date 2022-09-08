@@ -1,0 +1,167 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:35:40 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>CLOUD-ID</title>
+
+</head>
+<body>
+
+<h1 align="center">CLOUD-ID</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">cloud-id -
+Report the canonical cloud-id for this instance</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>cloud-id</b>
+[-h] [-j] [-l] [-i &lt;INSTANCE_DATA&gt;]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">cloud-id is the
+lowercase name of the cloud datasource discovered.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The cloud-id
+will be &rsquo;not run&rsquo; when systemd generator has not
+run yet. The cloud-id will be &rsquo;disabled&rsquo; when
+cloud-init is disabled or when ds-identify did not find a
+valid datasource.</p>
+
+<p style="margin-left:11%; margin-top: 1em">See cloud-init
+status --long for more information.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h,
+--help</b></p>
+
+<p style="margin-left:22%;">Show help message and exit</p>
+
+<p style="margin-left:11%;"><b>-j, --json</b></p>
+
+<p style="margin-left:22%;">Report all standardized
+cloud-id information as json</p>
+
+<p style="margin-left:11%;"><b>-l, --long</b></p>
+
+<p style="margin-left:22%;">Report extended cloud-id
+information as tab-delimited string</p>
+
+<p style="margin-left:11%;"><b>-i &lt;data&gt;,
+--instance-data &lt;data&gt;</b></p>
+
+<p style="margin-left:22%;">Path to instance-data.json
+file. Default is /run/cloud-init/instance-data.json</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">0</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em">On success</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>1</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>Due to an error</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>2</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>Due to cloud-init in a disabled state. See: cloud-init
+status --long</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>3</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>The cloud-init generator and discovery has not yet
+run.</p> </td></tr>
+</table>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright (C)
+2021 Canonical Ltd. License GPL-3 or Apache-2.0</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Full
+documentation at:
+&lt;https://cloudinit.readthedocs.io&gt;</p>
+<hr>
+</body>
+</html>

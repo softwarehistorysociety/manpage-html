@@ -1,0 +1,207 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:02:21 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>RARP</title>
+
+</head>
+<body>
+
+<h1 align="center">RARP</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#NOTE">NOTE</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#WARNING">WARNING</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">rarp -
+manipulate the system RARP table</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>rarp [-V]
+[--version] [-h] [--help] <br>
+rarp -a <br>
+rarp [-v] -d hostname ... <br>
+rarp [-v] [-t type] -s hostname hw_addr</b></p>
+
+<h2>NOTE
+<a name="NOTE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This program is
+obsolete. From version 2.3, the Linux kernel no longer
+contains RARP support. For a replacement RARP daemon, see
+<i>ftp://ftp.dementia.org/pub/net-tools</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>Rarp</b></i>
+manipulates the kernel&rsquo;s RARP table in various ways.
+The primary options are clearing an address mapping entry
+and manually setting up one. For debugging purposes, the
+<b>rarp</b> program also allows a complete dump of the RARP
+table.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em"><b>-V</b></p></td>
+<td width="8%"></td>
+<td width="73%">
+
+
+<p style="margin-top: 1em">Display the version of RARP in
+use.</p> </td>
+<td width="5%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-v</b></p></td>
+<td width="8%"></td>
+<td width="73%">
+
+
+<p>Tell the user what is going on by being verbose.</p></td>
+<td width="5%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-t type</b></p>
+
+<p style="margin-left:22%;">When setting or reading the
+RARP table, this optional parameter tells <b>rarp</b> which
+class of entries it should check for. The default value of
+this parameter is <b>ether</b> (i.e. hardware code
+<b>0x01</b> for <b>IEEE 802.3 10Mbps Ethernet .</b> Other
+values might include network technologies such as <b>AX.25
+(ax25)</b> and <b>NET/ROM (netrom).</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>-a</b></p></td>
+<td width="2%"></td>
+<td width="55%">
+</td>
+<td width="23%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--list</b></p></td>
+<td width="2%"></td>
+<td width="55%">
+
+
+<p>Lists the entries in the RARP table.</p></td>
+<td width="23%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-d hostname <br>
+--delete hostname</b></p>
+
+<p style="margin-left:22%;">Remove all RARP entries for the
+specified host.</p>
+
+<p style="margin-left:11%;"><b>-s hostname hw_addr <br>
+--set hostname hw_addr</b></p>
+
+<p style="margin-left:22%;">Create a RARP address mapping
+entry for host <b>hostname</b> with hardware address set to
+<b>hw_addr</b>. The format of the hardware address is
+dependent on the hardware class, but for most classes one
+can assume that the usual presentation can be used. For the
+Ethernet class, this is 6 bytes in hexadecimal, separated by
+colons.</p>
+
+<h2>WARNING
+<a name="WARNING"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Some systems
+(notably older Suns) assume that the host replying to a RARP
+query can also provide other remote boot services. Therefore
+never gratuitously add rarp entries unless you wish to meet
+the wrath of the network administrator.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/proc/net/rarp,</i></p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">arp(8),
+route(8), ifconfig(8), netstat(8)</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Ross D. Martin,
+&lt;martin@trcsun3.eas.asu.edu&gt; <br>
+Fred N. van Kempen, &lt;waltje@uwalt.nl.mugnet.org&gt; <br>
+Phil Blundell, &lt;Philip.Blundell@pobox.com&gt;</p>
+<hr>
+</body>
+</html>

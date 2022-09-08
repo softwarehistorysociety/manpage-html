@@ -1,0 +1,556 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:37:37 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>DELV</title>
+
+</head>
+<body>
+
+<h1 align="center">DELV</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SIMPLE USAGE">SIMPLE USAGE</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#QUERY OPTIONS">QUERY OPTIONS</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">delv - DNS
+lookup and validation utility</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em"><b>delv</b> [@server]
+[[<b>-4</b>] | [<b>-6</b>]]
+[<b>-a&nbsp;</b><i>anchor-file</i>]
+[<b>-b&nbsp;</b><i>address</i>]
+[<b>-c&nbsp;</b><i>class</i>] [<b>-d&nbsp;</b><i>level</i>]
+[<b>-i</b>] [<b>-m</b>] [<b>-p&nbsp;</b><i>port#</i>]
+[<b>-q&nbsp;</b><i>name</i>] [<b>-t&nbsp;</b><i>type</i>]
+[<b>-x&nbsp;</b><i>addr</i>] [name] [type] [class]
+[queryopt...]</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em"><b>delv</b> [<b>-h</b>]</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em"><b>delv</b> [<b>-v</b>]</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em"><b>delv</b> [queryopt...]
+[query...]</p> </td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>delv</b> is
+a tool for sending DNS queries and validating the results,
+using the same internal resolver and validator logic as
+<b>named</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>delv</b>
+will send to a specified name server all queries needed to
+fetch and validate the requested data; this includes the
+original requested query, subsequent queries to follow CNAME
+or DNAME chains, and queries for DNSKEY and DS records to
+establish a chain of trust for DNSSEC validation. It does
+not perform iterative resolution, but simulates the behavior
+of a name server configured for DNSSEC validating and
+forwarding.</p>
+
+<p style="margin-left:11%; margin-top: 1em">By default,
+responses are validated using built-in DNSSEC trust anchor
+for the root zone (&quot;.&quot;). Records returned by
+<b>delv</b> are either fully validated or were not signed.
+If validation fails, an explanation of the failure is
+included in the output; the validation process can be traced
+in detail. Because <b>delv</b> does not rely on an external
+server to carry out validation, it can be used to check the
+validity of DNS responses in environments where local name
+servers may not be trustworthy.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Unless it is
+told to query a specific name server, <b>delv</b> will try
+each of the servers listed in /etc/resolv.conf. If no usable
+server addresses are found, <b>delv</b> will send queries to
+the localhost addresses (127.0.0.1 for IPv4, ::1 for
+IPv6).</p>
+
+<p style="margin-left:11%; margin-top: 1em">When no command
+line arguments or options are given, <b>delv</b> will
+perform an NS query for &quot;.&quot; (the root zone).</p>
+
+<h2>SIMPLE USAGE
+<a name="SIMPLE USAGE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">A typical
+invocation of <b>delv</b> looks like:</p>
+
+<p style="margin-left:17%; margin-top: 1em">delv @server
+name type</p>
+
+<p style="margin-left:11%; margin-top: 1em">where:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>server</b></p>
+
+<p style="margin-left:17%;">is the name or IP address of
+the name server to query. This can be an IPv4 address in
+dotted-decimal notation or an IPv6 address in
+colon-delimited notation. When the supplied <i>server</i>
+argument is a hostname, <b>delv</b> resolves that name
+before querying that name server (note, however, that this
+initial lookup is <i>not</i> validated by DNSSEC).</p>
+
+<p style="margin-left:17%; margin-top: 1em">If no
+<i>server</i> argument is provided, <b>delv</b> consults
+/etc/resolv.conf; if an address is found there, it queries
+the name server at that address. If either of the <b>-4</b>
+or <b>-6</b> options are in use, then only addresses for the
+corresponding transport will be tried. If no usable
+addresses are found, <b>delv</b> will send queries to the
+localhost addresses (127.0.0.1 for IPv4, ::1 for IPv6).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>name</b></p>
+
+<p style="margin-left:17%;">is the domain name to be looked
+up.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>type</b></p>
+
+<p style="margin-left:17%;">indicates what type of query is
+required &mdash; ANY, A, MX, etc. <i>type</i> can be any
+valid query type. If no <i>type</i> argument is supplied,
+<b>delv</b> will perform a lookup for an A record.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">-a
+<i>anchor-file</i></p>
+
+<p style="margin-left:17%;">Specifies a file from which to
+read DNSSEC trust anchors. The default is /etc/bind.keys,
+which is included with BIND 9 and contains one or more trust
+anchors for the root zone (&quot;.&quot;).</p>
+
+<p style="margin-left:17%; margin-top: 1em">Keys that do
+not match the root zone name are ignored. An alternate key
+name can be specified using the <b>+root=NAME</b>
+options.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Note: When
+reading the trust anchor file, <b>delv</b> treats
+<b>trust-anchorsinitial-key</b> and <b>static-key</b>
+entries identically. That is, even if a key is configured
+with <b>initial-key</b>, indicating that it is meant to be
+used only as an initializing key for RFC 5011 key
+maintenance, it is still treated by <b>delv</b> as if it had
+been configured as a <b>static-key</b>. <b>delv</b> does not
+consult the managed keys database maintained by
+<b>named</b>. This means that if either of the keys in
+/etc/bind.keys is revoked and rolled over, it will be
+necessary to update /etc/bind.keys to use DNSSEC validation
+in <b>delv</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-b
+<i>address</i></p>
+
+<p style="margin-left:17%;">Sets the source IP address of
+the query to <i>address</i>. This must be a valid address on
+one of the host's network interfaces or &quot;0.0.0.0&quot;
+or &quot;::&quot;. An optional source port may be specified
+by appending &quot;#&lt;port&gt;&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">-c
+<i>class</i></p>
+
+<p style="margin-left:17%;">Sets the query class for the
+requested data. Currently, only class &quot;IN&quot; is
+supported in <b>delv</b> and any other value is ignored.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-d
+<i>level</i></p>
+
+<p style="margin-left:17%;">Set the systemwide debug level
+to <b>level</b>. The allowed range is from 0 to 99. The
+default is 0 (no debugging). Debugging traces from
+<b>delv</b> become more verbose as the debug level
+increases. See the <b>+mtrace</b>, <b>+rtrace</b>, and
+<b>+vtrace</b> options below for additional debugging
+details.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-h</p>
+
+<p style="margin-left:17%;">Display the <b>delv</b> help
+usage output and exit.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-i</p>
+
+<p style="margin-left:17%;">Insecure mode. This disables
+internal DNSSEC validation. (Note, however, this does not
+set the CD bit on upstream queries. If the server being
+queried is performing DNSSEC validation, then it will not
+return invalid data; this can cause <b>delv</b> to time out.
+When it is necessary to examine invalid data to debug a
+DNSSEC problem, use <b>dig +cd</b>.)</p>
+
+<p style="margin-left:11%; margin-top: 1em">-m</p>
+
+<p style="margin-left:17%;">Enables memory usage
+debugging.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-p
+<i>port#</i></p>
+
+<p style="margin-left:17%;">Specifies a destination port to
+use for queries instead of the standard DNS port number 53.
+This option would be used with a name server that has been
+configured to listen for queries on a non-standard port
+number.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-q
+<i>name</i></p>
+
+<p style="margin-left:17%;">Sets the query name to
+<i>name</i>. While the query name can be specified without
+using the <b>-q</b>, it is sometimes necessary to
+disambiguate names from types or classes (for example, when
+looking up the name &quot;ns&quot;, which could be
+misinterpreted as the type NS, or &quot;ch&quot;, which
+could be misinterpreted as class CH).</p>
+
+<p style="margin-left:11%; margin-top: 1em">-t
+<i>type</i></p>
+
+<p style="margin-left:17%;">Sets the query type to
+<i>type</i>, which can be any valid query type supported in
+BIND 9 except for zone transfer types AXFR and IXFR. As with
+<b>-q</b>, this is useful to distinguish query name type or
+class when they are ambiguous. it is sometimes necessary to
+disambiguate names from types.</p>
+
+<p style="margin-left:17%; margin-top: 1em">The default
+query type is &quot;A&quot;, unless the <b>-x</b> option is
+supplied to indicate a reverse lookup, in which case it is
+&quot;PTR&quot;.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-v</p>
+
+<p style="margin-left:17%;">Print the <b>delv</b> version
+and exit.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-x
+<i>addr</i></p>
+
+<p style="margin-left:17%;">Performs a reverse lookup,
+mapping an addresses to a name. <i>addr</i> is an IPv4
+address in dotted-decimal notation, or a colon-delimited
+IPv6 address. When <b>-x</b> is used, there is no need to
+provide the <i>name</i> or <i>type</i> arguments.
+<b>delv</b> automatically performs a lookup for a name like
+11.12.13.10.in-addr.arpa and sets the query type to PTR.
+IPv6 addresses are looked up using nibble format under the
+IP6.ARPA domain.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-4</p>
+
+<p style="margin-left:17%;">Forces <b>delv</b> to only use
+IPv4.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-6</p>
+
+<p style="margin-left:17%;">Forces <b>delv</b> to only use
+IPv6.</p>
+
+<h2>QUERY OPTIONS
+<a name="QUERY OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>delv</b>
+provides a number of query options which affect the way
+results are displayed, and in some cases the way lookups are
+performed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Each query
+option is identified by a keyword preceded by a plus sign
+(+). Some keywords set or reset an option. These may be
+preceded by the string no to negate the meaning of that
+keyword. Other keywords assign values to options like the
+timeout interval. They have the form <b>+keyword=value</b>.
+The query options are:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]cdflag</b></p>
+
+<p style="margin-left:17%;">Controls whether to set the CD
+(checking disabled) bit in queries sent by <b>delv</b>. This
+may be useful when troubleshooting DNSSEC problems from
+behind a validating resolver. A validating resolver will
+block invalid responses, making it difficult to retrieve
+them for analysis. Setting the CD flag on queries will cause
+the resolver to return invalid responses, which <b>delv</b>
+can then validate internally and report the errors in
+detail.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]class</b></p>
+
+<p style="margin-left:17%;">Controls whether to display the
+CLASS when printing a record. The default is to display the
+CLASS.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]ttl</b></p>
+
+<p style="margin-left:17%;">Controls whether to display the
+TTL when printing a record. The default is to display the
+TTL.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]rtrace</b></p>
+
+<p style="margin-left:17%;">Toggle resolver fetch logging.
+This reports the name and type of each query sent by
+<b>delv</b> in the process of carrying out the resolution
+and validation process: this includes including the original
+query and all subsequent queries to follow CNAMEs and to
+establish a chain of trust for DNSSEC validation.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This is
+equivalent to setting the debug level to 1 in the
+&quot;resolver&quot; logging category. Setting the
+systemwide debug level to 1 using the <b>-d</b> option will
+product the same output (but will affect other logging
+categories as well).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]mtrace</b></p>
+
+<p style="margin-left:17%;">Toggle message logging. This
+produces a detailed dump of the responses received by
+<b>delv</b> in the process of carrying out the resolution
+and validation process.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This is
+equivalent to setting the debug level to 10 for the
+&quot;packets&quot; module of the &quot;resolver&quot;
+logging category. Setting the systemwide debug level to 10
+using the <b>-d</b> option will produce the same output (but
+will affect other logging categories as well).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]vtrace</b></p>
+
+<p style="margin-left:17%;">Toggle validation logging. This
+shows the internal process of the validator as it determines
+whether an answer is validly signed, unsigned, or
+invalid.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This is
+equivalent to setting the debug level to 3 for the
+&quot;validator&quot; module of the &quot;dnssec&quot;
+logging category. Setting the systemwide debug level to 3
+using the <b>-d</b> option will produce the same output (but
+will affect other logging categories as well).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]short</b></p>
+
+<p style="margin-left:17%;">Provide a terse answer. The
+default is to print the answer in a verbose form.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]comments</b></p>
+
+<p style="margin-left:17%;">Toggle the display of comment
+lines in the output. The default is to print comments.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]rrcomments</b></p>
+
+<p style="margin-left:17%;">Toggle the display of
+per-record comments in the output (for example,
+human-readable key information about DNSKEY records). The
+default is to print per-record comments.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]crypto</b></p>
+
+<p style="margin-left:17%;">Toggle the display of
+cryptographic fields in DNSSEC records. The contents of
+these field are unnecessary to debug most DNSSEC validation
+failures and removing them makes it easier to see the common
+failures. The default is to display the fields. When omitted
+they are replaced by the string &quot;[omitted]&quot; or in
+the DNSKEY case the key id is displayed as the replacement,
+e.g. &quot;[ key id = value ]&quot;.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]trust</b></p>
+
+<p style="margin-left:17%;">Controls whether to display the
+trust level when printing a record. The default is to
+display the trust level.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]split[=W]</b></p>
+
+<p style="margin-left:17%;">Split long hex- or
+base64-formatted fields in resource records into chunks of
+<i>W</i> characters (where <i>W</i> is rounded up to the
+nearest multiple of 4). <i>+nosplit</i> or <i>+split=0</i>
+causes fields not to be split at all. The default is 56
+characters, or 44 characters when multiline mode is
+active.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]all</b></p>
+
+<p style="margin-left:17%;">Set or clear the display
+options <b>+[no]comments</b>, <b>+[no]rrcomments</b>, and
+<b>+[no]trust</b> as a group.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]multiline</b></p>
+
+<p style="margin-left:17%;">Print long records (such as
+RRSIG, DNSKEY, and SOA records) in a verbose multi-line
+format with human-readable comments. The default is to print
+each record on a single line, to facilitate machine parsing
+of the <b>delv</b> output.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]dnssec</b></p>
+
+<p style="margin-left:17%;">Indicates whether to display
+RRSIG records in the <b>delv</b> output. The default is to
+do so. Note that (unlike in <b>dig</b>) this does <i>not</i>
+control whether to request DNSSEC records or whether to
+validate them. DNSSEC records are always requested, and
+validation will always occur unless suppressed by the use of
+<b>-i</b> or <b>+noroot</b>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]root[=ROOT]</b></p>
+
+<p style="margin-left:17%;">Indicates whether to perform
+conventional DNSSEC validation, and if so, specifies the
+name of a trust anchor. The default is to validate using a
+trust anchor of &quot;.&quot; (the root zone), for which
+there is a built-in key. If specifying a different trust
+anchor, then <b>-a</b> must be used to specify a file
+containing the key.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]tcp</b></p>
+
+<p style="margin-left:17%;">Controls whether to use TCP
+when sending queries. The default is to use UDP unless a
+truncated response has been received.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]unknownformat</b></p>
+
+<p style="margin-left:17%;">Print all RDATA in unknown RR
+type presentation format (RFC 3597). The default is to print
+RDATA for known types in the type's presentation format.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>+[no]yaml</b></p>
+
+<p style="margin-left:17%;">Print response data in YAML
+format.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/bind.keys</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/resolv.conf</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>dig</b>(1),
+<b>named</b>(8), RFC4034, RFC4035, RFC4431, RFC5074,
+RFC5155.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Internet
+Systems Consortium, Inc.</b></p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+&copy; 2014-2020 Internet Systems Consortium, Inc.
+(&quot;ISC&quot;)</p>
+<hr>
+</body>
+</html>

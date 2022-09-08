@@ -1,0 +1,1903 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:40:17 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>ETHTOOL</title>
+
+</head>
+<body>
+
+<h1 align="center">ETHTOOL</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">ethtool - query
+or control network driver and hardware settings</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="11%">
+
+
+<p style="margin-top: 1em"><b>ethtool</b></p></td>
+<td width="1%"></td>
+<td width="11%">
+
+
+<p style="margin-top: 1em"><i>devname</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="35%">
+
+
+<p style="margin-top: 1em"><b>ethtool</b></p></td>
+<td width="2%"></td>
+<td width="10%"></td>
+<td width="42%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-h|--help</b></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool
+--version</b></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool
+-a|--show-pause</b> <i>devname</i></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool
+-A|--pause</b></p>
+
+<p style="margin-left:11%;"><i>devname</i>
+[<b>autoneg&nbsp;on</b>|<b>off</b>]
+[<b>rx&nbsp;on</b>|<b>off</b>]
+[<b>tx&nbsp;on</b>|<b>off</b>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="40%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+-c|--show-coalesce</b></p> </td>
+<td width="1%"></td>
+<td width="11%">
+
+
+<p style="margin-top: 1em"><i>devname</i></p></td>
+<td width="37%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="40%">
+
+
+<p style="margin-top: 1em"><b>ethtool -C|--coalesce</b></p></td>
+<td width="1%"></td>
+<td width="11%"></td>
+<td width="37%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><i>devname</i>
+[<b>adaptive-rx&nbsp;on</b>|<b>off</b>]
+[<b>adaptive-tx&nbsp;on</b>|<b>off</b>]
+[<b>rx-usecs&nbsp;</b><i>N</i>]
+[<b>rx-frames&nbsp;</b><i>N</i>]
+[<b>rx-usecs-irq&nbsp;</b><i>N</i>]
+[<b>rx-frames-irq&nbsp;</b><i>N</i>]
+[<b>tx-usecs&nbsp;</b><i>N</i>]
+[<b>tx-frames&nbsp;</b><i>N</i>]
+[<b>tx-usecs-irq&nbsp;</b><i>N</i>]
+[<b>tx-frames-irq&nbsp;</b><i>N</i>]
+[<b>stats-block-usecs&nbsp;</b><i>N</i>]
+[<b>pkt-rate-low&nbsp;</b><i>N</i>]
+[<b>rx-usecs-low&nbsp;</b><i>N</i>]
+[<b>rx-frames-low&nbsp;</b><i>N</i>]
+[<b>tx-usecs-low&nbsp;</b><i>N</i>]
+[<b>tx-frames-low&nbsp;</b><i>N</i>]
+[<b>pkt-rate-high&nbsp;</b><i>N</i>]
+[<b>rx-usecs-high&nbsp;</b><i>N</i>]
+[<b>rx-frames-high&nbsp;</b><i>N</i>]
+[<b>tx-usecs-high&nbsp;</b><i>N</i>]
+[<b>tx-frames-high&nbsp;</b><i>N</i>]
+[<b>sample-interval&nbsp;</b><i>N</i>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="34%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+-g|--show-ring</b></p> </td>
+<td width="55%">
+
+
+<p style="margin-top: 1em"><i>devname</i></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="34%">
+
+
+<p style="margin-top: 1em"><b>ethtool -G|--set-ring</b></p></td>
+<td width="55%">
+
+
+<p style="margin-top: 1em"><i>devname</i>
+[<b>rx&nbsp;</b><i>N</i>] [<b>rx-mini&nbsp;</b><i>N</i>]
+[<b>rx-jumbo&nbsp;</b><i>N</i>]
+[<b>tx&nbsp;</b><i>N</i>]</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="34%">
+
+
+<p style="margin-top: 1em"><b>ethtool -i|--driver</b></p></td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><i>devname</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="40%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+-d|--register-dump</b></p> </td>
+<td width="1%"></td>
+<td width="48%">
+
+
+<p style="margin-top: 1em"><i>devname</i>
+[<b>raw&nbsp;on</b>|<b>off</b>]
+[<b>hex&nbsp;on</b>|<b>off</b>] [<b>file</b></p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><i>name</i>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="37%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+-e|--eeprom-dump</b></p> </td>
+<td width="1%"></td>
+<td width="51%">
+
+
+<p style="margin-top: 1em"><i>devname</i>
+[<b>raw&nbsp;on</b>|<b>off</b>]
+[<b>offset&nbsp;</b><i>N</i>]
+[<b>length&nbsp;</b><i>N</i>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="11%">
+
+
+<p style="margin-top: 1em"><b>ethtool</b></p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-E|--change-eeprom</b>
+<i>devname</i> [<b>magic&nbsp;</b><i>N</i>]
+[<b>offset&nbsp;</b><i>N</i>] [<b>length&nbsp;</b><i>N</i>]
+[<b>value&nbsp;</b><i>N</i>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="47%">
+
+
+<p style="margin-top: 1em"><b>ethtool</b></p></td>
+<td width="2%"></td>
+<td width="40%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:11%;"><b>-k|--show-features|--show-offload</b>
+<i>devname</i></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool
+-K|--features|--offload</b> <i>devname feature</i>
+<b>on</b>|<b>off</b> ...</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool
+-p|--identify</b></p>
+
+<p style="margin-left:11%;"><i>devname</i> [<i>N</i>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="40%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+-P|--show-permaddr</b></p> </td>
+<td width="1%"></td>
+<td width="11%">
+
+
+<p style="margin-top: 1em"><i>devname</i></p></td>
+<td width="37%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="40%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+-r|--negotiate</b></p> </td>
+<td width="1%"></td>
+<td width="11%"></td>
+<td width="37%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><i>devname</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="37%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+-S|--statistics</b></p> </td>
+<td width="12%">
+
+
+<p style="margin-top: 1em"><i>devname</i></p></td>
+<td width="40%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="37%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+--phy-statistics</b></p> </td>
+<td width="12%">
+
+
+<p style="margin-top: 1em"><i>devname</i></p></td>
+<td width="40%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="37%">
+
+
+<p style="margin-top: 1em"><b>ethtool -t|--test</b></p></td>
+<td width="12%"></td>
+<td width="40%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><i>devname</i>
+[<b>offline</b>|<b>online</b>|<b>external_lb</b>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="15%">
+
+
+<p style="margin-top: 1em"><b>ethtool -s</b></p></td>
+<td width="2%"></td>
+<td width="72%">
+
+
+<p style="margin-top: 1em"><i>devname</i>
+[<b>speed&nbsp;</b><i>N</i>]
+[<b>duplex&nbsp;half</b>|<b>full</b>]
+[<b>port&nbsp;tp</b>|<b>aui</b>|<b>bnc</b>|<b>mii</b>]</p> </td></tr>
+</table>
+
+
+<p style="margin-left:11%;">[<b>mdix&nbsp;auto</b>|<b>on</b>|<b>off</b>]
+[<b>autoneg&nbsp;on</b>|<b>off</b>]
+[<b>advertise&nbsp;</b><i>N</i>]
+[<b>phyad&nbsp;</b><i>N</i>]
+[<b>xcvr&nbsp;internal</b>|<b>external</b>]
+[<b>wol&nbsp;p</b>|<b>u</b>|<b>m</b>|<b>b</b>|<b>a</b>|<b>g</b>|<b>s</b>|<b>f|d...]</b>
+[<b>sopass&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc</i>]
+[<b>msglvl</b> <i>N&nbsp;</i>|
+<b>msglvl&nbsp;</b><i>type</i> <b>on</b>|<b>off</b> ...]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="58%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+-n|-u|--show-nfc|--show-ntuple</b></p> </td>
+<td width="2%"></td>
+<td width="11%">
+
+
+<p style="margin-top: 1em"><i>devname</i></p></td>
+<td width="18%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:11%;">[&nbsp;<b>rx-flow-hash&nbsp;tcp4</b>|<b>udp4</b>|<b>ah4</b>|<b>esp4</b>|<b>sctp4</b>|<b>tcp6</b>|<b>udp6</b>|<b>ah6</b>|<b>esp6</b>|<b>sctp6&nbsp;|</b></p>
+
+<p style="margin-left:22%;"><b>rule&nbsp;</b><i>N</i> ]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="64%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+-N|-U|--config-nfc|--config-ntuple</b></p> </td>
+<td width="2%"></td>
+<td width="11%">
+
+
+<p style="margin-top: 1em"><i>devname</i></p></td>
+<td width="12%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:11%;"><b>rx-flow-hash&nbsp;tcp4</b>|<b>udp4</b>|<b>ah4</b>|<b>esp4</b>|<b>sctp4</b>|<b>tcp6</b>|<b>udp6</b>|<b>ah6</b>|<b>esp6</b>|<b>sctp6&nbsp;
+m</b>|<b>v</b>|<b>t</b>|<b>s</b>|<b>d</b>|<b>f</b>|<b>n</b>|<b>r</b>...&nbsp;<b>|</b></p>
+
+<p style="margin-left:22%;"><b>flow-type
+ether|ip4|tcp4|udp4|sctp4|ah4|esp4|ip6|tcp6|udp6|ah6|esp6|sctp6</b>
+[<b>src&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc&nbsp;</i>[<b>m&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc</i>]]
+[<b>dst&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc&nbsp;</i>[<b>m&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc</i>]]
+[<b>proto&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]]
+[<b>src-ip&nbsp;</b><i>ip-address&nbsp;</i>[<b>m&nbsp;</b><i>ip-address</i>]]
+[<b>dst-ip&nbsp;</b><i>ip-address&nbsp;</i>[<b>m&nbsp;</b><i>ip-address</i>]]
+[<b>tos&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]]
+[<b>tclass&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]]
+[<b>l4proto&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]]
+[<b>src-port&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]]
+[<b>dst-port&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]]
+[<b>spi&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]]
+[<b>l4data&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]]
+[<b>vlan-etype&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]]
+[<b>vlan&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]]
+[<b>user-def&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]]
+[<b>dst-mac&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc&nbsp;</i>[<b>m&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc</i>]]
+[<b>action&nbsp;</b><i>N</i>] [<b>context&nbsp;</b><i>N</i>]
+[<b>loc&nbsp;</b><i>N</i>] | <b><br>
+delete&nbsp;</b><i>N</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="32%">
+
+
+<p style="margin-top: 1em"><b>ethtool -w|--get-dump</b></p></td>
+<td width="2%"></td>
+<td width="35%">
+
+
+<p style="margin-top: 1em"><i>devname</i> [<b>data</b>
+<i>filename</i>]</p> </td>
+<td width="20%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="32%">
+
+
+
+<p style="margin-top: 1em"><b>ethtool&nbsp;-W|--set-dump</b></p> </td>
+<td width="2%"></td>
+<td width="35%">
+
+
+<p style="margin-top: 1em"><i>devname N</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="11%">
+
+
+<p style="margin-top: 1em"><b>ethtool</b></p></td>
+<td width="38%"></td>
+<td width="11%"></td>
+<td width="29%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-T|--show-time-stamping</b>
+<i>devname</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="52%">
+
+
+<p style="margin-top: 1em"><b>ethtool</b></p></td>
+<td width="2%"></td>
+<td width="35%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:11%;"><b>-x|--show-rxfh-indir|--show-rxfh</b>
+<i>devname</i></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool
+-X|--set-rxfh-indir|--rxfh</b> <i>devname</i>
+[<b>hkey&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc</i>:...]</p>
+
+<p style="margin-left:11%;">[<b>start</b> <i>N</i>]
+[&nbsp;<b>equal</b> <i>N&nbsp;</i>| <b>weight&nbsp;</b><i>W0
+W1</i> ...&nbsp;|&nbsp;<b>default&nbsp;</b>] [<b>hfunc</b>
+<i>FUNC</i>] [<b>context</b> <i>CTX</i> |&nbsp;<b>new</b>]
+[<b>delete</b>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="27%">
+
+
+<p style="margin-top: 1em"><b>ethtool -f|--flash</b></p></td>
+<td width="2%"></td>
+<td width="25%">
+
+
+<p style="margin-top: 1em"><i>devname file</i>
+[<i>N</i>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="38%">
+
+
+<p style="margin-top: 1em"><b>ethtool</b></p></td>
+<td width="2%"></td>
+<td width="49%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-l|--show-channels</b>
+<i>devname</i></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool
+-L|--set-channels</b> <i>devname</i>
+[<b>rx&nbsp;</b><i>N</i>] [<b>tx&nbsp;</b><i>N</i>]
+[<b>other&nbsp;</b><i>N</i>]
+[<b>combined&nbsp;</b><i>N</i>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="11%">
+
+
+<p style="margin-top: 1em"><b>ethtool</b></p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:11%;"><b>-m|--dump-module-eeprom|--module-info</b>
+<i>devname</i> [<b>raw&nbsp;on</b>|<b>off</b>]
+[<b>hex&nbsp;on</b>|<b>off</b>]
+[<b>offset&nbsp;</b><i>N</i>]
+[<b>length&nbsp;</b><i>N</i>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="37%">
+
+
+<p style="margin-top: 1em"><b>ethtool</b></p></td>
+<td width="1%"></td>
+<td width="36%"></td>
+<td width="15%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>--show-priv-flags</b>
+<i>devname</i></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool
+--set-priv-flags</b> <i>devname flag</i>
+<b>on</b>|<b>off</b> ...</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool
+--show-eee</b></p>
+
+<p style="margin-left:11%;"><i>devname</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="26%">
+
+
+<p style="margin-top: 1em"><b>ethtool --set-eee</b></p></td>
+<td width="1%"></td>
+<td width="62%">
+
+
+<p style="margin-top: 1em"><i>devname</i>
+[<b>eee&nbsp;on</b>|<b>off</b>]
+[<b>tx-lpi&nbsp;on</b>|<b>off</b>]
+[<b>tx-timer&nbsp;</b><i>N</i>]</p> </td></tr>
+</table>
+
+
+<p style="margin-left:11%;">[<b>advertise&nbsp;</b><i>N</i>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="38%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+--set-phy-tunable</b></p> </td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p style="margin-top: 1em"><i>devname</i> [ <b>downshift
+on</b>|<b>off</b> [<b>count&nbsp;</b><i>N</i>] ] [</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>fast-link-down
+on</b>|<b>off</b> [<b>msecs&nbsp;</b><i>N</i>] ] [
+<b>energy-detect-power-down on</b>|<b>off</b>
+[<b>msecs&nbsp;</b><i>N</i>] ]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="38%">
+
+
+<p style="margin-top: 1em"><b>ethtool
+--get-phy-tunable</b></p> </td>
+<td width="2%"></td>
+<td width="49%">
+
+
+<p style="margin-top: 1em"><i>devname</i>
+[<b>downshift</b>] [<b>fast-link-down</b>]</p></td></tr>
+</table>
+
+
+<p style="margin-left:11%;">[<b>energy-detect-power-down</b>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p style="margin-top: 1em"><b>ethtool --reset</b></p></td>
+<td width="1%"></td>
+<td width="65%">
+
+
+<p style="margin-top: 1em"><i>devname</i>
+[<b>flags&nbsp;</b><i>N</i>] [<b>mgmt</b>]
+[<b>mgmt-shared</b>] [<b>irq</b>]</p></td></tr>
+</table>
+
+<p style="margin-left:11%;">[<b>irq-shared</b>]
+[<b>dma</b>] [<b>dma-shared</b>] [<b>filter</b>]
+[<b>filter-shared</b>] [<b>offload</b>]
+[<b>offload-shared</b>] [<b>mac</b>] [<b>mac-shared</b>]
+[<b>phy</b>] [<b>phy-shared</b>] [<b>ram</b>]
+[<b>ram-shared</b>] [<b>ap</b>] [<b>ap-shared</b>]
+[<b>dedicated</b>] [<b>all</b>]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="27%">
+
+
+<p style="margin-top: 1em"><b>ethtool --show-fec</b></p></td>
+<td width="62%">
+
+
+<p style="margin-top: 1em"><i>devname</i></p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="27%">
+
+
+<p style="margin-top: 1em"><b>ethtool --set-fec</b></p></td>
+<td width="62%">
+
+
+<p style="margin-top: 1em"><i>devname</i> <b>encoding
+auto</b>|<b>off</b>|<b>rs</b>|<b>baser&nbsp;</b>[...]</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+
+
+<p style="margin-top: 1em"><b>ethtool</b></p></table>
+
+<p style="margin-left:11%;"><b>-Q|--per-queue</b>
+<i>devname</i> [<b>queue_mask</b> <i>%x</i>]
+<i>sub_command</i> ...</p>
+
+<p style="margin-left:22%;">.</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool</b>
+is used to query and control network device driver and
+hardware settings, particularly for wired Ethernet
+devices.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>devname</i>
+is the name of the network device on which ethtool should
+operate.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool</b>
+with a single argument specifying the device name prints
+current settings of the specified device. <b><br>
+-h --help</b></p>
+
+<p style="margin-left:22%;">Shows a short help message.</p>
+
+<p style="margin-left:11%;"><b>--version</b></p>
+
+<p style="margin-left:22%;">Shows the ethtool version
+number.</p>
+
+<p style="margin-left:11%;"><b>-a --show-pause</b></p>
+
+<p style="margin-left:22%;">Queries the specified Ethernet
+device for pause parameter information.</p>
+
+<p style="margin-left:11%;"><b>-A --pause</b></p>
+
+<p style="margin-left:22%;">Changes the pause parameters of
+the specified Ethernet device.</p>
+
+
+<p style="margin-left:17%;"><b>autoneg&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether pause
+autonegotiation should be enabled.</p>
+
+
+<p style="margin-left:17%;"><b>rx&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether RX pause
+should be enabled.</p>
+
+
+<p style="margin-left:17%;"><b>tx&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether TX pause
+should be enabled.</p>
+
+<p style="margin-left:11%;"><b>-c --show-coalesce</b></p>
+
+<p style="margin-left:22%;">Queries the specified network
+device for coalescing information.</p>
+
+<p style="margin-left:11%;"><b>-C --coalesce</b></p>
+
+<p style="margin-left:22%;">Changes the coalescing settings
+of the specified network device.</p>
+
+<p style="margin-left:11%;"><b>-g --show-ring</b></p>
+
+<p style="margin-left:22%;">Queries the specified network
+device for rx/tx ring parameter information.</p>
+
+<p style="margin-left:11%;"><b>-G --set-ring</b></p>
+
+<p style="margin-left:22%;">Changes the rx/tx ring
+parameters of the specified network device.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="6%">
+
+
+<p><b>rx&nbsp;</b><i>N</i></p></td>
+<td width="5%"></td>
+<td width="72%">
+
+
+<p>Changes the number of ring entries for the Rx ring.</p></td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><b>rx-mini&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Changes the number of ring
+entries for the Rx Mini ring.</p>
+
+
+<p style="margin-left:17%;"><b>rx-jumbo&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Changes the number of ring
+entries for the Rx Jumbo ring.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="6%">
+
+
+<p><b>tx&nbsp;</b><i>N</i></p></td>
+<td width="5%"></td>
+<td width="72%">
+
+
+<p>Changes the number of ring entries for the Tx ring.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-i --driver</b></p>
+
+<p style="margin-left:22%;">Queries the specified network
+device for associated driver information.</p>
+
+<p style="margin-left:11%;"><b>-d --register-dump</b></p>
+
+<p style="margin-left:22%;">Retrieves and prints a register
+dump for the specified network device. The register format
+for some devices is known and decoded others are printed in
+hex. When <i>raw</i> is enabled, then ethtool dumps the raw
+register data to stdout. If <i>file</i> is specified, then
+use contents of previous raw register dump, rather than
+reading from the device.</p>
+
+<p style="margin-left:11%;"><b>-e --eeprom-dump</b></p>
+
+<p style="margin-left:22%;">Retrieves and prints an EEPROM
+dump for the specified network device. When raw is enabled,
+then it dumps the raw EEPROM data to stdout. The length and
+offset parameters allow dumping certain portions of the
+EEPROM. Default is to dump the entire EEPROM.</p>
+
+<p style="margin-left:17%;"><b>raw&nbsp;</b><i>on|off</i>
+<b><br>
+offset&nbsp;</b><i>N</i> <b><br>
+length&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:11%;"><b>-E --change-eeprom</b></p>
+
+<p style="margin-left:22%;">If value is specified, changes
+EEPROM byte for the specified network device. offset and
+value specify which byte and it&rsquo;s new value. If value
+is not specified, stdin is read and written to the EEPROM.
+The length and offset parameters allow writing to certain
+portions of the EEPROM. Because of the persistent nature of
+writing to the EEPROM, a device-specific magic key must be
+specified to prevent the accidental writing to the
+EEPROM.</p>
+
+<p style="margin-left:11%;"><b>-k --show-features
+--show-offload</b></p>
+
+<p style="margin-left:22%;">Queries the specified network
+device for the state of protocol offload and other
+features.</p>
+
+<p style="margin-left:11%;"><b>-K --features
+--offload</b></p>
+
+<p style="margin-left:22%;">Changes the offload parameters
+and other features of the specified network device. The
+following feature names are built-in and others may be
+defined by the kernel.</p>
+
+
+<p style="margin-left:17%;"><b>rx&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether RX
+checksumming should be enabled.</p>
+
+
+<p style="margin-left:17%;"><b>tx&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether TX
+checksumming should be enabled.</p>
+
+
+<p style="margin-left:17%;"><b>sg&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether
+scatter-gather should be enabled.</p>
+
+
+<p style="margin-left:17%;"><b>tso&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether TCP
+segmentation offload should be enabled.</p>
+
+
+<p style="margin-left:17%;"><b>ufo&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether UDP
+fragmentation offload should be enabled</p>
+
+
+<p style="margin-left:17%;"><b>gso&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether generic
+segmentation offload should be enabled</p>
+
+
+<p style="margin-left:17%;"><b>gro&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether generic
+receive offload should be enabled</p>
+
+
+<p style="margin-left:17%;"><b>lro&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether large receive
+offload should be enabled</p>
+
+
+<p style="margin-left:17%;"><b>rxvlan&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether RX VLAN
+acceleration should be enabled</p>
+
+
+<p style="margin-left:17%;"><b>txvlan&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether TX VLAN
+acceleration should be enabled</p>
+
+
+<p style="margin-left:17%;"><b>ntuple&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether Rx ntuple
+filters and actions should be enabled</p>
+
+
+<p style="margin-left:17%;"><b>rxhash&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether receive
+hashing offload should be enabled</p>
+
+<p style="margin-left:11%;"><b>-p --identify</b></p>
+
+<p style="margin-left:22%;">Initiates adapter-specific
+action intended to enable an operator to easily identify the
+adapter by sight. Typically this involves blinking one or
+more LEDs on the specific network port.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="6%">
+
+
+<p>[&nbsp;<i>N</i>]</p></td>
+<td width="5%"></td>
+<td width="70%">
+
+
+<p>Length of time to perform phys-id, in seconds.</p></td>
+<td width="2%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-P --show-permaddr</b></p>
+
+<p style="margin-left:22%;">Queries the specified network
+device for permanent hardware address.</p>
+
+<p style="margin-left:11%;"><b>-r --negotiate</b></p>
+
+<p style="margin-left:22%;">Restarts auto-negotiation on
+the specified Ethernet device, if auto-negotiation is
+enabled.</p>
+
+<p style="margin-left:11%;"><b>-S --statistics</b></p>
+
+<p style="margin-left:22%;">Queries the specified network
+device for NIC- and driver-specific statistics.</p>
+
+<p style="margin-left:11%;"><b>--phy-statistics</b></p>
+
+<p style="margin-left:22%;">Queries the specified network
+device for PHY specific statistics.</p>
+
+<p style="margin-left:11%;"><b>-t --test</b></p>
+
+<p style="margin-left:22%;">Executes adapter selftest on
+the specified network device. Possible test modes are:</p>
+
+<p style="margin-left:17%;"><b>offline</b></p>
+
+<p style="margin-left:28%;">Perform full set of tests,
+possibly interrupting normal operation during the tests,</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="9%">
+
+
+<p><b>online</b></p></td>
+<td width="2%"></td>
+<td width="72%">
+
+
+<p>Perform limited set of tests, not interrupting normal
+operation,</p> </td></tr>
+</table>
+
+<p style="margin-left:17%;"><b>external_lb</b></p>
+
+<p style="margin-left:28%;">Perform full set of tests, as
+for <b>offline</b>, and additionally an external-loopback
+test.</p>
+
+<p style="margin-left:11%;"><b>-s --change</b></p>
+
+<p style="margin-left:22%;">Allows changing some or all
+settings of the specified network device. All following
+options only apply if <b>-s</b> was specified.</p>
+
+<p style="margin-left:17%;"><b>speed&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Set speed in Mb/s.
+<b>ethtool</b> with just the device name as an argument will
+show you the supported device speeds.</p>
+
+
+<p style="margin-left:17%;"><b>duplex&nbsp;half</b>|<b>full</b></p>
+
+<p style="margin-left:28%;">Sets full or half duplex
+mode.</p>
+
+
+<p style="margin-left:17%;"><b>port&nbsp;tp</b>|<b>aui</b>|<b>bnc</b>|<b>mii</b></p>
+
+<p style="margin-left:28%;">Selects device port.</p>
+
+
+<p style="margin-left:17%;"><b>mdix&nbsp;auto</b>|<b>on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Selects MDI-X mode for port.
+May be used to override the automatic detection feature of
+most adapters. An argument of <b>auto</b> means automatic
+detection of MDI status, <b>on</b> forces MDI-X (crossover)
+mode, while <b>off</b> means MDI (straight through) mode.
+The driver should guarantee that this command takes effect
+immediately, and if necessary may reset the link to cause
+the change to take effect.</p>
+
+
+<p style="margin-left:17%;"><b>autoneg&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether
+autonegotiation should be enabled. Autonegotiation is
+enabled by default, but in some network devices may have
+trouble with it, so you can disable it if really
+necessary.</p>
+
+
+<p style="margin-left:17%;"><b>advertise&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Sets the speed and duplex
+advertised by autonegotiation. The argument is a hexadecimal
+value using one or a combination of the following
+values:</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>phyad&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">PHY address.</p>
+
+
+<p style="margin-left:17%;"><b>xcvr&nbsp;internal</b>|<b>external</b></p>
+
+<p style="margin-left:28%;">Selects transceiver type.
+Currently only internal and external can be specified, in
+the future further types might be added.</p>
+
+
+<p style="margin-left:17%;"><b>wol&nbsp;p</b>|<b>u</b>|<b>m</b>|<b>b</b>|<b>a</b>|<b>g</b>|<b>s</b>|<b>f|d...</b></p>
+
+<p style="margin-left:28%;">Sets Wake-on-LAN options. Not
+all devices support this. The argument to this option is a
+string of characters specifying which options to enable.</p>
+
+<p style="margin-left:17%; margin-top: 1em"><b>sopass</b>
+<i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc</i></p>
+
+<p style="margin-left:28%;">Sets the SecureOn&trade;
+password. The argument to this option must be 6 bytes in
+Ethernet MAC hex format
+(<i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc</i>).</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>msglvl&nbsp;</b><i>N</i>
+<b><br>
+msglvl&nbsp;</b><i>type</i> <b>on</b>|<b>off</b> ...</p>
+
+<p style="margin-left:28%;">Sets the driver message type
+flags by name or number. <i>type</i> names the type of
+message to enable or disable; <i>N</i> specifies the new
+flags numerically. The defined type names and numbers
+are:</p>
+
+<p style="margin-left:28%; margin-top: 1em">The precise
+meanings of these type flags differ between drivers.</p>
+
+<p style="margin-left:11%;"><b>-n -u --show-nfc
+--show-ntuple</b></p>
+
+<p style="margin-left:22%;">Retrieves receive network flow
+classification options or rules.</p>
+
+
+<p style="margin-left:17%;"><b>rx-flow-hash&nbsp;tcp4</b>|<b>udp4</b>|<b>ah4</b>|<b>esp4</b>|<b>sctp4</b>|<b>tcp6</b>|<b>udp6</b>|<b>ah6</b>|<b>esp6</b>|<b>sctp6</b></p>
+
+<p style="margin-left:28%;">Retrieves the hash options for
+the specified flow type.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="9%">
+
+
+<p style="margin-top: 1em"><b>rule&nbsp;</b><i>N</i></p></td>
+<td width="2%"></td>
+<td width="72%">
+
+
+<p style="margin-top: 1em">Retrieves the RX classification
+rule with the given ID.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-N -U --config-nfc
+--config-ntuple</b></p>
+
+<p style="margin-left:22%;">Configures receive network flow
+classification options or rules.</p>
+
+
+<p style="margin-left:17%;"><b>rx-flow-hash&nbsp;tcp4</b>|<b>udp4</b>|<b>ah4</b>|<b>esp4</b>|<b>sctp4</b>|<b>tcp6</b>|<b>udp6</b>|<b>ah6</b>|<b>esp6</b>|<b>sctp6
+<br>
+
+m</b>|<b>v</b>|<b>t</b>|<b>s</b>|<b>d</b>|<b>f</b>|<b>n</b>|<b>r</b>...</p>
+
+<p style="margin-left:28%;">Configures the hash options for
+the specified flow type.</p>
+
+<p style="margin-left:17%; margin-top: 1em"><b>flow-type
+<br>
+
+ether|ip4|tcp4|udp4|sctp4|ah4|esp4|ip6|tcp6|udp6|ah6|esp6|sctp6</b></p>
+
+<p style="margin-left:28%;">Inserts or updates a
+classification rule for the specified flow type.</p>
+
+<p style="margin-left:17%; margin-top: 1em">For all fields
+that allow both a value and a mask to be specified, the mask
+may be specified immediately after the value using the
+<b>m</b> keyword, or separately using the field name keyword
+with <b>-mask</b> appended, e.g. <b>src-mask</b>. <b><br>
+
+src&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc&nbsp;</i>[<b>m&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc</i>]</p>
+
+<p style="margin-left:28%;">Includes the source MAC
+address, specified as 6 bytes in hexadecimal separated by
+colons, along with an optional mask. Valid only for
+flow-type ether.</p>
+
+
+<p style="margin-left:17%;"><b>dst&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc&nbsp;</i>[<b>m&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc</i>]</p>
+
+<p style="margin-left:28%;">Includes the destination MAC
+address, specified as 6 bytes in hexadecimal separated by
+colons, along with an optional mask. Valid only for
+flow-type ether.</p>
+
+
+<p style="margin-left:17%;"><b>proto&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]</p>
+
+<p style="margin-left:28%;">Includes the Ethernet protocol
+number (ethertype) and an optional mask. Valid only for
+flow-type ether.</p>
+
+
+<p style="margin-left:17%;"><b>src-ip&nbsp;</b><i>ip-address&nbsp;</i>[<b>m&nbsp;</b><i>ip-address</i>]</p>
+
+<p style="margin-left:28%;">Specify the source IP address
+of the incoming packet to match along with an optional mask.
+Valid for all IP based flow-types.</p>
+
+
+<p style="margin-left:17%;"><b>dst-ip&nbsp;</b><i>ip-address&nbsp;</i>[<b>m&nbsp;</b><i>ip-address</i>]</p>
+
+<p style="margin-left:28%;">Specify the destination IP
+address of the incoming packet to match along with an
+optional mask. Valid for all IP based flow-types.</p>
+
+
+<p style="margin-left:17%;"><b>tos&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]</p>
+
+<p style="margin-left:28%;">Specify the value of the Type
+of Service field in the incoming packet to match along with
+an optional mask. Applies to all IPv4 based flow-types.</p>
+
+
+<p style="margin-left:17%;"><b>tclass&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]</p>
+
+<p style="margin-left:28%;">Specify the value of the
+Traffic Class field in the incoming packet to match along
+with an optional mask. Applies to all IPv6 based
+flow-types.</p>
+
+
+<p style="margin-left:17%;"><b>l4proto&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]</p>
+
+<p style="margin-left:28%;">Includes the layer 4 protocol
+number and optional mask. Valid only for flow-types ip4 and
+ip6.</p>
+
+
+<p style="margin-left:17%;"><b>src-port&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]</p>
+
+<p style="margin-left:28%;">Specify the value of the source
+port field (applicable to TCP/UDP packets) in the incoming
+packet to match along with an optional mask. Valid for
+flow-types ip4, tcp4, udp4, and sctp4 and their IPv6
+equivalents.</p>
+
+
+<p style="margin-left:17%;"><b>dst-port&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]</p>
+
+<p style="margin-left:28%;">Specify the value of the
+destination port field (applicable to TCP/UDP packets)in the
+incoming packet to match along with an optional mask. Valid
+for flow-types ip4, tcp4, udp4, and sctp4 and their IPv6
+equivalents.</p>
+
+
+<p style="margin-left:17%;"><b>spi&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]</p>
+
+<p style="margin-left:28%;">Specify the value of the
+security parameter index field (applicable to AH/ESP
+packets)in the incoming packet to match along with an
+optional mask. Valid for flow-types ip4, ah4, and esp4 and
+their IPv6 equivalents.</p>
+
+
+<p style="margin-left:17%;"><b>l4data&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]</p>
+
+<p style="margin-left:28%;">Specify the value of the first
+4 Bytes of Layer 4 in the incoming packet to match along
+with an optional mask. Valid for ip4 and ip6 flow-types.</p>
+
+
+<p style="margin-left:17%;"><b>vlan-etype&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]</p>
+
+<p style="margin-left:28%;">Includes the VLAN tag Ethertype
+and an optional mask.</p>
+
+
+<p style="margin-left:17%;"><b>vlan&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]</p>
+
+<p style="margin-left:28%;">Includes the VLAN tag and an
+optional mask.</p>
+
+
+<p style="margin-left:17%;"><b>user-def&nbsp;</b><i>N&nbsp;</i>[<b>m&nbsp;</b><i>N</i>]</p>
+
+<p style="margin-left:28%;">Includes 64-bits of
+user-specific data and an optional mask.</p>
+
+
+<p style="margin-left:17%;"><b>dst-mac&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc&nbsp;</i>[<b>m&nbsp;</b><i>xx</i><b>:</b><i>yy</i><b>:</b><i>zz</i><b>:</b><i>aa</i><b>:</b><i>bb</i><b>:</b><i>cc</i>]</p>
+
+<p style="margin-left:28%;">Includes the destination MAC
+address, specified as 6 bytes in hexadecimal separated by
+colons, along with an optional mask. Valid for all IP based
+flow-types.</p>
+
+
+<p style="margin-left:17%;"><b>action&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Specifies the Rx queue to send
+packets to, or some other action.</p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><b>context&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Specifies the RSS context to
+spread packets over multiple queues; either <b>0</b> for the
+default RSS context, or a value returned by
+<b>ethtool&nbsp;-X&nbsp;</b><i>...&nbsp;</i><b>context
+new</b>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="6%">
+
+
+<p><b>vf&nbsp;</b><i>N</i></p></td>
+<td width="5%"></td>
+<td width="72%">
+
+
+<p>Specifies the Virtual Function the filter applies to.
+Not compatible with action.</p></td></tr>
+</table>
+
+<p style="margin-left:17%;"><b>queue&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Specifies the Rx queue to send
+packets to. Not compatible with action.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="8%">
+
+
+<p><b>loc&nbsp;</b><i>N</i></p></td>
+<td width="3%"></td>
+<td width="72%">
+
+
+<p>Specify the location/ID to insert the rule. This will
+overwrite any rule present in that location and will not go
+through any of the rule ordering process.</p></td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><b>delete&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Deletes the RX classification
+rule with the given ID.</p>
+
+<p style="margin-left:11%;"><b>-w --get-dump</b></p>
+
+<p style="margin-left:22%;">Retrieves and prints firmware
+dump for the specified network device. By default, it prints
+out the dump flag, version and length of the dump data. When
+<i>data</i> is indicated, then ethtool fetches the dump data
+and directs it to a <i>file.</i></p>
+
+<p style="margin-left:11%;"><b>-W --set-dump</b></p>
+
+<p style="margin-left:22%;">Sets the dump flag for the
+device.</p>
+
+<p style="margin-left:11%;"><b>-T
+--show-time-stamping</b></p>
+
+<p style="margin-left:22%;">Show the device&rsquo;s time
+stamping capabilities and associated PTP hardware clock.</p>
+
+<p style="margin-left:11%;"><b>-x --show-rxfh-indir
+--show-rxfh</b></p>
+
+<p style="margin-left:22%;">Retrieves the receive flow hash
+indirection table and/or RSS hash key.</p>
+
+<p style="margin-left:11%;"><b>-X --set-rxfh-indir
+--rxfh</b></p>
+
+<p style="margin-left:22%;">Configures the receive flow
+hash indirection table and/or RSS hash key.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="8%">
+
+
+<p><b>hkey</b></p></td>
+<td width="3%"></td>
+<td width="72%">
+
+
+<p>Sets RSS hash key of the specified network device. RSS
+hash key should be of device supported length. Hash key
+format must be in xx:yy:zz:aa:bb:cc format meaning both the
+nibbles of a byte should be mentioned even if a nibble is
+zero.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="8%">
+
+
+<p><b>hfunc</b></p></td>
+<td width="3%"></td>
+<td width="72%">
+
+
+<p>Sets RSS hash function of the specified network device.
+List of RSS hash functions which kernel supports is shown as
+a part of the --show-rxfh command output.</p></td></tr>
+</table>
+
+<p style="margin-left:17%;"><b>start&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">For the <b>equal</b> and
+<b>weight</b> options, sets the starting receive queue for
+spreading flows to <i>N</i>.</p>
+
+<p style="margin-left:17%;"><b>equal&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Sets the receive flow hash
+indirection table to spread flows evenly between the first
+<i>N</i> receive queues.</p>
+
+<p style="margin-left:17%;"><b>weight</b> <i>W0 W1</i>
+...</p>
+
+<p style="margin-left:28%;">Sets the receive flow hash
+indirection table to spread flows between receive queues
+according to the given weights. The sum of the weights must
+be non-zero and must not exceed the size of the indirection
+table.</p>
+
+<p style="margin-left:17%;"><b>default</b></p>
+
+<p style="margin-left:28%;">Sets the receive flow hash
+indirection table to its default value.</p>
+
+<p style="margin-left:17%;"><b>context</b> <i>CTX</i> |
+<b>new</b></p>
+
+<p style="margin-left:28%;">Specifies an RSS context to act
+on; either <b>new</b> to allocate a new RSS context, or
+<i>CTX</i>, a value returned by a previous
+<i>...&nbsp;</i><b>context new</b>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="9%">
+
+
+<p><b>delete</b></p></td>
+<td width="2%"></td>
+<td width="72%">
+
+
+<p>Delete the specified RSS context. May only be used in
+conjunction with <b>context</b> and a non-zero <i>CTX</i>
+value.</p> </td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-f --flash</b></p>
+
+<p style="margin-left:22%;">Write a firmware image to flash
+or other non-volatile memory on the device.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="6%">
+
+
+<p><i>file</i></p></td>
+<td width="5%"></td>
+<td width="72%">
+
+
+<p>Specifies the filename of the firmware image. The
+firmware must first be installed in one of the directories
+where the kernel firmware loader or firmware agent will
+look, such as /lib/firmware.</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="6%">
+
+
+<p><i>N</i></p></td>
+<td width="5%"></td>
+<td width="72%">
+
+
+<p>If the device stores multiple firmware images in
+separate regions of non-volatile memory, this parameter may
+be used to specify which region is to be written. The
+default is 0, requesting that all regions are written. All
+other values are driver-dependent.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-l --show-channels</b></p>
+
+<p style="margin-left:22%;">Queries the specified network
+device for the numbers of channels it has. A channel is an
+IRQ and the set of queues that can trigger that IRQ.</p>
+
+<p style="margin-left:11%;"><b>-L --set-channels</b></p>
+
+<p style="margin-left:22%;">Changes the numbers of channels
+of the specified network device.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="6%">
+
+
+<p><b>rx&nbsp;</b><i>N</i></p></td>
+<td width="5%"></td>
+<td width="72%">
+
+
+<p>Changes the number of channels with only receive
+queues.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="6%">
+
+
+<p><b>tx&nbsp;</b><i>N</i></p></td>
+<td width="5%"></td>
+<td width="72%">
+
+
+<p>Changes the number of channels with only transmit
+queues.</p> </td></tr>
+</table>
+
+<p style="margin-left:17%;"><b>other&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Changes the number of channels
+used only for other purposes e.g. link interrupts or SR-IOV
+co-ordination.</p>
+
+
+<p style="margin-left:17%;"><b>combined&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Changes the number of
+multi-purpose channels.</p>
+
+<p style="margin-left:11%;"><b>-m --dump-module-eeprom
+--module-info</b></p>
+
+<p style="margin-left:22%;">Retrieves and if possible
+decodes the EEPROM from plugin modules, e.g SFP+, QSFP. If
+the driver and module support it, the optical diagnostic
+information is also read and decoded.</p>
+
+<p style="margin-left:11%;"><b>--show-priv-flags</b></p>
+
+<p style="margin-left:22%;">Queries the specified network
+device for its private flags. The names and meanings of
+private flags (if any) are defined by each network device
+driver.</p>
+
+<p style="margin-left:11%;"><b>--set-priv-flags</b></p>
+
+<p style="margin-left:22%;">Sets the device&rsquo;s private
+flags as specified.</p>
+
+<p style="margin-left:17%; margin-top: 1em"><i>flag</i>
+<b>on</b>|<b>off</b> Sets the state of the named private
+flag.</p>
+
+<p style="margin-left:11%;"><b>--show-eee</b></p>
+
+<p style="margin-left:22%;">Queries the specified network
+device for its support of Energy-Efficient Ethernet
+(according to the IEEE 802.3az specifications)</p>
+
+<p style="margin-left:11%;"><b>--set-eee</b></p>
+
+<p style="margin-left:22%;">Sets the device EEE
+behaviour.</p>
+
+
+<p style="margin-left:17%;"><b>eee&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Enables/disables the device
+support of EEE.</p>
+
+
+<p style="margin-left:17%;"><b>tx-lpi&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Determines whether the device
+should assert its Tx LPI.</p>
+
+
+<p style="margin-left:17%;"><b>advertise&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Sets the speeds for which the
+device should advertise EEE capabilities. Values are as for
+<b>--change advertise</b></p>
+
+
+<p style="margin-left:17%;"><b>tx-timer&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Sets the amount of time the
+device should stay in idle mode prior to asserting its Tx
+LPI (in microseconds). This has meaning only when Tx LPI is
+enabled.</p>
+
+<p style="margin-left:11%;"><b>--set-phy-tunable</b></p>
+
+<p style="margin-left:22%;">Sets the PHY tunable
+parameters.</p>
+
+
+<p style="margin-left:17%;"><b>downshift&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether downshift
+should be enabled.</p>
+
+<p style="margin-left:28%; margin-top: 1em">&nbsp;</p>
+
+
+<p style="margin-left:17%;"><b>fast-link-down&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether Fast Link
+Down should be enabled and time until link down (if
+supported).</p>
+
+<p style="margin-left:28%; margin-top: 1em">&nbsp;</p>
+
+
+<p style="margin-left:17%;"><b>energy-detect-power-down&nbsp;on</b>|<b>off</b></p>
+
+<p style="margin-left:28%;">Specifies whether Energy Detect
+Power Down (EDPD) should be enabled (if supported). This
+will put the RX and TX circuit blocks into a low power mode,
+and the PHY will wake up periodically to send link pulses to
+avoid any lock-up situation with a peer PHY that may also
+have EDPD enabled. By default, this setting will also enable
+the periodic transmission of TX pulses.</p>
+
+<p style="margin-left:28%; margin-top: 1em">&nbsp;</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--get-phy-tunable</b></p>
+
+<p style="margin-left:22%;">Gets the PHY tunable
+parameters.</p>
+
+<p style="margin-left:17%;"><b>downshift</b></p>
+
+<p style="margin-left:28%;">For operation in cabling
+environments that are incompatible with 1000BASE-T, PHY
+device provides an automatic link speed downshift operation.
+Link speed downshift after N failed 1000BASE-T
+auto-negotiation attempts. Downshift is useful where cable
+does not have the 4 pairs instance.</p>
+
+<p style="margin-left:28%; margin-top: 1em">Gets the PHY
+downshift count/status.</p>
+
+<p style="margin-left:17%;"><b>fast-link-down</b></p>
+
+<p style="margin-left:28%;">Depending on the mode it may
+take 0.5s - 1s until a broken link is reported as down. In
+certain use cases a link-down event needs to be reported as
+soon as possible. Some PHYs support a Fast Link Down Feature
+and may allow configuration of the delay before a broken
+link is reported as being down.</p>
+
+<p style="margin-left:28%; margin-top: 1em">Gets the PHY
+Fast Link Down status / period.</p>
+
+
+<p style="margin-left:17%;"><b>energy-detect-power-down</b></p>
+
+<p style="margin-left:28%;">Gets the current configured
+setting for Energy Detect Power Down (if supported).</p>
+
+<p style="margin-left:11%;"><b>--reset</b></p>
+
+<p style="margin-left:22%;">Reset hardware components
+specified by flags and components listed below</p>
+
+<p style="margin-left:17%;"><b>flags&nbsp;</b><i>N</i></p>
+
+<p style="margin-left:28%;">Resets the components based on
+direct flags mask</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="9%">
+
+
+<p><b>mgmt</b></p></td>
+<td width="2%"></td>
+<td width="37%">
+
+
+<p>Management processor</p></td>
+<td width="35%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="9%">
+
+
+<p><b>irq</b></p></td>
+<td width="2%"></td>
+<td width="37%">
+
+
+<p>Interrupt requester</p></td>
+<td width="35%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="9%">
+
+
+<p><b>dma</b></p></td>
+<td width="2%"></td>
+<td width="37%">
+
+
+<p>DMA engine</p></td>
+<td width="35%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="9%">
+
+
+<p><b>filter</b></p></td>
+<td width="2%"></td>
+<td width="37%">
+
+
+<p>Filtering/flow direction</p></td>
+<td width="35%">
+</td></tr>
+</table>
+
+<p style="margin-left:17%;"><b>offload</b></p>
+
+<p style="margin-left:28%;">Protocol offload</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="5%">
+
+
+<p><b>mac</b></p></td>
+<td width="6%"></td>
+<td width="72%">
+
+
+<p>Media access controller</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="5%">
+
+
+<p><b>phy</b></p></td>
+<td width="6%"></td>
+<td width="72%">
+
+
+<p>Transceiver/PHY</p></td></tr>
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="5%">
+
+
+<p><b>ram</b></p></td>
+<td width="6%"></td>
+<td width="72%">
+
+
+<p>RAM shared between multiple components <b>ap</b>
+Application Processor</p></td></tr>
+</table>
+
+<p style="margin-left:17%;"><b>dedicated</b></p>
+
+<p style="margin-left:28%;">All components dedicated to
+this interface</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="5%">
+
+
+<p><b>all</b></p></td>
+<td width="6%"></td>
+<td width="72%">
+
+
+<p>All components used by this interface, even if
+shared</p> </td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>--show-fec</b></p>
+
+<p style="margin-left:22%;">Queries the specified network
+device for its support of Forward Error Correction.</p>
+
+<p style="margin-left:11%;"><b>--set-fec</b></p>
+
+<p style="margin-left:22%;">Configures Forward Error
+Correction for the specified network device.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Forward Error
+Correction modes selected by a user are expected to be
+persisted after any hotplug events. If a module is swapped
+that does not support the current FEC mode, the driver or
+firmware must take the link down administratively and report
+the problem in the system logs for users to correct.</p>
+
+
+<p style="margin-left:17%;"><b>encoding&nbsp;auto</b>|<b>off</b>|<b>rs</b>|<b>baser&nbsp;</b>[...]</p>
+
+<p style="margin-left:28%; margin-top: 1em">Sets the FEC
+encoding for the device. Combinations of options are
+specified as e.g. <b>encoding auto rs</b> ; the semantics of
+such combinations vary between drivers.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-Q|--per-queue</b></p>
+
+<p style="margin-left:22%;">Applies provided sub command to
+specific queues.</p>
+
+<p style="margin-left:17%;"><b>queue_mask %x</b></p>
+
+<p style="margin-left:28%;">Sets the specific queues which
+the sub command is applied to. If queue_mask is not set, the
+sub command will be applied to all queues.</p>
+
+<p style="margin-left:17%;"><b>sub_command</b></p>
+
+<p style="margin-left:28%;">Sub command to apply. The
+supported sub commands include --show-coalesce and
+--coalesce.</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Not supported
+(in part or whole) on all network drivers.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool</b>
+was written by David Miller.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Modifications
+by Jeff Garzik, Tim Hockin, Jakub Jelinek, Andre Majorel,
+Eli Kupermann, Scott Feldman, Andi Kleen, Alexander Duyck,
+Sucheta Chakraborty, Jesse Brandeburg, Ben Hutchings, Scott
+Branden.</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ethtool</b>
+is available from
+<a href="http://www.kernel.org/pub/software/network/ethtool/">http://www.kernel.org/pub/software/network/ethtool/</a></p>
+<hr>
+</body>
+</html>

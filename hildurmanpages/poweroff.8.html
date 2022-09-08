@@ -1,0 +1,190 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:00:12 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>HALT</title>
+
+</head>
+<body>
+
+<h1 align="center">HALT</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">halt, poweroff,
+reboot - Halt, power-off or reboot the machine</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="32%">
+
+
+<p style="margin-top: 1em"><b>halt</b> [OPTIONS...]</p></td>
+<td width="57%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="32%">
+
+
+<p style="margin-top: 1em"><b>poweroff</b> [OPTIONS...]</p></td>
+<td width="57%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="32%">
+
+
+<p style="margin-top: 1em"><b>reboot</b> [OPTIONS...]</p></td>
+<td width="57%">
+</td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>halt</b>,
+<b>poweroff</b>, <b>reboot</b> may be used to halt,
+power-off, or reboot the machine. All three commands take
+the same options.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+options are understood:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--help</b></p>
+
+<p style="margin-left:17%;">Print a short help text and
+exit.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--halt</b></p>
+
+<p style="margin-left:17%;">Halt the machine, regardless of
+which one of the three commands is invoked.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-p</b>,
+<b>--poweroff</b></p>
+
+<p style="margin-left:17%;">Power-off the machine,
+regardless of which one of the three commands is
+invoked.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--reboot</b></p>
+
+<p style="margin-left:17%;">Reboot the machine, regardless
+of which one of the three commands is invoked.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-f</b>,
+<b>--force</b></p>
+
+<p style="margin-left:17%;">Force immediate halt,
+power-off, or reboot. When specified once, this results in
+an immediate but clean shutdown by the system manager. When
+specified twice, this results in an immediate shutdown
+without contacting the system manager. See the description
+of <b>--force</b> in <b>systemctl</b>(1) for more
+details.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-w</b>,
+<b>--wtmp-only</b></p>
+
+<p style="margin-left:17%;">Only write wtmp shutdown entry,
+do not actually halt, power-off, reboot.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-d</b>,
+<b>--no-wtmp</b></p>
+
+<p style="margin-left:17%;">Do not write wtmp shutdown
+entry.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-n</b>,
+<b>--no-sync</b></p>
+
+<p style="margin-left:17%;">Don't sync hard disks/storage
+media before halt, power-off, reboot.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--no-wall</b></p>
+
+<p style="margin-left:17%;">Do not send wall message before
+halt, power-off, reboot.</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">On success, 0
+is returned, a non-zero failure code otherwise.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">These commands
+are implemented in a way that preserves basic compatibility
+with the original SysV commands. <b>systemctl</b>(1) verbs
+<b>halt</b>, <b>poweroff</b>, <b>reboot</b> provide the same
+functionality with some additional features.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that on
+many SysV systems <b>halt</b> used to be synonymous to
+<b>poweroff</b>, i.e. both commands would equally result in
+powering the machine off. systemd is more accurate here, and
+<b>halt</b> results in halting the machine only (leaving
+power on), and <b>poweroff</b> is required to actually power
+it off.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>systemd</b>(1),
+<b>systemctl</b>(1), <b>shutdown</b>(8), <b>wall</b>(1)</p>
+<hr>
+</body>
+</html>

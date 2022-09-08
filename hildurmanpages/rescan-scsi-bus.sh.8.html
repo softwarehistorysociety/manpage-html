@@ -1,0 +1,307 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:03:02 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>RESCAN-SCSI-BUS.SH</title>
+
+</head>
+<body>
+
+<h1 align="center">RESCAN-SCSI-BUS.SH</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">rescan-scsi-bus.sh
+- script to add and remove SCSI devices without
+rebooting</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>rescan-scsi-bus.sh</b>
+[<i>--alltargets</i>] [<i>--attachpq3</i>] [<i>-c</i>]
+[<i>---channels=CLIST</i>] [<i>--color</i>] [<i>-d</i>]
+[<i>--flush</i>] [<i>-f</i>] [<i>--forceremove</i>]
+[<i>--forcerescan</i>] [<i>--help</i>]
+[<i>--hosts=HLIST</i>] [<i>--ids=TLIST</i>]
+[<i>--ignore-rev</i>] [<i>--issue-lip</i>] [<i>-i</i>]
+[<i>--issue-lip-wait=SECS</i>] [<i>-I SECS</i>] [<i>-l</i>]
+[<i>-L NUM</i>] [<i>--largelun</i>] [<i>--luns=LLIST</i>]
+[<i>-m</i>] [<i>--multipath</i>] [<i>--nooptscan</i>]
+[<i>--nosync</i>] [<i>--remove</i>] [<i>--removelun2</i>]
+[<i>--resize</i>] [<i>--sparselun</i>] [<i>--sync</i>]
+[<i>--update</i>] [<i>--version</i>] [<i>--wide</i>]
+[<i>HOST1</i> [<i>HOST2</i> ...]]</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Option are
+ordered by their long name. Those without a long name are
+ordered as if their single letter was a long name. <b><br>
+-a</b>, <b>--alltargets</b></p>
+
+<p style="margin-left:22%;">scan all targets, not just
+currently existing [default: disabled]</p>
+
+<p style="margin-left:11%;"><b>--attachpq3</b></p>
+
+<p style="margin-left:22%;">tell kernel to attach sg to LUN
+0 that reports PQ=3</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-c</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>enables scanning of channels 0 1 [default: 0 / all
+detected ones]</p></td></tr>
+</table>
+
+
+<p style="margin-left:11%;"><b>--channels</b>=<i>CLIST</i></p>
+
+<p style="margin-left:22%;">scan only channel(s) in
+<i>CLIST</i></p>
+
+<p style="margin-left:11%;"><b>--color</b></p>
+
+<p style="margin-left:22%;">use coloured prefixes
+OLD/NEW/DEL</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-d</b></p></td>
+<td width="8%"></td>
+<td width="72%">
+
+
+<p>enable debug [default: 0]</p></td>
+<td width="6%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-f</b>, <b>--flush</b></p>
+
+<p style="margin-left:22%;">flush failed multipath devices
+[default: disabled]</p>
+
+<p style="margin-left:11%;"><b>--forceremove</b></p>
+
+<p style="margin-left:22%;">remove and readd every device
+(DANGEROUS)</p>
+
+<p style="margin-left:11%;"><b>--forcerescan</b></p>
+
+<p style="margin-left:22%;">rescan existing devices</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">print usage message then
+exit</p>
+
+
+<p style="margin-left:11%;"><b>--hosts</b>=<i>HLIST</i></p>
+
+<p style="margin-left:22%;">scan only host(s) in
+<i>HLIST</i></p>
+
+<p style="margin-left:11%;"><b>--ids</b>=<i>TLIST</i></p>
+
+<p style="margin-left:22%;">scan only target ID(s) in
+<i>TLIST</i></p>
+
+<p style="margin-left:11%;"><b>--ignore-rev</b></p>
+
+<p style="margin-left:22%;">ignore (firmware) revision
+change. This is the third text field (4 bytes long) in a
+standard INQUIRY response.</p>
+
+<p style="margin-left:11%;"><b>-i</b>,
+<b>--issue-lip</b></p>
+
+<p style="margin-left:22%;">issue a FibreChannel LIP reset
+[default: disabled]</p>
+
+<p style="margin-left:11%;"><b>-I SECS</b>,
+<b>--issue-lip-wait=SECS</b></p>
+
+<p style="margin-left:22%;">issue a FibreChannel LIP reset
+and then wait SECS seconds.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>-L</b> NUM</p></td>
+<td width="2%"></td>
+<td width="72%">
+
+
+<p>activates scanning for LUNs 0--NUM [default: 0]</p></td>
+<td width="6%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>-l</b></p></td>
+<td width="2%"></td>
+<td width="72%">
+
+
+<p>activates scanning for LUNs 0--7 [default: 0]</p></td>
+<td width="6%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>--largelun</b></p>
+
+<p style="margin-left:22%;">tell kernel to support LUNs
+&gt; 7 even on SCSI2 devs</p>
+
+<p style="margin-left:11%;"><b>--luns</b>=<i>NLIST</i></p>
+
+<p style="margin-left:22%;">scan only lun(s) in
+<i>NLIST</i></p>
+
+<p style="margin-left:11%;"><b>-m</b>,
+<b>--multipath</b></p>
+
+<p style="margin-left:22%;">update multipath devices
+[default: disabled]</p>
+
+<p style="margin-left:11%;"><b>--nooptscan</b></p>
+
+<p style="margin-left:22%;">don&rsquo;t stop looking for
+LUNs is 0 is not found</p>
+
+<p style="margin-left:11%;"><b>--nosync</b></p>
+
+<p style="margin-left:22%;">do not issue a sync [default:
+sync if remove]</p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--remove</b></p>
+
+<p style="margin-left:22%;">enables removing of devices
+[default: disabled]</p>
+
+<p style="margin-left:11%;"><b>--reportlun2</b></p>
+
+<p style="margin-left:22%;">tell kernel to try REPORT_LUN
+even on SCSI2 devices</p>
+
+<p style="margin-left:11%;"><b>-s</b>, <b>--resize</b></p>
+
+<p style="margin-left:22%;">look for resized disks and
+reload associated multipath devices, if applicable</p>
+
+<p style="margin-left:11%;"><b>--sparselun</b></p>
+
+<p style="margin-left:22%;">tell kernel to support sparse
+LUN numbering</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--sync</b></p></td>
+<td width="2%"></td>
+<td width="58%">
+
+
+<p>issue a sync [default: sync if remove]</p></td>
+<td width="20%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-u</b>, <b>--update</b></p>
+
+<p style="margin-left:22%;">look for existing disks that
+have been remapped</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">shows version string then
+exits. The version string is a numeric datestamp of the form
+YYYYMMDD.</p>
+
+<p style="margin-left:11%;"><b>-w</b>, <b>--wide</b></p>
+
+<p style="margin-left:22%;">scan for target device IDs
+0--15 [default: 0--7]</p>
+
+<p style="margin-left:22%; margin-top: 1em">Host numbers
+may thus be specified either directly on cmd line
+(deprecated) or with the <b>--hosts</b>=<i>LIST</i>
+parameter (recommended).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Arguments to
+options that end in <i>LIST</i> (e.g. <i>TLIST</i>) can have
+this form: <br>
+A[-B][,C[-D]]... <br>
+which is a comma separated list of single values and/or
+ranges (no spaces allowed).</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">There is a
+brief descripion here:
+http://fibrevillage.com/storage/585-rescan-scsi-bus-sh-script-for-adding-and-removing-scsi-devices-without-rebooting</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sg3_utils</b>
+Homepage: <b>http://sg.danny.cz/sg</b></p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:31:50 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>APT</title>
+
+</head>
+<body>
+
+<h1 align="center">APT</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SCRIPT USAGE AND DIFFERENCES FROM OTHER APT TOOLS">SCRIPT USAGE AND DIFFERENCES FROM OTHER APT TOOLS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#DIAGNOSTICS">DIAGNOSTICS</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#NOTES">NOTES</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">apt -
+command-line interface</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em"><b>apt</b> [<b>-h</b>]
+[<b>-o=</b><i>config_string</i>]
+[<b>-c=</b><i>config_file</i>]
+[<b>-t=</b><i>target_release</i>]
+[<b>-a=</b><i>architecture</i>] {list | search | show |
+update |
+install&nbsp;<i>pkg&nbsp;</i>[{=<i>pkg_version_number&nbsp;</i>|&nbsp;/<i>target_release</i>}]...
+| remove&nbsp;<i>pkg</i>... | upgrade | full-upgrade |
+edit-sources | {-v&nbsp;|&nbsp;--version} |
+{-h&nbsp;|&nbsp;--help}}</p> </td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>apt</b>
+provides a high-level commandline interface for the package
+management system. It is intended as an end user interface
+and enables some options better suited for interactive usage
+by default compared to more specialized APT tools like
+<b>apt-get</b>(8) and <b>apt-cache</b>(8).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Much like
+<b>apt</b> itself, its manpage is intended as an end user
+interface and as such only mentions the most used commands
+and options partly to not duplicate information in multiple
+places and partly to avoid overwhelming readers with a
+cornucopia of options and details.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>update</b>
+(<b>apt-get</b>(8))</p>
+
+<p style="margin-left:17%;"><b>update</b> is used to
+download package information from all configured sources.
+Other commands operate on this data to e.g. perform package
+upgrades or search in and display details about all packages
+available for installation.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>upgrade</b>
+(<b>apt-get</b>(8))</p>
+
+<p style="margin-left:17%;"><b>upgrade</b> is used to
+install available upgrades of all packages currently
+installed on the system from the sources configured via
+<b>sources.list</b>(5). New packages will be installed if
+required to satisfy dependencies, but existing packages will
+never be removed. If an upgrade for a package requires the
+removal of an installed package the upgrade for this package
+isn't performed.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>full-upgrade</b>
+(<b>apt-get</b>(8))</p>
+
+<p style="margin-left:17%;">full-upgrade performs the
+function of upgrade but will remove currently installed
+packages if this is needed to upgrade the system as a
+whole.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>install</b>,
+<b>reinstall</b>, <b>remove</b>, <b>purge</b>
+(<b>apt-get</b>(8))</p>
+
+<p style="margin-left:17%;">Performs the requested action
+on one or more packages specified via <b>regex</b>(7),
+<b>glob</b>(7) or exact match. The requested action can be
+overridden for specific packages by appending a plus (+) to
+the package name to install this package or a minus (-) to
+remove it.</p>
+
+<p style="margin-left:17%; margin-top: 1em">A specific
+version of a package can be selected for installation by
+following the package name with an equals (=) and the
+version of the package to select. Alternatively the version
+from a specific release can be selected by following the
+package name with a forward slash (/) and codename (buster,
+bullseye, sid ...) or suite name (stable, testing,
+unstable). This will also select versions from this release
+for dependencies of this package if needed to satisfy the
+request.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Removing a
+package removes all packaged data, but leaves usually small
+(modified) user configuration files behind, in case the
+remove was an accident. Just issuing an installation request
+for the accidentally removed package will restore its
+function as before in that case. On the other hand you can
+get rid of these leftovers by calling <b>purge</b> even on
+already removed packages. Note that this does not affect any
+data or configuration stored in your home directory.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>autoremove</b>
+(<b>apt-get</b>(8))</p>
+
+<p style="margin-left:17%;">autoremove is used to remove
+packages that were automatically installed to satisfy
+dependencies for other packages and are now no longer needed
+as dependencies changed or the package(s) needing them were
+removed in the meantime.</p>
+
+<p style="margin-left:17%; margin-top: 1em">You should
+check that the list does not include applications you have
+grown to like even though they were once installed just as a
+dependency of another package. You can mark such a package
+as manually installed by using <b>apt-mark</b>(8). Packages
+which you have installed explicitly via <b>install</b> are
+also never proposed for automatic removal.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>satisfy</b>
+(<b>apt-get</b>(8))</p>
+
+<p style="margin-left:17%;"><b>satisfy</b> satisfies
+dependency strings, as used in Build-Depends. It also
+handles conflicts, by prefixing an argument with
+&quot;Conflicts: &quot;.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Example: apt
+satisfy &quot;foo, bar (&gt;= 1.0)&quot; &quot;Conflicts:
+baz, fuzz&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>search</b>
+(<b>apt-cache</b>(8))</p>
+
+<p style="margin-left:17%;"><b>search</b> can be used to
+search for the given <b>regex</b>(7) term(s) in the list of
+available packages and display matches. This can e.g. be
+useful if you are looking for packages having a specific
+feature. If you are looking for a package including a
+specific file try <b>apt-file</b>(1).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>show</b>
+(<b>apt-cache</b>(8))</p>
+
+<p style="margin-left:17%;">Show information about the
+given package(s) including its dependencies, installation
+and download size, sources the package is available from,
+the description of the packages content and much more. It
+can e.g. be helpful to look at this information before
+allowing <b>apt</b>(8) to remove a package or while
+searching for new packages to install.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>list</b></p>
+
+<p style="margin-left:17%;"><b>list</b> is somewhat similar
+to <b>dpkg-query --list</b> in that it can display a list of
+packages satisfying certain criteria. It supports
+<b>glob</b>(7) patterns for matching package names as well
+as options to list installed (<b>--installed</b>),
+upgradeable (<b>--upgradeable</b>) or all available
+(<b>--all-versions</b>) versions.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>edit-sources</b>
+(work-in-progress)</p>
+
+<p style="margin-left:17%;">edit-sources lets you edit your
+<b>sources.list</b>(5) files in your preferred text editor
+while also providing basic sanity checks.</p>
+
+<h2>SCRIPT USAGE AND DIFFERENCES FROM OTHER APT TOOLS
+<a name="SCRIPT USAGE AND DIFFERENCES FROM OTHER APT TOOLS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>apt</b>(8) commandline is designed as an end-user tool
+and it may change behavior between versions. While it tries
+not to break backward compatibility this is not guaranteed
+either if a change seems beneficial for interactive use.</p>
+
+<p style="margin-left:11%; margin-top: 1em">All features of
+<b>apt</b>(8) are available in dedicated APT tools like
+<b>apt-get</b>(8) and <b>apt-cache</b>(8) as well.
+<b>apt</b>(8) just changes the default value of some options
+(see <b>apt.conf</b>(5) and specifically the Binary scope).
+So you should prefer using these commands (potentially with
+some additional options enabled) in your scripts as they
+keep backward compatibility as much as possible.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>apt-get</b>(8),
+<b>apt-cache</b>(8), <b>sources.list</b>(5),
+<b>apt.conf</b>(5), <b>apt-config</b>(8), The APT User's
+guide in /usr/share/doc/apt-doc/, <b>apt_preferences</b>(5),
+the APT Howto.</p>
+
+<h2>DIAGNOSTICS
+<a name="DIAGNOSTICS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>apt</b>
+returns zero on normal operation, decimal 100 on error.</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b><font color="#0000FF">APT
+bug page</font></b>
+<small><font color="#000000">[1]</font></small>
+<font color="#000000">. If you wish to report a bug in APT,
+please see /usr/share/doc/debian/bug-reporting.txt or the
+<b>reportbug</b>(1) command.</font></p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>APT
+team</b></font></p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">1.</font></p> </td>
+<td width="2%"></td>
+<td width="18%">
+
+
+<p style="margin-top: 1em"><font color="#000000">APT bug
+page</font></p> </td>
+<td width="65%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">http://bugs.debian.org/src:apt</font></p>
+<hr>
+</body>
+</html>

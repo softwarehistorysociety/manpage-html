@@ -1,0 +1,177 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:39:19 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>eatmydata</title>
+
+</head>
+<body>
+
+<h1 align="center">eatmydata</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#CAVEAT">CAVEAT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">eatmydata -
+transparently disable fsync() and other data-to-disk
+synchronization calls</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>eatmydata</b>
+[--] <i>command</i> [ <i>command arguments</i> ... ]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>eatmydata</b>
+runs a command in the environment where data-to-disk
+synchronization calls (like fsync(), fdatasync(), sync(),
+msync() and open() O_SYNC / O_DSYNC flags) have no effect.
+LD_PRELOAD library <b>libeatmydata</b> overrides respective
+C library calls with custom functions that don&rsquo;t
+trigger synchronization but return success nevertheless.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You may use
+<b>eatmydata</b> in two ways. In normal mode, just execute
+<b>eatmydata</b> directly and pass a command-to-be-run and
+its arguments via command line. In order to use symlink
+mode, create a symlink to <i>/usr/bin/eatmydata</i> with the
+filename (a.k.a basename) of another program in the PATH and
+execute <b>eatmydata</b> via that symlink. Then
+<b>eatmydata</b> will find that program in the PATH and run
+it in the libeatmydata environment repassing all command
+line options.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Please note
+that <b>eatmydata</b> does not process any command line
+options in symlink mode. All command line options will be
+repassed to the underlying executable as-is. <i><br>
+command</i></p>
+
+<p style="margin-left:22%;">The command to execute. It may
+be either a full path or the name of the command in PATH. In
+case command cannot be found in PATH, <b>eatmydata</b> will
+fail.</p>
+
+<p style="margin-left:11%;"><i>command arguments</i></p>
+
+<p style="margin-left:22%;">Arbitrary number of arguments
+to pass to the command being executed.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>--</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Optional command separator for compatibility with
+similar utilities. Ignored at the moment.</p></td></tr>
+</table>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Given PATH is
+/usr/bin and both /usr/bin/aptitude and /usr/bin/eatmydata
+are installed, the following:</p>
+
+<p style="margin-left:11%; margin-top: 1em">$ ln -s
+/usr/bin/eatmydata ./aptitude <br>
+$ ./aptitude moo</p>
+
+<p style="margin-left:11%; margin-top: 1em">is equivalent
+to:</p>
+
+<p style="margin-left:11%; margin-top: 1em">$ eatmydata --
+aptitude moo</p>
+
+<p style="margin-left:11%; margin-top: 1em">Therefore, you
+may use symlink mode to automatically run specific programs
+in the libeatmydata environment whenever you run them from
+PATH. For example, given standard PATH settings, just
+do:</p>
+
+<p style="margin-left:11%; margin-top: 1em"># ln -s
+/usr/bin/eatmydata /usr/local/bin/aptitude</p>
+
+<p style="margin-left:11%; margin-top: 1em">and enjoy
+sync-free aptitude system-wide.</p>
+
+<h2>CAVEAT
+<a name="CAVEAT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">When using
+<b>eatmydata</b> with <b>setarch</b> (including alias such
+as <b>linux32</b>), or anyway with chroots with a different
+architectures than the host&rsquo;s, make sure to install
+the matching architecture of <b>libeatmydata1</b> both in
+the <b>setarch</b> environment and host&rsquo;s.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Trying to load
+libeatmydata manually (without using the wrapper script) and
+using it through a chroot, especially if the eatmydata
+version differ between outside and inside, is probably going
+to fail do the different position of the library on the file
+system. <br>
+The safest way to manually load libeatmydata is by setting
+the following two environment variables (shell syntax):</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+&quot;$LD_LIBRARY_PATH:&quot;}/usr/lib/libeatmydata
+<br>
+LD_PRELOAD=${LD_PRELOAD:+&quot;$LD_PRELOAD
+&quot;}libeatmydata.so</p>
+
+<p style="margin-left:11%; margin-top: 1em">These two
+variables accounts the case of a Debian Jessie host with a
+Debian Wheezy chroot, where the position of the library
+changed.</p>
+<hr>
+</body>
+</html>

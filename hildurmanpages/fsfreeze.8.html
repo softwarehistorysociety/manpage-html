@@ -1,0 +1,177 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:43:18 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>FSFREEZE</title>
+
+</head>
+<body>
+
+<h1 align="center">FSFREEZE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#FILESYSTEM SUPPORT">FILESYSTEM SUPPORT</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">fsfreeze -
+suspend access to a filesystem (Ext3/4, ReiserFS, JFS,
+XFS)</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fsfreeze
+--freeze</b>|<b>--unfreeze</b> <i>mountpoint</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>fsfreeze</b></i>
+suspends or resumes access to a filesystem.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fsfreeze</b>
+halts any new access to the filesystem and creates a stable
+image on disk. <b>fsfreeze</b> is intended to be used with
+hardware RAID devices that support the creation of
+snapshots.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fsfreeze</b>
+is unnecessary for <b>device-mapper</b> devices. The
+device-mapper (and LVM) automatically freezes a filesystem
+on the device when a snapshot creation is requested. For
+more details see the <b>dmsetup</b>(8) man page.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>mountpoint</i> argument is the pathname of the directory
+where the filesystem is mounted. The filesystem must be
+mounted to be frozen (see <b>mount</b>(8)).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+access-time updates are also suspended if the filesystem is
+mounted with the traditional atime behavior (mount option
+<b>strictatime</b>, for more details see
+<b>mount</b>(8)).</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-f</b>,
+<b>--freeze</b></p>
+
+<p style="margin-left:22%;">This option requests the
+specified a filesystem to be frozen from new modifications.
+When this is selected, all ongoing transactions in the
+filesystem are allowed to complete, new write system calls
+are halted, other calls which modify the filesystem are
+halted, and all dirty data, metadata, and log information
+are written to disk. Any process attempting to write to the
+frozen filesystem will block waiting for the filesystem to
+be unfrozen.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that even
+after freezing, the on-disk filesystem can contain
+information on files that are still in the process of
+unlinking. These files will not be unlinked until the
+filesystem is unfrozen or a clean mount of the snapshot is
+complete.</p>
+
+<p style="margin-left:11%;"><b>-u</b>,
+<b>--unfreeze</b></p>
+
+<p style="margin-left:22%;">This option is used to
+un-freeze the filesystem and allow operations to continue.
+Any filesystem modifications that were blocked by the freeze
+are unblocked and allowed to complete.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<h2>FILESYSTEM SUPPORT
+<a name="FILESYSTEM SUPPORT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This command
+will work only if filesystem supports has support for
+freezing. List of these filesystems include (2016-12-18)
+<b>btrfs</b>, <b>ext2/3/4</b>, <b>f2fs</b>, <b>jfs</b>,
+<b>nilfs2</b>, <b>reiserfs</b>, and <b>xfs</b>. Previous
+list may be incomplete, as more filesystems get support. If
+in doubt easiest way to know if a filesystem has support is
+create a small loopback mount and test freezing it.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Written by
+Hajime Taira.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This man page
+is based on <b>xfs_freeze</b>(8).</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mount</b>(8)</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The fsfreeze
+command is part of the util-linux package and is available
+from https://www.kernel.org/pub/linux/utils/util-linux/.</p>
+<hr>
+</body>
+</html>

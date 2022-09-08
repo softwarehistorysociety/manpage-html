@@ -1,0 +1,945 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:48:52 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>HTOP</title>
+
+</head>
+<body>
+
+<h1 align="center">HTOP</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#COMMAND-LINE OPTIONS">COMMAND-LINE OPTIONS</a><br>
+<a href="#INTERACTIVE COMMANDS">INTERACTIVE COMMANDS</a><br>
+<a href="#COLUMNS">COLUMNS</a><br>
+<a href="#CONFIG FILE">CONFIG FILE</a><br>
+<a href="#MEMORY SIZES">MEMORY SIZES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">htop -
+interactive process viewer</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>htop
+[</b><i>-dChustv</i>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Htop is a free
+(GPL) ncurses-based process viewer for Linux.</p>
+
+<p style="margin-left:11%; margin-top: 1em">It is similar
+to top, but allows you to scroll vertically and
+horizontally, so you can see all the processes running on
+the system, along with their full command lines, as well as
+viewing them as a process tree, selecting multiple processes
+and acting on them all at once.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Tasks related
+to processes (killing, renicing) can be done without
+entering their PIDs.</p>
+
+<h2>COMMAND-LINE OPTIONS
+<a name="COMMAND-LINE OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Mandatory
+arguments to long options are mandatory for short options
+too. <b><br>
+-d --delay=DELAY</b></p>
+
+<p style="margin-left:22%;">Delay between updates, in
+tenths of seconds</p>
+
+<p style="margin-left:11%;"><b>-C --no-color
+--no-colour</b></p>
+
+<p style="margin-left:22%;">Start htop in monochrome
+mode</p>
+
+<p style="margin-left:11%;"><b>-h --help</b></p>
+
+<p style="margin-left:22%;">Display a help message and
+exit</p>
+
+<p style="margin-left:11%;"><b>-p --pid=PID,PID...</b></p>
+
+<p style="margin-left:22%;">Show only the given PIDs</p>
+
+<p style="margin-left:11%;"><b>-s --sort-key COLUMN</b></p>
+
+<p style="margin-left:22%;">Sort by this column (use
+--sort-key help for a column list)</p>
+
+<p style="margin-left:11%;"><b>-u --user=USERNAME</b></p>
+
+<p style="margin-left:22%;">Show only the processes of a
+given user</p>
+
+<p style="margin-left:11%;"><b>-v --version</b></p>
+
+<p style="margin-left:22%;">Output version information and
+exit</p>
+
+<p style="margin-left:11%;"><b>-t --tree</b></p>
+
+<p style="margin-left:22%;">Show processes in tree view</p>
+
+<h2>INTERACTIVE COMMANDS
+<a name="INTERACTIVE COMMANDS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+commands are supported while in htop: <b><br>
+Up, Alt-k</b></p>
+
+<p style="margin-left:18%;">Select (highlight) the previous
+process in the process list. Scroll the list if
+necessary.</p>
+
+<p style="margin-left:11%;"><b>Down, Alt-j</b></p>
+
+<p style="margin-left:18%;">Select (highlight) the next
+process in the process list. Scroll the list if
+necessary.</p>
+
+<p style="margin-left:11%;"><b>Left, Alt-h</b></p>
+
+<p style="margin-left:18%;">Scroll the process list
+left.</p>
+
+<p style="margin-left:11%;"><b>Right, Alt-l</b></p>
+
+<p style="margin-left:18%;">Scroll the process list
+right.</p>
+
+<p style="margin-left:11%;"><b>PgUp, PgDn</b></p>
+
+<p style="margin-left:18%;">Scroll the process list up or
+down one window.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>Home</b></p></td>
+<td width="1%"></td>
+<td width="82%">
+
+
+<p>Scroll to the top of the process list and select the
+first process.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>End</b></p></td>
+<td width="1%"></td>
+<td width="82%">
+
+
+<p>Scroll to the bottom of the process list and select the
+last process.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>Ctrl-A, ^</b></p>
+
+<p style="margin-left:18%;">Scroll left to the beginning of
+the process entry (i.e. beginning of line).</p>
+
+<p style="margin-left:11%;"><b>Ctrl-E, $</b></p>
+
+<p style="margin-left:18%;">Scroll right to the end of the
+process entry (i.e. end of line).</p>
+
+<p style="margin-left:11%;"><b>Space</b></p>
+
+<p style="margin-left:18%;">Tag or untag a process.
+Commands that can operate on multiple processes, like
+&quot;kill&quot;, will then apply over the list of tagged
+processes, instead of the currently highlighted one.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>U</b></p></td>
+<td width="6%"></td>
+<td width="82%">
+
+
+<p>Untag all processes (remove all tags added with the
+Space key).</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>s</b></p></td>
+<td width="6%"></td>
+<td width="82%">
+
+
+<p>Trace process system calls: if strace(1) is installed,
+pressing this key will attach it to the currently selected
+process, presenting a live update of system calls issued by
+the process.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>l</b></p></td>
+<td width="6%"></td>
+<td width="82%">
+
+
+<p>Display open files for a process: if lsof(1) is
+installed, pressing this key will display the list of file
+descriptors opened by the process.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>F1, h, ?</b></p>
+
+<p style="margin-left:18%;">Go to the help screen</p>
+
+<p style="margin-left:11%;"><b>F2, S</b></p>
+
+<p style="margin-left:18%;">Go to the setup screen, where
+you can configure the meters displayed at the top of the
+screen, set various display options, choose among color
+schemes, and select which columns are displayed, in which
+order.</p>
+
+<p style="margin-left:11%;"><b>F3, /</b></p>
+
+<p style="margin-left:18%;">Incrementally search the
+command lines of all the displayed processes. The currently
+selected (highlighted) command will update as you type.
+While in search mode, pressing F3 will cycle through
+matching occurrences.</p>
+
+<p style="margin-left:11%;"><b>F4, \</b></p>
+
+<p style="margin-left:18%;">Incremental process filtering:
+type in part of a process command line and only processes
+whose names match will be shown. To cancel filtering, enter
+the Filter option again and press Esc.</p>
+
+<p style="margin-left:11%;"><b>F5, t</b></p>
+
+<p style="margin-left:18%;">Tree view: organize processes
+by parenthood, and layout the relations between them as a
+tree. Toggling the key will switch between tree and your
+previously selected sort view. Selecting a sort view will
+exit tree view.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>F6</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>On sorted view, select a field for sorting, also
+accessible through &lt; and &gt;. The current sort field is
+indicated by a highlight in the header. On tree view, expand
+or collapse the current subtree. A &quot;+&quot; indicator
+in the tree node indicates that it is collapsed.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>F7, ]</b></p>
+
+<p style="margin-left:18%;">Increase the selected
+process&rsquo;s priority (subtract from &rsquo;nice&rsquo;
+value). This can only be done by the superuser.</p>
+
+<p style="margin-left:11%;"><b>F8, [</b></p>
+
+<p style="margin-left:18%;">Decrease the selected
+process&rsquo;s priority (add to &rsquo;nice&rsquo;
+value)</p>
+
+<p style="margin-left:11%;"><b>F9, k</b></p>
+
+<p style="margin-left:18%;">&quot;Kill&quot; process: sends
+a signal which is selected in a menu, to one or a group of
+processes. If processes were tagged, sends the signal to all
+tagged processes. If none is tagged, sends to the currently
+selected process.</p>
+
+<p style="margin-left:11%;"><b>F10, q</b></p>
+
+<p style="margin-left:18%;">Quit</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>I</b></p></td>
+<td width="1%"></td>
+<td width="82%">
+
+
+<p>Invert the sort order: if sort order is increasing,
+switch to decreasing, and vice-versa.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>+, -</b></p></td>
+<td width="1%"></td>
+<td width="82%">
+
+
+<p>When in tree view mode, expand or collapse subtree. When
+a subtree is collapsed a &quot;+&quot; sign shows to the
+left of the process name.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>a (on multiprocessor
+machines)</b></p>
+
+<p style="margin-left:18%;">Set CPU affinity: mark which
+CPUs a process is allowed to use.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>u</b></p></td>
+<td width="6%"></td>
+<td width="82%">
+
+
+<p>Show only processes owned by a specified user.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>M</b></p></td>
+<td width="6%"></td>
+<td width="82%">
+
+
+<p>Sort by memory usage (top compatibility key).</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>P</b></p></td>
+<td width="6%"></td>
+<td width="82%">
+
+
+<p>Sort by processor usage (top compatibility key).</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>T</b></p></td>
+<td width="6%"></td>
+<td width="82%">
+
+
+<p>Sort by time (top compatibility key).</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>F</b></p></td>
+<td width="6%"></td>
+<td width="82%">
+
+
+<p>&quot;Follow&quot; process: if the sort order causes the
+currently selected process to move in the list, make the
+selection bar follow it. This is useful for monitoring a
+process: this way, you can keep a process always visible on
+screen. When a movement key is used, &quot;follow&quot;
+loses effect.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>K</b></p></td>
+<td width="6%"></td>
+<td width="82%">
+
+
+<p>Hide kernel threads: prevent the threads belonging the
+kernel to be displayed in the process list. (This is a
+toggle key.)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>H</b></p></td>
+<td width="6%"></td>
+<td width="82%">
+
+
+<p>Hide user threads: on systems that represent them
+differently than ordinary processes (such as recent
+NPTL-based systems), this can hide threads from userspace
+processes in the process list. (This is a toggle key.)</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>p</b></p></td>
+<td width="6%"></td>
+<td width="82%">
+
+
+<p>Show full paths to running programs, where applicable.
+(This is a toggle key.)</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>Ctrl-L</b></p>
+
+<p style="margin-left:18%;">Refresh: redraw screen and
+recalculate values.</p>
+
+<p style="margin-left:11%;"><b>Numbers</b></p>
+
+<p style="margin-left:18%;">PID search: type in process ID
+and the selection highlight will be moved to it.</p>
+
+<h2>COLUMNS
+<a name="COLUMNS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+columns can display data about each process. A value of
+&rsquo;-&rsquo; in all the rows indicates that a column is
+unsupported on your system, or currently unimplemented in
+htop. The names below are the ones used in the
+&quot;Available Columns&quot; section of the setup screen.
+If a different name is shown in htop&rsquo;s main screen, it
+is shown below in parenthesis. <b><br>
+Command</b></p>
+
+<p style="margin-left:18%;">The full command line of the
+process (i.e. program name and arguments).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p><b>PID</b></p></td>
+<td width="3%"></td>
+<td width="24%">
+
+
+<p>The process ID.</p></td>
+<td width="58%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>STATE (S)</b></p>
+
+<p style="margin-left:18%;">The state of the process:
+<b><br>
+S</b> for sleeping (idle) <b><br>
+R</b> for running <b><br>
+D</b> for disk sleep (uninterruptible) <b><br>
+Z</b> for zombie (waiting for parent to read its exit
+status) <b><br>
+T</b> for traced or suspended (e.g by SIGTSTP) <b><br>
+W</b> for paging</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>PPID</b></p></td>
+<td width="1%"></td>
+<td width="36%">
+
+
+<p>The parent process ID.</p></td>
+<td width="46%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>PGRP</b></p></td>
+<td width="1%"></td>
+<td width="36%">
+
+
+<p>The process&rsquo;s group ID.</p></td>
+<td width="46%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>SESSION (SID)</b></p>
+
+<p style="margin-left:18%;">The process&rsquo;s session
+ID.</p>
+
+<p style="margin-left:11%;"><b>TTY_NR (TTY)</b></p>
+
+<p style="margin-left:18%;">The controlling terminal of the
+process.</p>
+
+<p style="margin-left:11%;"><b>TPGID</b></p>
+
+<p style="margin-left:18%;">The process ID of the
+foreground process group of the controlling terminal.</p>
+
+<p style="margin-left:11%;"><b>MINFLT</b></p>
+
+<p style="margin-left:18%;">The number of page faults
+happening in the main memory.</p>
+
+<p style="margin-left:11%;"><b>CMINFLT</b></p>
+
+<p style="margin-left:18%;">The number of minor faults for
+the process&rsquo;s waited-for children (see MINFLT
+above).</p>
+
+<p style="margin-left:11%;"><b>MAJFLT</b></p>
+
+<p style="margin-left:18%;">The number of page faults
+happening out of the main memory.</p>
+
+<p style="margin-left:11%;"><b>CMAJFLT</b></p>
+
+<p style="margin-left:18%;">The number of major faults for
+the process&rsquo;s waited-for children (see MAJFLT
+above).</p>
+
+<p style="margin-left:11%;"><b>UTIME (UTIME+)</b></p>
+
+<p style="margin-left:18%;">The user CPU time, which is the
+amount of time the process has spent executing on the CPU in
+user mode (i.e. everything but system calls), measured in
+clock ticks.</p>
+
+<p style="margin-left:11%;"><b>STIME (STIME+)</b></p>
+
+<p style="margin-left:18%;">The system CPU time, which is
+the amount of time the kernel has spent executing system
+calls on behalf of the process, measured in clock ticks.</p>
+
+<p style="margin-left:11%;"><b>CUTIME (CUTIME+)</b></p>
+
+<p style="margin-left:18%;">The children&rsquo;s user CPU
+time, which is the amount of time the process&rsquo;s
+waited-for children have spent executing in user mode (see
+UTIME above).</p>
+
+<p style="margin-left:11%;"><b>CSTIME (CSTIME+)</b></p>
+
+<p style="margin-left:18%;">The children&rsquo;s system CPU
+time, which is the amount of time the kernel has spent
+executing system calls on behalf of all the process&rsquo;s
+waited-for children (see STIME above).</p>
+
+<p style="margin-left:11%;"><b>PRIORITY (PRI)</b></p>
+
+<p style="margin-left:18%;">The kernel&rsquo;s internal
+priority for the process, usually just its nice value plus
+twenty. Different for real-time processes.</p>
+
+<p style="margin-left:11%;"><b>NICE (NI)</b></p>
+
+<p style="margin-left:18%;">The nice value of a process,
+from 19 (low priority) to -20 (high priority). A high value
+means the process is being nice, letting others have a
+higher relative priority. The usual OS permission
+restrictions for adjusting priority apply.</p>
+
+<p style="margin-left:11%;"><b>STARTTIME (START)</b></p>
+
+<p style="margin-left:18%;">The time the process was
+started.</p>
+
+<p style="margin-left:11%;"><b>PROCESSOR (CPU)</b></p>
+
+<p style="margin-left:18%;">The ID of the CPU the process
+last executed on.</p>
+
+<p style="margin-left:11%;"><b>M_SIZE (VIRT)</b></p>
+
+<p style="margin-left:18%;">The size of the virtual memory
+of the process.</p>
+
+<p style="margin-left:11%;"><b>M_RESIDENT (RES)</b></p>
+
+<p style="margin-left:18%;">The resident set size (text +
+data + stack) of the process (i.e. the size of the
+process&rsquo;s used physical memory).</p>
+
+<p style="margin-left:11%;"><b>M_SHARE (SHR)</b></p>
+
+<p style="margin-left:18%;">The size of the process&rsquo;s
+shared pages.</p>
+
+<p style="margin-left:11%;"><b>M_TRS (CODE)</b></p>
+
+<p style="margin-left:18%;">The text resident set size of
+the process (i.e. the size of the process&rsquo;s executable
+instructions).</p>
+
+<p style="margin-left:11%;"><b>M_DRS (DATA)</b></p>
+
+<p style="margin-left:18%;">The data resident set size
+(data + stack) of the process (i.e. the size of anything
+except the process&rsquo;s executable instructions).</p>
+
+<p style="margin-left:11%;"><b>M_LRS (LIB)</b></p>
+
+<p style="margin-left:18%;">The library size of the
+process.</p>
+
+<p style="margin-left:11%;"><b>M_DT (DIRTY)</b></p>
+
+<p style="margin-left:18%;">The size of the dirty pages of
+the process.</p>
+
+<p style="margin-left:11%;"><b>ST_UID (UID)</b></p>
+
+<p style="margin-left:18%;">The user ID of the process
+owner.</p>
+
+<p style="margin-left:11%;"><b>PERCENT_CPU (CPU%)</b></p>
+
+<p style="margin-left:18%;">The percentage of the CPU time
+that the process is currently using.</p>
+
+<p style="margin-left:11%;"><b>PERCENT_MEM (MEM%)</b></p>
+
+<p style="margin-left:18%;">The percentage of memory the
+process is currently using (based on the process&rsquo;s
+resident memory size, see M_RESIDENT above).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>USER</b></p></td>
+<td width="1%"></td>
+<td width="82%">
+
+
+<p>The username of the process owner, or the user ID if the
+name can&rsquo;t be determined.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>TIME (TIME+)</b></p>
+
+<p style="margin-left:18%;">The time, measured in clock
+ticks that the process has spent in user and system time
+(see UTIME, STIME above).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>NLWP</b></p></td>
+<td width="1%"></td>
+<td width="77%">
+
+
+<p>The number of threads in the process.</p></td>
+<td width="5%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>TGID</b></p></td>
+<td width="1%"></td>
+<td width="77%">
+
+
+<p>The thread group ID.</p></td>
+<td width="5%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>CTID</b></p></td>
+<td width="1%"></td>
+<td width="77%">
+
+
+<p>OpenVZ container ID, a.k.a virtual environment ID.</p></td>
+<td width="5%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>VPID</b></p></td>
+<td width="1%"></td>
+<td width="77%">
+
+
+<p>OpenVZ process ID.</p></td>
+<td width="5%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>VXID</b></p></td>
+<td width="1%"></td>
+<td width="77%">
+
+
+<p>VServer process ID.</p></td>
+<td width="5%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>RCHAR (RD_CHAR)</b></p>
+
+<p style="margin-left:18%;">The number of bytes the process
+has read.</p>
+
+<p style="margin-left:11%;"><b>WCHAR (WR_CHAR)</b></p>
+
+<p style="margin-left:18%;">The number of bytes the process
+has written.</p>
+
+<p style="margin-left:11%;"><b>SYSCR (RD_SYSC)</b></p>
+
+<p style="margin-left:18%;">The number of read(2) syscalls
+for the process.</p>
+
+<p style="margin-left:11%;"><b>SYSCW (WR_SYSC)</b></p>
+
+<p style="margin-left:18%;">The number of write(2) syscalls
+for the process.</p>
+
+<p style="margin-left:11%;"><b>RBYTES (IO_RBYTES)</b></p>
+
+<p style="margin-left:18%;">Bytes of read(2) I/O for the
+process.</p>
+
+<p style="margin-left:11%;"><b>WBYTES (IO_WBYTES)</b></p>
+
+<p style="margin-left:18%;">Bytes of write(2) I/O for the
+process.</p>
+
+<p style="margin-left:11%;"><b>CNCLWB (IO_CANCEL)</b></p>
+
+<p style="margin-left:18%;">Bytes of cancelled write(2)
+I/O.</p>
+
+<p style="margin-left:11%;"><b>IO_READ_RATE (DISK
+READ)</b></p>
+
+<p style="margin-left:18%;">The I/O rate of read(2) in
+bytes per second, for the process.</p>
+
+<p style="margin-left:11%;"><b>IO_WRITE_RATE (DISK
+WRITE)</b></p>
+
+<p style="margin-left:18%;">The I/O rate of write(2) in
+bytes per second, for the process.</p>
+
+<p style="margin-left:11%;"><b>IO_RATE (DISK R/W)</b></p>
+
+<p style="margin-left:18%;">The I/O rate, IO_READ_RATE +
+IO_WRITE_RATE (see above).</p>
+
+<p style="margin-left:11%;"><b>CGROUP</b></p>
+
+<p style="margin-left:18%;">Which cgroup the process is
+in.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="4%">
+
+
+<p><b>OOM</b></p></td>
+<td width="3%"></td>
+<td width="27%">
+
+
+<p>OOM killer score.</p></td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>IO_PRIORITY (IO)</b></p>
+
+<p style="margin-left:18%;">The I/O scheduling class
+followed by the priority if the class supports it: <b><br>
+R</b> for Realtime <b><br>
+B</b> for Best-effort <b><br>
+id</b> for Idle</p>
+
+<p style="margin-left:11%;"><b>PERCENT_CPU_DELAY
+(CPUD%)</b></p>
+
+<p style="margin-left:18%;">The percentage of time spent
+waiting for a CPU (while runnable). Requires
+CAP_NET_ADMIN.</p>
+
+<p style="margin-left:11%;"><b>PERCENT_IO_DELAY
+(IOD%)</b></p>
+
+<p style="margin-left:18%;">The percentage of time spent
+waiting for the completion of synchronous block I/O.
+Requires CAP_NET_ADMIN.</p>
+
+<p style="margin-left:11%;"><b>PERCENT_SWAP_DELAY
+(SWAPD%)</b></p>
+
+<p style="margin-left:18%;">The percentage of time spent
+swapping in pages. Requires CAP_NET_ADMIN.</p>
+
+<p style="margin-left:11%;"><b>All other flags</b></p>
+
+<p style="margin-left:18%;">Currently unsupported (always
+displays &rsquo;-&rsquo;).</p>
+
+<h2>CONFIG FILE
+<a name="CONFIG FILE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">By default htop
+reads its configuration from the XDG-compliant path
+~/.config/htop/htoprc -- the configuration file is
+overwritten by htop&rsquo;s in-program Setup configuration,
+so it should not be hand-edited. If no user configuration
+exists htop tries to read the system-wide configuration from
+/etc/htoprc and as a last resort, falls back to its hard
+coded defaults.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You may
+override the location of the configuration file using the
+$HTOPRC environment variable (so you can have multiple
+configurations for different machines that share the same
+home directory, for example).</p>
+
+<h2>MEMORY SIZES
+<a name="MEMORY SIZES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Memory sizes in
+htop are displayed as they are in tools from the GNU
+Coreutils (when ran with the --human-readable option). This
+means that sizes are printed in powers of 1024. (e.g., 1023M
+= 1072693248 Bytes)</p>
+
+<p style="margin-left:11%; margin-top: 1em">The decision to
+use this convention was made in order to conserve screen
+space and make memory size representations consistent
+throughout htop.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">proc(5),
+top(1), free(1), ps(1), uptime(1), limits.conf(5)</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">htop is
+developed by Hisham Muhammad
+&lt;hisham@gobolinux.org&gt;.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This man page
+was written by Bartosz Fenski &lt;fenio@o2.pl&gt; for the
+Debian GNU/Linux distribution (but it may be used by
+others). It was updated by Hisham Muhammad, and later by
+Vincent Launchbury, who wrote the &rsquo;Columns&rsquo;
+section.</p>
+<hr>
+</body>
+</html>

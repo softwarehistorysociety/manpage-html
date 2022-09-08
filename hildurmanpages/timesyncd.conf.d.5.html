@@ -1,0 +1,179 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:10:48 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>TIMESYNCD.CONF</title>
+
+</head>
+<body>
+
+<h1 align="center">TIMESYNCD.CONF</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#CONFIGURATION DIRECTORIES AND PRECEDENCE">CONFIGURATION DIRECTORIES AND PRECEDENCE</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">timesyncd.conf,
+timesyncd.conf.d - Network Time Synchronization
+configuration files</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/systemd/timesyncd.conf</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/systemd/timesyncd.conf.d/*.conf</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/run/systemd/timesyncd.conf.d/*.conf</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/usr/lib/systemd/timesyncd.conf.d/*.conf</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">These
+configuration files control NTP network time
+synchronization. See <b>systemd.syntax</b>(7) for a general
+description of the syntax.</p>
+
+<h2>CONFIGURATION DIRECTORIES AND PRECEDENCE
+<a name="CONFIGURATION DIRECTORIES AND PRECEDENCE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The default
+configuration is defined during compilation, so a
+configuration file is only needed when it is necessary to
+deviate from those defaults. By default, the configuration
+file in /etc/systemd/ contains commented out entries showing
+the defaults as a guide to the administrator. This file can
+be edited to create local overrides.</p>
+
+<p style="margin-left:11%; margin-top: 1em">When packages
+need to customize the configuration, they can install
+configuration snippets in /usr/lib/systemd/*.conf.d/ or
+/usr/local/lib/systemd/*.conf.d/. The main configuration
+file is read before any of the configuration directories,
+and has the lowest precedence; entries in a file in any
+configuration directory override entries in the single
+configuration file. Files in the *.conf.d/ configuration
+subdirectories are sorted by their filename in lexicographic
+order, regardless of in which of the subdirectories they
+reside. When multiple files specify the same option, for
+options which accept just a single value, the entry in the
+file with the lexicographically latest name takes
+precedence. For options which accept a list of values,
+entries are collected as they occur in files sorted
+lexicographically.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Files in /etc/
+are reserved for the local administrator, who may use this
+logic to override the configuration files installed by
+vendor packages. It is recommended to prefix all filenames
+in those subdirectories with a two-digit number and a dash,
+to simplify the ordering of the files.</p>
+
+<p style="margin-left:11%; margin-top: 1em">To disable a
+configuration file supplied by the vendor, the recommended
+way is to place a symlink to /dev/null in the configuration
+directory in /etc/, with the same filename as the vendor
+configuration file.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+settings are configured in the &quot;[Time]&quot;
+section:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>NTP=</i></p>
+
+<p style="margin-left:17%;">A space-separated list of NTP
+server host names or IP addresses. During runtime this list
+is combined with any per-interface NTP servers acquired from
+<b>systemd-networkd.service</b>(8). systemd-timesyncd will
+contact all configured system or per-interface servers in
+turn until one is found that responds. When the empty string
+is assigned, the list of NTP servers is reset, and all
+assignments prior to this one will have no effect. This
+setting defaults to an empty list.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>FallbackNTP=</i></p>
+
+<p style="margin-left:17%;">A space-separated list of NTP
+server host names or IP addresses to be used as the fallback
+NTP servers. Any per-interface NTP servers obtained from
+<b>systemd-networkd.service</b>(8) take precedence over this
+setting, as do any servers set via <i>NTP=</i> above. This
+setting is hence only used if no other NTP server
+information is known. When the empty string is assigned, the
+list of NTP servers is reset, and all assignments prior to
+this one will have no effect. If this option is not given, a
+compiled-in list of NTP servers is used instead.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>RootDistanceMaxSec=</i></p>
+
+<p style="margin-left:17%;">Maximum acceptable root
+distance. Takes a time value (in seconds). Defaults to 5
+seconds.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>PollIntervalMinSec=</i>,
+<i>PollIntervalMaxSec=</i></p>
+
+<p style="margin-left:17%;">The minimum and maximum poll
+intervals for NTP messages. Each setting takes a time value
+(in seconds). <i>PollIntervalMinSec=</i> must not be smaller
+than 16 seconds. <i>PollIntervalMaxSec=</i> must be larger
+than <i>PollIntervalMinSec=</i>. <i>PollIntervalMinSec=</i>
+defaults to 32 seconds, and <i>PollIntervalMaxSec=</i>
+defaults to 2048 seconds.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>systemd</b>(1),
+<b>systemd-timesyncd.service</b>(8),
+<b>systemd-networkd.service</b>(8)</p>
+<hr>
+</body>
+</html>

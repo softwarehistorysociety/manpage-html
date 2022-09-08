@@ -1,0 +1,509 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:09:10 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SYSTEMD-RESOLVED.SERVICE</title>
+
+</head>
+<body>
+
+<h1 align="center">SYSTEMD-RESOLVED.SERVICE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SYNTHETIC RECORDS">SYNTHETIC RECORDS</a><br>
+<a href="#PROTOCOLS AND ROUTING">PROTOCOLS AND ROUTING</a><br>
+<a href="#/ETC/RESOLV.CONF">/ETC/RESOLV.CONF</a><br>
+<a href="#SIGNALS">SIGNALS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#NOTES">NOTES</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-resolved.service,
+systemd-resolved - Network Name Resolution manager</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-resolved.service</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/lib/systemd/systemd-resolved</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>systemd-resolved</b>
+is a system service that provides network name resolution to
+local applications. It implements a caching and validating
+DNS/DNSSEC stub resolver, as well as an LLMNR and
+MulticastDNS resolver and responder. Local applications may
+submit network name resolution requests via three
+interfaces:</p>
+
+<p style="margin-left:17%; margin-top: 1em">&bull; The
+native, fully-featured API <b>systemd-resolved</b> exposes
+on the bus. See the <b><font color="#0000FF">API
+Documentation</font></b>
+<small><font color="#000000">[1]</font></small>
+<font color="#000000">for details. Usage of this API is
+generally recommended to clients as it is asynchronous and
+fully featured (for example, properly returns DNSSEC
+validation status and interface scope for addresses as
+necessary for supporting link-local networking).</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+The glibc <b>getaddrinfo</b>(3) API as defined by</font>
+<b><font color="#0000FF">RFC3493</font></b>
+<small><font color="#000000">[2]</font></small>
+<font color="#000000">and its related resolver functions,
+including <b>gethostbyname</b>(3). This API is widely
+supported, including beyond the Linux platform. In its
+current form it does not expose DNSSEC validation status
+information however, and is synchronous only. This API is
+backed by the glibc Name Service Switch (<b>nss</b>(5)).
+Usage of the glibc NSS module <b>nss-resolve</b>(8) is
+required in order to allow glibc's NSS resolver functions to
+resolve host names via <b>systemd-resolved</b>.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+Additionally, <b>systemd-resolved</b> provides a local DNS
+stub listener on IP address 127.0.0.53 on the local loopback
+interface. Programs issuing DNS requests directly, bypassing
+any local API may be directed to this stub, in order to
+connect them to <b>systemd-resolved</b>. Note however that
+it is strongly recommended that local programs use the glibc
+NSS or bus APIs instead (as described above), as various
+network resolution concepts (such as link-local addressing,
+or LLMNR Unicode domains) cannot be mapped to the unicast
+DNS protocol.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">The
+DNS servers contacted are determined from the global
+settings in /etc/systemd/resolved.conf, the per-link static
+settings in /etc/systemd/network/*.network files (in case
+<b>systemd-networkd.service</b>(8) is used), the per-link
+dynamic settings received over DHCP, user request made via
+<b>resolvectl</b>(1), and any DNS server information made
+available by other system services. See
+<b>resolved.conf</b>(5) and <b>systemd.network</b>(5) for
+details about systemd's own configuration files for DNS
+servers. To improve compatibility, /etc/resolv.conf is read
+in order to discover configured system DNS servers, but only
+if it is not a symlink to
+/run/systemd/resolve/stub-resolv.conf,
+/usr/lib/systemd/resolv.conf or
+/run/systemd/resolve/resolv.conf (see below).</font></p>
+
+<h2>SYNTHETIC RECORDS
+<a name="SYNTHETIC RECORDS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>systemd-resolved</b>
+synthesizes DNS resource records (RRs) for the following
+cases:</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+The local, configured hostname is resolved to all locally
+configured IP addresses ordered by their scope, or &mdash;
+if none are configured &mdash; the IPv4 address 127.0.0.2
+(which is on the local loopback) and the IPv6 address ::1
+(which is the local host).</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+The hostnames &quot;localhost&quot; and
+&quot;localhost.localdomain&quot; (as well as any hostname
+ending in &quot;.localhost&quot; or
+&quot;.localhost.localdomain&quot;) are resolved to the IP
+addresses 127.0.0.1 and ::1.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+The hostname &quot;_gateway&quot; is resolved to all current
+default routing gateway addresses, ordered by their metric.
+This assigns a stable hostname to the current gateway,
+useful for referencing it independently of the current
+network configuration state.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+The mappings defined in /etc/hosts are resolved to their
+configured addresses and back, but they will not affect
+lookups for non-address types (like MX).</font></p>
+
+<h2>PROTOCOLS AND ROUTING
+<a name="PROTOCOLS AND ROUTING"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">Lookup
+requests are routed to the available DNS servers, LLMNR and
+MulticastDNS interfaces according to the following
+rules:</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+Lookups for the special hostname &quot;localhost&quot; are
+never routed to the network. (A few other, special domains
+are handled the same way.)</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+Single-label names are routed to all local interfaces
+capable of IP multicasting, using the LLMNR protocol.
+Lookups for IPv4 addresses are only sent via LLMNR on IPv4,
+and lookups for IPv6 addresses are only sent via LLMNR on
+IPv6. Lookups for the locally configured host name and the
+&quot;_gateway&quot; host name are never routed to
+LLMNR.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+Multi-label names with the domain suffix &quot;.local&quot;
+are routed to all local interfaces capable of IP
+multicasting, using the MulticastDNS protocol. As with LLMNR
+IPv4 address lookups are sent via IPv4 and IPv6 address
+lookups are sent via IPv6.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+Other multi-label names are routed to all local interfaces
+that have a DNS server configured, plus the globally
+configured DNS server if there is one. Address lookups from
+the link-local address range are never routed to DNS. Note
+that by default lookups for domains with the
+&quot;.local&quot; suffix are not routed to DNS servers,
+unless the domain is specified explicitly as routing or
+search domain for the DNS server and interface. This means
+that on networks where the &quot;.local&quot; domain is
+defined in a site-specific DNS server, explicit search or
+routing domains need to be configured to make lookups within
+this DNS domain work. Note that today it's generally
+recommended to avoid defining &quot;.local&quot; in a DNS
+server, as</font>
+<b><font color="#0000FF">RFC6762</font></b>
+<small><font color="#000000">[3]</font></small>
+<font color="#000000">reserves this domain for exclusive
+MulticastDNS use.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">If
+lookups are routed to multiple interfaces, the first
+successful response is returned (thus effectively merging
+the lookup zones on all matching interfaces). If the lookup
+failed on all interfaces, the last failing response is
+returned.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">Routing
+of lookups may be influenced by configuring per-interface
+domain names and other settings. See
+<b>systemd.network</b>(5) and <b>resolvectl</b>(1) for
+details. The following query routing logic applies for
+unicast DNS traffic:</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+If a name to look up matches (that is: is equal to or has as
+suffix) any of the configured search or route-only domains
+of any link (or the globally configured DNS settings), the
+&quot;best matching&quot; search/route-only domain is
+determined: the matching one with the most labels. The query
+is then sent to all DNS servers of any links or the globally
+configured DNS servers associated with this &quot;best
+matching&quot; search/route-only domain. (Note that more
+than one link might have this same &quot;best matching&quot;
+search/route-only domain configured, in which case the query
+is sent to all of them in parallel).</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+If a query does not match any configured search/route-only
+domain (neither per-link nor global), it is sent to all DNS
+servers that are configured on links with the &quot;DNS
+default route&quot; option set, as well as the globally
+configured DNS server.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+If there is no link configured as &quot;DNS default
+route&quot; and no global DNS server configured, the
+compiled-in fallback DNS server is used.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+Otherwise the query is failed as no suitable DNS servers
+could be determined.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">The
+&quot;DNS default route&quot; option is a boolean setting
+configurable with <b>resolvectl</b> or in .network files. If
+not set, it is implicitly determined based on the configured
+DNS domains for a link: if there's any route-only domain
+(not matching &quot;~.&quot;) it defaults to false,
+otherwise to true.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">Effectively
+this means: in order to preferably route all DNS queries not
+explicitly matched by search/route-only domain configuration
+to a specific link, configure a &quot;~.&quot; route-only
+domain on it. This will ensure that other links will not be
+considered for the queries (unless they too carry such a
+route-only domain). In order to route all such DNS queries
+to a specific link only in case no other link is preferable,
+then set the &quot;DNS default route&quot; option for the
+link to true, and do not configure a &quot;~.&quot;
+route-only domain on it. Finally, in order to ensure that a
+specific link never receives any DNS traffic not matching
+any of its configured search/route-only domains, set the
+&quot;DNS default route&quot; option for it to
+false.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">See
+the</font> <b><font color="#0000FF">resolved D-Bus API
+Documentation</font></b>
+<small><font color="#000000">[1]</font></small>
+<font color="#000000">for information about the APIs
+systemd-resolved provides.</font></p>
+
+<h2>/ETC/RESOLV.CONF
+<a name="/ETC/RESOLV.CONF"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">Four
+modes of handling /etc/resolv.conf (see
+<b>resolv.conf</b>(5)) are supported:</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+<b>systemd-resolved</b> maintains the
+/run/systemd/resolve/stub-resolv.conf file for compatibility
+with traditional Linux programs. This file may be symlinked
+from /etc/resolv.conf. This file lists the 127.0.0.53 DNS
+stub (see above) as the only DNS server. It also contains a
+list of search domains that are in use by systemd-resolved.
+The list of search domains is always kept up-to-date. Note
+that /run/systemd/resolve/stub-resolv.conf should not be
+used directly by applications, but only through a symlink
+from /etc/resolv.conf. This file may be symlinked from
+/etc/resolv.conf in order to connect all local clients that
+bypass local DNS APIs to <b>systemd-resolved</b> with
+correct search domains settings. This mode of operation is
+recommended.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+A static file /usr/lib/systemd/resolv.conf is provided that
+lists the 127.0.0.53 DNS stub (see above) as only DNS
+server. This file may be symlinked from /etc/resolv.conf in
+order to connect all local clients that bypass local DNS
+APIs to <b>systemd-resolved</b>. This file does not contain
+any search domains.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+<b>systemd-resolved</b> maintains the
+/run/systemd/resolve/resolv.conf file for compatibility with
+traditional Linux programs. This file may be symlinked from
+/etc/resolv.conf and is always kept up-to-date, containing
+information about all known DNS servers. Note the file
+format's limitations: it does not know a concept of
+per-interface DNS servers and hence only contains
+system-wide DNS server definitions. Note that
+/run/systemd/resolve/resolv.conf should not be used directly
+by applications, but only through a symlink from
+/etc/resolv.conf. If this mode of operation is used local
+clients that bypass any local DNS API will also bypass
+<b>systemd-resolved</b> and will talk directly to the known
+DNS servers.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">&bull;
+Alternatively, /etc/resolv.conf may be managed by other
+packages, in which case <b>systemd-resolved</b> will read it
+for DNS configuration data. In this mode of operation
+<b>systemd-resolved</b> is consumer rather than provider of
+this configuration file.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">Note
+that the selected mode of operation for this file is
+detected fully automatically, depending on whether
+/etc/resolv.conf is a symlink to
+/run/systemd/resolve/resolv.conf or lists 127.0.0.53 as DNS
+server.</font></p>
+
+<h2>SIGNALS
+<a name="SIGNALS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>SIGUSR1</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Upon
+reception of the <b>SIGUSR1</b> process signal
+<b>systemd-resolved</b> will dump the contents of all DNS
+resource record caches it maintains, as well as all feature
+level information it learnt about configured DNS servers
+into the system logs.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>SIGUSR2</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Upon
+reception of the <b>SIGUSR2</b> process signal
+<b>systemd-resolved</b> will flush all caches it maintains.
+Note that it should normally not be necessary to request
+this explicitly &ndash; except for debugging purposes
+&ndash; as <b>systemd-resolved</b> flushes the caches
+automatically anyway any time the host's network
+configuration changes. Sending this signal to
+<b>systemd-resolved</b> is equivalent to the <b>resolvectl
+flush-caches</b> command, however the latter is recommended
+since it operates in a synchronous way.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>SIGRTMIN+1</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Upon
+reception of the <b>SIGRTMIN+1</b> process signal
+<b>systemd-resolved</b> will forget everything it learnt
+about the configured DNS servers. Specifically any
+information about server feature support is flushed out, and
+the server feature probing logic is restarted on the next
+request, starting with the most fully featured level. Note
+that it should normally not be necessary to request this
+explicitly &ndash; except for debugging purposes &ndash; as
+<b>systemd-resolved</b> automatically forgets learnt
+information any time the DNS server configuration changes.
+Sending this signal to <b>systemd-resolved</b> is equivalent
+to the <b>resolvectl reset-server-features</b> command,
+however the latter is recommended since it operates in a
+synchronous way.</font></p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>systemd</b>(1),
+<b>resolved.conf</b>(5), <b>dnssec-trust-anchors.d</b>(5),
+<b>nss-resolve</b>(8), <b>resolvectl</b>(1),
+<b>resolv.conf</b>(5), <b>hosts</b>(5),
+<b>systemd.network</b>(5),
+<b>systemd-networkd.service</b>(8)</font></p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">1.</font></p> </td>
+<td width="2%"></td>
+<td width="26%">
+
+
+<p style="margin-top: 1em"><font color="#000000">API
+Documentation</font></p> </td>
+<td width="57%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">https://www.freedesktop.org/wiki/Software/systemd/resolved</font></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">2.</font></p> </td>
+<td width="2%"></td>
+<td width="11%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">RFC3493</font></p> </td>
+<td width="72%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">https://tools.ietf.org/html/rfc3493</font></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">3.</font></p> </td>
+<td width="2%"></td>
+<td width="11%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">RFC6762</font></p> </td>
+<td width="72%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">https://tools.ietf.org/html/rfc6762</font></p>
+<hr>
+</body>
+</html>

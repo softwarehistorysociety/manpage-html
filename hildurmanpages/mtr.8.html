@@ -1,0 +1,569 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:55:57 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>MTR</title>
+
+</head>
+<body>
+
+<h1 align="center">MTR</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
+<a href="#INTERACTIVE CONTROL">INTERACTIVE CONTROL</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#CONTACT INFORMATION">CONTACT INFORMATION</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">mtr - a network
+diagnostic tool</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mtr</b>
+[<b>-4</b>|<b>-6]</b> [<b>-F&nbsp;</b><i>FILENAME</i>]
+[<b>--report]</b> [<b>--report-wide]</b> [<b>--xml]</b>
+[<b>--gtk]</b> [<b>--curses]</b>
+[<b>--displaymode&nbsp;</b><i>MODE</i>] [<b>--raw]</b>
+[<b>--csv]</b> [<b>--json]</b> [<b>--split]</b>
+[<b>--no-dns]</b> [<b>--show-ips]</b>
+[<b>-o&nbsp;</b><i>FIELDS</i>]
+[<b>-y&nbsp;</b><i>IPINFO</i>] [<b>--aslookup]</b>
+[<b>-i&nbsp;</b><i>INTERVAL</i>]
+[<b>-c&nbsp;</b><i>COUNT</i>]
+[<b>-s&nbsp;</b><i>PACKETSIZE</i>]
+[<b>-B&nbsp;</b><i>BITPATTERN</i>]
+[<b>-G&nbsp;</b><i>GRACEPERIOD</i>]
+[<b>-Q&nbsp;</b><i>TOS</i>] [<b>--mpls]</b>
+[<b>-I&nbsp;</b><i>NAME</i>] [<b>-a&nbsp;</b><i>ADDRESS</i>]
+[<b>-f&nbsp;</b><i>FIRST-TTL</i>]
+[<b>-m&nbsp;</b><i>MAX-TTL</i>]
+[<b>-U&nbsp;</b><i>MAX-UNKNOWN</i>] [<b>--udp]</b>
+[<b>--tcp]</b> [<b>--sctp</b>] [<b>-P&nbsp;</b><i>PORT</i>]
+[<b>-L&nbsp;</b><i>LOCALPORT</i>]
+[<b>-Z&nbsp;</b><i>TIMEOUT</i>] [<b>-M&nbsp;</b><i>MARK</i>]
+<i>HOSTNAME</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>mtr</b></i>
+combines the functionality of the <b>traceroute</b> and
+<b>ping</b> programs in a single network diagnostic
+tool.</p>
+
+<p style="margin-left:11%; margin-top: 1em">As <b>mtr</b>
+starts, it investigates the network connection between the
+host <b>mtr</b> runs on and <b>HOSTNAME</b> by sending
+packets with purposely low TTLs. It continues to send
+packets with low TTL, noting the response time of the
+intervening routers. This allows <b>mtr</b> to print the
+response percentage and response times of the internet route
+to <b>HOSTNAME</b>. A sudden increase in packet loss or
+response time is often an indication of a bad (or simply
+overloaded) link.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The results are
+usually reported as round-trip-response times in
+milliseconds and the percentage of packetloss.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h</b>,
+<b>--help</b></p>
+
+<p style="margin-left:22%;">Print the summary of command
+line argument options.</p>
+
+<p style="margin-left:11%;"><b>-v</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Print the installed version of
+mtr.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-4</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Use IPv4 only.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-6</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Use IPv6 only. (IPV4 may be used for DNS lookups.)</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-F</b> <i>FILENAME</i>,
+<b>--filename</b> <i>FILENAME</i></p>
+
+<p style="margin-left:22%;">Reads the list of hostnames
+from the specified file.</p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--report</b></p>
+
+<p style="margin-left:22%;">This option puts <b>mtr</b>
+into <b>report</b> mode. When in this mode, <b>mtr</b> will
+run for the number of cycles specified by the <b>-c</b>
+option, and then print statistics and exit.</p>
+
+<p style="margin-left:11%;">This mode is useful for
+generating statistics about network quality.</p>
+
+<p style="margin-left:22%;">Note that each running instance
+of <b>mtr</b> generates a significant amount of network
+traffic. Using <b>mtr</b> to measure the quality of your
+network may result in decreased network performance.</p>
+
+<p style="margin-left:11%;"><b>-w</b>,
+<b>--report-wide</b></p>
+
+<p style="margin-left:22%;">This option puts <b>mtr</b>
+into <b>wide report</b> mode. When in this mode, <b>mtr</b>
+will not cut hostnames in the report.</p>
+
+<p style="margin-left:11%;"><b>-x</b>, <b>--xml</b></p>
+
+<p style="margin-left:22%;">Use this option to tell
+<b>mtr</b> to use the xml output format. This format is
+better suited for automated processing of the measurement
+results.</p>
+
+<p style="margin-left:11%;"><b>-t</b>, <b>--curses</b></p>
+
+<p style="margin-left:22%;">Use this option to force
+<b>mtr</b> to use the curses based terminal interface (if
+available). In case the list of hops exceeds the height of
+your terminal, you can use the <b>+</b> and <b>-</b> keys to
+scroll up and down half a page.</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>Ctrl</b>-<b>L</b>
+clears spurious error messages that may overwrite other
+parts of the display.</p>
+
+<p style="margin-left:11%;"><b>--displaymode</b>
+<i>MODE</i></p>
+
+<p style="margin-left:22%;">Use this option to select the
+initial display mode: 0 (default) selects statistics, 1
+selects the stripchart without latency information, and 2
+selects the stripchart with latency information.</p>
+
+<p style="margin-left:11%;"><b>-g</b>, <b>--gtk</b></p>
+
+<p style="margin-left:22%;">Use this option to force
+<b>mtr</b> to use the GTK+ based X11 window interface (if
+available). GTK+ must have been available on the system when
+<b>mtr</b> was built for this to work. See the GTK+ web page
+at <a href="http://www.gtk.org/">http://www.gtk.org/</a> for
+more information about GTK+.</p>
+
+<p style="margin-left:11%;"><b>-l</b>, <b>--raw</b></p>
+
+<p style="margin-left:22%;">Use the raw output format. This
+format is better suited for archival of the measurement
+results. It could be parsed to be presented into any of the
+other display methods.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Example of the
+raw output format: <br>
+h 0 10.1.1.1 <br>
+p 0 339 <br>
+h 1 46.149.16.4 <br>
+p 1 530 <br>
+h 2 172.31.1.16 <br>
+p 2 531 <br>
+h 3 82.221.168.236 <br>
+p 3 1523 <br>
+h 5 195.130.211.8 <br>
+p 5 1603 <br>
+h 6 193.4.58.17 <br>
+p 6 1127 <br>
+h 7 193.4.58.17 <br>
+d 7 www.isnic.is</p>
+
+<p style="margin-left:11%;"><b>-C</b>, <b>--csv</b></p>
+
+<p style="margin-left:22%;">Use the Comma-Separated-Value
+(CSV) output format. (Note: The separator is actually a
+semi-colon &rsquo;;&rsquo;.)</p>
+
+<p style="margin-left:22%; margin-top: 1em">Example of the
+CSV output format: <br>
+
+MTR.0.86+git:16e39fc0;1435562787;OK;nic.is;1;r-76520-PROD.greenqloud.internal;288
+<br>
+
+MTR.0.86+git:16e39fc0;1435562787;OK;nic.is;2;46.149.16.4;2086
+<br>
+
+MTR.0.86+git:16e39fc0;1435562787;OK;nic.is;3;172.31.1.16;600
+<br>
+
+MTR.0.86+git:16e39fc0;1435562787;OK;nic.is;4;82.221.168.236;1163
+<br>
+MTR.0.86+git:16e39fc0;1435562787;OK;nic.is;5;???;0 <br>
+
+MTR.0.86+git:16e39fc0;1435562787;OK;nic.is;6;rix-k2-gw.isnic.is;1654
+<br>
+
+MTR.0.86+git:16e39fc0;1435562787;OK;nic.is;7;www.isnic.is;1036</p>
+
+<p style="margin-left:11%;"><b>-j</b>, <b>--json</b></p>
+
+<p style="margin-left:22%;">Use this option to tell
+<b>mtr</b> to use the JSON output format. This format is
+better suited for automated processing of the measurement
+results.</p>
+
+<p style="margin-left:11%;"><b>-p</b>, <b>--split</b></p>
+
+<p style="margin-left:22%;">Use this option to set
+<b>mtr</b> to spit out a format that is suitable for a
+split-user interface.</p>
+
+<p style="margin-left:11%;"><b>-n</b>, <b>--no-dns</b></p>
+
+<p style="margin-left:22%;">Use this option to force
+<b>mtr</b> to display numeric IP numbers and not try to
+resolve the host names.</p>
+
+<p style="margin-left:11%;"><b>-b</b>,
+<b>--show-ips</b></p>
+
+<p style="margin-left:22%;">Use this option to tell
+<b>mtr</b> to display both the host names and numeric IP
+numbers. In split mode this adds an extra field to the
+output. In report mode, there is usually too little space to
+add the IPs, and they will be truncated. Use the wide report
+(-w) mode to see the IPs in report mode.</p>
+
+<p style="margin-left:11%;"><b>-o</b> <i>FIELDS</i>,
+<b>--order</b> <i>FIELDS</i></p>
+
+<p style="margin-left:22%;">Use this option to specify
+which fields to display and in which order. You may use one
+or more space characters to separate fields. <br>
+Available fields:</p>
+
+<p style="margin-left:22%; margin-top: 1em">Example: -o
+&quot;LSD NBAW X&quot;</p>
+
+<p style="margin-left:11%;"><b>-y</b> <i>n</i>,
+<b>--ipinfo</b> <i>n</i></p>
+
+<p style="margin-left:22%;">Displays information about each
+IP hop. Valid values for <i>n</i> are:</p>
+
+<p style="margin-left:22%; margin-top: 1em">It is possible
+to cycle between these fields at runtime (using the <b>y</b>
+key).</p>
+
+<p style="margin-left:11%;"><b>-z</b>,
+<b>--aslookup</b></p>
+
+<p style="margin-left:22%;">Displays the Autonomous System
+(AS) number alongside each hop. Equivalent to <b>--ipinfo
+0</b>.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Example
+(columns to the right not shown for clarity): <br>
+1. AS??? r-76520-PROD.greenqloud.internal <br>
+2. AS51969 46.149.16.4 <br>
+3. AS??? 172.31.1.16 <br>
+4. AS30818 82.221.168.236 <br>
+5. ??? <br>
+6. AS??? rix-k2-gw.isnic.is <br>
+7. AS1850 www.isnic.is</p>
+
+<p style="margin-left:11%;"><b>-i</b> <i>SECONDS</i>,
+<b>--interval</b> <i>SECONDS</i></p>
+
+<p style="margin-left:22%;">Use this option to specify the
+positive number of seconds between ICMP ECHO requests. The
+default value for this parameter is one second. The root
+user may choose values between zero and one.</p>
+
+<p style="margin-left:11%;"><b>-c</b> <i>COUNT</i>,
+<b>--report-cycles</b> <i>COUNT</i></p>
+
+<p style="margin-left:22%;">Use this option to set the
+number of pings sent to determine both the machines on the
+network and the reliability of those machines. Each cycle
+lasts one second.</p>
+
+<p style="margin-left:11%;"><b>-s</b> <i>PACKETSIZE</i>,
+<b>--psize</b> <i>PACKETSIZE</i></p>
+
+<p style="margin-left:22%;">This option sets the packet
+size used for probing. It is in bytes, inclusive IP and ICMP
+headers.</p>
+
+<p style="margin-left:22%; margin-top: 1em">If set to a
+negative number, every iteration will use a different,
+random packet size up to that number.</p>
+
+<p style="margin-left:11%;"><b>-B</b> <i>NUM</i>,
+<b>--bitpattern</b> <i>NUM</i></p>
+
+<p style="margin-left:22%;">Specifies bit pattern to use in
+payload. Should be within range 0 - 255. If <i>NUM</i> is
+greater than 255, a random pattern is used.</p>
+
+<p style="margin-left:11%;"><b>-G</b> <i>SECONDS</i>,
+<b>--gracetime</b> <i>SECONDS</i></p>
+
+<p style="margin-left:22%;">Use this option to specify the
+positive number of seconds to wait for responses after the
+final request. The default value is five seconds.</p>
+
+<p style="margin-left:11%;"><b>-Q</b> <i>NUM</i>,
+<b>--tos</b> <i>NUM</i></p>
+
+<p style="margin-left:22%;">Specifies value for type of
+service field in IP header. Should be within range 0 -
+255.</p>
+
+<p style="margin-left:11%;"><b>-e</b>, <b>--mpls</b></p>
+
+<p style="margin-left:22%;">Use this option to tell
+<b>mtr</b> to display information from ICMP extensions for
+MPLS (RFC 4950) that are encoded in the response
+packets.</p>
+
+<p style="margin-left:11%;"><b>-I</b> <i>NAME</i>,
+<b>--interface</b> <i>NAME</i></p>
+
+<p style="margin-left:22%;">Use the network interface with
+a specific name for sending network probes. This can be
+useful when you have multiple network interfaces with routes
+to your destination, for example both wired Ethernet and
+WiFi, and wish to test a particular interface.</p>
+
+<p style="margin-left:11%;"><b>-a</b> <i>ADDRESS</i>,
+<b>--address</b> <i>ADDRESS</i></p>
+
+<p style="margin-left:22%;">Use this option to bind the
+outgoing socket to <i>ADDRESS</i>, so that all packets will
+be sent with <i>ADDRESS</i> as source address. NOTE that
+this option doesn&rsquo;t apply to DNS requests (which could
+be and could not be what you want).</p>
+
+<p style="margin-left:11%;"><b>-f</b> <i>NUM</i>,
+<b>--first-ttl</b> <i>NUM</i></p>
+
+<p style="margin-left:22%;">Specifies with what TTL to
+start. Defaults to 1.</p>
+
+<p style="margin-left:11%;"><b>-m</b> <i>NUM</i>,
+<b>--max-ttl</b> <i>NUM</i></p>
+
+<p style="margin-left:22%;">Specifies the maximum number of
+hops (max time-to-live value) traceroute will probe. Default
+is 30.</p>
+
+<p style="margin-left:11%;"><b>-U</b> <i>NUM</i>,
+<b>--max-unknown</b> <i>NUM</i></p>
+
+<p style="margin-left:22%;">Specifies the maximum unknown
+host. Default is 5.</p>
+
+<p style="margin-left:11%;"><b>-u</b>, <b>--udp</b></p>
+
+<p style="margin-left:22%;">Use UDP datagrams instead of
+ICMP ECHO.</p>
+
+<p style="margin-left:11%;"><b>-T</b>, <b>--tcp</b></p>
+
+<p style="margin-left:22%;">Use TCP SYN packets instead of
+ICMP ECHO. <i>PACKETSIZE</i> is ignored, since SYN packets
+can not contain data.</p>
+
+<p style="margin-left:11%;"><b>-S</b>, <b>--sctp</b></p>
+
+<p style="margin-left:22%;">Use Stream Control Transmission
+Protocol packets instead of ICMP ECHO.</p>
+
+<p style="margin-left:11%;"><b>-P</b> <i>PORT</i>,
+<b>--port</b> <i>PORT</i></p>
+
+<p style="margin-left:22%;">The target port number for
+TCP/SCTP/UDP traces.</p>
+
+<p style="margin-left:11%;"><b>-L</b> <i>LOCALPORT</i>,
+<b>--localport</b> <i>LOCALPORT</i></p>
+
+<p style="margin-left:22%;">The source port number for UDP
+traces.</p>
+
+<p style="margin-left:11%;"><b>-Z</b> <i>SECONDS</i>,
+<b>--timeout</b> <i>SECONDS</i></p>
+
+<p style="margin-left:22%;">The number of seconds to keep
+probe sockets open before giving up on the connection. Using
+large values for this, especially combined with a short
+interval, will use up a lot of file descriptors.</p>
+
+<p style="margin-left:11%;"><b>-M</b> <i>MARK</i>,
+<b>--mark</b> <i>MARK</i></p>
+
+<p style="margin-left:22%;">Set the mark for each packet
+sent through this socket similar to the netfilter MARK
+target but socket-based. <i>MARK</i> is 32 unsigned integer.
+See <b>socket</b>(7) for full description of this socket
+option.</p>
+
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mtr</b>
+recognizes a few environment variables. <b><br>
+MTR_OPTIONS</b></p>
+
+<p style="margin-left:22%;">This environment variable
+allows one to specify options, as if they were passed on the
+command line. It is parsed before reading the actual command
+line options, so that options specified in
+<b>MTR_OPTIONS</b> are overridden by command-line
+options.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Example:</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>MTR_OPTIONS</b><i>=&quot;-4&nbsp;-c&nbsp;1&quot;</i>
+<b>mtr</b> <i>-6&nbsp;localhost</i></p>
+
+<p style="margin-left:22%; margin-top: 1em">would send one
+probe (because of <i>-c&nbsp;1) towards</i> <b>::1</b>
+(because of <i>-6</i>, which overrides the <i>-4</i> passed
+in <b>MTR_OPTIONS).</b></p>
+
+<p style="margin-left:11%;"><b>MTR_PACKET</b></p>
+
+<p style="margin-left:22%;">A path to the <i>mtr-packet</i>
+executable, to be used for sending and receiving network
+probes. If <b>MTR_PACKET</b> is unset, the <b>PATH</b> will
+be used to search for an <i>mtr-packet</i> executable.</p>
+
+<p style="margin-left:11%;"><b>DISPLAY</b></p>
+
+<p style="margin-left:22%;">Specifies an X11 server for the
+GTK+ frontend.</p>
+
+<h2>INTERACTIVE CONTROL
+<a name="INTERACTIVE CONTROL"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mtr</b> can
+be controlled while it is running with the following keys:
+<br>
+?|h help <br>
+p pause (SPACE to resume) <br>
+d switching display mode <br>
+e toggle MPLS information on/off <br>
+n toggle DNS on/off <br>
+r reset all counters <br>
+o str set the columns to display, default str=&rsquo;LRS N
+BAWV&rsquo; <br>
+j toggle latency(LS NABWV)/jitter(DR AGJMXI) stats <br>
+c &lt;n&gt; report cycle n, default n=infinite <br>
+i &lt;n&gt; set the ping interval to n seconds, default n=1
+<br>
+f &lt;n&gt; set the initial time-to-live(ttl), default n=1
+<br>
+m &lt;n&gt; set the max time-to-live, default n= # of hops
+<br>
+s &lt;n&gt; set the packet size to n or random(n&lt;0) <br>
+b &lt;c&gt; set ping bit pattern to c(0..255) or
+random(c&lt;0) <br>
+Q &lt;t&gt; set ping packet&rsquo;s TOS to t <br>
+u switch between ICMP ECHO and UDP datagrams <br>
+y switching IP info <br>
+z toggle ASN info on/off <br>
+q exit</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Some modern
+routers give a lower priority to ICMP ECHO packets than to
+other network traffic. Consequently, the reliability of
+these routers reported by <b>mtr</b> will be significantly
+lower than the actual reliability of these routers.</p>
+
+<h2>CONTACT INFORMATION
+<a name="CONTACT INFORMATION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">For the latest
+version, see the mtr web page at
+<a href="http://www.bitwizard.nl/mtr/">http://www.bitwizard.nl/mtr/</a></p>
+
+<p style="margin-left:11%; margin-top: 1em">For patches,
+bug reports, or feature requests, please open an issue on
+GitHub at:
+<a href="https://github.com/traviscross/mtr">https://github.com/traviscross/mtr</a>.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mtr-packet</b>(8),
+<b>traceroute</b>(8), <b>ping</b>(8), <b>socket</b>(7),
+TCP/IP Illustrated (Stevens, ISBN 0201633469).</p>
+<hr>
+</body>
+</html>

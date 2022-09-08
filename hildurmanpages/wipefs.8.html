@@ -1,0 +1,261 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:13:16 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>WIPEFS</title>
+
+</head>
+<body>
+
+<h1 align="center">WIPEFS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">wipefs - wipe a
+signature from a device</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>wipefs</b>
+[<b>options</b>] <i>device</i>...</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>wipefs</b>
+[<b>--backup</b>] <b>-o</b> <i>offset device</i>...</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>wipefs</b>
+[<b>--backup</b>] <b>-a</b> <i>device</i>...</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>wipefs</b>
+can erase filesystem, raid or partition-table signatures
+(magic strings) from the specified <i>device</i> to make the
+signatures invisible for libblkid. <b>wipefs</b> does not
+erase the filesystem itself nor any other data from the
+device.</p>
+
+<p style="margin-left:11%; margin-top: 1em">When used
+without any options, wipefs lists all visible filesystems
+and the offsets of their basic signatures. The default
+output is subject to change. So whenever possible, you
+should avoid using default outputs in your scripts. Always
+explicitly define expected columns by using <b>--output</b>
+<i>columns-list</i> in environments where a stable output is
+required.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>wipefs</b>
+calls the BLKRRPART ioctl when it has erased a
+partition-table signature to inform the kernel about the
+change. The ioctl is called as the last step and when all
+specified signatures from all specified devices are already
+erased.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that some
+filesystems and some partition tables store more magic
+strings on the device (e.g. FAT, ZFS, GPT). The
+<b>wipefs</b> command (since v2.31) lists all the offset
+where a magic strings have been detected.</p>
+
+<p style="margin-left:11%; margin-top: 1em">When option
+<b>-a</b> is used, all magic strings that are visible for
+libblkid are erased. In this case the <b>wipefs</b> scans
+the device again after each modification (erase) until no
+magic string is found.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that by
+default <b>wipefs</b> does not erase nested partition tables
+on non-whole disk devices. For this the option
+<b>--force</b> is required.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-a</b>,
+<b>--all</b></p>
+
+<p style="margin-left:22%;">Erase all available signatures.
+The set of erased signatures can be restricted with the
+<b>-t</b> option.</p>
+
+<p style="margin-left:11%;"><b>-b</b>, <b>--backup</b></p>
+
+<p style="margin-left:22%;">Create a signature backup to
+the file $HOME/wipefs-&lt;devname&gt;-&lt;offset&gt;.bak.
+For more details see the <b>EXAMPLES</b> section.</p>
+
+<p style="margin-left:11%;"><b>-f</b>, <b>--force</b></p>
+
+<p style="margin-left:22%;">Force erasure, even if the
+filesystem is mounted. This is required in order to erase a
+partition-table signature on a block device.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<p style="margin-left:11%;"><b>-J</b>, <b>--json</b></p>
+
+<p style="margin-left:22%;">Use JSON output format.</p>
+
+<p style="margin-left:11%;"><b>-n</b>,
+<b>--noheadings</b></p>
+
+<p style="margin-left:22%;">Do not print a header line.</p>
+
+<p style="margin-left:11%;"><b>-O</b>, <b>--output</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Specify which output columns to
+print. Use --help to get a list of all supported
+columns.</p>
+
+<p style="margin-left:11%;"><b>-n</b>, <b>--no-act</b></p>
+
+<p style="margin-left:22%;">Causes everything to be done
+except for the write() call.</p>
+
+<p style="margin-left:11%;"><b>-o</b>, <b>--offset</b>
+<i>offset</i></p>
+
+<p style="margin-left:22%;">Specify the location (in bytes)
+of the signature which should be erased from the device. The
+<i>offset</i> number may include a &quot;0x&quot; prefix;
+then the number will be interpreted as a hex value. It is
+possible to specify multiple <b>-o</b> options.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The
+<i>offset</i> argument may be followed by the multiplicative
+suffixes KiB (=1024), MiB (=1024*1024), and so on for GiB,
+TiB, PiB, EiB, ZiB and YiB (the &quot;iB&quot; is optional,
+e.g. &quot;K&quot; has the same meaning as &quot;KiB&quot;),
+or the suffixes KB (=1000), MB (=1000*1000), and so on for
+GB, TB, PB, EB, ZB and YB.</p>
+
+<p style="margin-left:11%;"><b>-p</b>,
+<b>--parsable</b></p>
+
+<p style="margin-left:22%;">Print out in parsable instead
+of printable format. Encode all potentially unsafe
+characters of a string to the corresponding hex value
+prefixed by &rsquo;\x&rsquo;.</p>
+
+<p style="margin-left:11%;"><b>-q</b>, <b>--quiet</b></p>
+
+<p style="margin-left:22%;">Suppress any messages after a
+successful signature wipe.</p>
+
+<p style="margin-left:11%;"><b>-t</b>, <b>--types</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Limit the set of printed or
+erased signatures. More than one type may be specified in a
+comma-separated list. The list or individual types can be
+prefixed with &rsquo;no&rsquo; to specify the types on which
+no action should be taken. For more details see
+mount(8).</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>wipefs
+/dev/sda*</b></p>
+
+<p style="margin-left:22%;">Prints information about sda
+and all partitions on sda.</p>
+
+<p style="margin-left:11%;"><b>wipefs --all --backup
+/dev/sdb</b></p>
+
+<p style="margin-left:22%;">Erases all signatures from the
+device /dev/sdb and creates a signature backup file
+~/wipefs-sdb-&lt;offset&gt;.bak for each signature.</p>
+
+<p style="margin-left:11%;"><b>dd
+if=~/wipefs-sdb-0x00000438.bak of=/dev/sdb
+seek=$((0x00000438)) bs=1 <br>
+conv=notrunc</b></p>
+
+<p style="margin-left:22%;">Restores an ext2 signature from
+the backup file ~/wipefs-sdb-0x00000438.bak.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Karel Zak
+&lt;kzak@redhat.com&gt;</p>
+
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">LIBBLKID_DEBUG=all</p>
+
+<p style="margin-left:22%;">enables libblkid debug
+output.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>blkid</b>(8),
+<b>findfs</b>(8)</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The wipefs
+command is part of the util-linux package and is available
+from https://www.kernel.org/pub/linux/utils/util-linux/.</p>
+<hr>
+</body>
+</html>

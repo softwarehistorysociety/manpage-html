@@ -1,0 +1,4202 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:39:32 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>ELINKS.CONF</title>
+
+</head>
+<body>
+
+<h1 align="center">ELINKS.CONF</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SYNTAX">SYNTAX</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">elinks.conf -
+ELinks configuration file</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:17%; margin-top: 1em">set
+&lt;option&gt; = &lt;value&gt; <br>
+set_domain &lt;domain&gt; &lt;option&gt; = &lt;value&gt;
+<br>
+unset &lt;option&gt; <br>
+bind &quot;&lt;keymap&gt;&quot; &quot;&lt;key&gt;&quot; =
+&quot;&lt;action&gt;&quot; <br>
+include &quot;&lt;file&gt;&quot;</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The elinks.conf
+file contains configuration information for ELinks. It can
+be used to configure the behaviour of ELinks in a wide
+variety of ways: protocol behaviour, keybindings, colors
+used for rendering and for the user interface.</p>
+
+<p style="margin-left:11%; margin-top: 1em">It is read at
+startup and saved only when requested. All options described
+in this document can be fully configured from within ELinks
+so no editing of elinks.conf is needed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+MIME-related options used for specifying handlers of various
+MIME types are NOT described in this document. Documentation
+for these options can be found at the ELinks homepage.
+Keybindings can also be specified in elinks.conf. This is
+described in <b>elinkskeys</b>(5).</p>
+
+<h2>SYNTAX
+<a name="SYNTAX"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The syntax of
+the configuration file is very simple. The elinks.conf file
+is a free-form ASCII text file. The file may contain extra
+tabs and newlines for formatting purposes. Keywords in the
+file are case-sensitive. Comments may be placed anywhere
+within the file (except within quotes). Comments begin with
+the # character and end at the end of the line.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Some sample
+settings:</p>
+
+<p style="margin-left:17%; margin-top: 1em"># Use
+asynchronous DNS resolver? <br>
+set connection.async_dns = 1 <br>
+# horizontal text margin. <br>
+set document.browse.margin_width = 3 <br>
+# Default document codepage. <br>
+set document.codepage.assume = &quot;ISO-8859-1&quot; <br>
+# User defined protocol handlers <br>
+set protocol.user.mailto.unix = &quot;mutt %h -s
+\&quot;%s\&quot;&quot;</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Generated using
+output from ELinks version 0.13.GIT.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>bookmarks
+(Bookmarks)</b> <br>
+Bookmark options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">bookmarks.file_format
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">File format for bookmarks
+(affects both reading and saving):</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is the
+default native ELinks format</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is
+XBEL universal XML bookmarks format</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">bookmarks.folder_state
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">When saving bookmarks also
+store whether folders are expanded or not, so the look of
+the bookmark dialog is kept across ELinks sessions. If
+disabled all folders will appear unexpanded next time ELinks
+is run.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>config
+(Configuration system)</b> <br>
+Configuration handling options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">config.comments
+<b>&lt;num&gt;</b> (default: 3)</p>
+
+<p style="margin-left:17%;">Amount of comments
+automatically written to the config file:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is no
+comments are written</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is
+only the &quot;blurb&quot; (name+type) is written</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is
+only the description is written</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 3 is
+full comments are written</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">config.indentation
+<b>&lt;num&gt;</b> (default: 2)</p>
+
+<p style="margin-left:17%;">Shift width of one indentation
+level in the configuration file. Zero means that no
+indentation is performed at all when saving the
+configuration.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">config.saving_style
+<b>&lt;num&gt;</b> (default: 3)</p>
+
+<p style="margin-left:17%;">Determines what happens when
+you tell ELinks to save options:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+only values of current options are altered</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is
+values of current options are altered and missing options
+are added at the end of the file</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is the
+configuration file is rewritten from scratch</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 3 is
+values of current options are altered and missing options
+CHANGED during this ELinks session are added at the end of
+the file</p>
+
+<p style="margin-left:11%; margin-top: 1em">config.i18n
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">If set to 1, comments in the
+configuration file will be translated to the language used
+by UI. Note that if you have different language set in
+different terminals, the language used in the configuration
+file MAY be the same as on the terminal where you saved the
+file, but it should be generally considered
+unpredictable.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">config.saving_style_w
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">This is internal option used
+when displaying a warning about obsolete
+config.saving_style. You shouldn&acute;t touch it.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">config.show_template
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Show template options in
+autocreated trees in the options manager and save them to
+the configuration file.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>connection
+(Connections)</b> <br>
+Connection options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">connection.async_dns
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Whether to use asynchronous DNS
+resolving.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">connection.max_connections
+<b>&lt;num&gt;</b> (default: 10)</p>
+
+<p style="margin-left:17%;">Maximum number of concurrent
+connections.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">connection.max_connections_to_host
+<b>&lt;num&gt;</b> (default: 2)</p>
+
+<p style="margin-left:17%;">Maximum number of concurrent
+connections to a given host.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">connection.receive_timeout
+<b>&lt;num&gt;</b> (default: 120)</p>
+
+<p style="margin-left:17%;">Receive timeout (in
+seconds).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">connection.retries
+<b>&lt;num&gt;</b> (default: 3)</p>
+
+<p style="margin-left:17%;">Number of tries to establish a
+connection. Zero means try forever.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">connection.try_ipv4
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Whether to try to connect to a
+host over IPv4. Note that if connection.try_ipv6 is enabled
+too, it takes precedence. And better do not touch this at
+all unless you are sure what are you doing.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Note that you
+can also force a given protocol to be used on a
+per-connection basis by using a URL in the style of e.g.
+<i>http4://elinks.cz/</i>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">connection.try_ipv6
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Whether to try to connect to a
+host over IPv6.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Note that you
+can also force a given protocol to be used on a
+per-connection basis by using a URL in the style of e.g.
+<i>http6://elinks.cz/</i>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">connection.unrestartable_receive_timeout
+<b>&lt;num&gt;</b> (default: 600)</p>
+
+<p style="margin-left:17%;">Timeout for non-restartable
+connections (in seconds).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>connection.ssl
+(SSL)</b> <br>
+SSL options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">connection.ssl.cert_verify
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Verify the peer&acute;s SSL
+certificate. Note that this needs extensive configuration of
+OpenSSL by the user.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>connection.ssl.client_cert
+(Client Certificates)</b> <br>
+X509 client certificate options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">connection.ssl.client_cert.enable
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Enable or not the sending of
+X509 client certificates to servers which request them.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">connection.ssl.client_cert.file
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">The location of a file
+containing the client certificate and unencrypted private
+key in PEM format. If unset, the file pointed to by the
+<b>X509_CLIENT_CERT</b> variable is used instead.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>cookies
+(Cookies)</b> <br>
+Cookies options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">cookies.accept_policy
+<b>&lt;num&gt;</b> (default: 2)</p>
+
+<p style="margin-left:17%;">Cookies accepting policy:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+accept no cookies</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is ask
+for confirmation before accepting cookie</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is
+accept all cookies</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">cookies.max_age
+<b>&lt;num&gt;</b> (default: -1)</p>
+
+<p style="margin-left:17%;">Cookie maximum age (in
+days):</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; -1 is
+use cookie&acute;s expiration date if any</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+force expiration at the end of session, ignoring
+cookie&acute;s expiration date</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1+ is
+use cookie&acute;s expiration date, but limit age to the
+given number of days</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">cookies.paranoid_security
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">When enabled, we&acute;ll
+require three dots in cookies domain for all
+non-international domains (instead of just two dots). Some
+countries have generic second level domains (eg. .com.pl,
+.co.uk) and allowing sites to set cookies for these generic
+domains could potentially be very bad. Note, it is off by
+default as it breaks a lot of sites.</p>
+
+<p style="margin-left:11%; margin-top: 1em">cookies.save
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Whether cookies should be
+loaded from and saved to disk.</p>
+
+<p style="margin-left:11%; margin-top: 1em">cookies.resave
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Save cookies after each change
+in cookies list? No effect when cookie saving (cookies.save)
+is off.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>document
+(Document)</b> <br>
+Document options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.browse
+(Browsing)</b> <br>
+Document browsing options (mainly interactivity).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.margin_width
+<b>&lt;num&gt;</b> (default: 3)</p>
+
+<p style="margin-left:17%;">Horizontal text margin.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.refresh
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Automatically follow
+document-specified refresh directives (&acute;&lt;meta&gt;
+refresh&acute; tags). Web-page authors use these to instruct
+the browser to reload a document at a given interval or to
+load another page. Regardless of the value the refresh URI
+is accessible as a link.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Use the
+document.browse.minimum_refresh_time to control the minimum
+number of seconds a refresh will wait.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.minimum_refresh_time
+<b>&lt;num&gt;</b> (default: 1000)</p>
+
+<p style="margin-left:17%;">The minimum number of
+milliseconds that should pass before refreshing. If set to
+zero the document refresh time is used unchanged. It can fix
+going back in history for some sites that use refreshing
+with zero values.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.table_move_order
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Move by columns in table,
+instead of rows.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.browse.accesskey
+(Access keys)</b> <br>
+Options for handling of link access keys. An HTML document
+can use the ACCESSKEY attribute to assign an access key to
+an element. When an access key is pressed, the corresponding
+element will be given focus.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.accesskey.auto_follow
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Automatically follow a link or
+submit a form if appropriate accesskey is pressed &ndash;
+this is the standard behaviour, but it&acute;s considered
+dangerous.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.accesskey.display
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Display access key in link
+info.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.accesskey.priority
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Priority of
+&acute;accesskey&acute; HTML attribute:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+first try all normal bindings; if it fails, check
+accesskey</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is
+first try only frame bindings; if it fails, check
+accesskey</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is
+first check accesskey (this can be dangerous)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.browse.forms
+(Forms)</b> <br>
+Options for handling of the forms interaction.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.forms.auto_submit
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Automagically submit a form
+when enter is pressed with a text field selected.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.forms.confirm_submit
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Ask for confirmation when
+submitting a form.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.forms.input_size
+<b>&lt;num&gt;</b> (default: 20)</p>
+
+<p style="margin-left:17%;">Default form input size if none
+is specified.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.forms.insert_mode
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">The setting for this option
+affects how key presses are handled when one selects a
+text-input form-field. When enabled, one must explicitly
+&acute;enter&acute; a selected text-field to edit it; this
+prevents text fields from capturing key presses, such as
+presses of a scroll key, when it is inadvertently selected.
+When disabled, key presses are always inserted into a
+selected text field.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.forms.editor
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Path to the executable that
+ELinks should launch when the user requests to edit a
+textarea with an external editor.</p>
+
+<p style="margin-left:17%; margin-top: 1em">If this is
+blank, ELinks will use the value of the environmental
+variable <b>$EDITOR</b>. If <b>$EDITOR</b> is empty or not
+set, ELinks will then default to <b>vi</b>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.forms.show_formhist
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Ask if a login form should be
+saved to file or not. This option only disables the dialog,
+already saved login forms are unaffected.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.browse.images
+(Images)</b> <br>
+Options for handling of images.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.images.display_style
+<b>&lt;num&gt;</b> (default: 2)</p>
+
+<p style="margin-left:17%;">Display style for image tags
+when displayed:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 means
+always display IMG</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 means
+always display filename</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 means
+display alt/title attribute if possible, IMG if not</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 3 means
+display alt/title attribute if possible, filename if not</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.images.filename_maxlen
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Maximum length of image
+filename when displayed:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 means
+always display full filename</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1-500
+means display filename with this maximal length; if it is
+longer, the middle is substituted by an asterisk</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.images.image_link_tagging
+<b>&lt;num&gt;</b> (default: 1)</p>
+
+<p style="margin-left:17%;">When to enclose image
+links:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 means
+never</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 means
+never if alt or title are provided (old behavior)</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 means
+always</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.images.image_link_prefix
+<b>&lt;str&gt;</b> (default: &quot;[&quot;)</p>
+
+<p style="margin-left:17%;">Prefix string to use to mark
+image links.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.images.image_link_suffix
+<b>&lt;str&gt;</b> (default: &quot;]&quot;)</p>
+
+<p style="margin-left:17%;">Suffix string to use to mark
+image links.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.images.label_maxlen
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Maximum length of image label
+(alt/title):</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 means
+always display full label</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1-500
+means display label with this maximal length; if it is
+longer, the middle is substituted by an asterisk</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.images.show_as_links
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Display links to images without
+an alt attribute. If this option is off, these images are
+completely invisible.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.images.show_any_as_links
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Display links to any images in
+the document, regardless of them having an alt attribute or
+not. If this option is off, the alt attribute contents is
+shown, but as normal text, not selectable as a link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.browse.links
+(Links)</b> <br>
+Options for handling of links to other documents.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.color_dirs
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Highlight links to directories
+in FTP and local directory listing.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.numbering
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Display numbers next to the
+links.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.target_blank
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Define how to handle links
+having target=_blank set:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 means
+open link in current tab</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 means
+open link in new tab in foreground</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 means
+open link in new tab in background</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 3 means
+open link in new window</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.use_tabindex
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Whether to navigate links using
+tabindex specified ordering. The TABINDEX attribute in HTML
+elements specifies the order in which links should receive
+focus when using the keyboard to navigate the document.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.missing_fragment
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Open a message box when
+document has no tag with given id.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.number_keys_select_link
+<b>&lt;num&gt;</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Number keys select links rather
+than specify command prefixes. This is a tristate:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 means
+never</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 means
+if document.browse.links.numbering = 1</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 means
+always</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.warn_malicious
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">When following a link the user
+ID part of the URI is checked and if a maliciously crafted
+URI is detected a warning dialog will ask before following
+the link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.wraparound
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">When pressing
+&acute;down&acute; on the last link, jump to the first one,
+and vice versa.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.browse.links.active_link
+(Active link)</b> <br>
+Options for the active link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.active_link.enable_color
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Enable use of the active link
+background and text color settings instead of the link
+colors from the document.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.active_link.bold
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Make the active link text
+bold.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.active_link.invert
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Invert the fore- and background
+color so the link stands out.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.active_link.underline
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Underline the active link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.browse.links.active_link.colors
+(Colors)</b> <br>
+Active link colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.active_link.colors.background
+<b>&lt;color|#rrggbb&gt;</b> (default: blue)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.links.active_link.colors.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.browse.scrolling
+(Scrolling)</b> <br>
+Scrolling options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.scrolling.horizontal_extended
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Whether to allow horizontal
+scrolling when the document does not extend off the screen.
+Useful for copy/paste operations.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.scrolling.horizontal_step
+<b>&lt;num&gt;</b> (default: 8)</p>
+
+<p style="margin-left:17%;">Number of columns to scroll
+when a key bound to scroll-left or scroll-right is pressed
+and no prefix was given.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.scrolling.margin
+<b>&lt;num&gt;</b> (default: 3)</p>
+
+<p style="margin-left:17%;">Size of the virtual margin
+&ndash; when you click inside of that margin, document
+scrolls in that direction.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.scrolling.vertical_overlap
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Number of overlapping lines
+between the new page displayed and the previous one when
+scrolling one page up or down.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.scrolling.vertical_step
+<b>&lt;num&gt;</b> (default: 2)</p>
+
+<p style="margin-left:17%;">Number of lines to scroll when
+a key bound to scroll-up or scroll-down is pressed and no
+prefix was given.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.browse.search
+(Searching)</b> <br>
+Options for searching.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.search.case
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether the search should match
+the document text while maintaining case sensitivity.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.search.regex
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Enable searching with regular
+expressions:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 for
+plain text searching</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 for
+basic regular expression searches</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 for
+extended regular expression searches</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.search.show_hit_top_bottom
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Whether to show a dialog when
+the search hits the top or bottom of the document.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.search.wraparound
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Wrap around when searching.
+Currently only used for typeahead.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.search.show_not_found
+<b>&lt;num&gt;</b> (default: 2)</p>
+
+<p style="margin-left:17%;">How to inform the user when
+nothing is matched:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 means
+do nothing</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 means
+beep the terminal</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 means
+pop up message box</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.browse.search.typeahead
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Start typeahead searching when
+an unbound key is pressed without any modifiers. Note that
+most keys have default bindings, so this feature will not be
+useful unless you unbind them.</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0
+disables this feature; typeahead searching will only be used
+when you press a key bound to search-typeahead or
+similar</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1
+automatically starts typeahead searching thru link text</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2
+automatically starts typeahead searching thru all document
+text</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.cache
+(Cache)</b> <br>
+Cache options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.cache.cache_redirects
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Cache even redirects sent by
+server (usually thru HTTP by a 302 HTTP code and a Location
+header). This was the original behaviour for quite some
+time, but it causes problems in a situation very common to
+various web login systems &ndash; frequently, when accessing
+a certain location, they will redirect you to a login page
+if they don&acute;t receive an auth cookie, the login page
+then gives you the cookie and redirects you back to the
+original page, but there you have already cached redirect
+back to the login page! If this option has value of 0, this
+malfunction is fixed, but occasionally you may get
+superfluous (depends on how you take it ;-) requests to the
+server. If this option has value of 1, experienced users can
+still workaround it by clever combination of usage of
+reload, jumping around in session history and hitting
+ctrl+enter.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Note that this
+option is checked when retrieving the information from
+cache, not when saving it to cache &ndash; thus if you
+enable it, even previous redirects will be taken from cache
+instead of asking the server.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.cache.ignore_cache_control
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Ignore Cache-Control and Pragma
+server headers. When set, the document is cached even with
+&acute;Cache-Control: no-cache&acute;.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.cache.revalidation_interval
+<b>&lt;num&gt;</b> (default: -1)</p>
+
+<p style="margin-left:17%;">Period in seconds that a cache
+entry is considered to be up-to-date. When a document is
+loaded and this interval has elapsed since the document was
+initially loaded or most recently revalidated with the
+server, the server will be checked in case there is a more
+up-to-date version of the document.</p>
+
+<p style="margin-left:17%; margin-top: 1em">A value of -1
+disables automatic revalidation.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.cache.format
+(Formatted documents)</b> <br>
+Format cache options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.cache.format.size
+<b>&lt;num&gt;</b> (default: 5)</p>
+
+<p style="margin-left:17%;">Number of cached formatted
+pages. Do not get too generous here, &acute;formatted&acute;
+means that all the accompanying structures are kept in
+memory so that you get the cached document immediately, but
+these structures may take a lot &ndash; 2x the size of the
+HTML source is probably not unusual, but it can be even more
+if the document consists of a lot of short lines (padded
+right, if possible) and links and not much other markup. So
+if you set this to 256 and then you don&acute;t like your
+ELinks eating 90M, don&acute;t come complaining to us.
+;-)</p>
+
+<p style="margin-left:17%; margin-top: 1em">Also note that
+the format cache itself is not counted to the memory cache
+size, but the HTML source of the formatted documents is
+always cached, even if it is over the memory cache size
+threshold. (Then of course no other documents can be
+cached.)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.cache.memory
+(Memory cache)</b> <br>
+Memory cache options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.cache.memory.size
+<b>&lt;num&gt;</b> (default: 1048576)</p>
+
+<p style="margin-left:17%;">Memory cache size (in
+bytes).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.codepage
+(Charset)</b> <br>
+Charset options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.codepage.assume
+<b>&lt;codepage&gt;</b> (default: System)</p>
+
+<p style="margin-left:17%;">Default document codepage.
+&acute;System&acute; stands for a codepage determined by a
+selected locale.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.codepage.force_assumed
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Ignore charset info sent by
+server.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.colors
+(Default color settings)</b> <br>
+Default document color settings.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.colors.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray75)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.colors.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.colors.link
+<b>&lt;color|#rrggbb&gt;</b> (default: blue)</p>
+
+<p style="margin-left:17%;">Default link color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.colors.vlink
+<b>&lt;color|#rrggbb&gt;</b> (default: yellow)</p>
+
+<p style="margin-left:17%;">Default visited link color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.colors.image
+<b>&lt;color|#rrggbb&gt;</b> (default: darkolivegreen)</p>
+
+<p style="margin-left:17%;">Default image link color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.colors.bookmark
+<b>&lt;color|#rrggbb&gt;</b> (default: hotpink)</p>
+
+<p style="margin-left:17%;">Default bookmarked link
+color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.colors.dirs
+<b>&lt;color|#rrggbb&gt;</b> (default: yellow)</p>
+
+<p style="margin-left:17%;">Default directory color.</p>
+
+<p style="margin-left:17%; margin-top: 1em">See
+document.browse.links.color_dirs option.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.colors.increase_contrast
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Increase the contrast between
+the foreground and background colors to ensure readability.
+For example it disallows dark colors on a black background.
+Note, this is different from ensuring the contrast with the
+ensure_contrast option.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.colors.ensure_contrast
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Makes sure that the back- and
+foreground colors are never equal.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.colors.use_document_colors
+<b>&lt;num&gt;</b> (default: 2)</p>
+
+<p style="margin-left:17%;">Use colors specified in
+document:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is use
+always the default settings</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is use
+document colors if available, except background</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is use
+document colors, including background. This can mostly look
+very impressive, but some sites will appear really ugly.
+Note, that obviously if the background is not black, it will
+break the behaviour of transparency.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.css
+(Cascading Style Sheets)</b> <br>
+Options concerning how to use CSS for styling documents.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.css.enable
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Enable adding of CSS style info
+to documents.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.css.ignore_display_none
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">When enabled, elements are
+rendered, even when their display property has the value
+&quot;none&quot;. Because ELinks&acute;s CSS support is
+still very incomplete, this setting can improve the way that
+some documents are rendered.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.css.import
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">When enabled any external style
+sheets that are imported from either CSS itself using the
+@import keyword or from the HTML using &lt;link&gt; tags in
+the document header will also be downloaded.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.css.media
+<b>&lt;str&gt;</b> (default: &quot;tty&quot;)</p>
+
+<p style="margin-left:17%;">CSS media types that ELinks
+claims to support, separated with commas. The
+&quot;all&quot; type is implied. Currently, only ASCII
+characters work reliably here. See CSS2 section 7:
+<i>http://www.w3.org/TR/1998/REC-CSS2-19980512/media.html</i></p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.css.stylesheet
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">The path to the file containing
+the default user defined Cascading Style Sheet. It can be
+used to control the basic layout of HTML documents. The path
+is assumed to be relative to ELinks&acute; home
+directory.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Leave as
+&quot;&quot; to use built-in document styling.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.download
+(Downloading)</b> <br>
+Options regarding files downloading and handling.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.download.directory
+<b>&lt;str&gt;</b> (default: &quot;./&quot;)</p>
+
+<p style="margin-left:17%;">Default download directory.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.download.set_original_time
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Set the timestamp of each
+downloaded file to the timestamp stored on the server.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.download.overwrite
+<b>&lt;num&gt;</b> (default: 2)</p>
+
+<p style="margin-left:17%;">Prevent overwriting the local
+files:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+files will silently be overwritten</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is add
+a suffix .{number} (for example &acute;.1&acute;) to the
+name</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is ask
+the user</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.download.notify_bell
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Audio notification when
+download is completed:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+never</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is
+when background notification is active</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is
+always</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.dump
+(Dump output)</b> <br>
+Dump output options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.dump.codepage
+<b>&lt;codepage&gt;</b> (default: System)</p>
+
+<p style="margin-left:17%;">Codepage used in dump output.
+&acute;System&acute; stands for a codepage determined by a
+selected locale.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.dump.color_mode
+<b>&lt;num&gt;</b> (default: -1)</p>
+
+<p style="margin-left:17%;">Color mode for dumps.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Some modes may
+have been disabled at compile time. The Setup -&gt; Terminal
+options dialog lists the modes supported by this executable.
+If you select an unsupported mode, ELinks uses 16
+colors.</p>
+
+<p style="margin-left:17%; margin-top: 1em">The color modes
+are:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; -1 is
+standard dump mode</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+mono mode</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is 16
+color mode</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is 88
+color mode</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 3 is 256
+color mode</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 4 is
+true color mode</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.dump.footer
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Footer string used in dumps. %u
+is substituted by URL.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.dump.header
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Header string used in dumps. %u
+is substituted by URL.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.dump.numbering
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Whether to print link numbers
+in dump output.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.dump.references
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Whether to print references
+(URIs) of document links in dump output.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.dump.separator
+<b>&lt;str&gt;</b> (default: &quot; &quot;)</p>
+
+<p style="margin-left:17%;">String which separates two
+dumps.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.dump.width
+<b>&lt;num&gt;</b> (default: 80)</p>
+
+<p style="margin-left:17%;">Width of screen in characters
+when dumping documents.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.history
+(History)</b> <br>
+History options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.history.keep_unhistory
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Keep unhistory (&quot;forward
+history&quot;).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.history.global
+(Global history)</b> <br>
+Global history options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.history.global.enable
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Enable global history
+(&quot;history of all pages visited&quot;).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.history.global.max_items
+<b>&lt;num&gt;</b> (default: 1024)</p>
+
+<p style="margin-left:17%;">Maximum number of entries in
+the global history.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.history.global.display_type
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">What to display in global
+history dialog:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+URLs</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is
+page titles</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.html
+(HTML rendering)</b> <br>
+Options concerning the display of HTML pages.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.html.display_frames
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Display frames.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.html.display_tables
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Display tables.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.html.display_subs
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Display subscripts (as
+[thing]).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.html.display_sups
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Display superscripts (as
+^thing).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.html.link_display
+<b>&lt;num&gt;</b> (default: 2)</p>
+
+<p style="margin-left:17%;">How to render &lt;link&gt; tags
+from the HTML header:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+nothing</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is
+title</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is
+name in addition</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 3 is
+hreflang in addition</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 4 is
+type in addition</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 5 is
+everything</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.html.underline_links
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Underline links.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.html.wrap_nbsp
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">If set do not honour non
+breaking space (the nbsp entity) but allows one to wrap the
+text. This can help keeping the width of documents down so
+no horizontal scrolling is needed.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.plain
+(Plain rendering)</b> <br>
+Options concerning the display of plain text pages.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.plain.display_links
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Display URIs in the document as
+links.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.plain.compress_empty_lines
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Compress successive empty lines
+to only one in displayed text.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>document.uri_passing
+(URI passing)</b> <br>
+Rules for passing URIs to external commands. When one rule
+is defined the link and tab menu will have a menu item that
+makes it possible to pass the the link, frame or tab URI to
+an external command. If several rules are defined the link
+and tab menu will have a submenu of items for each rule.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note, this is
+mostly useful for launching graphical viewers, since there
+is no support for releasing the terminal while the command
+runs. The action and submenus are also available by binding
+keys to the frame-external-command, the
+link-external-command, and the tab-external-command
+actions.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document.uri_passing._template_
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">A rule for passing URI to an
+external command. The format is:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %c in
+the string means the current URL</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %% in
+the string means &acute;%&acute;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%"></td>
+<td width="71%">
+
+
+<p>Do <b>not</b> put single- or double-quotes around
+%c.</p> </td>
+<td width="6%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ecmascript
+(ECMAScript)</b> <br>
+ECMAScript options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ecmascript.enable
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether to run those scripts
+inside of documents.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ecmascript.error_reporting
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Open a message box when a
+script reports an error.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ecmascript.ignore_noscript
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether to ignore content
+enclosed by the &lt;noscript&gt; tag when ECMAScript is
+enabled.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ecmascript.max_exec_time
+<b>&lt;num&gt;</b> (default: 5)</p>
+
+<p style="margin-left:17%;">Maximum execution time in
+seconds for a script.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ecmascript.block_window_opening
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether to disallow scripts to
+open new windows or tabs.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>infofiles
+(Information files)</b> <br>
+Options for information files in <i>~/.elinks</i>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">infofiles.save_interval
+<b>&lt;num&gt;</b> (default: 300)</p>
+
+<p style="margin-left:17%;">Interval at which to trigger
+information files in <i>~/.elinks</i> to be saved to disk if
+they have changed (seconds; 0 to disable)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">infofiles.secure_save
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">First write data to unique
+temporary file, then rename this file upon successfully
+finishing this. Note that this relates only to config files,
+not downloaded files. You may want to disable it if you are
+using some exotic permissions for concerned files. Secure
+file saving is automagically disabled if file is
+symlink.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Warning: some
+systems (ie. OS/2, Win32) require that destination file
+doesn&acute;t exist when <b>rename</b>(3) is called,
+breaking atomicity, and reducing reliability of this
+feature.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">infofiles.secure_save_fsync
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">When using secure file saving,
+call <b>fsync</b>(3), if the OS supports it, to force the OS
+immediately to write the data to permanent storage. This is
+optional for those who wish to avoid excessive disk I/O.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>mime
+(MIME)</b> <br>
+MIME-related options (handlers of various MIME types).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.default_type
+<b>&lt;str&gt;</b> (default:
+&quot;application/octet-stream&quot;)</p>
+
+<p style="margin-left:17%;">Document MIME-type to assume by
+default (when we are unable to guess it properly from known
+information about the document).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mime.extension
+(File extension associations)</b> <br>
+Extension &harr; MIME type association.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.extension._template_
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">MIME-type matching this file
+extension (&acute;*&acute; is used here in place of
+&acute;.&acute;).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mime.handler
+(File type handlers)</b> <br>
+A file type handler is a set of information about how to use
+an external program to view a file. It is possible to refer
+to it for several MIME types &mdash; e.g., you can define an
+&acute;image&acute; handler to which mime.type.image.png,
+mime.type.image.jpeg, and so on will refer; or one might
+define a handler for a more specific type of file &mdash;
+e.g., PDF files. Note you must define both a MIME handler
+and a MIME type association for it to work.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mime.handler._template_
+(Template option folder)</b> <br>
+Description of this handler.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mime.handler._template_._template_
+(Template option folder)</b> <br>
+System-specific handler description (ie. unix, unix-xwin,
+...).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.handler._template_._template_.ask
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Ask before opening.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.handler._template_._template_.block
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Block the terminal when the
+handler is running.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.handler._template_._template_.program
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">External viewer for this file
+type. &acute;%&acute; in this string will be substituted by
+a file name. Do <b>not</b> put single- or double-quotes
+around the % sign.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mime.mailcap
+(Mailcap)</b> <br>
+Options for mailcap support.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.mailcap.enable
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Enable mailcap support.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.mailcap.path
+<b>&lt;str&gt;</b> (default:
+&quot;~/.mailcap:/etc/mailcap:/usr/etc/mailcap:/usr/local/etc/mailcap:/usr/share/mailcap:/usr/share/misc/mailcap&quot;)</p>
+
+<p style="margin-left:17%;">Mailcap search path.
+Colon-separated list of files. Leave as &quot;&quot; to use
+<b>MAILCAP</b> environment variable instead.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.mailcap.ask
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Ask before using the handlers
+defined by mailcap.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.mailcap.description
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Type of description to show in
+&quot;what to do with this file&quot; query dialog:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+show &quot;mailcap&quot;</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is
+show program to be run</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is
+show mailcap description field if any; &quot;mailcap&quot;
+otherwise</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.mailcap.prioritize
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Prioritize entries by the order
+of the files in the mailcap path. This means that wildcard
+entries (like: image/*) will also be checked before deciding
+the handler.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mime.mimetypes
+(Mimetypes files)</b> <br>
+Options for the support of <i>mime.types</i> files. These
+files can be used to find the content type of a URL by
+looking at the extension of the file name.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.mimetypes.enable
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Enable <i>mime.types</i>
+support.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.mimetypes.path
+<b>&lt;str&gt;</b> (default:
+&quot;~/.mime.types:/etc/mime.types:/usr/etc/mime.types:/usr/local/etc/mime.types:/usr/share/mime.types:/usr/share/misc/mime.types&quot;)</p>
+
+<p style="margin-left:17%;">The search path for
+<i>mime.types</i> files. Colon-separated list of files.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>mime.type
+(MIME type associations)</b> <br>
+Handler &harr; MIME type association. The first sub-tree is
+the MIME class while the second sub-tree is the MIME type
+(ie. image/gif handler will reside at mime.type.image.gif).
+Each MIME type option should contain (case-sensitive) name
+of the MIME handler (its properties are stored at
+mime.handler.&lt;name&gt;).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mime.type._template_
+(Template option folder)</b> <br>
+Handler matching this MIME-type class (&acute;*&acute; is
+used here in place of &acute;.&acute;).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">mime.type._template_._template_
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Handler matching this MIME-type
+name (&acute;*&acute; is used here in place of
+&acute;.&acute;).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol
+(Protocols)</b> <br>
+Protocol specific options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.no_proxy
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Comma separated list of domains
+for which the proxy (HTTP/FTP) should be disabled.
+Optionally, a port can be specified for some domains as
+well. If it&acute;s blank, <b>NO_PROXY</b> environment
+variable is checked as well.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.bittorrent
+(BitTorrent)</b> <br>
+BitTorrent specific options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.piece_cache_size
+<b>&lt;num&gt;</b> (default: 1048576)</p>
+
+<p style="margin-left:17%;">The maximum amount of memory
+used to hold recently downloaded pieces.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Set to 0 to
+have unlimited size.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.max_uploads
+<b>&lt;num&gt;</b> (default: 7)</p>
+
+<p style="margin-left:17%;">The maximum number of uploads
+to allow at once.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.min_uploads
+<b>&lt;num&gt;</b> (default: 2)</p>
+
+<p style="margin-left:17%;">The minimum number of uploads
+which should at least be used for new connections.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.request_queue_size
+<b>&lt;num&gt;</b> (default: 5)</p>
+
+<p style="margin-left:17%;">How many piece requests to
+continuously keep in queue. Pipelining of requests is
+essential to saturate connections and get a good connection
+performance and thus a faster download. However, a very big
+queue size can lead to wasting bandwidth near the end of the
+connection since remaining piece blocks will be requested
+from multiple peers.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.choke_interval
+<b>&lt;num&gt;</b> (default: 10)</p>
+
+<p style="margin-left:17%;">The number of seconds between
+updating the connection state and most importantly choke and
+unchoke peer connections. The choke period should be big
+enough for newly unchoked connections to get started but
+small enough to not allow freeriders too much room for
+stealing bandwidth.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.rarest_first_cutoff
+<b>&lt;num&gt;</b> (default: 4)</p>
+
+<p style="margin-left:17%;">The number of pieces to obtain
+before switching piece selection strategy from random to
+rarest first.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.allow_blacklist
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Allow blacklisting of buggy
+peers.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.bittorrent.ports
+(Port range)</b> <br>
+Port range allowed to be used for listening on.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.ports.min
+<b>&lt;num&gt;</b> (default: 6881)</p>
+
+<p style="margin-left:17%;">The minimum port to try and
+listen on.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.ports.max
+<b>&lt;num&gt;</b> (default: 6999)</p>
+
+<p style="margin-left:17%;">The maximum port to try and
+listen on.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.bittorrent.tracker
+(Tracker)</b> <br>
+Tracker options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.tracker.compact
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether to request that the
+tracker returns peer info in compact format. Note, the
+compact format only supports IPv4 addresses.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.tracker.interval
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">The number of seconds to wait
+between periodically contacting the tracker for announcing
+progress and requesting more peers. Set to zero to use the
+interval requested by the tracker.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.tracker.ip_address
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">What IP address to report to
+the tracker. If set to &quot;&quot; no IP address will be
+sent and the tracker will automatically determine an
+appropriate IP address.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.tracker.key
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">An additional identification
+that is not shared with any users. It is intended to allow a
+client to prove their identity should their IP address
+change. It is an optional parameter, but some trackers
+require this parameter. If set to &quot;&quot; no user key
+will be sent to the tracker.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.tracker.numwant
+<b>&lt;num&gt;</b> (default: 50)</p>
+
+<p style="margin-left:17%;">The maximum number of peers to
+request from the tracker. Set to 0 to use the server
+default.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.tracker.min_skip_size
+<b>&lt;num&gt;</b> (default: 20)</p>
+
+<p style="margin-left:17%;">The minimum number of peers to
+have in the current peer info pool before skipping
+requesting of more peers. I.e. setting numwant to zero. Set
+to 0 to not have any limit.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.bittorrent.peerwire
+(Peer-wire)</b> <br>
+Lowlevel peer-wire options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.peerwire.connections
+<b>&lt;num&gt;</b> (default: 55)</p>
+
+<p style="margin-left:17%;">The maximum number of allowed
+connections to both active and non-active peers. By
+increasing the number of allowed connections, the chance of
+finding good peers to download from is increased. However,
+too many connections can lead to TCP congestion. If the
+maximum is reached all new incoming connections will be
+closed.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.peerwire.max_message_length
+<b>&lt;num&gt;</b> (default: 8388608)</p>
+
+<p style="margin-left:17%;">The maximum length of messages
+to accept over the wire. Larger values will cause the
+connection to be dropped.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.peerwire.max_request_length
+<b>&lt;num&gt;</b> (default: 8388608)</p>
+
+<p style="margin-left:17%;">The maximum length to allow for
+incoming requests. Larger requests will cause the connection
+to be dropped.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.peerwire.request_length
+<b>&lt;num&gt;</b> (default: 16384)</p>
+
+<p style="margin-left:17%;">How many bytes to query for per
+request. This is complementary to the max_request_length
+option. If the configured length is bigger than the piece
+length it will be truncated.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.peerwire.timeout
+<b>&lt;num&gt;</b> (default: 300)</p>
+
+<p style="margin-left:17%;">The number of seconds to wait
+before closing a socket on which nothing has been received
+or sent.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.bittorrent.peerwire.pool_size
+<b>&lt;num&gt;</b> (default: 55)</p>
+
+<p style="margin-left:17%;">Maximum number of items in the
+peer pool. The peer pool contains information used for
+establishing connections to new peers.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Set to 0 to
+have unlimited size.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.file
+(Local files)</b> <br>
+Options specific to local browsing.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.file.allow_special_files
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether to allow reading from
+non-regular files. Note this can be dangerous; reading
+<i>/dev/urandom</i> or <i>/dev/zero</i> can ruin your
+day!</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.file.show_hidden_files
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">When set to false, files with
+name starting with a dot will be hidden in local directory
+listings.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.file.try_encoding_extensions
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">When set, if we can&acute;t
+open a file named &acute;filename&acute;, we&acute;ll try to
+open &acute;filename&acute; with some encoding extension
+appended (ie. &acute;filename.gz&acute;); it depends on the
+supported encodings.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.file.cgi
+(Local CGI)</b> <br>
+Local CGI specific options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.file.cgi.path
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Colon separated list of
+directories, where CGI scripts are stored.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.file.cgi.policy
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether to execute local CGI
+scripts.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.ftp
+(FTP)</b> <br>
+FTP specific options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.ftp.anon_passwd
+<b>&lt;str&gt;</b> (default:
+&quot;some@host.domain&quot;)</p>
+
+<p style="margin-left:17%;">FTP anonymous password to be
+sent.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.ftp.use_pasv
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Use PASV instead of PORT
+(passive vs active mode, IPv4 only).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.ftp.use_epsv
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Use EPSV instead of EPRT
+(passive vs active mode, IPv6 only).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.ftp.proxy
+(Proxy configuration)</b> <br>
+FTP proxy configuration.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.ftp.proxy.host
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Host and port-number
+(host:port) of the FTP proxy, or blank. If it&acute;s blank,
+<b>FTP_PROXY</b> environment variable is checked as
+well.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.http
+(HTTP)</b> <br>
+HTTP-specific options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.accept_language
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Send Accept-Language
+header.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.accept_ui_language
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Request localised versions of
+documents from web-servers (using the Accept-Language
+header) using the language you have configured for
+ELinks&acute; user-interface (this also affects
+navigator.language ECMAScript value available to scripts).
+Note that some see this as a potential security risk because
+it tells web-masters and the FBI sniffers about your
+language preference.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.compression
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">If enabled, the capability to
+receive compressed content (gzip and/or bzip2) is announced
+to the server, which usually sends the reply compressed,
+thus saving some bandwidth at slight CPU expense.</p>
+
+<p style="margin-left:17%; margin-top: 1em">If ELinks
+displays a incomplete page or garbage, try disabling this
+option. If that helps, there may be a bug in the
+decompression part of ELinks. Please report such bugs.</p>
+
+<p style="margin-left:17%; margin-top: 1em">If ELinks has
+been compiled without compression support, this option has
+no effect. To check the supported features, see Help -&gt;
+About.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.trace
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">If active, all HTTP requests
+are sent with TRACE as their method rather than GET or POST.
+This is useful for debugging of both ELinks and various
+server-side scripts &mdash; the server only returns the
+client&acute;s request back to the client verbatim. Note
+that this type of request may not be enabled on all
+servers.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.user_agent
+<b>&lt;str&gt;</b> (default: &quot;ELinks/%v (textmode; %s;
+%t-%b)&quot;)</p>
+
+<p style="margin-left:17%;">Change the User Agent ID. That
+means identification string, which is sent to HTTP server
+when a document is requested. The &acute;textmode&acute;
+token in the first field is our silent attempt to establish
+this as a standard for new textmode user agents, so that the
+webmasters can have just a single uniform test for these if
+they are e.g. pushing some lite version to them
+automagically.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Use &quot;
+&quot; if you don&acute;t want any User-Agent header to be
+sent at all.</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %v in
+the string means ELinks version,</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %s in
+the string means system identification,</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %t in
+the string means size of the terminal,</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %b in
+the string means number of bars displayed by ELinks.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.http.bugs
+(Server bug workarounds)</b> <br>
+Server-side HTTP bugs workarounds.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.bugs.accept_charset
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">The Accept-Charset header is
+quite long and sending it can trigger bugs in some rarely
+found servers.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.bugs.allow_blacklist
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Allow blacklisting of buggy
+servers.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.bugs.broken_302_redirect
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Broken 302 redirect (violates
+RFC but compatible with Netscape). This is a problem for a
+lot of web discussion boards and the like. If they will do
+strange things to you, try to play with this.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.bugs.post_no_keepalive
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Disable keepalive connection
+after POST request.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.bugs.http10
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Use HTTP/1.0 protocol instead
+of HTTP/1.1.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.http.proxy
+(Proxy configuration)</b> <br>
+HTTP proxy configuration.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.proxy.host
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Host and port-number
+(host:port) of the HTTP proxy, or blank. If it&acute;s
+blank, <b>HTTP_PROXY</b> environment variable is checked as
+well.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.proxy.user
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Proxy authentication
+username.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.proxy.passwd
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Proxy authentication
+password.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.http.referer
+(Referer sending)</b> <br>
+HTTP referer sending options. HTTP referer is a special
+header sent in the HTTP requests, which is supposed to
+contain the previous page visited by the browser.This way,
+the server can know what link did you follow when accessing
+that page. However, this behaviour can unfortunately
+considerably affect privacy and can lead even to a security
+problem on some badly designed web pages.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.referer.policy
+<b>&lt;num&gt;</b> (default: 3)</p>
+
+<p style="margin-left:17%;">Mode of sending HTTP
+referer:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+send no referer</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is
+send current URL as referer</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is
+send fixed fake referer</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 3 is
+send previous URL as referer (correct, but insecure)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.http.referer.fake
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Fake referer to be sent when
+policy is 2.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.https
+(HTTPS)</b> <br>
+HTTPS-specific options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.https.proxy
+(Proxy configuration)</b> <br>
+HTTPS proxy configuration.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.https.proxy.host
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Host and port-number
+(host:port) of the HTTPS CONNECT proxy, or blank. If
+it&acute;s blank, <b>HTTPS_PROXY</b> environment variable is
+checked as well.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.nntp
+(NNTP)</b> <br>
+NNTP and news specific options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.nntp.server
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Used when resolving news: URIs.
+If set to the empty string the value of the
+<b>NNTPSERVER</b> environment variable will be used.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.nntp.header_entries
+<b>&lt;str&gt;</b> (default:
+&quot;Subject,From,Date,Message-ID,Newsgroups&quot;)</p>
+
+<p style="margin-left:17%;">Comma separated list of which
+entries in the article header to show. E.g.
+&acute;Subject&acute; and &acute;From&acute;. All header
+entries can be read in the header info dialog.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.rewrite
+(URI rewriting)</b> <br>
+Rules for rewriting URIs entered in the goto dialog. It
+makes it possible to define a set of prefixes that will be
+expanded if they match a string entered in the goto dialog.
+The prefixes can be dumb, meaning that they work only like
+URI abbreviations, or smart ones, making it possible to pass
+arguments to them like search engine keywords.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.rewrite.default_template
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Default URI template used when
+the string entered in the goto dialog does not appear to be
+a URI or a filename (i.e. contains no &acute;.&acute;,
+&acute;:&acute; or &acute;/&acute; characters), and does not
+match any defined prefixes. Set the value to &quot;&quot; to
+disable use of the default template rewrite rule.</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %c in
+the template means the current URL,</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %s in
+the template means the whole string from the goto
+dialog,</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull;
+%0,%1,...,%9 mean the 1st,2nd,...,10th space-delimited part
+of %s,</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %% in
+the template means &acute;%&acute;.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.rewrite.enable-dumb
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Enable dumb prefixes &ndash;
+simple URI abbreviations which can be written to the Goto
+URL dialog instead of actual URIs &ndash; i.e. if you write
+&acute;elinks&acute; there, you are directed to
+<i>http://elinks.cz/</i>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.rewrite.enable-smart
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Enable smart prefixes &ndash;
+URI templates triggered by writing given abbreviation to the
+Goto URL dialog followed by a list of arguments from which
+the actual URI is composed &ndash; i.e. &acute;gg:search
+keywords&acute; or &acute;gn search keywords for
+news&acute;.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.rewrite.dumb
+(Dumb Prefixes)</b> <br>
+Dumb prefixes, see enable-dumb description for details.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.rewrite.dumb._template_
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Replacement URI for this
+dumbprefix:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %c in
+the string means the current URL</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %% in
+the string means &acute;%&acute;</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.rewrite.smart
+(Smart Prefixes)</b> <br>
+Smart prefixes, see enable-smart description for
+details.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.rewrite.smart._template_
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Replacement URI for this
+smartprefix:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %c in
+the string means the current URL</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %s in
+the string means the whole argument to smartprefix</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull;
+%0,%1,...,%9 means argument 0, 1, ..., 9</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %% in
+the string means &acute;%&acute;</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.user
+(User protocols)</b> <br>
+User protocols. Options in this tree specify external
+handlers for the appropriate protocols. Ie.
+protocol.user.mailto.unix.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>protocol.user._template_
+(Template option folder)</b> <br>
+Handler (external program) for this protocol. Name the
+options in this tree after your system (ie. unix,
+unix-xwin).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">protocol.user._template_._template_
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Handler (external program) for
+this protocol and system.</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %f in
+the string means file name to include form data from</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %h in
+the string means hostname (or email address)</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %p in
+the string means port</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %d in
+the string means path (everything after the port)</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %s in
+the string means subject (?subject=&lt;this&gt;)</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; %u in
+the string means the whole URL</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>terminal
+(Terminals)</b> <br>
+Terminal options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>terminal._template_
+(Template option folder)</b> <br>
+Options specific to this terminal type (according to
+<b>$TERM</b> value).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.type
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Terminal type; matters mostly
+only when drawing frames and dialog box borders:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+dumb terminal type, ASCII art</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is
+VT100, simple but portable</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is
+Linux, you get double frames and other goodies</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 3 is
+KOI-8</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 4 is
+FreeBSD</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 5 is
+fbterm</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.latin1_title
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">When updating the window title
+of <b>xterm</b> or a similar terminal emulator, encode the
+title in ISO-8859-1 (Latin-1), rather than in the charset
+used for other text in the window. Cyrillic and other
+characters get replaced with Latin ones. Xterm requires this
+unless you explicitly enable UTF-8 titles in it.</p>
+
+<p style="margin-left:17%; margin-top: 1em">If this option
+does not take effect immediately, try switching to a
+different page so that ELinks notices it needs to update the
+title.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.m11_hack
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Switch fonts when drawing
+lines, enabling both local characters and lines working at
+the same time. ELinks uses this option only if UTF-8 I/O is
+disabled and the terminal type is Linux or FreeBSD.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.utf_8_io
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Enable I/O in UTF-8 for Unicode
+terminals. Note that currently, only the subset of UTF-8
+according to terminal codepage is used. ELinks ignores this
+option if the terminal codepage is UTF-8.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.combine
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Enable combining characters. It
+works only with the <b>xterm</b> in UTF-8 mode.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.restrict_852
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Restrict the characters used
+when drawing lines. Makes sense only with linux terminals
+using the cp850/852 character sets.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.block_cursor
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Move cursor to bottom right
+corner when done drawing. This is particularly useful when
+we have a block cursor, so that inversed text is displayed
+correctly.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.colors
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">The color mode controls what
+colors are used and how they are output to the terminal.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Some modes may
+have been disabled at compile time. The Setup -&gt; Terminal
+options dialog lists the modes supported by this executable.
+If you select an unsupported mode, ELinks uses 16
+colors.</p>
+
+<p style="margin-left:17%; margin-top: 1em">The color modes
+are:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+mono mode, only 2 colors are used</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is 16
+color mode, uses the common ANSI colors</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is 88
+color mode, uses XTerm RGB codes</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 3 is 256
+color mode, uses XTerm RGB codes</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 4 is
+true color mode, uses konsole RGB codes</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.transparency
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">If we should not set the
+background to black. This is particularly useful when we
+have a terminal (typically in some windowing environment)
+with a background image or a transparent background &ndash;
+it will be visible in ELinks as well (but ELinks document
+color handling will still assume the background is black so
+if you have a bright background you might experience
+contrast problems). Note that this option makes sense only
+when colors are enabled.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.italic
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">If we should use italics.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.underline
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">If we should use underline or
+enhance the color instead.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal._template_.charset
+<b>&lt;codepage&gt;</b> (default: System)</p>
+
+<p style="margin-left:17%;">Codepage of charset used for
+displaying content on terminal. &acute;System&acute; stands
+for a codepage determined by a selected locale.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui (User
+interface)</b> <br>
+User interface options.</p>
+
+<p style="margin-left:11%; margin-top: 1em">ui.date_format
+<b>&lt;str&gt;</b> (default: &quot;%b %e %H:%M&quot;)</p>
+
+<p style="margin-left:17%;">Date format to use in dialogs.
+See <b>strftime</b>(3).</p>
+
+<p style="margin-left:11%; margin-top: 1em">ui.language
+<b>&lt;language&gt;</b> (default: &quot;System&quot;)</p>
+
+<p style="margin-left:17%;">Language of user interface.
+&acute;System&acute; means that the language will be
+extracted from the environment dynamically.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.show_menu_bar_always
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Always show menu bar on the
+screen.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.show_status_bar
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Show status bar on the
+screen.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.show_title_bar
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Show title bar on the
+screen.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.startup_goto_dialog
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Pop up goto dialog in newly
+created tabs when there&acute;s no homepage set. This means
+also showing goto dialog on startup.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.success_msgbox
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">When you pressed a Save button
+in some manager, this option will make sure that a box
+confirming success of the operation will pop up.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.window_title
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Set the window title when
+running in a windowing environment in an <b>xterm</b>-like
+terminal. This way the document&acute;s title is shown on
+the window titlebar.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.clock
+(Clock)</b> <br>
+Digital clock in the status bar.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.clock.enable
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether to display a digital
+clock in the status bar.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.clock.format
+<b>&lt;str&gt;</b> (default: &quot;[%H:%M]&quot;)</p>
+
+<p style="margin-left:17%;">Format string for the digital
+clock. See the <b>strftime</b>(3) manpage for details.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors
+(Color settings)</b> <br>
+Default user interface color settings.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color
+(Color terminals)</b> <br>
+Color settings for color terminal.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.mainmenu
+(Main menu bar)</b> <br>
+Main menu bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.mainmenu.normal
+(Unselected main menu bar item)</b> <br>
+Unselected main menu bar item colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.mainmenu.normal.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.mainmenu.normal.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.mainmenu.selected
+(Selected main menu bar item)</b> <br>
+Selected main menu bar item colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.mainmenu.selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: green)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.mainmenu.selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.mainmenu.hotkey
+(Hotkey)</b> <br>
+Main menu hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.mainmenu.hotkey.normal
+(Unselected hotkey)</b> <br>
+Main menu unselected hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.mainmenu.hotkey.normal.text
+<b>&lt;color|#rrggbb&gt;</b> (default: darkred)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.mainmenu.hotkey.normal.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.mainmenu.hotkey.selected
+(Selected hotkey)</b> <br>
+Main menu selected hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.mainmenu.hotkey.selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: darkred)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.mainmenu.hotkey.selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: green)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.menu
+(Menu bar)</b> <br>
+Menu bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.menu.normal
+(Unselected menu item)</b> <br>
+Unselected menu item colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.normal.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.normal.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.menu.selected
+(Selected menu item)</b> <br>
+Selected menu item colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: green)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.menu.marked
+(Marked menu item)</b> <br>
+Marked menu item colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.marked.text
+<b>&lt;color|#rrggbb&gt;</b> (default: red)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.marked.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.menu.hotkey
+(Hotkey)</b> <br>
+Menu item hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.menu.hotkey.normal
+(Unselected hotkey)</b> <br>
+Menu item unselected hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.hotkey.normal.text
+<b>&lt;color|#rrggbb&gt;</b> (default: darkred)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.hotkey.normal.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.menu.hotkey.selected
+(Selected hotkey)</b> <br>
+Menu item selected hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.hotkey.selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: darkred)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.hotkey.selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: green)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.menu.frame
+(Menu frame)</b> <br>
+Menu frame colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.frame.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.menu.frame.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog
+(Dialog)</b> <br>
+Dialog colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.generic
+(Generic)</b> <br>
+Generic dialog colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.generic.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.generic.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.frame
+(Frame)</b> <br>
+Dialog frame colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.frame.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.frame.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.scrollbar
+(Scrollbar)</b> <br>
+Scrollbar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.scrollbar.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.scrollbar.background
+<b>&lt;color|#rrggbb&gt;</b> (default: blue)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.scrollbar-selected
+(Selected scrollbar)</b> <br>
+Scrollbar selected colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.scrollbar-selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.scrollbar-selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: green)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.title
+(Title)</b> <br>
+Dialog title colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.title.text
+<b>&lt;color|#rrggbb&gt;</b> (default: darkred)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.title.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.text
+(Text)</b> <br>
+Dialog text colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.text.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.text.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.checkbox
+(Checkbox)</b> <br>
+Dialog checkbox colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.checkbox.text
+<b>&lt;color|#rrggbb&gt;</b> (default: darkred)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.checkbox.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.checkbox-selected
+(Selected checkbox)</b> <br>
+Dialog selected checkbox colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.checkbox-selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: yellow)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.checkbox-selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: green)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.checkbox-label
+(Checkbox label)</b> <br>
+Dialog checkbox label colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.checkbox-label.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.checkbox-label.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.button
+(Button)</b> <br>
+Dialog button colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.button.text
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.button.background
+<b>&lt;color|#rrggbb&gt;</b> (default: blue)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.button-selected
+(Selected button)</b> <br>
+Dialog selected button colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.button-selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: yellow)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.button-selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: green)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.button-shortcut
+(Button shortcut)</b> <br>
+Dialog button colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.button-shortcut.text
+<b>&lt;color|#rrggbb&gt;</b> (default: yellow)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.button-shortcut.background
+<b>&lt;color|#rrggbb&gt;</b> (default: blue)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.button-shortcut-selected
+(Selected button shortcut)</b> <br>
+Dialog selected button colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.button-shortcut-selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.button-shortcut-selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: blue)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.field
+(Text field)</b> <br>
+Dialog text field colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.field.text
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.field.background
+<b>&lt;color|#rrggbb&gt;</b> (default: blue)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.field-text
+(Text field text)</b> <br>
+Dialog field text colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.field-text.text
+<b>&lt;color|#rrggbb&gt;</b> (default: yellow)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.field-text.background
+<b>&lt;color|#rrggbb&gt;</b> (default: blue)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.meter
+(Meter)</b> <br>
+Dialog meter colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.meter.text
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.meter.background
+<b>&lt;color|#rrggbb&gt;</b> (default: blue)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.dialog.shadow
+(Shadow)</b> <br>
+Dialog shadow colors (see ui.shadows option).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.shadow.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.dialog.shadow.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.title
+(Title bar)</b> <br>
+Title bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.title.title-bar
+(Generic title bar)</b> <br>
+Generic title bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.title.title-bar.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.title.title-bar.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.title.title-text
+(Title bar text)</b> <br>
+Title bar text colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.title.title-text.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.title.title-text.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.status
+(Status bar)</b> <br>
+Status bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.status.status-bar
+(Generic status bar)</b> <br>
+Generic status bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.status.status-bar.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.status.status-bar.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.status.status-text
+(Status bar text)</b> <br>
+Status bar text colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.status.status-text.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.status.status-text.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.tabs
+(Tabs bar)</b> <br>
+Tabs bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.tabs.unvisited
+(Unvisited tab)</b> <br>
+Tab colors for tabs that have not been selected since they
+completed loading.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.tabs.unvisited.text
+<b>&lt;color|#rrggbb&gt;</b> (default: darkblue)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.tabs.unvisited.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.tabs.normal
+(Unselected tab)</b> <br>
+Unselected tab colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.tabs.normal.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.tabs.normal.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.tabs.loading
+(Loading tab)</b> <br>
+Tab colors for tabs that are loading in the background.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.tabs.loading.text
+<b>&lt;color|#rrggbb&gt;</b> (default: darkred)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.tabs.loading.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.tabs.selected
+(Selected tab)</b> <br>
+Selected tab colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.tabs.selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.tabs.selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: green)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.tabs.separator
+(Tab separator)</b> <br>
+Tab separator colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.tabs.separator.text
+<b>&lt;color|#rrggbb&gt;</b> (default: brown)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.tabs.separator.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.color.searched
+(Searched strings)</b> <br>
+Searched string highlight colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.searched.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.color.searched.background
+<b>&lt;color|#rrggbb&gt;</b> (default: lime)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono
+(Non-color terminals)</b> <br>
+Color settings for non-color terminal.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.mainmenu
+(Main menu bar)</b> <br>
+Main menu bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.mainmenu.normal
+(Unselected main menu bar item)</b> <br>
+Unselected main menu bar item colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.mainmenu.normal.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.mainmenu.normal.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.mainmenu.selected
+(Selected main menu bar item)</b> <br>
+Selected main menu bar item colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.mainmenu.selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.mainmenu.selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.mainmenu.hotkey
+(Hotkey)</b> <br>
+Main menu hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.mainmenu.hotkey.normal
+(Unselected hotkey)</b> <br>
+Main menu unselected hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.mainmenu.hotkey.normal.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.mainmenu.hotkey.normal.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.mainmenu.hotkey.selected
+(Selected hotkey)</b> <br>
+Main menu selected hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.mainmenu.hotkey.selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.mainmenu.hotkey.selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.menu
+(Menu bar)</b> <br>
+Menu bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.menu.normal
+(Unselected menu item)</b> <br>
+Unselected menu item colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.normal.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.normal.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.menu.selected
+(Selected menu item)</b> <br>
+Selected menu item colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.menu.marked
+(Marked menu item)</b> <br>
+Marked menu item colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.marked.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.marked.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.menu.hotkey
+(Hotkey)</b> <br>
+Menu item hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.menu.hotkey.normal
+(Unselected hotkey)</b> <br>
+Menu item unselected hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.hotkey.normal.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.hotkey.normal.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.menu.hotkey.selected
+(Selected hotkey)</b> <br>
+Menu item selected hotkey colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.hotkey.selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.hotkey.selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.menu.frame
+(Menu frame)</b> <br>
+Menu frame colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.frame.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.menu.frame.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog
+(Dialog)</b> <br>
+Dialog colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.generic
+(Generic)</b> <br>
+Generic dialog colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.generic.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.generic.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.frame
+(Frame)</b> <br>
+Dialog frame colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.frame.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.frame.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.scrollbar
+(Scrollbar)</b> <br>
+Scrollbar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.scrollbar.text
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.scrollbar.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.scrollbar-selected
+(Selected scrollbar)</b> <br>
+Scrollbar selected colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.scrollbar-selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.scrollbar-selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.title
+(Title)</b> <br>
+Dialog title colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.title.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.title.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.text
+(Text)</b> <br>
+Dialog text colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.text.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.text.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.checkbox
+(Checkbox)</b> <br>
+Dialog checkbox colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.checkbox.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.checkbox.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.checkbox-selected
+(Selected checkbox)</b> <br>
+Dialog selected checkbox colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.checkbox-selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.checkbox-selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.checkbox-label
+(Checkbox label)</b> <br>
+Dialog checkbox label colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.checkbox-label.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.checkbox-label.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.button
+(Button)</b> <br>
+Dialog button colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.button.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.button.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.button-selected
+(Selected button)</b> <br>
+Dialog selected button colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.button-selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.button-selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.button-shortcut
+(Button shortcut)</b> <br>
+Dialog button colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.button-shortcut.text
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.button-shortcut.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.button-shortcut-selected
+(Selected button shortcut)</b> <br>
+Dialog selected button colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.button-shortcut-selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.button-shortcut-selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.field
+(Text field)</b> <br>
+Dialog text field colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.field.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.field.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.field-text
+(Text field text)</b> <br>
+Dialog field text colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.field-text.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.field-text.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.meter
+(Meter)</b> <br>
+Dialog meter colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.meter.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.meter.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.dialog.shadow
+(Shadow)</b> <br>
+Dialog shadow colors (see ui.shadows option).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.shadow.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.dialog.shadow.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.title
+(Title bar)</b> <br>
+Title bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.title.title-bar
+(Generic title bar)</b> <br>
+Generic title bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.title.title-bar.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.title.title-bar.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.title.title-text
+(Title bar text)</b> <br>
+Title bar text colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.title.title-text.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.title.title-text.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.status
+(Status bar)</b> <br>
+Status bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.status.status-bar
+(Generic status bar)</b> <br>
+Generic status bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.status.status-bar.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.status.status-bar.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.status.status-text
+(Status bar text)</b> <br>
+Status bar text colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.status.status-text.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.status.status-text.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.tabs
+(Tabs bar)</b> <br>
+Tabs bar colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.tabs.unvisited
+(Unvisited tab)</b> <br>
+Tab colors for tabs that have not been selected since they
+completed loading.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.tabs.unvisited.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.tabs.unvisited.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.tabs.normal
+(Unselected tab)</b> <br>
+Unselected tab colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.tabs.normal.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.tabs.normal.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.tabs.loading
+(Loading tab)</b> <br>
+Tab colors for tabs that are loading in the background.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.tabs.loading.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.tabs.loading.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.tabs.selected
+(Selected tab)</b> <br>
+Selected tab colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.tabs.selected.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.tabs.selected.background
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.tabs.separator
+(Tab separator)</b> <br>
+Tab separator colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.tabs.separator.text
+<b>&lt;color|#rrggbb&gt;</b> (default: gray)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.tabs.separator.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.colors.mono.searched
+(Searched strings)</b> <br>
+Searched string highlight colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.searched.text
+<b>&lt;color|#rrggbb&gt;</b> (default: black)</p>
+
+<p style="margin-left:17%;">Default text color.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.colors.mono.searched.background
+<b>&lt;color|#rrggbb&gt;</b> (default: white)</p>
+
+<p style="margin-left:17%;">Default background color.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.dialogs
+(Dialog settings)</b> <br>
+Dialogs-specific appearance and behaviour settings.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.dialogs.listbox_min_height
+<b>&lt;num&gt;</b> (default: 10)</p>
+
+<p style="margin-left:17%;">Minimal height of the listbox
+widget (used e.g. for bookmarks or global history).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.dialogs.shadows
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Make dialogs drop shadows (the
+shadows are solid, you can adjust their color by
+ui.colors.*.dialog.shadow). You may also want to eliminate
+the wide borders by adjusting <i>setup.h</i>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.dialogs.underline_hotkeys
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether to underline hotkeys in
+menus to make them more visible. Requires that underlining
+is enabled for the terminal.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.dialogs.underline_button_shortcuts
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether to underline button
+shortcuts to make them more visible. Requires that
+underlining is enabled for the terminal.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.leds
+(LEDs)</b> <br>
+LEDs (visual indicators) options.</p>
+
+<p style="margin-left:11%; margin-top: 1em">ui.leds.enable
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Enable LEDs. These visual
+indicators will inform you about various states.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.sessions
+(Sessions)</b> <br>
+Sessions settings.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.sessions.auto_restore
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Automatically restore the
+session at start.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This feature
+requires bookmark support.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.sessions.auto_save
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Automatically save the session
+when quitting.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This feature
+requires bookmark support.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.sessions.auto_save_foldername
+<b>&lt;str&gt;</b> (default: &quot;Auto saved
+session&quot;)</p>
+
+<p style="margin-left:17%;">Name of the bookmarks folder
+used for auto saving and restoring session. The name has to
+be unique. Any folders with the same name will be
+deleted.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This only makes
+sense with bookmark support.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.sessions.homepage
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">The URI to load either at
+startup time when no URI was given on the command line or
+when requested by the goto-url-home action. Set to
+&quot;&quot; if the environment variable <b>WWW_HOME</b>
+should be used as homepage URI instead.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.sessions.keep_session_active
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Keep the session active even if
+the last terminal exits.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.sessions.snapshot
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Automatically save a snapshot
+of all tabs periodically. This will periodically bookmark
+the tabs of each terminal in a separate folder for recovery
+after a crash.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This feature
+requires bookmark support.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.tabs
+(Window tabs)</b> <br>
+Window tabs settings.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.tabs.show_bar
+<b>&lt;num&gt;</b> (default: 1)</p>
+
+<p style="margin-left:17%;">Show tabs bar on the
+screen:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 means
+never</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 means
+only if two or more tabs are open</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 means
+always</p>
+
+<p style="margin-left:11%; margin-top: 1em">ui.tabs.top
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether display tab bar at top
+like other browsers do.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.tabs.wraparound
+<b>[0|1]</b> (default: 1)</p>
+
+<p style="margin-left:17%;">When moving right from the last
+tab, jump to the first one, and vice versa.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.tabs.confirm_close
+<b>[0|1]</b> (default: 0)</p>
+
+<p style="margin-left:17%;">When closing a tab show
+confirmation dialog.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>ui.timer
+(Timer options)</b> <br>
+Timed action after certain interval of user inactivity.
+Someone can even find this useful, although you may not
+believe that.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.timer.enable
+<b>&lt;num&gt;</b> (default: 0)</p>
+
+<p style="margin-left:17%;">Whether to enable the timer or
+not:</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 0 is
+don&acute;t count down anything</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 1 is
+count down, but don&acute;t show the timer</p>
+
+<p style="margin-left:23%; margin-top: 1em">&bull; 2 is
+count down and show the timer near LEDs</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.timer.duration
+<b>&lt;num&gt;</b> (default: 86400)</p>
+
+<p style="margin-left:17%;">Inactivity timeout in seconds.
+The maximum of one day should be enough for just everyone
+(TM).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ui.timer.action
+<b>&lt;str&gt;</b> (default: &quot;&quot;)</p>
+
+<p style="margin-left:17%;">Keybinding action to be
+triggered when timer reaches zero.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>elinks</b>(1),
+<b>elinkskeys</b>(5)</p>
+<hr>
+</body>
+</html>

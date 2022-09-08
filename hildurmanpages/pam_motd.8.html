@@ -1,0 +1,183 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:58:09 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>PAM_MOTD</title>
+
+</head>
+<body>
+
+<h1 align="center">PAM_MOTD</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#MODULE TYPES PROVIDED">MODULE TYPES PROVIDED</a><br>
+<a href="#RETURN VALUES">RETURN VALUES</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">pam_motd -
+Display the motd file</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="51%">
+
+
+<p style="margin-top: 1em"><b>pam_motd.so</b>
+[motd=<i>/path/filename</i>]</p> </td>
+<td width="38%">
+</td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">pam_motd is a
+PAM module that can be used to display arbitrary motd
+(message of the day) files after a successful login. By
+default the /etc/motd file is shown. The message size is
+limited to 64KB.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>motd=</b><i>/path/filename</i></p>
+
+<p style="margin-left:17%;">The /path/filename file is
+displayed as message of the day.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>motd_dir=</b><i>/path/dirname.d</i></p>
+
+<p style="margin-left:17%;">The /path/dirname.d directory
+is scanned and each file contained inside of it is
+displayed.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>noupdate</b></p>
+
+<p style="margin-left:17%;">Don't run the scripts in
+/etc/update-motd.d to refresh the motd file.</p>
+
+<p style="margin-left:11%; margin-top: 1em">When no options
+are given, the default is to display both /etc/motd and the
+contents of /etc/motd.d. Specifying either option (or both)
+will disable this default behavior.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>MOTD_SHOWN=pam</b> environment variable is set after
+showing the motd files, even when all of them were silenced
+using symbolic links.</p>
+
+<h2>MODULE TYPES PROVIDED
+<a name="MODULE TYPES PROVIDED"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Only the
+<b>session</b> module type is provided.</p>
+
+<h2>RETURN VALUES
+<a name="RETURN VALUES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">PAM_ABORT</p>
+
+<p style="margin-left:17%;">Not all relevant data or
+options could be obtained.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">PAM_BUF_ERR</p>
+
+<p style="margin-left:17%;">Memory buffer error.</p>
+
+<p style="margin-left:11%; margin-top: 1em">PAM_IGNORE</p>
+
+<p style="margin-left:17%;">This is the default return
+value of this module.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The suggested
+usage for /etc/pam.d/login is:</p>
+
+<p style="margin-left:17%; margin-top: 1em">session
+optional pam_motd.so</p>
+
+<p style="margin-left:11%; margin-top: 1em">To use a motd
+file from a different location:</p>
+
+<p style="margin-left:17%; margin-top: 1em">session
+optional pam_motd.so motd=/elsewhere/motd</p>
+
+<p style="margin-left:11%; margin-top: 1em">To use a motd
+file from elsewhere, along with a corresponding .d
+directory:</p>
+
+<p style="margin-left:17%; margin-top: 1em">session
+optional pam_motd.so motd=/elsewhere/motd
+motd_dir=/elsewhere/motd.d</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>motd</b>(5),
+<b>pam.conf</b>(5), <b>pam.d</b>(5), <b>pam</b>(7),
+<b>update-motd</b>(5)</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">pam_motd was
+written by Ben Collins &lt;bcollins@debian.org&gt;.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>motd_dir=</b> option was added by Allison Karlitskaya
+&lt;allison.karlitskaya@redhat.com&gt;.</p>
+<hr>
+</body>
+</html>

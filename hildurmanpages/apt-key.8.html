@@ -1,0 +1,311 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:31:53 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>APT-KEY</title>
+
+</head>
+<body>
+
+<h1 align="center">APT-KEY</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SUPPORTED KEYRING FILES">SUPPORTED KEYRING FILES</a><br>
+<a href="#COMMANDS">COMMANDS</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#NOTES">NOTES</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">apt-key - APT
+key management utility</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em"><b>apt-key</b>
+[<b>--keyring&nbsp;</b><i>filename</i>]
+{add&nbsp;<i>filename</i> | del&nbsp;<i>keyid</i> |
+export&nbsp;<i>keyid</i> | exportall | list | finger | adv |
+update | net-update | {-v&nbsp;|&nbsp;--version} |
+{-h&nbsp;|&nbsp;--help}}</p> </td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>apt-key</b>
+is used to manage the list of keys used by apt to
+authenticate packages. Packages which have been
+authenticated using these keys will be considered
+trusted.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that if
+usage of <b>apt-key</b> is desired the additional
+installation of the GNU Privacy Guard suite (packaged in
+gnupg) is required. For this reason alone the programmatic
+usage (especially in package maintainer scripts!) is
+strongly discouraged. Further more the output format of all
+commands is undefined and can and does change whenever the
+underlying commands change. <b>apt-key</b> will try to
+detect such usage and generates warnings on stderr in these
+cases.</p>
+
+<h2>SUPPORTED KEYRING FILES
+<a name="SUPPORTED KEYRING FILES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">apt-key
+supports only the binary OpenPGP format (also known as
+&quot;GPG key public ring&quot;) in files with the
+&quot;gpg&quot; extension, not the keybox database format
+introduced in newer <b>gpg</b>(1) versions as default for
+keyring files. Binary keyring files intended to be used with
+any apt version should therefore always be created with
+<b>gpg --export</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Alternatively,
+if all systems which should be using the created keyring
+have at least apt version &gt;= 1.4 installed, you can use
+the ASCII armored format with the &quot;asc&quot; extension
+instead which can be created with <b>gpg --armor
+--export</b>.</p>
+
+<h2>COMMANDS
+<a name="COMMANDS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>add</b>
+<i>filename</i></p>
+
+<p style="margin-left:17%;">Add a new key to the list of
+trusted keys. The key is read from the filename given with
+the parameter <i>filename</i> or if the filename is - from
+standard input.</p>
+
+<p style="margin-left:17%; margin-top: 1em">It is critical
+that keys added manually via <b>apt-key</b> are verified to
+belong to the owner of the repositories they claim to be for
+otherwise the <b>apt-secure</b>(8) infrastructure is
+completely undermined.</p>
+
+<p style="margin-left:17%; margin-top: 1em"><i>Note</i>:
+Instead of using this command a keyring should be placed
+directly in the /etc/apt/trusted.gpg.d/ directory with a
+descriptive name and either &quot;gpg&quot; or
+&quot;asc&quot; as file extension.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>del</b>
+<i>keyid</i></p>
+
+<p style="margin-left:17%;">Remove a key from the list of
+trusted keys.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>export</b>
+<i>keyid</i></p>
+
+<p style="margin-left:17%;">Output the key <i>keyid</i> to
+standard output.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>exportall</b></p>
+
+<p style="margin-left:17%;">Output all trusted keys to
+standard output.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>list</b>,
+<b>finger</b></p>
+
+<p style="margin-left:17%;">List trusted keys with
+fingerprints.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>adv</b></p>
+
+<p style="margin-left:17%;">Pass advanced options to gpg.
+With <b>adv --recv-key</b> you can e.g. download key from
+keyservers directly into the trusted set of keys. Note that
+there are <i>no</i> checks performed, so it is easy to
+completely undermine the <b>apt-secure</b>(8) infrastructure
+if used without care.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>update</b>
+(deprecated)</p>
+
+<p style="margin-left:17%;">Update the local keyring with
+the archive keyring and remove from the local keyring the
+archive keys which are no longer valid. The archive keyring
+is shipped in the archive-keyring package of your
+distribution, e.g. the ubuntu-keyring package in Ubuntu.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Note that a
+distribution does not need to and in fact should not use
+this command any longer and instead ship keyring files in
+the /etc/apt/trusted.gpg.d/ directory directly as this
+avoids a dependency on gnupg and it is easier to manage keys
+by simply adding and removing files for maintainers and
+users alike.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>net-update</b></p>
+
+<p style="margin-left:17%;">Perform an update working
+similarly to the <b>update</b> command above, but get the
+archive keyring from a URI instead and validate it against a
+master key. This requires an installed <b>wget</b>(1) and an
+APT build configured to have a server to fetch from and a
+master keyring to validate. APT in Debian does not support
+this command, relying on <b>update</b> instead, but Ubuntu's
+APT does.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+options need to be defined before the commands described in
+the previous section.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--keyring</b>
+<i>filename</i></p>
+
+<p style="margin-left:17%;">With this option it is possible
+to specify a particular keyring file the command should
+operate on. The default is that a command is executed on the
+trusted.gpg file as well as on all parts in the
+trusted.gpg.d directory, though trusted.gpg is the primary
+keyring which means that e.g. new keys are added to this
+one.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/apt/trusted.gpg</p>
+
+<p style="margin-left:17%;">Keyring of local trusted keys,
+new keys will be added here. Configuration Item:
+Dir::Etc::Trusted.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/apt/trusted.gpg.d/</p>
+
+<p style="margin-left:17%;">File fragments for the trusted
+keys, additional keyrings can be stored here (by other
+packages or the administrator). Configuration Item
+Dir::Etc::TrustedParts.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>apt-get</b>(8),
+<b>apt-secure</b>(8)</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b><font color="#0000FF">APT
+bug page</font></b>
+<small><font color="#000000">[1]</font></small>
+<font color="#000000">. If you wish to report a bug in APT,
+please see /usr/share/doc/debian/bug-reporting.txt or the
+<b>reportbug</b>(1) command.</font></p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">APT
+was written by the APT team
+&lt;apt@packages.debian.org&gt;.</font></p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>Jason
+Gunthorpe</b></font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>APT
+team</b></font></p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">1.</font></p> </td>
+<td width="2%"></td>
+<td width="18%">
+
+
+<p style="margin-top: 1em"><font color="#000000">APT bug
+page</font></p> </td>
+<td width="65%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">http://bugs.debian.org/src:apt</font></p>
+<hr>
+</body>
+</html>

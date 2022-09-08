@@ -1,0 +1,257 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:05:23 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SG_READ_BUFFER</title>
+
+</head>
+<body>
+
+<h1 align="center">SG_READ_BUFFER</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#MODES">MODES</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#REPORTING BUGS">REPORTING BUGS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">sg_read_buffer
+- send SCSI READ BUFFER command</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sg_read_buffer</b>
+[<i>--help</i>] [<i>--hex</i>] [<i>--id=ID</i>]
+[<i>--length=LEN</i>] [<i>--mode=MO</i>]
+[<i>--offset=OFF</i>] [<i>--raw</i>] [<i>--readonly</i>]
+[<i>--verbose</i>] [<i>--version</i>] <i>DEVICE</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Sends a SCSI
+READ BUFFER command to the <i>DEVICE</i>, and if there is a
+response either decodes it, prints it in hexadecimal or
+sends it in binary to stdout. If a response is received for
+a &quot;descriptor&quot; mode then, in the absence of
+<i>--hex</i> and <i>--raw</i>, it is decoded. Response for
+non-descriptor modes are output in hexadecimal unless the
+<i>--raw</i> option is given.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Arguments to
+long options are mandatory for short options as well.
+<b><br>
+-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">output the usage message then
+exit. If used multiple times also prints the mode names and
+their acronyms.</p>
+
+<p style="margin-left:11%;"><b>-H</b>, <b>--hex</b></p>
+
+<p style="margin-left:22%;">output the response in
+hexadecimal. When given twice the response is output in hex
+with the corresponding representation in ASCII to the right
+of each line.</p>
+
+<p style="margin-left:11%;"><b>-i</b>,
+<b>--id</b>=<i>ID</i></p>
+
+<p style="margin-left:22%;">this option sets the buffer id
+field in the cdb. <i>ID</i> is a value between 0 (default)
+and 255 inclusive.</p>
+
+<p style="margin-left:11%;"><b>-l</b>,
+<b>--length</b>=<i>LEN</i></p>
+
+<p style="margin-left:22%;">where <i>LEN</i> is the length,
+in bytes, that is placed in the &quot;allocation
+length&quot; field in the cdb. The default value is 4
+(bytes). The device may respond with less bytes.</p>
+
+<p style="margin-left:11%;"><b>-m</b>,
+<b>--mode</b>=<i>MO</i></p>
+
+<p style="margin-left:22%;">this option sets the mode field
+in the cdb. <i>MO</i> is a value between 0 (default) and 31
+inclusive. Alternatively an abbreviation can be given. See
+the MODES section below. To list the available mode
+abbreviations use an invalid one (e.g.
+&rsquo;--mode=xxx&rsquo;). As an example, to fetch the read
+buffer descriptor give &rsquo;--mode=desc&rsquo; .</p>
+
+<p style="margin-left:11%;"><b>-o</b>,
+<b>--offset</b>=<i>OFF</i></p>
+
+<p style="margin-left:22%;">this option sets the buffer
+offset field in the cdb. <i>OFF</i> is a value between 0
+(default) and 2**24-1 . It is a byte offset.</p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--raw</b></p>
+
+<p style="margin-left:22%;">if a response is received then
+it is sent in binary to stdout.</p>
+
+<p style="margin-left:11%;"><b>-R</b>,
+<b>--readonly</b></p>
+
+<p style="margin-left:22%;">open the <i>DEVICE</i>
+read-only (e.g. in Unix with the O_RDONLY flag). The default
+is to open it read-write.</p>
+
+<p style="margin-left:11%;"><b>-v</b>, <b>--verbose</b></p>
+
+<p style="margin-left:22%;">increase the level of
+verbosity, (i.e. debug output).</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">print the version string and
+then exit.</p>
+
+<h2>MODES
+<a name="MODES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Following is a
+list of READ BUFFER command settings for the MODE field.
+First is an acronym accepted by the <i>MO</i> argument of
+this utility. Following the acronym in square brackets are
+the corresponding decimal and hex values that may also be
+given for <i>MO</i>. The following are listed in numerical
+order. <br>
+hd [0, 0x0]</p>
+
+<p style="margin-left:22%;">Combined header and data
+(obsolete in SPC-4).</p>
+
+<p style="margin-left:11%;">vendor [1, 0x1]</p>
+
+<p style="margin-left:22%;">Vendor specific.</p>
+
+<p style="margin-left:11%;">data [2, 0x2]</p>
+
+<p style="margin-left:22%;">Data.</p>
+
+<p style="margin-left:11%;">desc [3, 0x3]</p>
+
+<p style="margin-left:22%;">Descriptor: yields 4 bytes that
+contain an offset boundary field (1 byte) and buffer
+capacity (3 bytes).</p>
+
+<p style="margin-left:11%;">echo [10, 0xa]</p>
+
+<p style="margin-left:22%;">Read data from echo buffer (was
+called &quot;Echo buffer&quot; in SPC-3).</p>
+
+<p style="margin-left:11%;">echo_desc [11, 0xb]</p>
+
+<p style="margin-left:22%;">Echo buffer descriptor: yields
+4 bytes of which the last (lowest) 13 bits represent the
+echo buffer capacity. The maximum echo buffer size is 4096
+bytes.</p>
+
+<p style="margin-left:11%;">en_ex [26, 0x1a]</p>
+
+<p style="margin-left:22%;">Enable expander communications
+protocol and Echo buffer. Made obsolete in SPC-4.</p>
+
+<p style="margin-left:11%;">err_hist [28, 0x1c]</p>
+
+<p style="margin-left:22%;">Error history. Introduced in
+SPC-4.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">All numbers
+given with options are assumed to be decimal. Alternatively
+numerical values can be given in hexadecimal preceded by
+either &quot;0x&quot; or &quot;0X&quot; (or has a trailing
+&quot;h&quot; or &quot;H&quot;).</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The exit status
+of sg_read_buffer is 0 when it is successful. Otherwise see
+the sg3_utils(8) man page.</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Written by
+Luben Tuikov and Douglas Gilbert.</p>
+
+<h2>REPORTING BUGS
+<a name="REPORTING BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Report bugs to
+&lt;dgilbert at interlog dot com&gt;.</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+&copy; 2006-2014 Luben Tuikov and Douglas Gilbert <br>
+This software is distributed under a FreeBSD license. There
+is NO warranty; not even for MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sg_write_buffer(sg3_utils)</b></p>
+<hr>
+</body>
+</html>

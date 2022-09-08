@@ -1,0 +1,235 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:56:38 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>netplan-dbus</title>
+
+</head>
+<body>
+
+<h1 align="center">netplan-dbus</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">netplan-dbus -
+daemon to access netplan&rsquo;s functionality via a DBus
+API</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan-dbus</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan-dbus</b>
+is a DBus daemon, providing <tt>io.netplan.Netplan</tt> on
+the system bus. The <tt>/io/netplan/Netplan</tt> object
+provides an <tt>io.netplan.Netplan</tt> interface, offering
+the following methods:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>Apply() -&gt; b</tt>: calls <b>netplan apply</b> and
+returns a success or failure status.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>Generate() -&gt; b</tt>: calls <b>netplan
+generate</b> and returns a success or failure status.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>Info() -&gt; a(sv)</tt>: returns a dict
+&ldquo;Features -&gt; as&rdquo;, containing an array of all
+available feature flags.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>Config() -&gt; o</tt>: prepares a new config object
+as <tt>/io/netplan/Netplan/config/&lt;ID&gt;</tt>, by
+copying the current state from
+<tt>/{etc,run,lib}/netplan/*.yaml</tt></p> </td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<tt>/io/netplan/Netplan/config/&lt;ID&gt;</tt> objects
+provide a <tt>io.netplan.Netplan.Config</tt> interface,
+offering the following methods:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>Get() -&gt; s</tt>: calls
+<b>netplan get &ndash;root-dir=/run/netplan/config-ID
+all</b> and returns the merged YAML config of the the given
+config object&rsquo;s state</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>Set(s:CONFIG_DELTA, s:ORIGIN_HINT) -&gt; b</tt>:
+calls <b>netplan set &ndash;root-dir=/run/netplan/config-ID
+&ndash;origin-hint=ORIGIN_HINT CONFIG_DELTA</b></p></td></tr>
+</table>
+
+<p style="margin-left:14%; margin-top: 1em">CONFIG_DELTA
+can be something like:
+<tt>network.ethernets.eth0.dhcp4=true</tt> and ORIGIN_HINT
+can be something like: <tt>70-snapd</tt> (it will then write
+the config to <tt>70-snapd.yaml</tt>). Once <tt>Set()</tt>
+is called on a config object, all other current and future
+config objects are being invalidated and cannot
+<tt>Set()</tt> or <tt>Try()/Apply()</tt> anymore, due to
+this pending dirty state. After the dirty config object is
+rejected via <tt>Cancel()</tt>, the other config objects are
+valid again. If the dirty config object is accepted via
+<tt>Apply()</tt>, newly created config objects will be
+valid, while the older states will stay invalid.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p style="margin-top: 1em"><tt>Try(u:TIMEOUT_SEC) -&gt;
+b</tt>: replaces the main netplan configuration with this
+config object&rsquo;s state and calls <b>netplan try
+&ndash;timeout=TIMEOUT_SEC</b></p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>Cancel() -&gt; b</tt>: rejects a currently running
+<tt>Try()</tt> attempt on this config object and/or discards
+the config object</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="2%"></td>
+<td width="86%">
+
+
+<p><tt>Apply() -&gt; b</tt>: replaces the main netplan
+configuration with this config object&rsquo;s state and
+calls <b>netplan apply</b></p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">For information
+about the Apply()/Try()/Get()/Set() functionality, see
+<b>netplan-apply</b>(8)/<b>netplan-try</b>(8)/<b>netplan-get</b>(8)/<b>netplan-set</b>(8)
+accordingly. For details of the configuration file format,
+see <b>netplan</b>(5).</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>(5),
+<b>netplan-apply</b>(8), <b>netplan-try</b>(8),
+<b>netplan-get</b>(8), <b>netplan-set</b>(8)</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Lukas
+M&auml;rdian (&lt;lukas.maerdian@canonical.com&gt;).</p>
+<hr>
+</body>
+</html>

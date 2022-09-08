@@ -1,0 +1,105 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:54:55 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>MID3CP</title>
+
+</head>
+<body>
+
+<h1 align="center">MID3CP</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">mid3cp - copy
+ID3 tags</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mid3cp</b>
+[<i>options</i>] <i>source dest</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>mid3cp</b></i>
+copies the ID3 tags from a source file to a destination
+file.</p>
+
+<p style="margin-left:11%; margin-top: 1em">It is designed
+to provide similar functionality to id3lib's id3cp tool, and
+can optionally write ID3v1 tags. It can also exclude
+specific tags from being copied.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--verbose</b>,
+<b>-v</b></p>
+
+<p style="margin-left:22%;">Be verbose: state all
+operations performed, and list tags in source file.</p>
+
+<p style="margin-left:11%;"><b>--write-v1</b></p>
+
+<p style="margin-left:22%;">Write ID3v1 tags to the
+destination file, derived from the ID3v2 tags.</p>
+
+<p style="margin-left:11%;"><b>--exclude-tag</b>,
+<b>-x</b></p>
+
+<p style="margin-left:22%;">Exclude a specific tag from
+being copied. Can be specified multiple times.</p>
+
+<p style="margin-left:11%;"><b>--merge</b></p>
+
+<p style="margin-left:22%;">Copy over frames instead of
+replacing the whole ID3 tag. The tag version of <i>dest</i>
+will be used. In case <i>dest</i> has no ID3 tag this option
+has no effect.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Marcus
+Sundman.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Based on id3cp
+(part of id3lib) by Dirk Mahoney and Scott Thomas Haug.</p>
+<hr>
+</body>
+</html>

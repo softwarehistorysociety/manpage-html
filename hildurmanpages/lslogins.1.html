@@ -1,0 +1,330 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:53:41 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>LSLOGINS</title>
+
+</head>
+<body>
+
+<h1 align="center">LSLOGINS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#HISTORY">HISTORY</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">lslogins -
+display information about known users in the system</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lslogins</b>
+[options] [<b>-s</b>|<b>-u</b>[<b>=</b><i>UID</i>]]
+[<b>-g</b> <i>groups</i>] [<b>-l</b> <i>logins</i>]
+[<i>username</i>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Examine the
+wtmp and btmp logs, /etc/shadow (if necessary) and
+/etc/passwd and output the desired data.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The optional
+argument <i>username</i> forces <b>lslogins</b> to print all
+available details about the specified user only. In this
+case the output format is different than in case of
+<b>-l</b> or <b>-g</b> and unknown is <i>username</i>
+reported as an error.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The default
+action is to list info about all the users in the
+system.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Mandatory
+arguments to long options are mandatory for short options
+too. <b><br>
+-a</b>, <b>--acc-expiration</b></p>
+
+<p style="margin-left:22%;">Display data about the date of
+last password change and the account expiration date (see
+<b>shadow</b>(5) for more info). (Requires root
+privileges.)</p>
+
+<p style="margin-left:11%;"><b>--btmp-file</b>
+<i>path</i></p>
+
+<p style="margin-left:22%;">Alternate path for btmp.</p>
+
+<p style="margin-left:11%;"><b>-c</b>,
+<b>--colon-separate</b></p>
+
+<p style="margin-left:22%;">Separate info about each user
+with a colon instead of a newline.</p>
+
+<p style="margin-left:11%;"><b>-e</b>, <b>--export</b></p>
+
+<p style="margin-left:22%;">Output data in the format of
+NAME=VALUE.</p>
+
+<p style="margin-left:11%;"><b>-f</b>, <b>--failed</b></p>
+
+<p style="margin-left:22%;">Display data about the
+users&rsquo; last failed login attempts.</p>
+
+<p style="margin-left:11%;"><b>-G</b>,
+<b>--supp-groups</b></p>
+
+<p style="margin-left:22%;">Show information about
+supplementary groups.</p>
+
+<p style="margin-left:11%;"><b>-g</b>,
+<b>--groups</b>=<i>groups</i></p>
+
+<p style="margin-left:22%;">Only show data of users
+belonging to <i>groups</i>. More than one group may be
+specified; the list has to be comma-separated. The unknown
+group names are ignored.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that
+relation between user and group may be invisible for primary
+group if the user is not explicitly specify as group member
+(e.g. in /etc/group). If the command lslogins scans for
+groups than it uses groups database only, and user database
+with primary GID is not used at all.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help information and
+exit.</p>
+
+<p style="margin-left:11%;"><b>-L</b>, <b>--last</b></p>
+
+<p style="margin-left:22%;">Display data containing
+information about the users&rsquo; last login sessions.</p>
+
+<p style="margin-left:11%;"><b>-l</b>,
+<b>--logins</b>=<i>logins</i></p>
+
+<p style="margin-left:22%;">Only show data of users with a
+login specified in <i>logins</i> (user names or user IDS).
+More than one login may be specified; the list has to be
+comma-separated. The unknown login names are ignored.</p>
+
+<p style="margin-left:11%;"><b>-n</b>, <b>--newline</b></p>
+
+<p style="margin-left:22%;">Display each piece of
+information on a separate line.</p>
+
+<p style="margin-left:11%;"><b>--noheadings</b></p>
+
+<p style="margin-left:22%;">Do not print a header line.</p>
+
+<p style="margin-left:11%;"><b>--notruncate</b></p>
+
+<p style="margin-left:22%;">Don&rsquo;t truncate
+output.</p>
+
+<p style="margin-left:11%;"><b>-o</b>, <b>--output</b>
+<i>list</i></p>
+
+<p style="margin-left:22%;">Specify which output columns to
+print. The default list of columns may be extended if
+<i>list</i> is specified in the format <i>+list</i>.</p>
+
+<p style="margin-left:11%;"><b>--output-all</b></p>
+
+<p style="margin-left:22%;">Output all available columns.
+<b>--help</b> to get a list of all supported columns.</p>
+
+<p style="margin-left:11%;"><b>-p</b>, <b>--pwd</b></p>
+
+<p style="margin-left:22%;">Display information related to
+login by password (see also <b>-afL).</b></p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--raw</b></p>
+
+<p style="margin-left:22%;">Raw output (no
+columnation).</p>
+
+<p style="margin-left:11%;"><b>-s</b>,
+<b>--system-accs</b></p>
+
+<p style="margin-left:22%;">Show system accounts.&nbsp;
+These are by default all accounts with a UID between 101 and
+999 (inclusive), with the exception of either nobody or
+nfsnobody (UID 65534). This hardcoded default may be
+overwritten by parameters SYS_UID_MIN and SYS_UID_MAX in the
+file /etc/login.defs.</p>
+
+<p style="margin-left:11%;"><b>--time-format</b>
+<i>type</i></p>
+
+<p style="margin-left:22%;">Display dates in short, full or
+iso format. The default is short, this time format is
+designed to be space efficient and human readable.</p>
+
+<p style="margin-left:11%;"><b>-u</b>,
+<b>--user-accs</b></p>
+
+<p style="margin-left:22%;">Show user accounts. These are
+by default all accounts with UID above 1000 (inclusive),
+with the exception of either nobody or nfsnobody (UID
+65534). This hardcoded default maybe overwritten by
+parameters UID_MIN and UID_MAX in the file
+/etc/login.defs.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<p style="margin-left:11%;"><b>--wtmp-file</b>
+<i>path</i></p>
+
+<p style="margin-left:22%;">Alternate path for wtmp.</p>
+
+<p style="margin-left:11%;"><b>-Z</b>, <b>--context</b></p>
+
+<p style="margin-left:22%;">Display the users&rsquo;
+security context.</p>
+
+<p style="margin-left:11%;"><b>-z</b>, <b>--print0</b></p>
+
+<p style="margin-left:22%;">Delimit user entries with a nul
+character, instead of a newline.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The default UID
+thresholds are read from /etc/login.defs.</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p style="margin-top: 1em">0</p></td>
+<td width="10%"></td>
+<td width="72%">
+
+
+<p style="margin-top: 1em">if OK,</p></td>
+<td width="6%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>1</p></td>
+<td width="10%"></td>
+<td width="72%">
+
+
+<p>if incorrect arguments specified,</p></td>
+<td width="6%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>2</p></td>
+<td width="10%"></td>
+<td width="72%">
+
+
+<p>if a serious error occurs (e.g. a corrupt log).</p></td>
+<td width="6%">
+</td></tr>
+</table>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>group</b>(5),
+<b>passwd</b>(5), <b>shadow</b>(5), <b>utmp</b>(5)</p>
+
+<h2>HISTORY
+<a name="HISTORY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>lslogins</b> utility is inspired by the <b>logins</b>
+utility, which first appeared in FreeBSD 4.10.</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><a href="mailto:ooprala@redhat.com">Ondrej
+Oprala</a> <br>
+<a href="mailto:kzak@redhat.com">Karel Zak</a></p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The lslogins
+command is part of the util-linux package and is available
+from
+<a href="https://www.kernel.org/pub/linux/utils/util-linux/">Linux
+Kernel Archive</a>.</p>
+<hr>
+</body>
+</html>

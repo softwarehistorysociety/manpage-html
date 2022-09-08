@@ -1,0 +1,552 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:12:08 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>USERMOD</title>
+
+</head>
+<body>
+
+<h1 align="center">USERMOD</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#CAVEATS">CAVEATS</a><br>
+<a href="#CONFIGURATION">CONFIGURATION</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">usermod -
+modify a user account</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="35%">
+
+
+<p style="margin-top: 1em"><b>usermod</b> [<i>options</i>]
+<i>LOGIN</i></p> </td>
+<td width="54%">
+</td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>usermod</b> command modifies the system account files to
+reflect the changes that are specified on the command
+line.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The options
+which apply to the <b>usermod</b> command are:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-a</b>,
+<b>--append</b></p>
+
+<p style="margin-left:17%;">Add the user to the
+supplementary group(s). Use only with the <b>-G</b>
+option.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-b</b>,
+<b>--badnames</b></p>
+
+<p style="margin-left:17%;">Allow names that do not conform
+to standards.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-c</b>,
+<b>--comment&nbsp;</b><i>COMMENT</i></p>
+
+<p style="margin-left:17%;">The new value of the user's
+password file comment field. It is normally modified using
+the <b>chfn</b>(1) utility.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-d</b>,
+<b>--home&nbsp;</b><i>HOME_DIR</i></p>
+
+<p style="margin-left:17%;">The user's new login
+directory.</p>
+
+<p style="margin-left:17%; margin-top: 1em">If the
+<b>-m</b> option is given, the contents of the current home
+directory will be moved to the new home directory, which is
+created if it does not already exist.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-e</b>,
+<b>--expiredate&nbsp;</b><i>EXPIRE_DATE</i></p>
+
+<p style="margin-left:17%;">The date on which the user
+account will be disabled. The date is specified in the
+format <i>YYYY-MM-DD</i>.</p>
+
+<p style="margin-left:17%; margin-top: 1em">An empty
+<i>EXPIRE_DATE</i> argument will disable the expiration of
+the account.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This option
+requires a /etc/shadow file. A /etc/shadow entry will be
+created if there were none.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-f</b>,
+<b>--inactive&nbsp;</b><i>INACTIVE</i></p>
+
+<p style="margin-left:17%;">The number of days after a
+password expires until the account is permanently
+disabled.</p>
+
+<p style="margin-left:17%; margin-top: 1em">A value of 0
+disables the account as soon as the password has expired,
+and a value of -1 disables the feature.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This option
+requires a /etc/shadow file. A /etc/shadow entry will be
+created if there were none.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-g</b>,
+<b>--gid&nbsp;</b><i>GROUP</i></p>
+
+<p style="margin-left:17%;">The group name or number of the
+user's new initial login group. The group must exist.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Any file from
+the user's home directory owned by the previous primary
+group of the user will be owned by this new group.</p>
+
+<p style="margin-left:17%; margin-top: 1em">The group
+ownership of files outside of the user's home directory must
+be fixed manually.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-G</b>,
+<b>--groups&nbsp;</b><i>GROUP1</i>[<i>,GROUP2,...</i>[<i>,GROUPN</i>]]]</p>
+
+<p style="margin-left:17%;">A list of supplementary groups
+which the user is also a member of. Each group is separated
+from the next by a comma, with no intervening whitespace.
+The groups are subject to the same restrictions as the group
+given with the <b>-g</b> option.</p>
+
+<p style="margin-left:17%; margin-top: 1em">If the user is
+currently a member of a group which is not listed, the user
+will be removed from the group. This behaviour can be
+changed via the <b>-a</b> option, which appends the user to
+the current supplementary group list.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-l</b>,
+<b>--login&nbsp;</b><i>NEW_LOGIN</i></p>
+
+<p style="margin-left:17%;">The name of the user will be
+changed from <i>LOGIN</i> to <i>NEW_LOGIN</i>. Nothing else
+is changed. In particular, the user's home directory or mail
+spool should probably be renamed manually to reflect the new
+login name.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-L</b>,
+<b>--lock</b></p>
+
+<p style="margin-left:17%;">Lock a user's password. This
+puts a '!' in front of the encrypted password, effectively
+disabling the password. You can't use this option with
+<b>-p</b> or <b>-U</b>.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Note: if you
+wish to lock the account (not only access with a password),
+you should also set the <i>EXPIRE_DATE</i> to <i>1</i>.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-m</b>,
+<b>--move-home</b></p>
+
+<p style="margin-left:17%;">Move the content of the user's
+home directory to the new location.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This option is
+only valid in combination with the <b>-d</b> (or
+<b>--home</b>) option.</p>
+
+<p style="margin-left:17%; margin-top: 1em"><b>usermod</b>
+will try to adapt the ownership of the files and to copy the
+modes, ACL and extended attributes, but manual changes might
+be needed afterwards.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-o</b>,
+<b>--non-unique</b></p>
+
+<p style="margin-left:17%;">When used with the <b>-u</b>
+option, this option allows to change the user ID to a
+non-unique value.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-p</b>,
+<b>--password&nbsp;</b><i>PASSWORD</i></p>
+
+<p style="margin-left:17%;">The encrypted password, as
+returned by <b>crypt</b>(3).</p>
+
+<p style="margin-left:17%; margin-top: 1em"><b>Note:</b>
+This option is not recommended because the password (or
+encrypted password) will be visible by users listing the
+processes.</p>
+
+<p style="margin-left:17%; margin-top: 1em">The password
+will be written in the local /etc/passwd or /etc/shadow
+file. This might differ from the password database
+configured in your PAM configuration.</p>
+
+<p style="margin-left:17%; margin-top: 1em">You should make
+sure the password respects the system's password policy.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-R</b>,
+<b>--root&nbsp;</b><i>CHROOT_DIR</i></p>
+
+<p style="margin-left:17%;">Apply changes in the
+<i>CHROOT_DIR</i> directory and use the configuration files
+from the <i>CHROOT_DIR</i> directory.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-P</b>,
+<b>--prefix&nbsp;</b><i>PREFIX_DIR</i></p>
+
+<p style="margin-left:17%;">Apply changes in the
+<i>PREFIX_DIR</i> directory and use the configuration files
+from the <i>PREFIX_DIR</i> directory. This option does not
+chroot and is intended for preparing a cross-compilation
+target. Some limitations: NIS and LDAP users/groups are not
+verified. PAM authentication is using the host files. No
+SELINUX support.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-s</b>,
+<b>--shell&nbsp;</b><i>SHELL</i></p>
+
+<p style="margin-left:17%;">The name of the user's new
+login shell. Setting this field to blank causes the system
+to select the default login shell.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-u</b>,
+<b>--uid&nbsp;</b><i>UID</i></p>
+
+<p style="margin-left:17%;">The new numerical value of the
+user's ID.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This value must
+be unique, unless the <b>-o</b> option is used. The value
+must be non-negative.</p>
+
+<p style="margin-left:17%; margin-top: 1em">The user's
+mailbox, and any files which the user owns and which are
+located in the user's home directory will have the file user
+ID changed automatically.</p>
+
+<p style="margin-left:17%; margin-top: 1em">The ownership
+of files outside of the user's home directory must be fixed
+manually.</p>
+
+<p style="margin-left:17%; margin-top: 1em">No checks will
+be performed with regard to the <b>UID_MIN</b>,
+<b>UID_MAX</b>, <b>SYS_UID_MIN</b>, or <b>SYS_UID_MAX</b>
+from /etc/login.defs.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-U</b>,
+<b>--unlock</b></p>
+
+<p style="margin-left:17%;">Unlock a user's password. This
+removes the '!' in front of the encrypted password. You
+can't use this option with <b>-p</b> or <b>-L</b>.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Note: if you
+wish to unlock the account (not only access with a
+password), you should also set the <i>EXPIRE_DATE</i> (for
+example to <i>99999</i>, or to the <b>EXPIRE</b> value from
+/etc/default/useradd).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-v</b>,
+<b>--add-subuids&nbsp;</b><i>FIRST</i>-<i>LAST</i></p>
+
+<p style="margin-left:17%;">Add a range of subordinate uids
+to the user's account.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This option may
+be specified multiple times to add multiple ranges to a
+users account.</p>
+
+<p style="margin-left:17%; margin-top: 1em">No checks will
+be performed with regard to <b>SUB_UID_MIN</b>,
+<b>SUB_UID_MAX</b>, or <b>SUB_UID_COUNT</b> from
+/etc/login.defs.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-V</b>,
+<b>--del-subuids&nbsp;</b><i>FIRST</i>-<i>LAST</i></p>
+
+<p style="margin-left:17%;">Remove a range of subordinate
+uids from the user's account.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This option may
+be specified multiple times to remove multiple ranges to a
+users account. When both <b>--del-subuids</b> and
+<b>--add-subuids</b> are specified, the removal of all
+subordinate uid ranges happens before any subordinate uid
+range is added.</p>
+
+<p style="margin-left:17%; margin-top: 1em">No checks will
+be performed with regard to <b>SUB_UID_MIN</b>,
+<b>SUB_UID_MAX</b>, or <b>SUB_UID_COUNT</b> from
+/etc/login.defs.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-w</b>,
+<b>--add-subgids&nbsp;</b><i>FIRST</i>-<i>LAST</i></p>
+
+<p style="margin-left:17%;">Add a range of subordinate gids
+to the user's account.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This option may
+be specified multiple times to add multiple ranges to a
+users account.</p>
+
+<p style="margin-left:17%; margin-top: 1em">No checks will
+be performed with regard to <b>SUB_GID_MIN</b>,
+<b>SUB_GID_MAX</b>, or <b>SUB_GID_COUNT</b> from
+/etc/login.defs.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-W</b>,
+<b>--del-subgids&nbsp;</b><i>FIRST</i>-<i>LAST</i></p>
+
+<p style="margin-left:17%;">Remove a range of subordinate
+gids from the user's account.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This option may
+be specified multiple times to remove multiple ranges to a
+users account. When both <b>--del-subgids</b> and
+<b>--add-subgids</b> are specified, the removal of all
+subordinate gid ranges happens before any subordinate gid
+range is added.</p>
+
+<p style="margin-left:17%; margin-top: 1em">No checks will
+be performed with regard to <b>SUB_GID_MIN</b>,
+<b>SUB_GID_MAX</b>, or <b>SUB_GID_COUNT</b> from
+/etc/login.defs.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-Z</b>,
+<b>--selinux-user&nbsp;</b><i>SEUSER</i></p>
+
+<p style="margin-left:17%;">The new SELinux user for the
+user's login.</p>
+
+<p style="margin-left:17%; margin-top: 1em">A blank
+<i>SEUSER</i> will remove the SELinux user mapping for user
+<i>LOGIN</i> (if any).</p>
+
+<h2>CAVEATS
+<a name="CAVEATS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">You must make
+certain that the named user is not executing any processes
+when this command is being executed if the user's numerical
+user ID, the user's name, or the user's home directory is
+being changed. <b>usermod</b> checks this on Linux. On other
+platforms it only uses utmp to check if the user is logged
+in.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You must change
+the owner of any <b>crontab</b> files or <b>at</b> jobs
+manually.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You must make
+any changes involving NIS on the NIS server.</p>
+
+<h2>CONFIGURATION
+<a name="CONFIGURATION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+configuration variables in /etc/login.defs change the
+behavior of this tool:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>LASTLOG_UID_MAX</b>
+(number)</p>
+
+<p style="margin-left:17%;">Highest user ID number for
+which the lastlog entries should be updated. As higher user
+IDs are usually tracked by remote user identity and
+authentication services there is no need to create a huge
+sparse lastlog file for them.</p>
+
+<p style="margin-left:17%; margin-top: 1em">No
+<b>LASTLOG_UID_MAX</b> option present in the configuration
+means that there is no user ID limit for writing lastlog
+entries.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>MAIL_DIR</b>
+(string)</p>
+
+<p style="margin-left:17%;">The mail spool directory. This
+is needed to manipulate the mailbox when its corresponding
+user account is modified or deleted. If not specified, a
+compile-time default is used.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>MAIL_FILE</b>
+(string)</p>
+
+<p style="margin-left:17%;">Defines the location of the
+users mail spool files relatively to their home
+directory.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>MAIL_DIR</b> and <b>MAIL_FILE</b> variables are used by
+<b>useradd</b>, <b>usermod</b>, and <b>userdel</b> to
+create, move, or delete the user's mail spool.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>MAX_MEMBERS_PER_GROUP</b>
+(number)</p>
+
+<p style="margin-left:17%;">Maximum members per group
+entry. When the maximum is reached, a new group entry (line)
+is started in /etc/group (with the same name, same password,
+and same GID).</p>
+
+<p style="margin-left:17%; margin-top: 1em">The default
+value is 0, meaning that there are no limits in the number
+of members in a group.</p>
+
+<p style="margin-left:17%; margin-top: 1em">This feature
+(split group) permits to limit the length of lines in the
+group file. This is useful to make sure that lines for NIS
+groups are not larger than 1024 characters.</p>
+
+<p style="margin-left:17%; margin-top: 1em">If you need to
+enforce such limit, you can use 25.</p>
+
+<p style="margin-left:17%; margin-top: 1em">Note: split
+groups may not be supported by all tools (even in the Shadow
+toolsuite). You should not use this variable unless you
+really need it.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>SUB_GID_MIN</b>
+(number), <b>SUB_GID_MAX</b> (number), <b>SUB_GID_COUNT</b>
+(number)</p>
+
+<p style="margin-left:17%;">If /etc/subuid exists, the
+commands <b>useradd</b> and <b>newusers</b> (unless the user
+already have subordinate group IDs) allocate
+<b>SUB_GID_COUNT</b> unused group IDs from the range
+<b>SUB_GID_MIN</b> to <b>SUB_GID_MAX</b> for each new
+user.</p>
+
+<p style="margin-left:17%; margin-top: 1em">The default
+values for <b>SUB_GID_MIN</b>, <b>SUB_GID_MAX</b>,
+<b>SUB_GID_COUNT</b> are respectively 100000, 600100000 and
+65536.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>SUB_UID_MIN</b>
+(number), <b>SUB_UID_MAX</b> (number), <b>SUB_UID_COUNT</b>
+(number)</p>
+
+<p style="margin-left:17%;">If /etc/subuid exists, the
+commands <b>useradd</b> and <b>newusers</b> (unless the user
+already have subordinate user IDs) allocate
+<b>SUB_UID_COUNT</b> unused user IDs from the range
+<b>SUB_UID_MIN</b> to <b>SUB_UID_MAX</b> for each new
+user.</p>
+
+<p style="margin-left:17%; margin-top: 1em">The default
+values for <b>SUB_UID_MIN</b>, <b>SUB_UID_MAX</b>,
+<b>SUB_UID_COUNT</b> are respectively 100000, 600100000 and
+65536.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/group</p>
+
+<p style="margin-left:17%;">Group account information.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/gshadow</p>
+
+<p style="margin-left:17%;">Secure group account
+information.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/login.defs</p>
+
+<p style="margin-left:17%;">Shadow password suite
+configuration.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/passwd</p>
+
+<p style="margin-left:17%;">User account information.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/shadow</p>
+
+<p style="margin-left:17%;">Secure user account
+information.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/subgid</p>
+
+<p style="margin-left:17%;">Per user subordinate group
+IDs.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/subuid</p>
+
+<p style="margin-left:17%;">Per user subordinate user
+IDs.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>chfn</b>(1),
+<b>chsh</b>(1), <b>passwd</b>(1), <b>crypt</b>(3),
+<b>gpasswd</b>(8), <b>groupadd</b>(8), <b>groupdel</b>(8),
+<b>groupmod</b>(8), <b>login.defs</b>(5), <b>subgid</b>(5),
+<b>subuid</b>(5), <b>useradd</b>(8), <b>userdel</b>(8).</p>
+<hr>
+</body>
+</html>

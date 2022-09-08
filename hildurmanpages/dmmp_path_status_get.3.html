@@ -1,0 +1,142 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:38:24 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>dmmp_path_status_get</title>
+
+</head>
+<body>
+
+<h1 align="center">dmmp_path_status_get</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#ARGUMENTS">ARGUMENTS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#RETURN">RETURN</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">dmmp_path_status_get
+- Retrieve the path status.</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>uint32_t
+dmmp_path_status_get (struct dmmp_path
+*</b><i>dmmp_p</i><b>);</b></p>
+
+<h2>ARGUMENTS
+<a name="ARGUMENTS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p style="margin-top: 1em">dmmp_p</p></td>
+<td width="9%"></td>
+<td width="71%">
+
+
+<p style="margin-top: 1em">Pointer of &rsquo;struct
+dmmp_path&rsquo;. If this pointer is NULL, your program will
+be terminated by assert.</p></td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The valid path
+statuses are:</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_PATH_STATUS_UNKNOWN</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_PATH_STATUS_DOWN</p>
+
+<p style="margin-left:11%; margin-top: 1em">Path is down
+and you shouldn&rsquo;t try to send commands to it.</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_PATH_STATUS_UP</p>
+
+<p style="margin-left:11%; margin-top: 1em">Path is up and
+I/O can be sent to it.</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_PATH_STATUS_SHAKY</p>
+
+<p style="margin-left:11%; margin-top: 1em">Only
+emc_clariion checker when path not available for
+&quot;normal&quot; operations.</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_PATH_STATUS_GHOST</p>
+
+<p style="margin-left:11%; margin-top: 1em">Only hp_sw and
+rdac checkers. Indicates a &quot;passive/standby&quot; path
+on active/passive HP arrays. These paths will return valid
+answers to certain SCSI commands (tur, read_capacity,
+inquiry, start_stop), but will fail I/O commands. The path
+needs an initialization command to be sent to it in order
+for I/Os to succeed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_PATH_STATUS_PENDING</p>
+
+<p style="margin-left:11%; margin-top: 1em">Available for
+all async checkers when a check IO is in flight.</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_PATH_STATUS_TIMEOUT</p>
+
+<p style="margin-left:11%; margin-top: 1em">Only tur
+checker when command timed out.</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_PATH_STATUS_DELAYED</p>
+
+<p style="margin-left:11%; margin-top: 1em">If a path fails
+after being up for less than delay_watch_checks checks, when
+it comes back up again, it will not be marked as up until it
+has been up for delay_wait_checks checks. During this time,
+it is marked as &quot;delayed&quot;.</p>
+
+<h2>RETURN
+<a name="RETURN"></a>
+</h2>
+
+ 
+<p style="margin-left:11%; margin-top: 1em">uint32_t.</p>
+<hr>
+</body>
+</html>

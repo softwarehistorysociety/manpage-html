@@ -1,0 +1,261 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:52:30 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>LDCONFIG</title>
+
+</head>
+<body>
+
+<h1 align="center">LDCONFIG</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#COLOPHON">COLOPHON</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">ldconfig -
+configure dynamic linker run-time bindings</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>/sbin/ldconfig</b>
+[<b>-nNvXV</b>] [<b>-f</b> <i>conf</i>] [<b>-C</b>
+<i>cache</i>] [<b>-r</b> <i>root</i>] <i>directory</i>...
+<b><br>
+/sbin/ldconfig -l</b> [<b>-v</b>] <i>library</i>... <b><br>
+/sbin/ldconfig -p</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ldconfig</b>
+creates the necessary links and cache to the most recent
+shared libraries found in the directories specified on the
+command line, in the file <i>/etc/ld.so.conf</i>, and in the
+trusted directories, <i>/lib</i> and <i>/usr/lib</i> (on
+some 64-bit architectures such as x86-64, <i>/lib</i> and
+<i>/usr/lib</i> are the trusted directories for 32-bit
+libraries, while <i>/lib64</i> and <i>/usr/lib64</i> are
+used for 64-bit libraries).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The cache is
+used by the run-time linker, <i>ld.so</i> or
+<i>ld-linux.so</i>. <b>ldconfig</b> checks the header and
+filenames of the libraries it encounters when determining
+which versions should have their links updated.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ldconfig</b>
+will attempt to deduce the type of ELF libraries (i.e.,
+libc5 or libc6/glibc) based on what C libraries, if any, the
+library was linked against.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Some existing
+libraries do not contain enough information to allow the
+deduction of their type. Therefore, the
+<i>/etc/ld.so.conf</i> file format allows the specification
+of an expected type. This is used <i>only</i> for those ELF
+libraries which we can not work out. The format is
+&quot;dirname=TYPE&quot;, where TYPE can be libc4, libc5, or
+libc6. (This syntax also works on the command line.) Spaces
+are <i>not</i> allowed. Also see the <b>-p</b> option.
+<b>ldconfig</b> should normally be run by the superuser as
+it may require write permission on some root owned
+directories and files.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+<b>ldconfig</b> will only look at files that are named
+<i>lib*.so*</i> (for regular shared objects) or
+<i>ld-*.so*</i> (for the dynamic loader itself). Other files
+will be ignored. Also, <b>ldconfig</b> expects a certain
+pattern to how the symlinks are set up, like this example,
+where the middle file (<b>libfoo.so.1</b> here) is the
+SONAME for the library:</p>
+
+<p style="margin-left:17%; margin-top: 1em">libfoo.so -&gt;
+libfoo.so.1 -&gt; libfoo.so.1.12</p>
+
+<p style="margin-left:11%; margin-top: 1em">Failure to
+follow this pattern may result in compatibility issues after
+an upgrade.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-c</b>
+<i>fmt</i>, <b>--format=</b><i>fmt</i></p>
+
+<p style="margin-left:22%;">(Since glibc 2.2) Cache format
+to use: <i>old</i>, <i>new</i>, or <i>compat</i>
+(default).</p>
+
+<p style="margin-left:11%;"><b>-C</b> <i>cache</i></p>
+
+<p style="margin-left:22%;">Use <i>cache</i> instead of
+<i>/etc/ld.so.cache</i>.</p>
+
+<p style="margin-left:11%;"><b>-f</b> <i>conf</i></p>
+
+<p style="margin-left:22%;">Use <i>conf</i> instead of
+<i>/etc/ld.so.conf</i>.</p>
+
+<p style="margin-left:11%;"><b>-i</b>,
+<b>--ignore-aux-cache</b></p>
+
+<p style="margin-left:22%;">(Since glibc 2.7) Ignore
+auxiliary cache file.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-l</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>(Since glibc 2.2) Library mode. Manually link individual
+libraries. Intended for use by experts only.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-n</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Process only the directories specified on the command
+line. Don&rsquo;t process the trusted directories, nor those
+specified in <i>/etc/ld.so.conf</i>. Implies <b>-N</b>.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-N</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Don&rsquo;t rebuild the cache. Unless <b>-X</b> is also
+specified, links are still updated.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-p</b>,
+<b>--print-cache</b></p>
+
+<p style="margin-left:22%;">Print the lists of directories
+and candidate libraries stored in the current cache.</p>
+
+<p style="margin-left:11%;"><b>-r</b> <i>root</i></p>
+
+<p style="margin-left:22%;">Change to and use <i>root</i>
+as the root directory.</p>
+
+<p style="margin-left:11%;"><b>-v</b>, <b>--verbose</b></p>
+
+<p style="margin-left:22%;">Verbose mode. Print current
+version number, the name of each directory as it is scanned,
+and any links that are created. Overrides quiet mode.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Print program version.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-X</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Don&rsquo;t update links. Unless <b>-N</b> is also
+specified, the cache is still rebuilt.</p></td></tr>
+</table>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/lib/ld.so</i></p>
+
+<p style="margin-left:22%;">Run-time linker/loader.</p>
+
+<p style="margin-left:11%;"><i>/etc/ld.so.conf</i></p>
+
+<p style="margin-left:22%;">File containing a list of
+directories, one per line, in which to search for
+libraries.</p>
+
+<p style="margin-left:11%;"><i>/etc/ld.so.cache</i></p>
+
+<p style="margin-left:22%;">File containing an ordered list
+of libraries found in the directories specified in
+<i>/etc/ld.so.conf</i>, as well as those found in the
+trusted directories.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ldd</b>(1),
+<b>ld.so</b>(8)</p>
+
+<h2>COLOPHON
+<a name="COLOPHON"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This page is
+part of release 5.05 of the Linux <i>man-pages</i> project.
+A description of the project, information about reporting
+bugs, and the latest version of this page, can be found at
+https://www.kernel.org/doc/man-pages/.</p>
+<hr>
+</body>
+</html>

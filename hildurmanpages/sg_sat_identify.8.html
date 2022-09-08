@@ -1,0 +1,314 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:05:28 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SG_SAT_IDENTIFY</title>
+
+</head>
+<body>
+
+<h1 align="center">SG_SAT_IDENTIFY</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#REPORTING BUGS">REPORTING BUGS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">sg_sat_identify
+- send ATA IDENTIFY DEVICE command via SCSI to ATA
+Translation (SAT) layer</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sg_sat_identify</b>
+[<i>--ck_cond</i>] [<i>--extend</i>] [<i>--help</i>]
+[<i>--hex</i>] [<i>--ident</i>] [<i>--len=CLEN</i>]
+[<i>--packet</i>] [<i>--raw</i>] [<i>--readonly</i>]
+[<i>--verbose</i>] [<i>--version</i>] <i>DEVICE</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This utility
+sends either an ATA IDENTIFY DEVICE command or an ATA
+IDENTIFY PACKET DEVICE command to <i>DEVICE</i> and outputs
+the response. The devices that respond to these commands are
+ATA disks and ATAPI devices respectively. Rather than send
+these commands directly to the device they are sent via a
+SCSI transport which is assumed to contain a SCSI to ATA
+Translation (SAT) Layer (SATL). The SATL may be in an
+operating system driver, in host bus adapter firmware or in
+some external enclosure.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The SAT
+standard (SAT ANSI INCITS 431-2007, prior draft: sat-r09.pdf
+at www.t10.org) defines two SCSI &quot;ATA
+PASS-THROUGH&quot; commands: one using a 16 byte
+&quot;cdb&quot; and the other with a 12 byte cdb. This
+utility defaults to using the 16 byte cdb variant. SAT-4
+revision 5 added a SCSI &quot;ATA PASS-THROUGH(32)&quot;
+command. SAT-2 and SAT-3 are now also standards: SAT-2 ANSI
+INCITS 465-2010 and SAT3 ANSI INCITS 517-2015 . The SAT-4
+project is near standardization and the most recent draft is
+sat4r06.pdf .</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Arguments to
+long options are mandatory for short options as well.
+<b><br>
+-c</b>, <b>--ck_cond</b></p>
+
+<p style="margin-left:22%;">sets the CK_COND bit in the ATA
+PASS-THROUGH SCSI cdb. The default setting is clear (i.e.
+0). When set the SATL should yield a sense buffer containing
+a ATA Result descriptor irrespective of whether the command
+succeeded or failed. When clear the SATL should only yield a
+sense buffer containing a ATA Result descriptor if the
+command failed.</p>
+
+<p style="margin-left:11%;"><b>-e</b>, <b>--extend</b></p>
+
+<p style="margin-left:22%;">sets the EXTEND bit in the ATA
+PASS-THROUGH SCSI cdb. The default setting is clear (i.e.
+0). When set a 48 bit LBA command is sent to the device.
+This option has no effect when <i>--len=12</i>.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">outputs the usage message
+summarizing command line options then exits. Ignores
+<i>DEVICE</i> if given.</p>
+
+<p style="margin-left:11%;"><b>-H</b>, <b>--hex</b></p>
+
+<p style="margin-left:22%;">outputs the ATA IDENTIFY
+(PACKET) DEVICE response in hex. The default action (i.e.
+without any &rsquo;-H&rsquo; options) is to output the
+response in hex, grouped in 16 bit words (i.e. the ATA
+standard&rsquo;s preference). When given once, the response
+is output in ASCII hex bytes (i.e. the SCSI standard&rsquo;s
+preference). When given twice (i.e. &rsquo;-HH&rsquo;) the
+output is in hex, grouped in 16 bit words, the same as the
+default but without a header. When given thrice (i.e.
+&rsquo;-HHH&rsquo;) the output is in hex, grouped in 16 bit
+words, in a format that is acceptable for &rsquo;hdparm
+--Istdin&rsquo; to process. &rsquo;-HHHH&rsquo; simply
+outputs hex data bytes, space separated, 16 per line.</p>
+
+<p style="margin-left:11%;"><b>-i</b>, <b>--ident</b></p>
+
+<p style="margin-left:22%;">outputs the World Wide Name
+(WWN) of the device. This should be a NAA-5 64 bit number.
+It is output in hex prefixed with &quot;0x&quot;. If not
+available then &quot;0x0000000000000000&quot; is output. The
+equivalent for a SCSI disk (i.e. its logical unit name) can
+be found with &quot;sg_vpd -ii&quot;.</p>
+
+<p style="margin-left:11%;"><b>-l</b>,
+<b>--len</b>=CLEN</p>
+
+<p style="margin-left:22%;">CLEN this is the length of the
+SCSI cdb used for the ATA PASS-THROUGH command. CLEN can
+either be 12, 16 or 32. The default is 16. The larger cdb
+sizes are needed for 48 bit LBA addressing of ATA devices.
+The ATA Auxiliary and ICC registers are only conveyed with
+the 32 byte cdb variant.</p>
+
+<p style="margin-left:11%;"><b>-p</b>, <b>--packet</b></p>
+
+<p style="margin-left:22%;">send an ATA IDENTIFY PACKET
+DEVICE command (via the SATL). The default action is to send
+an ATA IDENTIFY DEVICE command. Note that the ATAPI
+specification by T13 (i.e. the PACKET interface) is now
+obsolete.</p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--raw</b></p>
+
+<p style="margin-left:22%;">output the ATA IDENTIFY
+(PACKET) DEVICE response in binary. The output should be
+piped to a file or another utility when this option is used.
+The binary is sent to stdout, and errors are sent to
+stderr.</p>
+
+<p style="margin-left:11%;"><b>-R</b>,
+<b>--readonly</b></p>
+
+<p style="margin-left:22%;">open the <i>DEVICE</i>
+read-only (e.g. in Unix with the O_RDONLY flag). The default
+is to open it read-write.</p>
+
+<p style="margin-left:11%;"><b>-v</b>, <b>--verbose</b></p>
+
+<p style="margin-left:22%;">increases the level or
+verbosity.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">print out version string</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Since the
+response to the IDENTIFY (PACKET) DEVICE command is very
+important for the correct use of an ATA(PI) device (and is
+typically the first command sent), a SATL should provide an
+ATA Information VPD page which contains the similar
+information.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The SCSI ATA
+PASS-THROUGH (12) command&rsquo;s opcode is 0xa1 and it
+clashes with the MMC set&rsquo;s BLANK command used by
+cd/dvd writers. So a SATL in front of an ATAPI device that
+uses MMC (i.e. has peripheral device type 5) probably should
+treat opcode 0xa1 as a BLANK command and send it through to
+the cd/dvd drive. The ATA PASS-THROUGH (16) command&rsquo;s
+opcode (0x85) does not clash with anything so it is a better
+choice.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Prior to Linux
+kernel 2.6.29 USB mass storage limited sense data to 18
+bytes which made the <b>--ck_cond</b> option yield strange
+(truncated) results.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">These examples
+use Linux device names and a Linux utility called hdparm.
+For suitable device names in other supported Operating
+Systems see the sg3_utils(8) man page.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In this example
+/dev/sdb is a SATA 2.5&quot; disk connected via a USB (type
+C connector) dongle that implements the UAS (USB attached
+SCSI) protocol (also known as UASP). UAS is a vast
+improvement over the USB mass storage class.</p>
+
+<p style="margin-left:11%; margin-top: 1em">#
+sg_sat_identify /dev/sdb <br>
+Response for IDENTIFY DEVICE ATA command: <br>
+00 0c5a 3fff c837 0010 0000 0000 003f 0000 .Z ?. .7 .. .. ..
+.? .. <br>
+....</p>
+
+<p style="margin-left:11%; margin-top: 1em">The hexadecimal
+ASCII (with plain ASCII to the right) output is abridged to
+a single line (i.e. the first 16 bytes (or 8 words)). Now to
+decode some of that ATA Identify response. First sg_inq can
+decode a few strings:</p>
+
+<p style="margin-left:11%; margin-top: 1em">#
+sg_sat_identify -HHHH /dev/sdb | sg_inq --ata -I - <br>
+ATA device: model, serial number and firmware revision: <br>
+ST9500420AS 5VJCE6R7 0002SDM1</p>
+
+<p style="margin-left:11%; margin-top: 1em">For a lot more
+details, the hdparm utility is a good choice:</p>
+
+<p style="margin-left:11%; margin-top: 1em">#
+sg_sat_identify -HHH /dev/sdb | hdparm --Istdin <br>
+ATA device, with non-removable media <br>
+Model Number: ST9500420AS <br>
+Serial Number: 5VJCE6R7 <br>
+Firmware Revision: 0002SDM1 <br>
+Transport: Serial <br>
+Standards: <br>
+....</p>
+
+<p style="margin-left:11%; margin-top: 1em">There are about
+80 more lines of details decoded by hdparm in this case.
+Notice the difference in the number of &quot;H&quot;
+options: three give an unadorned hex output arranged in
+(little endian) words (i.e. 16 bits each) while four
+&quot;H&quot; options give an unadorned hex output in bytes
+(i.e. 8 bits each).</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The exit status
+of sg_sat_identify is 0 when it is successful. Otherwise see
+the sg3_utils(8) man page.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Written by
+Douglas Gilbert</p>
+
+<h2>REPORTING BUGS
+<a name="REPORTING BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Report bugs to
+&lt;dgilbert at interlog dot com&gt;.</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+&copy; 2006-2018 Douglas Gilbert <br>
+This software is distributed under a FreeBSD license. There
+is NO warranty; not even for MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sg_vpd(sg3_utils),
+sg_inq(sg3_utils), sdparm(sdparm), hdparm(hdparm)</b></p>
+<hr>
+</body>
+</html>

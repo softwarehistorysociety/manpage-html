@@ -1,0 +1,252 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:02:16 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<hr>
+
+
+<p>RAKE(1) BSD General Commands Manual RAKE(1)</p>
+
+<p style="margin-top: 1em"><b>NAME</b></p>
+
+<p style="margin-left:6%;"><b>rake</b> &mdash; make-like
+build utility for Ruby</p>
+
+<p style="margin-top: 1em"><b>SYNOPSIS</b></p>
+
+<p style="margin-left:13%;"><b>rake</b>
+[<b>-f&nbsp;</b><i>rakefile</i>] [<i>options</i>] <i>targets
+...</i></p>
+
+<p style="margin-top: 1em"><b>DESCRIPTION</b></p>
+
+<p style="margin-left:6%;"><b>rake</b> is a make(1)-like
+build utility for Ruby. Tasks and dependencies are specified
+in standard Ruby syntax.</p>
+
+<p style="margin-top: 1em"><b>OPTIONS <br>
+-m</b>, <b>--multitask</b></p>
+
+<p style="margin-left:17%;">Treat all tasks as
+multitasks.</p>
+
+<p style="margin-top: 1em"><b>-B</b>,
+<b>--build-all</b></p>
+
+<p style="margin-left:17%;">Build all prerequisites,
+including those which are up-to-date.</p>
+
+<p style="margin-top: 1em"><b>-j</b>, <b>--jobs</b>
+<i>num_jobs</i></p>
+
+<p style="margin-left:17%;">Specifies the maximum number of
+tasks to execute in parallel (default is number of CPU cores
++ 4).</p>
+
+
+<p style="margin-left:6%; margin-top: 1em"><b>Modules</b></p>
+
+<p><b>-I</b>, <b>--libdir</b> <i>libdir</i></p>
+
+<p style="margin-left:17%;">Include <i>libdir</i> in the
+search path for required modules.</p>
+
+<p style="margin-top: 1em"><b>-r</b>, <b>--require</b>
+<i>module</i></p>
+
+<p style="margin-left:17%;">Require <i>module</i> before
+executing <i>rakefile</i>.</p>
+
+<p style="margin-left:6%; margin-top: 1em"><b>Rakefile
+location</b></p>
+
+<p><b>-f</b>, <b>--rakefile</b> <i>filename</i></p>
+
+<p style="margin-left:17%;">Use <i>filename</i> as the
+rakefile to search for.</p>
+
+<p style="margin-top: 1em"><b>-N</b>, <b>--no-search</b>,
+<b>--nosearch</b></p>
+
+<p style="margin-left:17%;">Do not search parent
+directories for the Rakefile.</p>
+
+<p style="margin-top: 1em"><b>-G</b>, <b>--no-system</b>,
+<b>--nosystem</b></p>
+
+<p style="margin-left:17%;">Use standard project Rakefile
+search paths, ignore system wide rakefiles.</p>
+
+<p style="margin-top: 1em"><b>-R</b>, <b>--rakelib</b>
+<i>rakelibdir</i>, <b>--rakelibdir</b> <i>rakelibdir</i></p>
+
+<p style="margin-left:17%;">Auto-import any .rake files in
+<i>rakelibdir</i> (default is &rsquo;rakelib&rsquo;)</p>
+
+<p style="margin-top: 1em"><b>-g</b>, <b>--system</b></p>
+
+<p style="margin-left:17%;">Use system-wide (global)
+rakefiles (usually <i>~/.rake/*.rake</i>).</p>
+
+
+<p style="margin-left:6%; margin-top: 1em"><b>Debugging</b></p>
+
+<p><b>--backtrace</b>=<i>out</i></p>
+
+<p style="margin-left:17%;">Enable full backtrace.
+<i>out</i> can be stderr (default) or stdout.</p>
+
+<p style="margin-top: 1em"><b>-t</b>,
+<b>--trace</b>=<i>out</i></p>
+
+<p style="margin-left:17%;">Turn on invoke/execute tracing,
+enable full backtrace. <i>out</i> can be stderr (default) or
+stdout.</p>
+
+<p style="margin-top: 1em"><b>--suppress-backtrace</b>
+<i>pattern</i></p>
+
+<p style="margin-left:17%;">Suppress backtrace lines
+matching regexp <i>pattern</i>. Ignored if <b>--trace</b> is
+on.</p>
+
+<p style="margin-top: 1em"><b>--rules</b></p>
+
+<p style="margin-left:17%;">Trace the rules resolution.</p>
+
+<p style="margin-top: 1em"><b>-n</b>, <b>--dry-run</b></p>
+
+<p style="margin-left:17%;">Do a dry run without executing
+actions.</p>
+
+<p style="margin-top: 1em"><b>-T</b>, <b>--tasks</b>
+[<i>pattern</i>]</p>
+
+<p style="margin-left:17%;">Display the tasks (matching
+optional <i>pattern</i>) with descriptions, then exit.</p>
+
+<p style="margin-top: 1em"><b>-D</b>, <b>--describe</b>
+[<i>pattern</i>]</p>
+
+<p style="margin-left:17%;">Describe the tasks (matching
+optional <i>pattern</i>), then exit.</p>
+
+<p style="margin-top: 1em"><b>-W</b>, <b>--where</b>
+[<i>pattern</i>]</p>
+
+<p style="margin-left:17%;">Describe the tasks (matching
+optional <i>pattern</i>), then exit.</p>
+
+<p style="margin-top: 1em"><b>-P</b>, <b>--prereqs</b></p>
+
+<p style="margin-left:17%;">Display the tasks and
+dependencies, then exit.</p>
+
+<p style="margin-top: 1em"><b>-e</b>, <b>--execute</b>
+<i>code</i></p>
+
+<p style="margin-left:17%;">Execute some Ruby code and
+exit.</p>
+
+<p style="margin-top: 1em"><b>-p</b>,
+<b>--execute-print</b> <i>code</i></p>
+
+<p style="margin-left:17%;">Execute some Ruby code, print
+the result, then exit.</p>
+
+<p style="margin-top: 1em"><b>-E</b>,
+<b>--execute-continue</b> <i>code</i></p>
+
+<p style="margin-left:17%;">Execute some Ruby code, then
+continue with normal task processing.</p>
+
+
+<p style="margin-left:6%; margin-top: 1em"><b>Information</b></p>
+
+<p><b>-v</b>, <b>--verbose</b></p>
+
+<p style="margin-left:17%;">Log message to standard
+output.</p>
+
+<p style="margin-top: 1em"><b>-q</b>, <b>--quiet</b></p>
+
+<p style="margin-left:17%;">Do not log messages to standard
+output.</p>
+
+<p style="margin-top: 1em"><b>-s</b>, <b>--silent</b></p>
+
+<p style="margin-left:17%;">Like <b>--quiet</b>, but also
+suppresses the &rsquo;in directory&rsquo; announcement.</p>
+
+<p style="margin-top: 1em"><b>-X</b>,
+<b>--no-deprecation-warnings</b></p>
+
+<p style="margin-left:17%;">Disable the deprecation
+warnings.</p>
+
+<p style="margin-top: 1em"><b>--comments</b></p>
+
+<p style="margin-left:17%;">Show commented tasks only</p>
+
+<p style="margin-top: 1em"><b>-A</b>, <b>--all</b></p>
+
+<p style="margin-left:17%;">Show all tasks, even
+uncommented ones (in combination with <b>-T</b> or
+<b>-D</b>)</p>
+
+<p style="margin-top: 1em"><b>--job-stats</b>
+[<i>level</i>]</p>
+
+<p style="margin-left:17%;">Display job statistics. If
+<i>level</i> is &rsquo;history&rsquo;, displays a complete
+job list.</p>
+
+<p style="margin-top: 1em"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:17%;">Display the program
+version.</p>
+
+<p style="margin-top: 1em"><b>-h</b>, <b>-H</b>,
+<b>--help</b></p>
+
+<p style="margin-left:17%;">Display a help message.</p>
+
+<p style="margin-top: 1em"><b>SEE ALSO</b></p>
+
+<p style="margin-left:6%;">The complete documentation for
+<b>rake</b> has been installed at
+<i>/usr/share/doc/rake-doc/html/index.html</i>. It is also
+available online at <b>https://ruby.github.io/rake</b>.</p>
+
+<p style="margin-top: 1em"><b>AUTHORS</b></p>
+
+<p style="margin-left:6%;"><b>rake</b> was written by Jim
+Weirich &lt;<i>jim@weirichhouse.org</i>&gt;.</p>
+
+<p style="margin-left:6%; margin-top: 1em">This manual was
+created by Caitlin Matos
+&lt;<i>caitlin.matos@zoho.com</i>&gt; for the Debian project
+(but may be used by others). It was inspired by the manual
+by Jani Monoses &lt;<i>jani@iv.ro</i>&gt; for the Ubuntu
+project.</p>
+
+<p style="margin-left:6%; margin-top: 1em">rake 11.2.2
+June&nbsp;12, 2016 rake 11.2.2</p>
+<hr>
+</body>
+</html>

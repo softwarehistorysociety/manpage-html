@@ -1,0 +1,210 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:35:47 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<hr>
+
+
+<p>COL(1) BSD General Commands Manual COL(1)</p>
+
+<p style="margin-top: 1em"><b>NAME</b></p>
+
+<p style="margin-left:6%;"><b>col</b> &mdash; filter
+reverse line feeds from input</p>
+
+<p style="margin-top: 1em"><b>SYNOPSIS</b></p>
+
+<p style="margin-left:12%;"><b>col</b> [<b>-bfhpx</b>]
+[<b>-l&nbsp;</b><i>num</i>]</p>
+
+<p style="margin-top: 1em"><b>DESCRIPTION</b></p>
+
+<p style="margin-left:6%;">The <b>col</b> utility filters
+out reverse (and half reverse) line feeds so that the output
+is in the correct order with only forward and half forward
+line feeds, and replaces white-space characters with tabs
+where possible. This can be useful in processing the output
+of nroff(1) and tbl(1).</p>
+
+<p style="margin-left:6%; margin-top: 1em">The <b>col</b>
+utility reads from the standard input and writes to the
+standard output.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The options are
+as follows:</p>
+
+<p style="margin-top: 1em"><b>-b</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Do not output
+any backspaces, printing only the last character written to
+each column position.</p>
+
+<p style="margin-top: 1em"><b>-f</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Forward half
+line feeds are permitted (&rsquo;&rsquo;fine&rsquo;&rsquo;
+mode). Normally characters printed on a half line boundary
+are printed on the following line.</p>
+
+<p style="margin-top: 1em"><b>-h</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Do not output
+multiple spaces instead of tabs (default).</p>
+
+<p style="margin-top: 1em"><b>-l</b> <i>num</i></p>
+
+<p style="margin-left:17%; margin-top: 1em">Buffer at least
+<i>num</i> lines in memory. By default, 128 lines are
+buffered.</p>
+
+<p style="margin-top: 1em"><b>-p</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Force unknown
+control sequences to be passed through unchanged. Normally,
+<b>col</b> will filter out any control sequences from the
+input other than those recognized and interpreted by itself,
+which are listed below.</p>
+
+<p style="margin-top: 1em"><b>-x</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Output multiple
+spaces instead of tabs.</p>
+
+<p style="margin-left:6%; margin-top: 1em">In the input
+stream, <b>col</b> understands both the escape sequences of
+the form escape-digit mandated by Version&nbsp;2 of the
+Single UNIX Specification (&ldquo;SUSv2&rdquo;) and the
+traditional BSD format escape-control-character. The control
+sequences for carriage motion and their ASCII values are as
+follows:</p>
+
+<p style="margin-top: 1em">ESC-BELL</p>
+
+<p style="margin-left:28%; margin-top: 1em">reverse line
+feed (escape then bell).</p>
+
+<p>ESC-7</p>
+
+<p style="margin-left:28%; margin-top: 1em">reverse line
+feed (escape then 7).</p>
+
+<p>ESC-BACKSPACE</p>
+
+<p style="margin-left:28%; margin-top: 1em">half reverse
+line feed (escape then backspace).</p>
+
+<p>ESC-8</p>
+
+<p style="margin-left:28%; margin-top: 1em">half reverse
+line feed (escape then 8).</p>
+
+<p>ESC-TAB</p>
+
+<p style="margin-left:28%; margin-top: 1em">half forward
+line feed (escape than tab).</p>
+
+<p>ESC-9</p>
+
+<p style="margin-left:28%; margin-top: 1em">half forward
+line feed (escape then 9). In <b>-f</b> mode, this sequence
+may also occur in the output stream.</p>
+
+<p>backspace</p>
+
+<p style="margin-left:28%; margin-top: 1em">moves back one
+column (8); ignored in the first column</p>
+
+<p>carriage return</p>
+
+<p style="margin-left:28%; margin-top: 1em">(13)</p>
+
+<p>newline</p>
+
+<p style="margin-left:28%; margin-top: 1em">forward line
+feed (10); also does carriage return</p>
+
+<p>shift in</p>
+
+<p style="margin-left:28%; margin-top: 1em">shift to normal
+character set (15)</p>
+
+<p>shift out</p>
+
+<p style="margin-left:28%; margin-top: 1em">shift to
+alternate character set (14)</p>
+
+<p>space</p>
+
+<p style="margin-left:28%; margin-top: 1em">moves forward
+one column (32)</p>
+
+<p>tab</p>
+
+<p style="margin-left:28%; margin-top: 1em">moves forward
+to next tab stop (9)</p>
+
+<p>vertical tab</p>
+
+<p style="margin-left:28%; margin-top: 1em">reverse line
+feed (11)</p>
+
+<p style="margin-left:6%; margin-top: 1em">All unrecognized
+control characters and escape sequences are discarded.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The <b>col</b>
+utility keeps track of the character set as characters are
+read and makes sure the character set is correct when they
+are output.</p>
+
+<p style="margin-left:6%; margin-top: 1em">If the input
+attempts to back up to the last flushed line, <b>col</b>
+will display a warning message.</p>
+
+<p style="margin-top: 1em"><b>ENVIRONMENT</b></p>
+
+<p style="margin-left:6%;">The LANG, LC_ALL and LC_CTYPE
+environment variables affect the execution of <b>col</b> as
+described in environ(7).</p>
+
+<p style="margin-top: 1em"><b>EXIT STATUS</b></p>
+
+<p style="margin-left:6%;">The <b>col</b> utility
+exits&nbsp;0 on success, and&nbsp;&gt;0 if an error
+occurs.</p>
+
+<p style="margin-top: 1em"><b>SEE ALSO</b></p>
+
+<p style="margin-left:6%;">colcrt(1), expand(1), nroff(1),
+tbl(1)</p>
+
+<p style="margin-top: 1em"><b>STANDARDS</b></p>
+
+<p style="margin-left:6%;">The <b>col</b> utility conforms
+to Version&nbsp;2 of the Single UNIX Specification
+(&ldquo;SUSv2&rdquo;).</p>
+
+<p style="margin-top: 1em"><b>HISTORY</b></p>
+
+<p style="margin-left:6%;">A <b>col</b> command appeared in
+Version&nbsp;6 AT&amp;T UNIX.</p>
+
+<p style="margin-left:6%; margin-top: 1em">BSD May&nbsp;10,
+2015 BSD</p>
+<hr>
+</body>
+</html>

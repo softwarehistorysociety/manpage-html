@@ -1,0 +1,167 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:08:00 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SULOGIN</title>
+
+</head>
+<body>
+
+<h1 align="center">SULOGIN</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#ENVIRONMENT VARIABLES">ENVIRONMENT VARIABLES</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">sulogin -
+single-user login</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sulogin</b>
+[options] [<i>tty</i>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sulogin</b>
+is invoked by <b>init</b> when the system goes into
+single-user mode.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The user is
+prompted:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%"></td>
+<td width="64%">
+
+
+<p>Give root password for system maintenance</p></td>
+<td width="18%">
+</td></tr>
+</table>
+
+<p style="margin-left:18%;">(or type Control-D for normal
+startup):</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the root
+account is locked and --force is specified, no password is
+required.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>sulogin</b>
+will be connected to the current terminal, or to the
+optional <i>tty</i> device that can be specified on the
+command line (typically <i>/dev/console</i>).</p>
+
+<p style="margin-left:11%; margin-top: 1em">When the user
+exits from the single-user shell, or presses control-D at
+the prompt, the system will continue to boot.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-e</b>,
+<b>--force</b></p>
+
+<p style="margin-left:22%;">If the default method of
+obtaining the root password from the system via
+<b>getpwnam</b>(3) fails, then examine <i>/etc/passwd</i>
+and <i>/etc/shadow</i> to get the password. If these files
+are damaged or nonexistent, or when root account is locked
+by &rsquo;!&rsquo; or &rsquo;*&rsquo; at the begin of the
+password then <b>sulogin</b> will <b>start a root shell
+without asking for a password</b>.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Only use the
+<b>-e</b> option if you are sure the console is physically
+protected against unauthorized access.</p>
+
+<p style="margin-left:11%;"><b>-p</b>,
+<b>--login-shell</b></p>
+
+<p style="margin-left:22%;">Specifying this option causes
+<b>sulogin</b> to start the shell process as a login
+shell.</p>
+
+<p style="margin-left:11%;"><b>-t</b>, <b>--timeout</b>
+<i>seconds</i></p>
+
+<p style="margin-left:22%;">Specify the maximum amount of
+time to wait for user input. By default, <b>sulogin</b> will
+wait forever.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<h2>ENVIRONMENT VARIABLES
+<a name="ENVIRONMENT VARIABLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sulogin</b>
+looks for the environment variable <b>SUSHELL</b> or
+<b>sushell</b> to determine what shell to start. If the
+environment variable is not set, it will try to execute
+root&rsquo;s shell from <i>/etc/passwd</i>. If that fails,
+it will fall back to <i>/bin/sh</i>.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sulogin</b>
+was written by Miquel van Smoorenburg for sysvinit and later
+ported to util-linux by Dave Reisner and Karel Zak.</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The sulogin
+command is part of the util-linux package and is available
+from
+<a href="https://www.kernel.org/pub/linux/utils/util-linux/">Linux
+Kernel Archive</a>.</p>
+<hr>
+</body>
+</html>

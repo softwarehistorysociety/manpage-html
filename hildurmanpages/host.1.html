@@ -1,0 +1,300 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:48:28 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>HOST</title>
+
+</head>
+<body>
+
+<h1 align="center">HOST</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#IDN SUPPORT">IDN SUPPORT</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">host - DNS
+lookup utility</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em"><b>host</b>
+[<b>-aACdlnrsTUwv</b>] [<b>-c&nbsp;</b><i>class</i>]
+[<b>-N&nbsp;</b><i>ndots</i>] [<b>-R&nbsp;</b><i>number</i>]
+[<b>-t&nbsp;</b><i>type</i>] [<b>-W&nbsp;</b><i>wait</i>]
+[<b>-m&nbsp;</b><i>flag</i>] [[<b>-4</b>] | [<b>-6</b>]]
+[<b>-v</b>] [<b>-V</b>] {name} [server]</p></td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>host</b> is
+a simple utility for performing DNS lookups. It is normally
+used to convert names to IP addresses and vice versa. When
+no arguments or options are given, <b>host</b> prints a
+short summary of its command line arguments and options.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>name</i> is
+the domain name that is to be looked up. It can also be a
+dotted-decimal IPv4 address or a colon-delimited IPv6
+address, in which case <b>host</b> will by default perform a
+reverse lookup for that address. <i>server</i> is an
+optional argument which is either the name or IP address of
+the name server that <b>host</b> should query instead of the
+server or servers listed in /etc/resolv.conf.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">-4</p>
+
+<p style="margin-left:17%;">Use IPv4 only for query
+transport. See also the <b>-6</b> option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-6</p>
+
+<p style="margin-left:17%;">Use IPv6 only for query
+transport. See also the <b>-4</b> option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-a</p>
+
+<p style="margin-left:17%;">&quot;All&quot;. The <b>-a</b>
+option is normally equivalent to <b>-v -t ANY</b>. It also
+affects the behaviour of the <b>-l</b> list zone option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-A</p>
+
+<p style="margin-left:17%;">&quot;Almost all&quot;. The
+<b>-A</b> option is equivalent to <b>-a</b> except RRSIG,
+NSEC, and NSEC3 records are omitted from the output.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-c
+<i>class</i></p>
+
+<p style="margin-left:17%;">Query class: This can be used
+to lookup HS (Hesiod) or CH (Chaosnet) class resource
+records. The default class is IN (Internet).</p>
+
+<p style="margin-left:11%; margin-top: 1em">-C</p>
+
+<p style="margin-left:17%;">Check consistency: <b>host</b>
+will query the SOA records for zone <i>name</i> from all the
+listed authoritative name servers for that zone. The list of
+name servers is defined by the NS records that are found for
+the zone.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-d</p>
+
+<p style="margin-left:17%;">Print debugging traces.
+Equivalent to the <b>-v</b> verbose option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-l</p>
+
+<p style="margin-left:17%;">List zone: The <b>host</b>
+command performs a zone transfer of zone <i>name</i> and
+prints out the NS, PTR and address records (A/AAAA).</p>
+
+<p style="margin-left:17%; margin-top: 1em">Together, the
+<b>-l -a</b> options print all records in the zone.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-N
+<i>ndots</i></p>
+
+<p style="margin-left:17%;">The number of dots that have to
+be in <i>name</i> for it to be considered absolute. The
+default value is that defined using the ndots statement in
+/etc/resolv.conf, or 1 if no ndots statement is present.
+Names with fewer dots are interpreted as relative names and
+will be searched for in the domains listed in the
+<b>search</b> or <b>domain</b> directive in
+/etc/resolv.conf.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-r</p>
+
+<p style="margin-left:17%;">Non-recursive query: Setting
+this option clears the RD (recursion desired) bit in the
+query. This should mean that the name server receiving the
+query will not attempt to resolve <i>name</i>. The <b>-r</b>
+option enables <b>host</b> to mimic the behavior of a name
+server by making non-recursive queries and expecting to
+receive answers to those queries that can be referrals to
+other name servers.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-R
+<i>number</i></p>
+
+<p style="margin-left:17%;">Number of retries for UDP
+queries: If <i>number</i> is negative or zero, the number of
+retries will default to 1. The default value is 1, or the
+value of the <i>attempts</i> option in /etc/resolv.conf, if
+set.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-s</p>
+
+<p style="margin-left:17%;">Do <i>not</i> send the query to
+the next nameserver if any server responds with a SERVFAIL
+response, which is the reverse of normal stub resolver
+behavior.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-t
+<i>type</i></p>
+
+<p style="margin-left:17%;">Query type: The <i>type</i>
+argument can be any recognized query type: CNAME, NS, SOA,
+TXT, DNSKEY, AXFR, etc.</p>
+
+<p style="margin-left:17%; margin-top: 1em">When no query
+type is specified, <b>host</b> automatically selects an
+appropriate query type. By default, it looks for A, AAAA,
+and MX records. If the <b>-C</b> option is given, queries
+will be made for SOA records. If <i>name</i> is a
+dotted-decimal IPv4 address or colon-delimited IPv6 address,
+<b>host</b> will query for PTR records.</p>
+
+<p style="margin-left:17%; margin-top: 1em">If a query type
+of IXFR is chosen the starting serial number can be
+specified by appending an equal followed by the starting
+serial number (like <b>-t IXFR=12345678</b>).</p>
+
+<p style="margin-left:11%; margin-top: 1em">-T, -U</p>
+
+<p style="margin-left:17%;">TCP/UDP: By default,
+<b>host</b> uses UDP when making queries. The <b>-T</b>
+option makes it use a TCP connection when querying the name
+server. TCP will be automatically selected for queries that
+require it, such as zone transfer (AXFR) requests. Type ANY
+queries default to TCP but can be forced to UDP initially
+using <b>-U</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-m
+<i>flag</i></p>
+
+<p style="margin-left:17%;">Memory usage debugging: the
+flag can be <i>record</i>, <i>usage</i>, or <i>trace</i>.
+You can specify the <b>-m</b> option more than once to set
+multiple flags.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-v</p>
+
+<p style="margin-left:17%;">Verbose output. Equivalent to
+the <b>-d</b> debug option. Verbose output can also be
+enabled by setting the <i>debug</i> option in
+/etc/resolv.conf.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-V</p>
+
+<p style="margin-left:17%;">Print the version number and
+exit.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-w</p>
+
+<p style="margin-left:17%;">Wait forever: The query timeout
+is set to the maximum possible. See also the <b>-W</b>
+option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-W
+<i>wait</i></p>
+
+<p style="margin-left:17%;">Timeout: Wait for up to
+<i>wait</i> seconds for a reply. If <i>wait</i> is less than
+one, the wait interval is set to one second.</p>
+
+<p style="margin-left:17%; margin-top: 1em">By default,
+<b>host</b> will wait for 5 seconds for UDP responses and 10
+seconds for TCP connections. These defaults can be
+overridden by the <i>timeout</i> option in
+/etc/resolv.conf.</p>
+
+<p style="margin-left:17%; margin-top: 1em">See also the
+<b>-w</b> option.</p>
+
+<h2>IDN SUPPORT
+<a name="IDN SUPPORT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">If <b>host</b>
+has been built with IDN (internationalized domain name)
+support, it can accept and display non-ASCII domain names.
+<b>host</b> appropriately converts character encoding of
+domain name before sending a request to DNS server or
+displaying a reply from the server. If you'd like to turn
+off the IDN support for some reason, define the
+<b>IDN_DISABLE</b> environment variable. The IDN support is
+disabled if the variable is set when <b>host</b> runs.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/resolv.conf</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>dig</b>(1),
+<b>named</b>(8).</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Internet
+Systems Consortium, Inc.</b></p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+&copy; 2000-2002, 2004, 2005, 2007-2009, 2014-2020 Internet
+Systems Consortium, Inc. (&quot;ISC&quot;)</p>
+<hr>
+</body>
+</html>

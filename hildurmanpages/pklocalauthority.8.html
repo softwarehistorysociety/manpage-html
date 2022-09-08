@@ -1,0 +1,450 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:59:31 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>PKLOCALAUTHORITY</title>
+
+</head>
+<body>
+
+<h1 align="center">PKLOCALAUTHORITY</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#ADMINISTRATOR AUTHENTICATION">ADMINISTRATOR AUTHENTICATION</a><br>
+<a href="#DIRECTORY STRUCTURE">DIRECTORY STRUCTURE</a><br>
+<a href="#AUTHORIZATION ENTRY">AUTHORIZATION ENTRY</a><br>
+<a href="#EVALUATION ORDER">EVALUATION ORDER</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">pklocalauthority
+- PolicyKit Local Authority</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The Local
+Authority is the default PolicyKit authority implementation.
+Configuration for the Local Authority and information
+pertaining to authorization decisions are read from local
+files on the disk. One design goal of the Local Authority is
+to split configuration items into separate files such that
+3rd party packages and users won't conflict trying to edit
+the same files. This policy also ensures smooth upgrades
+when distributing PolicyKit using a package management
+system.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Files shipped
+with PolicyKit and 3rd party packages (e.g. under package
+manager control) typically have comments (such as &ldquo;DO
+NOT EDIT THIS FILE, it will be overwritten on update&rdquo;)
+telling the system administrator that changes will be
+overwritten on update.</p>
+
+<h2>ADMINISTRATOR AUTHENTICATION
+<a name="ADMINISTRATOR AUTHENTICATION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">PolicyKit makes
+a distinction between <i>user authentication</i> (to make
+the user in front of the system prove he really is the user)
+and <i>administrator authentication</i> (to make the user in
+front of the system prove he really is an administrator).
+Since various operating systems (or even flavors of the same
+operating system) has different ways of defining
+&quot;administrator&quot;, the Local Authority provides a
+way to specify what &quot;administrator authentication&quot;
+means.</p>
+
+<p style="margin-left:11%; margin-top: 1em">By default,
+&quot;administrator authentication&quot; is defined as
+asking for the root password. Since some systems, for
+usability reasons, don't have a root password and instead
+rely on a group of users being member of an administrative
+group that gives them super-user privileges, the Local
+Authority can be configured to support this use-case as
+well.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Configuration
+for the Local Authority is read from files in the
+/etc/polkit-1/localauthority.conf.d directory. All files are
+read in lexigraphical order (using the C locale) meaning
+that later files can override earlier ones. The file
+50-localauthority.conf contains the settings provided by the
+OS vendor. Users and 3rd party packages can drop
+configuration files with a priority higher than 60 to change
+the defaults. The configuration file format is simple. Each
+configuration file is a <i>key file</i> (also commonly known
+as a <i>ini file</i>) with a single group called
+[Configuration]. Only a single key, AdminIdentities is read.
+The value of this key is a semi-colon separated list of
+identities that can be used when administrator
+authentication is required. Users are specified by prefixing
+the user name with unix-user:, groups of users are specified
+by prefixing with unix-group:, and netgroups of users are
+specified with unix-netgroup:. See the section called
+&ldquo;EXAMPLES&rdquo; for an example of a configuration
+file.</p>
+
+<h2>DIRECTORY STRUCTURE
+<a name="DIRECTORY STRUCTURE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The Local
+Authority reads files with .pkla extension from all
+directories located inside the /etc/polkit-1/localauthority
+and /var/lib/polkit-1/localauthority directories. By
+default, the following sub-directories are installed.</p>
+
+<p style="margin-left:17%; margin-top: 1em">/etc/polkit-1/
+<br>
+&rsquo;-- localauthority <br>
+|-- 10-vendor.d <br>
+|-- 20-org.d <br>
+|-- 30-site.d <br>
+|-- 50-local.d <br>
+&rsquo;-- 90-mandatory.d</p>
+
+<p style="margin-left:11%; margin-top: 1em">and</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">/var/lib/polkit-1/
+<br>
+&rsquo;-- localauthority <br>
+|-- 10-vendor.d <br>
+|-- 20-org.d <br>
+|-- 30-site.d <br>
+|-- 50-local.d <br>
+&rsquo;-- 90-mandatory.d</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+/etc/polkit-1/localauthority hierarchy is inteded for local
+configuration and the /var/lib/polkit-1/localauthority is
+intended for 3rd party packages.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Each .pkla file
+contains one or more authorization entries. If the
+underlying filesystem supports file monitoring, the Local
+Authority will reload information whenever .pkla files are
+added, removed or changed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Each directory
+is intended for a specific audience</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>10-vendor.d</i></p>
+
+<p style="margin-left:17%;">Intended for use by the OS
+vendor.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>20-org.d</i></p>
+
+<p style="margin-left:17%;">Intended for the organization
+deploying the OS.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>30-site.d</i></p>
+
+<p style="margin-left:17%;">Intended for the site deploying
+the system.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>50-local.d</i></p>
+
+<p style="margin-left:17%;">Intended for local usage.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>90-mandatory.d</i></p>
+
+<p style="margin-left:17%;">Intended for the organization
+deploying the OS.</p>
+
+<p style="margin-left:11%; margin-top: 1em">and new
+directories can be added/removed as needed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">As to regards
+to the content, each .pkla file is a standard <i>key
+file</i> and contains key/value pairs in one or more groups
+with each group representing an authorization entry. A .pkla
+file MUST be named by using a scheme to ensure that the name
+is unique, e.g. reverse DNS notation or similar. For
+example, if the organization is &ldquo;Acme Corp&rdquo;
+needs to modify policy for the product
+&ldquo;Frobnicator&rdquo;, a name like
+com.acme.frobnicator.pkla would be suitable.</p>
+
+<h2>AUTHORIZATION ENTRY
+<a name="AUTHORIZATION ENTRY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Each group in a
+.pkla file must have a name that is unique within the file
+it belongs to. The following keys are are recognized:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Identity</i></p>
+
+<p style="margin-left:17%;">A semi-colon separated list of
+globs to match identities. Each glob should start with
+unix-user: or unix-group: to specify whether to match on a
+UNIX user name or a UNIX group name. Netgroups are supported
+with the unix-netgroup: prefix, but cannot support glob
+syntax.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Action</i></p>
+
+<p style="margin-left:17%;">A semi-colon separated list of
+globs to match action identifiers.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>ResultActive</i></p>
+
+<p style="margin-left:17%;">The result to return for
+subjects in an active local session that matches one or more
+of the given identities. Allowed values are similar to what
+can be used in the <i>defaults</i> section of .policy files
+used to define actions, e.g. yes, no, auth_self,
+auth_self_keep, auth_admin and auth_admin_keep.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>ResultInactive</i></p>
+
+<p style="margin-left:17%;">Like <i>ResultActive</i> but
+instead applies to subjects in inactive local sessions.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>ResultAny</i></p>
+
+<p style="margin-left:17%;">Like <i>ResultActive</i> but
+instead applies to any subject.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>ReturnValue</i></p>
+
+<p style="margin-left:17%;">A semi-colon separated list of
+key/value pairs (of the form key=value) that are added to
+the details of authorization result on positive matches.</p>
+
+<p style="margin-left:11%; margin-top: 1em">All keys
+specified above are required except that only at least one
+of <i>ResultAny</i>, <i>ResultInactive</i> and
+<i>ResultActive</i> must be present. The <i>ReturnValue</i>
+key is optional.</p>
+
+<h2>EVALUATION ORDER
+<a name="EVALUATION ORDER"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">When a
+Mechanism requests services from the Authority to check if a
+given Subject is authorized for a given Action, the
+authorization entries discussed above are consulted using
+the following algorithm.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+authorization entries from all .pkla files are ordered using
+the following rules. First all the basename of all
+sub-directories (e.g. <i>30-site.d</i>) from both the
+/etc/polkit-1/localauthority and
+/var/lib/polkit-1/localauthority directories are enumerated
+and sorted (using the C locale). If a name exists in both
+/etc and /var, the one in /etc takes precedence. Then all
+.pkla files are read in order from this list of
+sub-directories. For each .pkla file, authorizations from
+each file are appended in order resulting in an ordered list
+of authorization entries.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For example,
+given the following files</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">/var/lib/polkit-1
+<br>
+&#9492;&#9472;&#9472; localauthority <br>
+&#9500;&#9472;&#9472; 10-vendor.d <br>
+&#9474; &#9492;&#9472;&#9472; 10-desktop-policy.pkla <br>
+&#9500;&#9472;&#9472; 20-org.d <br>
+&#9500;&#9472;&#9472; 30-site.d <br>
+&#9500;&#9472;&#9472; 50-local.d <br>
+&#9500;&#9472;&#9472; 55-org.my.company.d <br>
+&#9474; &#9492;&#9472;&#9472; 10-org.my.company.product.pkla
+<br>
+&#9492;&#9472;&#9472; 90-mandatory.d</p>
+
+<p style="margin-left:17%; margin-top: 1em">/etc/polkit-1
+<br>
+&#9492;&#9472;&#9472; localauthority <br>
+&#9500;&#9472;&#9472; 10-vendor.d <br>
+&#9474; &#9492;&#9472;&#9472;
+01-some-changes-from-a-subvendor.pkla <br>
+&#9500;&#9472;&#9472; 20-org.d <br>
+&#9500;&#9472;&#9472; 30-site.d <br>
+&#9500;&#9472;&#9472; 50-local.d <br>
+&#9500;&#9472;&#9472; 55-org.my.company.d <br>
+&#9474; &#9492;&#9472;&#9472; 10-org.my.company.product.pkla
+<br>
+&#9492;&#9472;&#9472; 90-mandatory.d</p>
+
+<p style="margin-left:11%; margin-top: 1em">the evaluation
+order of the .pkla files is:</p>
+
+<p style="margin-left:17%; margin-top: 1em">1.
+10-desktop-policy.pkla</p>
+
+<p style="margin-left:17%; margin-top: 1em">2.
+01-some-changes-from-a-subvendor.pkla</p>
+
+<p style="margin-left:17%; margin-top: 1em">3.
+10-org.my.company.product.pkla (the /var one)</p>
+
+<p style="margin-left:17%; margin-top: 1em">4.
+10-org.my.company.product.pkla (the /etc one)</p>
+
+<p style="margin-left:11%; margin-top: 1em">When the list
+of authorization entries has been calculated, the
+authorization check can be made. First, the user of the
+Subject is determined and the groups that the user belongs
+are looked up. For each group identity, the authorization
+entries are consulted in order. If the authorization check
+matches the data from the authorization check, then the
+authorization result from <i>RequireAny</i>,
+<i>RequireInactive</i> or <i>RequireActive</i> is used and
+<i>ReturnValue</i> is added to the authorization result.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Finally, the
+authorization entries are consulted using the user identity
+in the same manner.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+processing continues even after a match. This allows for
+socalled &ldquo;negative authorizations&rdquo;, see the
+section called &ldquo;EXAMPLES&rdquo; for further
+discussion.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+.conf file</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">[Configuration]
+<br>
+AdminIdentities=unix-group:staff</p>
+
+<p style="margin-left:11%; margin-top: 1em">specifies that
+any user in the staff UNIX group can be used for
+authentication when administrator authentication is needed.
+This file would typically be installed in the
+/etc/polkit-1/localauthority.conf.d directory and given the
+name 60-desktop-policy.conf to ensure that it is evaluted
+after the 50-localauthority.conf file shipped with
+PolicyKit. If the local administrator wants to override this
+(suppose 60-desktop-policy.conf was shipped as part of the
+OS) he can simply create a file
+99-my-admin-configuration.conf with the following
+content</p>
+
+
+<p style="margin-left:17%; margin-top: 1em">[Configuration]
+<br>
+AdminIdentities=unix-user:lisa;unix-user:marge</p>
+
+<p style="margin-left:11%; margin-top: 1em">to specify that
+only the users lisa and marge can authenticate when
+administrator authentication is needed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The following
+.pkla file grants authorization to all users in the staff
+group for actions matching the glob
+com.example.awesomeproduct.* provided they are in an active
+session on the local console:</p>
+
+<p style="margin-left:17%; margin-top: 1em">[Normal Staff
+Permissions] <br>
+Identity=unix-group:staff <br>
+Action=com.example.awesomeproduct.* <br>
+ResultAny=no <br>
+ResultInactive=no <br>
+ResultActive=yes</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the users
+homer and grimes are member of the staff group but policy
+requires that an administrator needs to authenticate every
+time authorization for any action matching
+com.example.awesomeproduct.* is required, one would add</p>
+
+<p style="margin-left:17%; margin-top: 1em">[Exclude Some
+Problematic Users] <br>
+Identity=unix-user:homer;unix-user:grimes <br>
+Action=com.example.awesomeproduct.* <br>
+ResultAny=no <br>
+ResultInactive=no <br>
+ResultActive=auth_admin</p>
+
+<p style="margin-left:11%; margin-top: 1em">and make sure
+this authorization entry is after the first one.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Written by
+David Zeuthen &lt;davidz@redhat.com&gt; with a lot of help
+from many others.</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Please send bug
+reports to either the distribution or the polkit-devel
+mailing list, see the link
+<b><font color="#0000FF">http://lists.freedesktop.org/mailman/listinfo/polkit-devel</font></b>
+<font color="#000000">on how to subscribe.</font></p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>polkit</b>(8)</font></p>
+<hr>
+</body>
+</html>

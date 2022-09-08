@@ -1,0 +1,231 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:55:35 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>MPATH_PERSISTENT_RESERVE_IN</title>
+
+</head>
+<body>
+
+<h1 align="center">MPATH_PERSISTENT_RESERVE_IN</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#RETURNS">RETURNS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">mpath_persistent_reserve_in
+- send PRIN command to DM device</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>#include
+&lt;mpath_persist.h&gt;</b></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>int
+mpath_persistent_reserve_in</b><i>(int fd, int rq_servact,
+struct prin_resp *resp, int noisy, int verbose)</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The function in
+the <b>mpath_persistent_reserve_in ()</b> sends PRIN command
+to the DM device and gets the response. <b><br>
+Parameters:</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="15%">
+
+
+<p><i>fd</i></p></td>
+<td width="3%"></td>
+<td width="60%">
+
+
+<p>The file descriptor of a multipath device. Input
+argument.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="15%">
+
+
+<p><i>rq_servact</i></p></td>
+<td width="3%"></td>
+<td width="60%">
+
+
+<p>PRIN command service action. Input argument.</p></td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="15%">
+
+
+<p><i>resp</i></p></td>
+<td width="3%"></td>
+<td width="60%">
+
+
+<p>The response from PRIN service action. The caller should
+manage the memory allocation of this structure.</p></td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="15%">
+
+
+<p><i>noisy</i></p></td>
+<td width="3%"></td>
+<td width="60%">
+
+
+<p>Turn on debugging trace: Input argument. 0-&gt;Disable,
+1-&gt;Enable.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="15%">
+
+
+<p><i>verbose</i></p></td>
+<td width="3%"></td>
+<td width="60%">
+
+
+<p>Set verbosity level. Input argument. value:[0-3].
+0-&gt;Crits and Errors, 1-&gt;Warnings, 2-&gt;Info,
+3-&gt;Debug.</p> </td></tr>
+</table>
+
+<h2>RETURNS
+<a name="RETURNS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>MPATH_PR_SUCCESS</b></p>
+
+<p style="margin-left:29%;">If PR command successful.</p>
+
+
+<p style="margin-left:11%;"><b>MPATH_PR_SYNTAX_ERROR</b></p>
+
+<p style="margin-left:29%;">If syntax error or invalid
+parameter.</p>
+
+
+<p style="margin-left:11%;"><b>MPATH_PR_SENSE_NOT_READY</b></p>
+
+<p style="margin-left:29%;">If command fails with
+[sk,asc,ascq: 0x2,*,*].</p>
+
+
+<p style="margin-left:11%;"><b>MPATH_PR_SENSE_MEDIUM_ERROR</b></p>
+
+<p style="margin-left:29%;">If command fails with
+[sk,asc,ascq: 0x3,*,*].</p>
+
+
+<p style="margin-left:11%;"><b>MPATH_PR_SENSE_HARDWARE_ERROR</b></p>
+
+<p style="margin-left:29%;">If command fails with
+[sk,asc,ascq: 0x4,*,*].</p>
+
+
+<p style="margin-left:11%;"><b>MPATH_PR_SENSE_INVALID_OP</b></p>
+
+<p style="margin-left:29%;">If command fails with
+[sk,asc,ascq: 0x5,0x20,0x0].</p>
+
+
+<p style="margin-left:11%;"><b>MPATH_PR_ILLEGAL_REQ</b></p>
+
+<p style="margin-left:29%;">If command fails with
+[sk,asc,ascq: 0x5,*,*].</p>
+
+
+<p style="margin-left:11%;"><b>MPATH_PR_SENSE_UNIT_ATTENTION</b></p>
+
+<p style="margin-left:29%;">If command fails with
+[sk,asc,ascq: 0x6,*,*].</p>
+
+
+<p style="margin-left:11%;"><b>MPATH_PR_SENSE_ABORTED_COMMAND</b></p>
+
+<p style="margin-left:29%;">If command fails with
+[sk,asc,ascq: 0xb,*,*].</p>
+
+<p style="margin-left:11%;"><b>MPATH_PR_NO_SENSE</b></p>
+
+<p style="margin-left:29%;">If command fails with
+[sk,asc,ascq: 0x0,*,*].</p>
+
+
+<p style="margin-left:11%;"><b>MPATH_PR_SENSE_MALFORMED</b></p>
+
+<p style="margin-left:29%;">If command fails with SCSI
+command malformed.</p>
+
+<p style="margin-left:11%;"><b>MPATH_PR_FILE_ERROR</b></p>
+
+<p style="margin-left:29%;">If command fails while
+accessing file (device node) problems(e.g. not found).</p>
+
+<p style="margin-left:11%;"><b>MPATH_PR_DMMP_ERROR</b></p>
+
+<p style="margin-left:29%;">If Device Mapper related
+error.(e.g Error in getting dm info).</p>
+
+<p style="margin-left:11%;"><b>MPATH_PR_OTHER</b></p>
+
+<p style="margin-left:29%;">If other error/warning has
+occurred(e.g transport or driver error).</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mpathpersist</b>(8).</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>multipath-tools</i>
+was developed by Christophe Varoqui
+&lt;christophe.varoqui@opensvc.com&gt; and others.</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:53:30 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<hr>
+
+
+<p>LORDER(1) BSD General Commands Manual LORDER(1)</p>
+
+<p style="margin-top: 1em"><b>NAME</b></p>
+
+<p style="margin-left:6%;"><b>lorder</b> &mdash; list
+dependencies for object files</p>
+
+<p style="margin-top: 1em"><b>SYNOPSIS</b></p>
+
+<p style="margin-left:15%;"><b>lorder</b>
+<i>file&nbsp;...</i></p>
+
+<p style="margin-top: 1em"><b>DESCRIPTION</b></p>
+
+<p style="margin-left:6%;">The <b>lorder</b> utility uses
+nm(1) to determine interdependencies in the list of object
+files and library archives specified on the command line.
+The <b>lorder</b> utility outputs a list of file names where
+the first file contains a symbol which is defined by the
+second file.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The output is
+normally used with tsort(1) when a library is created to
+determine the optimum ordering of the object modules so that
+all references may be resolved in a single pass of the
+loader.</p>
+
+<p style="margin-left:6%; margin-top: 1em">When linking
+static binaries, <b>lorder</b> and tsort(1) can be used to
+properly order library archives automatically.</p>
+
+<p style="margin-top: 1em"><b>ENVIRONMENT</b> <br>
+NM</p>
+
+<p style="margin-left:17%; margin-top: 1em">Path to the
+nm(1) binary, defaults to &ldquo;nm&rdquo;.</p>
+
+<p style="margin-top: 1em">NMFLAGS</p>
+
+<p style="margin-left:17%;">Flags to pass to nm(1).</p>
+
+<p style="margin-top: 1em"><b>EXAMPLES</b></p>
+
+<p style="margin-left:14%;">ar cr library.a &rsquo;lorder
+${OBJS} | tsort&rsquo; <br>
+cc -o foo ${OBJS} &rsquo;lorder ${STATIC_LIBS} |
+tsort&rsquo;</p>
+
+<p style="margin-top: 1em"><b>SEE ALSO</b></p>
+
+<p style="margin-left:6%;">ar(1), ld(1), nm(1), ranlib(1),
+tsort(1)</p>
+
+<p style="margin-top: 1em"><b>HISTORY</b></p>
+
+<p style="margin-left:6%;">A <b>lorder</b> utility appeared
+in Version&nbsp;7 AT&amp;T UNIX.</p>
+
+<p style="margin-left:6%; margin-top: 1em">BSD
+August&nbsp;14, 2015 BSD</p>
+<hr>
+</body>
+</html>

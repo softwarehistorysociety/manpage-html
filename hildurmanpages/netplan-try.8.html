@@ -1,0 +1,152 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:56:39 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>netplan-try</title>
+
+</head>
+<body>
+
+<h1 align="center">netplan-try</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#KNOWN ISSUES">KNOWN ISSUES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">netplan-try -
+try a configuration, optionally rolling it back</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>
+[&ndash;debug] <b>try</b> -h | &ndash;help</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>
+[&ndash;debug] <b>try</b> [&ndash;config-file
+<i>CONFIG_FILE</i>] [&ndash;timeout <i>TIMEOUT</i>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan
+try</b> takes a <b>netplan</b>(5) configuration, applies it,
+and automatically rolls it back if the user does not confirm
+the configuration within a time limit.</p>
+
+<p style="margin-left:11%; margin-top: 1em">A configuration
+can be confirmed or rejected interactively or by sending the
+SIGUSR1 or SIGINT signals.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This may be
+especially useful on remote systems, to prevent an
+administrator being permanently locked out of systems in the
+case of a network configuration error.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h,
+&ndash;help</b></p>
+
+<p style="margin-left:22%;">Print basic help.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>&ndash;debug</b></p></td>
+<td width="2%"></td>
+<td width="64%">
+
+
+<p>Print debugging output during the process.</p></td>
+<td width="14%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>&ndash;config-file</b>
+<i>CONFIG_FILE</i></p>
+
+<p style="margin-left:22%;">In addition to the usual
+configuration, apply <i>CONFIG_FILE</i>. It must be a YAML
+file in the <b>netplan</b>(5) format.</p>
+
+<p style="margin-left:11%;"><b>&ndash;timeout</b>
+<i>TIMEOUT</i></p>
+
+<p style="margin-left:22%;">Wait for <i>TIMEOUT</i> seconds
+before reverting. Defaults to 120 seconds. Note that some
+network configurations (such as STP) may take over a minute
+to settle.</p>
+
+<h2>KNOWN ISSUES
+<a name="KNOWN ISSUES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan
+try</b> uses similar procedures to <b>netplan apply</b>, so
+some of the same caveats apply around virtual devices.</p>
+
+<p style="margin-left:11%; margin-top: 1em">There are also
+some known bugs: if <b>netplan try</b> times out or is
+cancelled, make sure to verify if the network configuration
+has in fact been reverted.</p>
+
+<p style="margin-left:11%; margin-top: 1em">As with
+<b>netplan apply</b>, a reboot should fix any issues.
+However, be sure to verify that the config on disk is in the
+state you expect before rebooting!</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>(5),
+<b>netplan-generate</b>(8), <b>netplan-apply</b>(8)</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Daniel Axtens
+(&lt;daniel.axtens@canonical.com&gt;).</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:38:25 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>dmmp_strerror</title>
+
+</head>
+<body>
+
+<h1 align="center">dmmp_strerror</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#ARGUMENTS">ARGUMENTS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#RETURN">RETURN</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">dmmp_strerror -
+Convert error code to string.</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>const char *
+dmmp_strerror (int</b> <i>rc</i><b>);</b></p>
+
+<h2>ARGUMENTS
+<a name="ARGUMENTS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em">rc</p></td>
+<td width="15%"></td>
+<td width="71%">
+
+
+<p style="margin-top: 1em">int. Return code by libdmmp
+functions. When provided error code is not a valid error
+code, return &quot;Invalid argument&quot;.</p></td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Convert error
+code (int) to string (const char *):</p>
+
+<p style="margin-left:11%; margin-top: 1em">* DMMP_OK --
+&quot;OK&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">* DMMP_ERR_BUG
+-- &quot;BUG of libdmmp library&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_ERR_NO_MEMORY -- &quot;Out of memory&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_ERR_IPC_TIMEOUT -- &quot;Timeout when communicate with
+multipathd, try to set bigger timeout value via
+dmmp_context_timeout_set ()&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_ERR_IPC_ERROR -- &quot;Error when communicate with
+multipathd daemon&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_ERR_NO_DAEMON -- &quot;The multipathd daemon not
+started&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">*
+DMMP_ERR_INCOMPATIBLE -- &quot;The multipathd daemon version
+is not compatible with current library&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">* Other invalid
+error number -- &quot;Invalid argument&quot;</p>
+
+<h2>RETURN
+<a name="RETURN"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">const char *.
+The meaning of provided error code.</p>
+<hr>
+</body>
+</html>

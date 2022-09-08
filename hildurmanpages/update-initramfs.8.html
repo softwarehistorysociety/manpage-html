@@ -1,0 +1,202 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:11:49 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>UPDATE-INITRAMFS</title>
+
+</head>
+<body>
+
+<h1 align="center">UPDATE-INITRAMFS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">update-initramfs
+- generate an initramfs image</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-initramfs</b>
+{<b>-c</b>|<b>-d</b>|<b>-u</b>} [<b>-k</b> <i>version</i>]
+[<b>-v</b>] [<b>-b</b> <i>directory</i>] <b><br>
+update-initramfs -h</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>update-initramfs</b> script manages your initramfs images
+on your local box. It keeps track of the existing initramfs
+archives in /boot. There are three modes of operation
+create, update or delete. You must at least specify one of
+those modes.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The initramfs
+is a gzipped cpio archive. At boot time, the kernel unpacks
+that archive into RAM disk, mounts and uses it as initial
+root file system. All finding of the root device happens in
+this early userspace.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-k</b>
+<i>version</i></p>
+
+<p style="margin-left:22%;">Set the specific kernel version
+for whom the initramfs will be generated. For example the
+output of uname -r for your currently running kernel. This
+argument is optional for update. The default is the latest
+kernel version.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The use of
+&quot;all&quot; for the <i>version</i> string specifies that
+<b>update-initramfs</b> should operate on all installed
+kernel versions (with <b>-c</b>), or on all installed kernel
+versions that already have an initramfs (with <b>-d</b> or
+<b>-u</b>).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-c</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>This mode creates a new initramfs.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-u</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>This mode updates an existing initramfs.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-d</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>This mode deletes an existing initramfs.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-v</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>This option increases the amount of information you are
+given during the chosen action.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-b</b> <i>directory</i></p>
+
+<p style="margin-left:22%;">Set an different bootdir for
+the image creation.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Print a short help page
+describing the available options in
+<b>update-initramfs.</b></p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Update the
+initramfs of the newest kernel:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-initramfs
+-u</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Create the
+initramfs for a specific kernel:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-initramfs
+-c -k 2.6.18-1-686</b></p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">/etc/initramfs-tools/update-initramfs.conf</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+initramfs-tools are written by Maximilian Attems
+&lt;maks@debian.org&gt;, Jeff Bailey
+&lt;jbailey@raspberryginger.com&gt; and numerous others.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>initramfs.conf</i>(5),
+<i>initramfs-tools</i>(7), <i>mkinitramfs</i>(8),
+<i>lsinitramfs</i>(8).</p>
+<hr>
+</body>
+</html>

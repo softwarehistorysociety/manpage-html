@@ -1,0 +1,495 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:57:04 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>NTFSCLONE</title>
+
+</head>
+<body>
+
+<h1 align="center">NTFSCLONE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXIT CODES">EXIT CODES</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#KNOWN ISSUES">KNOWN ISSUES</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">ntfsclone -
+Efficiently clone, image, restore or rescue an NTFS</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ntfsclone</b>
+[<i>OPTIONS</i>] <i>SOURCE</i> <b><br>
+ntfsclone --save-image</b> [<i>OPTIONS</i>] <i>SOURCE</i>
+<b><br>
+ntfsclone --restore-image</b> [<i>OPTIONS</i>] <i>SOURCE</i>
+<b><br>
+ntfsclone --metadata</b> [<i>OPTIONS</i>] <i>SOURCE</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>ntfsclone</b></i>
+will efficiently clone (copy, save, backup, restore) or
+rescue an NTFS filesystem to a sparse file, image, device
+(partition) or standard output. It works at disk sector
+level and copies only the used data. Unused disk space
+becomes zero (cloning to sparse file), encoded with control
+codes (saving in special image format), left unchanged
+(cloning to a disk/partition) or filled with zeros (cloning
+to standard output).</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ntfsclone</b>
+can be useful to make backups, an exact snapshot of an NTFS
+filesystem and restore it later on, or for developers to
+test NTFS read/write functionality, troubleshoot/investigate
+users&rsquo; issues using the clone without the risk of
+destroying the original filesystem.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The clone, if
+not using the special image format, is an exact copy of the
+original NTFS filesystem from sector to sector thus it can
+be also mounted just like the original NTFS filesystem. For
+example if you clone to a file and the kernel has loopback
+device and NTFS support then the file can be mounted as</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>mount -t
+ntfs -o loop ntfsclone.img /mnt/ntfsclone</b></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Windows
+Cloning</b> <br>
+If you want to copy, move or restore a system or boot
+partition to another computer, or to a different disk or
+partition (e.g. hda1-&gt;hda2, hda1-&gt;hdb1 or to a
+different disk sector offset) then you will need to take
+extra care.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Usually,
+Windows will not be able to boot, unless you copy, move or
+restore NTFS to the same partition which starts at the same
+sector on the same type of disk having the same BIOS legacy
+cylinder setting as the original partition and disk had.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The ntfsclone
+utility guarantees to make an exact copy of NTFS but it
+won&rsquo;t deal with booting issues. This is by design:
+ntfsclone is a filesystem, not system utility. Its aim is
+only NTFS cloning, not Windows cloning. Hereby ntfsclone can
+be used as a very fast and reliable build block for Windows
+cloning but itself it&rsquo;s not enough.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Sparse
+Files</b> <br>
+A file is sparse if it has unallocated blocks (holes). The
+reported size of such files are always higher than the disk
+space consumed by them. The <b>du</b> command can tell the
+real disk space used by a sparse file. The holes are always
+read as zeros. All major Linux filesystem like, ext2, ext3,
+reiserfs, Reiser4, JFS and XFS, supports sparse files but
+for example the ISO 9600 CD-ROM filesystem
+doesn&rsquo;t.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Handling
+Large Sparse Files</b> <br>
+As of today Linux provides inadequate support for managing
+(tar, cp, gzip, gunzip, bzip2, bunzip2, cat, etc) large
+sparse files. The only main Linux filesystem having support
+for efficient sparse file handling is XFS by the
+XFS_IOC_GETBMAPX <b>ioctl</b>(2)<b>.</b> However none of the
+common utilities supports it. This means when you tar, cp,
+gzip, bzip2, etc a large sparse file they will always read
+the entire file, even if you use the &quot;sparse
+support&quot; options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>bzip2</b>(1)
+compresses large sparse files much better than
+<b>gzip</b>(1) but it does so also much slower. Moreover
+neither of them handles large sparse files efficiently
+during uncompression from disk space usage point of
+view.</p>
+
+<p style="margin-left:11%; margin-top: 1em">At present the
+most efficient way, both speed and space-wise, to compress
+and uncompress large sparse files by common tools would be
+using <b>tar</b>(1) with the options <b>-S</b> (handle
+sparse files &quot;efficiently&quot;) and <b>-j</b> (filter
+the archive through bzip2). Although <b>tar</b> still reads
+and analyses the entire file, it doesn&rsquo;t pass on the
+large data blocks having only zeros to filters and it also
+avoids writing large amount of zeros to the disk needlessly.
+But since <b>tar</b> can&rsquo;t create an archive from the
+standard input, you can&rsquo;t do this in-place by just
+reading <b>ntfsclone</b> standard output. Even more sadly,
+using the -S option results serious data loss since the end
+of 2004 and the GNU <b>tar</b> maintainers didn&rsquo;t
+release fixed versions until the present day.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>The Special
+Image Format</b> <br>
+It&rsquo;s also possible, actually it&rsquo;s recommended,
+to save an NTFS filesystem to a special image format.
+Instead of representing unallocated blocks as holes, they
+are encoded using control codes. Thus, the image saves space
+without requiring sparse file support. The image format is
+ideal for streaming filesystem images over the network and
+similar, and can be used as a replacement for Ghost or
+Partition Image if it is combined with other tools. The
+downside is that you can&rsquo;t mount the image directly,
+you need to restore it first.</p>
+
+<p style="margin-left:11%; margin-top: 1em">To save an
+image using the special image format, use the <b>-s</b> or
+the <b>--save-image</b> option. To restore an image, use the
+<b>-r</b> or the <b>--restore-image</b> option. Note that
+you can restore images from standard input by using
+&rsquo;-&rsquo; as the <i>SOURCE</i> file.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Metadata-only
+Cloning</b> <br>
+One of the features of <b>ntfsclone</b> is that, it can also
+save only the NTFS metadata using the option <b>-m</b> or
+<b>--metadata</b> and the clone still will be mountable. In
+this case all non-metadata file content will be lost and
+reading them back will result always zeros.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+metadata-only image can be compressed very well, usually to
+not more than 1-8 MB thus it&rsquo;s easy to transfer for
+investigation, troubleshooting.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In this mode of
+ntfsclone, <b>NONE</b> of the user&rsquo;s data is saved,
+including the resident user&rsquo;s data embedded into
+metadata. All is filled with zeros. Moreover all the file
+timestamps, deleted and unused spaces inside the metadata
+are filled with zeros. Thus this mode is inappropriate for
+example for forensic analyses. This mode may be combined
+with <b>--save-image</b> to create a special image format
+file instead of a sparse file.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Please note,
+filenames are not wiped out. They might contain sensitive
+information, so think twice before sending such an image to
+anybody.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Below is a
+summary of all the options that <b>ntfsclone</b> accepts.
+Nearly all options have two equivalent names. The short name
+is preceded by <b>-</b> and the long name is preceded by
+<b>-- .</b> Any single letter options, that don&rsquo;t take
+an argument, can be combined into a single command, e.g.
+<b>-fv</b> is equivalent to <b>-f -v .</b> Long named
+options can be abbreviated to any unique prefix of their
+name. <b><br>
+-o</b>, <b>--output</b> FILE</p>
+
+<p style="margin-left:22%;">Clone NTFS to the non-existent
+<i>FILE</i>. If <i>FILE</i> is &rsquo;-&rsquo; then clone to
+the standard output. This option cannot be used for creating
+a partition, use <b>--overwrite</b> for an existing
+partition.</p>
+
+<p style="margin-left:11%;"><b>-O</b>, <b>--overwrite</b>
+FILE</p>
+
+<p style="margin-left:22%;">Clone NTFS to <i>FILE</i>,
+which can be an existing partition or a regular file which
+will be overwritten if it exists.</p>
+
+<p style="margin-left:11%;"><b>-s</b>,
+<b>--save-image</b></p>
+
+<p style="margin-left:22%;">Save to the special image
+format. This is the most efficient way space and speed-wise
+if imaging is done to the standard output, e.g. for image
+compression, encryption or streaming through a network.</p>
+
+<p style="margin-left:11%;"><b>-r</b>,
+<b>--restore-image</b></p>
+
+<p style="margin-left:22%;">Restore from the special image
+format specified by <i>SOURCE</i> argument. If the
+<i>SOURCE</i> is &rsquo;-&rsquo; then the image is read from
+the standard input.</p>
+
+<p style="margin-left:11%;"><b>-n</b>,
+<b>--no-action</b></p>
+
+<p style="margin-left:22%;">Test the consistency of a saved
+image by simulating its restoring without writing anything.
+The NTFS data contained in the image is not tested. The
+option <b>--restore-image</b> must also be present, and the
+options <b>--output</b> and <b>--overwrite</b> must be
+omitted.</p>
+
+<p style="margin-left:11%;"><b>--rescue</b></p>
+
+<p style="margin-left:22%;">Ignore disk read errors so
+disks having bad sectors, e.g. dying disks, can be rescued
+the most efficiently way, with minimal stress on them.
+Ntfsclone works at the lowest, sector level in this mode too
+thus more data can be rescued. The contents of the
+unreadable sectors are filled by character &rsquo;?&rsquo;
+and the beginning of such sectors are marked by
+&quot;BadSectoR\0&quot;.</p>
+
+<p style="margin-left:11%;"><b>-m</b>,
+<b>--metadata</b></p>
+
+<p style="margin-left:22%;">Clone <b>ONLY METADATA</b> (for
+NTFS experts). Only cloning to a (sparse) file is allowed,
+unless used the option <b>--save-image</b> is also used. You
+can&rsquo;t metadata-only clone to a device.</p>
+
+<p style="margin-left:11%;"><b>--ignore-fs-check</b></p>
+
+<p style="margin-left:22%;">Ignore the result of the
+filesystem consistency check. This option is allowed to be
+used only with the <b>--metadata</b> option, for the safety
+of user&rsquo;s data. The clusters which cause the
+inconsistency are saved too.</p>
+
+<p style="margin-left:11%;"><b>-t</b>,
+<b>--preserve-timestamps</b></p>
+
+<p style="margin-left:22%;">Do not wipe the timestamps, to
+be used only with the <b>--metadata</b> option.</p>
+
+<p style="margin-left:11%;"><b>--full-logfile</b></p>
+
+<p style="margin-left:22%;">Include the Windows log file in
+the copy. This is only useful for extracting metadata,
+saving or cloning a file system which was not properly
+unmounted from Windows.</p>
+
+<p style="margin-left:11%;"><b>--new-serial</b>, or <b><br>
+--new-half-serial</b></p>
+
+<p style="margin-left:22%;">Set a new random serial number
+to the clone. The serial number is a 64 bit number used to
+identify the device during the mounting process, so it has
+to be changed to enable the original file system and the
+clone to be mounted at the same time on the same
+computer.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The option
+<b>--new-half-serial</b> only changes the upper part of the
+serial number, keeping the lower part which is used by
+Windows unchanged.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The options
+<b>--new-serial</b> and <b>--new-half-serial</b> can only be
+used when cloning a file system of restoring from an
+image.</p>
+
+<p style="margin-left:22%; margin-top: 1em">The serial
+number is not the volume UUID used by Windows to locate
+files which have been moved to another volume.</p>
+
+<p style="margin-left:11%;"><b>-f</b>, <b>--force</b></p>
+
+<p style="margin-left:22%;">Forces ntfsclone to proceed if
+the filesystem is marked &quot;dirty&quot; for consistency
+check.</p>
+
+<p style="margin-left:11%;"><b>-q</b>, <b>--quiet</b></p>
+
+<p style="margin-left:22%;">Do not display any
+progress-bars during operation.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Show a list of options with a
+brief description of each one.</p>
+
+<h2>EXIT CODES
+<a name="EXIT CODES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The exit code
+is 0 on success, non-zero otherwise.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Clone NTFS on
+/dev/hda1 to /dev/hdc1:</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>ntfsclone
+--overwrite /dev/hdc1 /dev/hda1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Save an NTFS to
+a file in the special image format:</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>ntfsclone
+--save-image --output backup.img /dev/hda1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Restore an NTFS
+from a special image file to its original partition:</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>ntfsclone
+--restore-image --overwrite /dev/hda1 backup.img</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Save an NTFS
+into a compressed image file:</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>ntfsclone
+--save-image -o - /dev/hda1 | gzip -c &gt;
+backup.img.gz</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Restore an NTFS
+volume from a compressed image file:</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>gunzip -c
+backup.img.gz | \ <br>
+ntfsclone --restore-image --overwrite /dev/hda1 -</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Backup an NTFS
+volume to a remote host, using ssh. Please note, that ssh
+may ask for a password!</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>ntfsclone
+--save-image --output - /dev/hda1 | \ <br>
+gzip -c | ssh host &rsquo;cat &gt;
+backup.img.gz&rsquo;</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Restore an NTFS
+volume from a remote host via ssh. Please note, that ssh may
+ask for a password!</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>ssh host
+&rsquo;cat backup.img.gz&rsquo; | gunzip -c | \ <br>
+ntfsclone --restore-image --overwrite /dev/hda1 -</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Stream an image
+file from a web server and restore it to a partition:</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>wget -qO -
+http://server/backup.img | \ <br>
+ntfsclone --restore-image --overwrite /dev/hda1 -</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Clone an NTFS
+volume to a non-existent file:</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>ntfsclone
+--output ntfs-clone.img /dev/hda1</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Pack NTFS
+metadata for NTFS experts. Please note that bzip2 runs very
+long but results usually at least 10 times smaller archives
+than gzip on a sparse file.</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>ntfsclone
+--metadata --output ntfsmeta.img /dev/hda1 <br>
+bzip2 ntfsmeta.img</b></p>
+
+<p style="margin-left:22%; margin-top: 1em">Or, outputting
+to a compressed image : <b><br>
+ntfsclone -mst --output - /dev/hda1 | bzip2 &gt;
+ntfsmeta.bz2</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Unpacking NTFS
+metadata into a sparse file:</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>bunzip2 -c
+ntfsmeta.img.bz2 | \ <br>
+cp --sparse=always /proc/self/fd/0 ntfsmeta.img</b></p>
+
+<h2>KNOWN ISSUES
+<a name="KNOWN ISSUES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">There are no
+known problems with <b>ntfsclone</b>. If you think you have
+found a problem then please send an email describing it to
+the development team: ntfs-3g-devel@lists.sf.net</p>
+
+<p style="margin-left:11%; margin-top: 1em">Sometimes it
+might appear ntfsclone froze if the clone is on ReiserFS and
+even CTRL-C won&rsquo;t stop it. This is not a bug in
+ntfsclone, however it&rsquo;s due to ReiserFS being
+extremely inefficient creating large sparse files and not
+handling signals during this operation. This ReiserFS
+problem was improved in kernel 2.4.22. XFS, JFS and ext3
+don&rsquo;t have this problem.</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ntfsclone</b>
+was written by Szabolcs Szakacsits with contributions from
+Per Olofsson (special image format support) and Anton
+Altaparmakov. It was ported to ntfs-3g by Erik Larsson and
+Jean-Pierre Andre.</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ntfsclone</b>
+is part of the <b>ntfs-3g</b> package and is available at:
+<br>
+http://www.tuxera.com/community/</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ntfsresize</b>(8)
+<b>ntfsprogs</b>(8) <b>xfs_copy</b>(8)
+<b>debugreiserfs</b>(8) <b>e2image</b>(8)</p>
+<hr>
+</body>
+</html>

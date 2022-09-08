@@ -1,0 +1,99 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:11:28 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<hr>
+
+
+<p>UL(1) BSD General Commands Manual UL(1)</p>
+
+<p style="margin-top: 1em"><b>NAME</b></p>
+
+<p style="margin-left:6%;"><b>ul</b> &mdash; do
+underlining</p>
+
+<p style="margin-top: 1em"><b>SYNOPSIS</b></p>
+
+<p style="margin-left:10%;"><b>ul</b> [<b>-i</b>]
+[<b>-t&nbsp;</b><i>terminal</i>] [<i>file&nbsp;...</i>]</p>
+
+<p style="margin-top: 1em"><b>DESCRIPTION</b></p>
+
+<p style="margin-left:6%;">The <b>ul</b> utility reads the
+named files (or standard input if none are given) and
+translates occurrences of underscores to the sequence which
+indicates underlining for the terminal in use, as specified
+by the environment variable TERM. The file
+<i>/etc/termcap</i> is read to determine the appropriate
+sequences for underlining. If the terminal is incapable of
+underlining, but is capable of a standout mode then that is
+used instead. If the terminal can overstrike, or handles
+underlining automatically, <b>ul</b> degenerates to cat(1).
+If the terminal cannot underline, underlining is ignored.
+During the translation some other special characters also
+get translated. E.g. TAB gets expanded to spaces.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The following
+options are available:</p>
+
+<p style="margin-top: 1em"><b>-i</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Underlining is
+indicated by a separate line containing appropriate dashes
+&rsquo;-&rsquo;; this is useful when you want to look at the
+underlining which is present in an nroff(1) output stream on
+a CRT-terminal.</p>
+
+<p style="margin-top: 1em"><b>-t</b> <i>terminal</i></p>
+
+<p style="margin-left:17%;">Overrides the terminal type
+specified in the environment with <i>terminal</i>.</p>
+
+<p style="margin-top: 1em"><b>ENVIRONMENT</b></p>
+
+<p style="margin-left:6%;">The LANG, LC_ALL, LC_CTYPE and
+TERM environment variables affect the execution of <b>ul</b>
+as described in environ(7).</p>
+
+<p style="margin-top: 1em"><b>EXIT STATUS</b></p>
+
+<p style="margin-left:6%;">The <b>ul</b> utility
+exits&nbsp;0 on success, and&nbsp;&gt;0 if an error
+occurs.</p>
+
+<p style="margin-top: 1em"><b>SEE ALSO</b></p>
+
+<p style="margin-left:6%;">colcrt(1), man(1), nroff(1)</p>
+
+<p style="margin-top: 1em"><b>HISTORY</b></p>
+
+<p style="margin-left:6%;">The <b>ul</b> command appeared
+in 3.0BSD.</p>
+
+<p style="margin-top: 1em"><b>BUGS</b></p>
+
+<p style="margin-left:6%;">The nroff(1) command usually
+outputs a series of backspaces and underlines intermixed
+with the text to indicate underlining. No attempt is made to
+optimize the backward motion.</p>
+
+<p style="margin-left:6%; margin-top: 1em">BSD
+August&nbsp;4, 2004 BSD</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:54:23 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>make-bcache</title>
+
+</head>
+<body>
+
+<h1 align="center">make-bcache</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">make-bcache -
+create a cache device</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>make-bcache</b>
+[ <b>-U&nbsp;</b><i>UUID</i> ] [
+<b>-b&nbsp;</b><i>bucket-size</i> ] <i>device</i></p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em"><i><b>-C</b></i></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em">Create a cache</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-B</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Create a backing device (kernel functionality not yet
+implemented)</p> </td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-U&nbsp;</b><i>UUID</i></p>
+
+<p style="margin-left:22%;">Create a cache device with the
+specified UUID</p>
+
+
+<p style="margin-left:11%;"><b>-b&nbsp;</b><i>bucket-size</i></p>
+
+<p style="margin-left:22%;">Specifies the bucket size.
+Allocation is done in terms of buckets, and cache hits are
+counted per bucket; thus a smaller bucket size will give
+better cache utilization, but poorer write performance. The
+bucket size is intended to be equal to the size of your
+SSD&rsquo;s erase blocks, which seems to be 128k-512k for
+most SSDs. Must be a power of two; accepts human readable
+units. Defaults to 128k.</p>
+<hr>
+</body>
+</html>

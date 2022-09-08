@@ -1,0 +1,400 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:33:01 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>BOOTCTL</title>
+
+</head>
+<body>
+
+<h1 align="center">BOOTCTL</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#COMMANDS">COMMANDS</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#NOTES">NOTES</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">bootctl -
+Control the firmware and boot manager settings</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="46%">
+
+
+<p style="margin-top: 1em"><b>bootctl</b> [OPTIONS...]
+{COMMAND}</p> </td>
+<td width="43%">
+</td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>bootctl</b>
+can check the EFI boot loader status, list available boot
+loaders and boot loader entries, and install, update, or
+remove the <b>systemd-boot</b>(7) boot loader on the current
+system.</p>
+
+<h2>COMMANDS
+<a name="COMMANDS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>status</b></p>
+
+<p style="margin-left:17%;">Shows brief information about
+the system firmware, the boot loader that was used to boot
+the system, the boot loaders currently available in the ESP,
+the boot loaders listed in the firmware's list of boot
+loaders and the current default boot loader entry. If no
+command is specified, this is the implied default.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>install</b></p>
+
+<p style="margin-left:17%;">Installs <b>systemd-boot</b>
+into the EFI system partition. A copy of <b>systemd-boot</b>
+will be stored as the EFI default/fallback loader at
+<i>ESP</i>/EFI/BOOT/BOOT*.EFI. The boot loader is then added
+to the top of the firmware's boot loader list.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update</b></p>
+
+<p style="margin-left:17%;">Updates all installed versions
+of <b>systemd-boot</b>(7), if the available version is newer
+than the version installed in the EFI system partition. This
+also includes the EFI default/fallback loader at
+<i>ESP</i>/EFI/BOOT/BOOT*.EFI. The boot loader is then added
+to end of the firmware's boot loader list if missing.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>remove</b></p>
+
+<p style="margin-left:17%;">Removes all installed versions
+of <b>systemd-boot</b> from the EFI system partition and the
+firmware's boot loader list.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>is-installed</b></p>
+
+<p style="margin-left:17%;">Checks whether
+<b>systemd-boot</b> is installed in the ESP. Note that a
+single ESP might host multiple boot loaders; this hence
+checks whether <b>systemd-boot</b> is one (of possibly many)
+installed boot loaders &mdash; and neither whether it is the
+default nor whether it is registered in any EFI
+variables.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>random-seed</b></p>
+
+<p style="margin-left:17%;">Generates a random seed and
+stores it in the EFI System Partition, for use by the
+<b>systemd-boot</b> boot loader. Also, generates a random
+'system token' and stores it persistently as an EFI
+variable, if one has not been set before. If the boot loader
+finds the random seed in the ESP and the system token in the
+EFI variable it will derive a random seed to pass to the OS
+and a new seed to store in the ESP from the combination of
+both. The random seed passed to the OS is credited to the
+kernel's entropy pool by the system manager during early
+boot, and permits userspace to boot up with an entropy pool
+fully initialized very early on. Also see
+<b>systemd-boot-system-token.service</b>(8).</p>
+
+<p style="margin-left:17%; margin-top: 1em">See
+<b><font color="#0000FF">Random Seeds</font></b>
+<small><font color="#000000">[1]</font></small>
+<font color="#000000">for further information.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>systemd-efi-options</b>
+[<i>VALUE</i>]</font></p>
+
+<p style="margin-left:17%;"><font color="#000000">When
+called without the optional argument, prints the current
+value of the &quot;SystemdOptions&quot; EFI variable. When
+called with an argument, sets the variable to that value.
+See <b>systemd</b>(1) for the meaning of that
+variable.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>list</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Shows all
+available boot loader entries implementing the</font>
+<b><font color="#0000FF">Boot Loader
+Specification</font></b>
+<small><font color="#000000">[2]</font></small>
+<font color="#000000">, as well as any other entries
+discovered or automatically generated by the boot
+loader.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>set-default</b>
+<i>ID</i>, <b>set-oneshot</b> <i>ID</i></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Sets the
+default boot loader entry. Takes a single boot loader entry
+ID string as argument. The <b>set-oneshot</b> command will
+set the default entry only for the next boot, the
+<b>set-default</b> will set it persistently for all future
+boots.</font></p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">The
+following options are understood:</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>--esp-path=</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Path to
+the EFI System Partition (ESP). If not specified, /efi/,
+/boot/, and /boot/efi/ are checked in turn. It is
+recommended to mount the ESP to /efi/, if
+possible.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>--boot-path=</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Path to
+the Extended Boot Loader partition, as defined in the</font>
+<b><font color="#0000FF">Boot Loader
+Specification</font></b>
+<small><font color="#000000">[2]</font></small>
+<font color="#000000">. If not specified, /boot/ is checked.
+It is recommended to mount the Extended Boot Loader
+partition to /boot/, if possible.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>-p</b>,
+<b>--print-esp-path</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">This
+option modifies the behaviour of <b>status</b>. Only prints
+the path to the EFI System Partition (ESP) to standard
+output and exits.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>-x</b>,
+<b>--print-boot-path</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">This
+option modifies the behaviour of <b>status</b>. Only prints
+the path to the Extended Boot Loader partition if it exists,
+and the path to the ESP otherwise to standard output and
+exit. This command is useful to determine where to place
+boot loader entries, as they are preferably placed in the
+Extended Boot Loader partition if it exists and in the ESP
+otherwise.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">Boot
+Loader Specification Type #1 entries should generally be
+placed in the directory &quot;$(bootctl
+-x)/loader/entries/&quot;. Existence of that directory may
+also be used as indication that boot loader entry support is
+available on the system. Similarly, Boot Loader
+Specification Type #2 entries should be placed in the
+directory &quot;$(bootctl -x)/EFI/Linux/&quot;.</font></p>
+
+
+<p style="margin-left:17%; margin-top: 1em"><font color="#000000">Note
+that this option (similar to the <b>--print-booth-path</b>
+option mentioned above), is available independently from the
+boot loader used, i.e. also without <b>systemd-boot</b>
+being installed.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>--no-variables</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Do not
+touch the firmware's boot loader list stored in EFI
+variables.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>--graceful</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Ignore
+failure when the EFI System Partition cannot be found, or
+when EFI variables cannot be written. Currently only applies
+to random seed operations.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>--no-pager</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Do not
+pipe output into a pager.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>-h</b>,
+<b>--help</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Print a
+short help text and exit.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>--version</b></font></p>
+
+<p style="margin-left:17%;"><font color="#000000">Print a
+short version string and exit.</font></p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">On
+success, 0 is returned, a non-zero failure code
+otherwise.</font></p>
+
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">If
+<i>$SYSTEMD_RELAX_ESP_CHECKS=1</i> is set the validation
+checks for the ESP are relaxed, and the path specified with
+<b>--esp-path=</b> may refer to any kind of file system on
+any kind of partition.</font></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000">Similarly,
+<i>$SYSTEMD_RELAX_XBOOTLDR_CHECKS=1</i> turns off some
+validation checks for the Extended Boot Loader
+partition.</font></p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><font color="#000000"><b>systemd-boot</b>(7),</font>
+<b><font color="#0000FF">Boot Loader
+Specification</font></b>
+<small><font color="#000000">[2]</font></small>
+<font color="#000000">,</font> <b><font color="#0000FF">Boot
+Loader Interface</font></b>
+<small><font color="#000000">[3]</font></small>
+<font color="#000000">,
+<b>systemd-boot-system-token.service</b>(8)</font></p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">1.</font></p> </td>
+<td width="2%"></td>
+<td width="18%">
+
+
+<p style="margin-top: 1em"><font color="#000000">Random
+Seeds</font></p> </td>
+<td width="65%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">https://systemd.io/RANDOM_SEEDS</font></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">2.</font></p> </td>
+<td width="2%"></td>
+<td width="38%">
+
+
+<p style="margin-top: 1em"><font color="#000000">Boot
+Loader Specification</font></p></td>
+<td width="45%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">https://systemd.io/BOOT_LOADER_SPECIFICATION</font></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em"><font color="#000000">3.</font></p> </td>
+<td width="2%"></td>
+<td width="32%">
+
+
+<p style="margin-top: 1em"><font color="#000000">Boot
+Loader Interface</font></p></td>
+<td width="51%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:17%;"><font color="#000000">https://systemd.io/BOOT_LOADER_INTERFACE</font></p>
+<hr>
+</body>
+</html>

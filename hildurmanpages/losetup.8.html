@@ -1,0 +1,391 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:53:30 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>LOSETUP</title>
+
+</head>
+<body>
+
+<h1 align="center">LOSETUP</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#ENCRYPTION">ENCRYPTION</a><br>
+<a href="#RETURN VALUE">RETURN VALUE</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#EXAMPLE">EXAMPLE</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">losetup - set
+up and control loop devices</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Get info:</p>
+
+<p style="margin-left:18%; margin-top: 1em"><b>losetup</b>
+[<i>loopdev</i>]</p>
+
+<p style="margin-left:18%; margin-top: 1em"><b>losetup
+-l</b> [<b>-a</b>]</p>
+
+<p style="margin-left:18%; margin-top: 1em"><b>losetup
+-j</b> <i>file</i> [<b>-o</b> <i>offset</i>]</p>
+
+<p style="margin-left:11%; margin-top: 1em">Detach a loop
+device:</p>
+
+<p style="margin-left:18%; margin-top: 1em"><b>losetup
+-d</b> <i>loopdev</i>...</p>
+
+<p style="margin-left:11%; margin-top: 1em">Detach all
+associated loop devices:</p>
+
+<p style="margin-left:18%; margin-top: 1em"><b>losetup
+-D</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Set up a loop
+device:</p>
+
+<p style="margin-left:18%; margin-top: 1em"><b>losetup</b>
+[<b>-o</b> <i>offset</i>] [<b>--sizelimit</b> <i>size</i>]
+[<b>--sector-size</b> <i>size</i>]</p>
+
+<p style="margin-left:31%;">[<b>-Pr</b>] [<b>--show</b>]
+<b>-f</b>|<i>loopdev file</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">Resize a loop
+device:</p>
+
+<p style="margin-left:18%; margin-top: 1em"><b>losetup
+-c</b> <i>loopdev</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>losetup</b></i>
+is used to associate loop devices with regular files or
+block devices, to detach loop devices, and to query the
+status of a loop device. If only the <i>loopdev</i> argument
+is given, the status of the corresponding loop device is
+shown. If no option is given, all loop devices are
+shown.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that the
+old output format (i.e., <b>losetup -a</b>) with
+comma-delimited strings is deprecated in favour of the
+<b>--list</b> output format.</p>
+
+<p style="margin-left:11%; margin-top: 1em">It&rsquo;s
+possible to create more independent loop devices for the
+same backing file. <b>This setup may be dangerous, can cause
+data loss, corruption and overwrites.</b> Use
+<b>--nooverlap</b> with <b>--find</b> during setup to avoid
+this problem.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The <i>size</i>
+and <i>offset</i> arguments may be followed by the
+multiplicative suffixes KiB (=1024), MiB (=1024*1024), and
+so on for GiB, TiB, PiB, EiB, ZiB and YiB (the
+&quot;iB&quot; is optional, e.g., &quot;K&quot; has the same
+meaning as &quot;KiB&quot;) or the suffixes KB (=1000), MB
+(=1000*1000), and so on for GB, TB, PB, EB, ZB and YB.
+<b><br>
+-a</b>, <b>--all</b></p>
+
+<p style="margin-left:22%;">Show the status of all loop
+devices. Note that not all information is accessible for
+non-root users. See also <b>--list</b>. The old output
+format (as printed without <b>--list)</b> is deprecated.</p>
+
+<p style="margin-left:11%;"><b>-d</b>, <b>--detach</b>
+<i>loopdev</i>...</p>
+
+<p style="margin-left:22%;">Detach the file or device
+associated with the specified loop device(s). Note that
+since Linux v3.7 kernel uses &quot;lazy device
+destruction&quot;. The detach operation does not return
+EBUSY error anymore if device is actively used by system,
+but it is marked by autoclear flag and destroyed later.</p>
+
+<p style="margin-left:11%;"><b>-D</b>,
+<b>--detach-all</b></p>
+
+<p style="margin-left:22%;">Detach all associated loop
+devices.</p>
+
+<p style="margin-left:11%;"><b>-f</b>, <b>--find</b>
+[<i>file</i>]</p>
+
+<p style="margin-left:22%;">Find the first unused loop
+device. If a <i>file</i> argument is present, use the found
+device as loop device. Otherwise, just print its name.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--show</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Display the name of the assigned loop device if the
+<b>-f</b> option and a <i>file</i> argument are present.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-L</b>,
+<b>--nooverlap</b></p>
+
+<p style="margin-left:22%;">Check for conflicts between
+loop devices to avoid situation when the same backing file
+is shared between more loop devices. If the file is already
+used by another device then re-use the device rather than a
+new one. The option makes sense only with <b>--find</b>.</p>
+
+<p style="margin-left:11%;"><b>-j</b>, <b>--associated</b>
+<i>file</i> [<b>-o</b> <i>offset</i>]</p>
+
+<p style="margin-left:22%;">Show the status of all loop
+devices associated with the given <i>file</i>.</p>
+
+<p style="margin-left:11%;"><b>-o</b>, <b>--offset</b>
+<i>offset</i></p>
+
+<p style="margin-left:22%;">The data start is moved
+<i>offset</i> bytes into the specified file or device. The
+<i>offset</i> may be followed by the multiplicative
+suffixes; see above.</p>
+
+<p style="margin-left:11%;"><b>--sizelimit</b>
+<i>size</i></p>
+
+<p style="margin-left:22%;">The data end is set to no more
+than <i>size</i> bytes after the data start. The <i>size</i>
+may be followed by the multiplicative suffixes; see
+above.</p>
+
+<p style="margin-left:11%;"><b>-b</b>, <b>--sector-size</b>
+<i>size</i></p>
+
+<p style="margin-left:22%;">Set the logical sector size of
+the loop device in bytes (since Linux 4.14). The option may
+be used when create a new loop device as well as stand-alone
+command to modify sector size of the already existing loop
+device.</p>
+
+<p style="margin-left:11%;"><b>-c</b>,
+<b>--set-capacity</b> <i>loopdev</i></p>
+
+<p style="margin-left:22%;">Force the loop driver to reread
+the size of the file associated with the specified loop
+device.</p>
+
+<p style="margin-left:11%;"><b>-P</b>,
+<b>--partscan</b></p>
+
+<p style="margin-left:22%;">Force the kernel to scan the
+partition table on a newly created loop device. Note that
+the partition table parsing depends on sector sizes. The
+default is sector size is 512 bytes, otherwise you need to
+use the option <b>--sector-size</b> together with
+<b>--partscan</b>.</p>
+
+<p style="margin-left:11%;"><b>-r</b>,
+<b>--read-only</b></p>
+
+<p style="margin-left:22%;">Set up a read-only loop
+device.</p>
+
+
+<p style="margin-left:11%;"><b>--direct-io</b>[<b>=on</b>|<b>off</b>]</p>
+
+<p style="margin-left:22%;">Enable or disable direct I/O
+for the backing file. The optional argument can be either
+<b>on</b> or <b>off</b>. If the argument is omitted, it
+defaults to <b>on</b>.</p>
+
+<p style="margin-left:11%;"><b>-v</b>, <b>--verbose</b></p>
+
+<p style="margin-left:22%;">Verbose mode.</p>
+
+<p style="margin-left:11%;"><b>-l</b>, <b>--list</b></p>
+
+<p style="margin-left:22%;">If a loop device or the
+<b>-a</b> option is specified, print the default columns for
+either the specified loop device or all loop devices; the
+default is to print info about all devices. See also
+<b>--output</b>, <b>--noheadings</b>, <b>--raw</b>, and
+<b>--json</b>.</p>
+
+<p style="margin-left:11%;"><b>-O</b>, <b>--output</b>
+<i>column</i>[,<i>column</i>]...</p>
+
+<p style="margin-left:22%;">Specify the columns that are to
+be printed for the <b>--list</b> output. Use <b>--help</b>
+to get a list of all supported columns.</p>
+
+<p style="margin-left:11%;"><b>--output-all</b></p>
+
+<p style="margin-left:22%;">Output all available
+columns.</p>
+
+<p style="margin-left:11%;"><b>-n</b>,
+<b>--noheadings</b></p>
+
+<p style="margin-left:22%;">Don&rsquo;t print headings for
+<b>--list</b> output format.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p><b>--raw</b></p></td>
+<td width="4%"></td>
+<td width="50%">
+
+
+<p>Use the raw <b>--list</b> output format.</p></td>
+<td width="28%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-J</b>, <b>--json</b></p>
+
+<p style="margin-left:22%;">Use JSON format for
+<b>--list</b> output.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<h2>ENCRYPTION
+<a name="ENCRYPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Cryptoloop
+is no longer supported in favor of dm-crypt. For more
+details see cryptsetup(8).</b></p>
+
+<h2>RETURN VALUE
+<a name="RETURN VALUE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>losetup</b>
+returns 0 on success, nonzero on failure. When
+<b>losetup</b> displays the status of a loop device, it
+returns 1 if the device is not configured and 2 if an error
+occurred which prevented determining the status of the
+device.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/dev/loop[0..N]</i></p>
+
+<p style="margin-left:22%;">loop block devices</p>
+
+<p style="margin-left:11%;"><i>/dev/loop-control</i></p>
+
+<p style="margin-left:22%;">loop control device</p>
+
+<h2>EXAMPLE
+<a name="EXAMPLE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+commands can be used as an example of using the loop
+device.</p>
+
+<p style="margin-left:22%; margin-top: 1em"># dd
+if=/dev/zero of=~/file.img bs=1024k count=10 <br>
+# losetup --find --show ~/file.img <br>
+/dev/loop0 <br>
+# mkfs -t ext2 /dev/loop0 <br>
+# mount /dev/loop0 /mnt <br>
+... <br>
+# umount /dev/loop0 <br>
+# losetup --detach /dev/loop0</p>
+
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">LOOPDEV_DEBUG=all</p>
+
+<p style="margin-left:22%;">enables debug output.</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Karel Zak
+&lt;kzak@redhat.com&gt;, based on the original version from
+Theodore Ts&rsquo;o &lt;tytso@athena.mit.edu&gt;</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The losetup
+command is part of the util-linux package and is available
+from https://www.kernel.org/pub/linux/utils/util-linux/.</p>
+<hr>
+</body>
+</html>

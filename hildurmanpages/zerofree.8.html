@@ -1,0 +1,222 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:15:38 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>ZEROFREE</title>
+
+</head>
+<body>
+
+<h1 align="center">ZEROFREE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">zerofree
+&mdash; zero free blocks from ext2, ext3 and ext4
+file-systems</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>zerofree</b>
+[<b>-n</b>] [<b>-v</b>] [<b>-f fillval</b>]
+<i>filesystem</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>zerofree</b></i>
+finds the unallocated, blocks with non-zero value content in
+an ext2, ext3 or ext4 <i>filesystem</i> (e.g. /dev/hda1) and
+fills them with zeroes (or another octet of your
+choice).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Filling unused
+areas with zeroes is useful if the device on which this
+file-system resides is a disk image. In this case, depending
+on the type of disk image, a secondary utility may be able
+to reduce the size of the disk image after zerofree has been
+run.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Filling unused
+areas may also be useful with solid-state drives (SSDs). On
+some SSDs, filling blocks with ones (0xFF) is reported to
+trigger Flash block erasure by the firmware, possibly giving
+a write performance increase.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The usual way
+to achieve the same result (zeroing the unallocated blocks)
+is to run <b>dd</b> (1) to create a file full of zeroes that
+takes up the entire free space on the drive, and then delete
+this file. This has many disadvantages, which zerofree
+alleviates:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="15%"></td>
+<td width="2%">
+
+
+<p>&bull;</p></td>
+<td width="3%"></td>
+<td width="80%">
+
+
+<p>it is slow;</p></td></tr>
+<tr valign="top" align="left">
+<td width="15%"></td>
+<td width="2%">
+
+
+<p>&bull;</p></td>
+<td width="3%"></td>
+<td width="80%">
+
+
+<p>it makes the disk image (temporarily) grow to its
+maximal extent;</p></td></tr>
+<tr valign="top" align="left">
+<td width="15%"></td>
+<td width="2%">
+
+
+<p>&bull;</p></td>
+<td width="3%"></td>
+<td width="80%">
+
+
+<p>it (temporarily) uses all free space on the disk, so
+other concurrent write actions may fail.</p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>filesystem</i>
+has to be unmounted or mounted read-only for <b>zerofree</b>
+to work. It will exit with an error message if the
+<i>filesystem</i> is mounted writable. To remount the root
+file-system readonly, you can first switch to single user
+runlevel (<b>telinit 1</b>) then use <b>mount -o
+remount,ro</b> <i>filesystem</i>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>zerofree</b>
+has been written to be run from GNU/Linux systems installed
+as guest OSes inside a virtual machine. In this case, it is
+typically run from within the guest system, and a utility is
+then run from the host system to shrink disk image
+(<b>VBoxManage modifyhd --compact</b>, provided with
+virtualbox, is able to do that for some disk image
+formats).</p>
+
+<p style="margin-left:11%; margin-top: 1em">It may however
+be useful in other situations: for instance it can be used
+to make it more difficult to retrieve deleted data. Beware
+that securely deleting sensitive data is not in general an
+easy task and usually requires writing several times on the
+deleted blocks.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p style="margin-top: 1em"><b>-n</b></p></td>
+<td width="3%"></td>
+<td width="74%">
+
+
+<p style="margin-top: 1em">Perform a dry run (do not modify
+the file-system);</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p><b>-v</b></p></td>
+<td width="3%"></td>
+<td width="74%">
+
+
+<p>Be verbose: show the number of blocks modified by
+<b>zerofree</b> (or that would be modified, in case the
+<b>-n</b> is used), the number of free blocks and the total
+number of blocks on the filesystem;</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p><b>-f value</b></p></td>
+<td width="3%"></td>
+<td width="74%">
+
+
+<p>Specify the octet value to fill empty blocks with
+(defaults to 0). Argument must be within the range 0 to
+255.</p> </td></tr>
+</table>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">dd (1).</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This manual
+page was written by Thibaut Paumard
+&lt;paumard@users.sourceforge.net&gt; for the <b>Debian</b>
+system (but may be used by others). Permission is granted to
+copy, distribute and/or modify this document under the terms
+of the GNU General Public License, Version 2 or any later
+version published by the Free Software Foundation.</p>
+
+<p style="margin-left:11%; margin-top: 1em">On Debian
+systems, the complete text of the GNU General Public License
+can be found in /usr/share/common-licenses/GPL-2.</p>
+<hr>
+</body>
+</html>

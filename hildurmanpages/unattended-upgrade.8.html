@@ -1,0 +1,153 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:11:33 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>unattended-upgrade</title>
+
+</head>
+<body>
+
+<h1 align="center">unattended-upgrade</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#CONFIGURATION">CONFIGURATION</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">unattended-upgrade
+- automatic installation of security (and other)
+upgrades</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>unattended-upgrade</b>
+[options]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This program
+can download and install security upgrades automatically and
+unattended, taking care to only install packages from the
+configured APT source, and checking for dpkg prompts about
+configuration file changes. All operations are logged to
+/var/log/unattended-upgrades/unattended-upgrades.log and the
+package manager (dpkg) output is logged to
+/var/log/unattended-upgrades/unattended-upgrades-dpkg.log</p>
+
+<p style="margin-left:11%; margin-top: 1em">This script is
+the backend for the APT::Periodic::Unattended-Upgrade option
+and designed to be run periodically by APT&rsquo;s systemd
+service (apt-daily-upgrade.service) or from cron (e.g. via
+/etc/cron.daily/apt).</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">unattended-upgrade
+accepts the following options: <b><br>
+-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">help output</p>
+
+<p style="margin-left:11%;"><b>-d</b>, <b>--debug</b></p>
+
+<p style="margin-left:22%;">extra debug output into
+/var/log/unattended-upgrades/unattended-upgrades.log</p>
+
+<p style="margin-left:11%;"><b>--apt-debug</b></p>
+
+<p style="margin-left:22%;">detailed APT/LibAPT output for
+debugging</p>
+
+<p style="margin-left:11%;"><b>-v</b>, <b>--verbose</b></p>
+
+<p style="margin-left:22%;">show verbose output</p>
+
+<p style="margin-left:11%;"><b>--dry-run</b></p>
+
+<p style="margin-left:22%;">Just simulate installing
+updates, do not actually do it</p>
+
+
+<p style="margin-left:11%;"><b>--minimal-upgrade-steps</b></p>
+
+<p style="margin-left:22%;">perform upgrade in minimal
+steps (cancel with SIGINT). This is the default now.</p>
+
+
+<p style="margin-left:11%;"><b>--no-minimal-upgrade-steps</b></p>
+
+<p style="margin-left:22%;">do not perform upgrade in
+minimal steps</p>
+
+<h2>CONFIGURATION
+<a name="CONFIGURATION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+configuration is done via the apt configuration mechanism.
+The default configuration file can be found at
+/etc/apt/apt.conf.d/50unattended-upgrades</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">unattended-upgrade
+is written by Michael Vogt &lt;mvo@ubuntu.com&gt;</p>
+
+<p style="margin-left:11%; margin-top: 1em">This manual
+page was originally written by Michael Vogt
+&lt;mvo@ubuntu.com&gt;</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright (C)
+2005-2009 Canonical</p>
+
+<p style="margin-left:11%; margin-top: 1em">There is NO
+warranty. You may redistribute this software under the terms
+of the GNU General Public License. For more information
+about these matters, see the files named COPYING.</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:53:40 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>LSINITRAMFS</title>
+
+</head>
+<body>
+
+<h1 align="center">LSINITRAMFS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#USAGE EXAMPLES">USAGE EXAMPLES</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">lsinitramfs -
+list content of an initramfs image</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lsinitramfs</b>
+[<b>-l</b>] <i>initramfs-file</i>... <b><br>
+lsinitramfs -h</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>lsinitramfs</b> command lists the content of given
+initramfs images. It allows one to quickly check the content
+of one (or multiple) specified initramfs files.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em"><b>-h</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em">Display usage information and
+exit.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-l</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Display long and more verbose listing of initramfs
+content.</p> </td></tr>
+</table>
+
+<h2>USAGE EXAMPLES
+<a name="USAGE EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">List initramfs
+content of current running kernel:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lsinitramfs
+/boot/initrd.img-$(uname -r)</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">List content of
+two initramfs files in verbose mode:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>lsinitramfs
+-l /boot/vmlinuz-2.6.31-grml64
+/boot/vmlinuz-2.6.33-grml64</b></p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>lsinitramfs</b>
+cannot deal with multiple-segmented initramfs images, except
+where an early (uncompressed) initramfs with system firmware
+is prepended to the regular compressed initramfs.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+initramfs-tools are written by Maximilian Attems
+&lt;maks@debian.org&gt; and numerous others.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>initramfs-tools</i>(7),
+<i>mkinitramfs</i>(8), <i>unmkinitramfs</i>(8),
+<i>update-initramfs</i>(8).</p>
+<hr>
+</body>
+</html>

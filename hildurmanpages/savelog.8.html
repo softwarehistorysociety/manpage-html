@@ -1,0 +1,348 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:03:51 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SAVELOG</title>
+
+</head>
+<body>
+
+<h1 align="center">SAVELOG</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">savelog - save
+a log file</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>savelog</b>
+[-m mode] [-u user] [-g group] [-t] [-p] [-c cycle] [-l]
+[-j] [-J] [-1&nbsp;..&nbsp;-9] [-C] [-d] [-l] [-r rolldir]
+[-n] [-q] [-D dateformat] file ...</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>savelog</b> command saves and optionally compresses old
+copies of files. Older versions of <i>file</i> are
+named:</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><i>file</i>.<i>&lt;number&gt;&lt;compress_suffix&gt;</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">where
+<i>&lt;number&gt;</i> is the version number, 0 being the
+newest. Version numbers &gt; 0 are compressed unless
+<b>-l</b> prevents it. Version number 0 is not compressed
+because a process might still have <i>file</i> opened for
+I/O. Only <i>cycle</i> versions of the file are kept.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the file
+does not exist and <b>-t</b> was given, it will be
+created.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For files that
+do exist and have lengths greater than zero, the following
+actions are performed:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>1)</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Version numbered files are cycled. Version
+<i>file</i>.<i>2</i> is moved to version
+<i>file</i>.<i>3</i>, version <i>file</i>.<i>1</i> is moved
+to version <i>file</i>.<i>2</i>, and so on. Finally version
+<i>file</i>.<i>0</i> is moved to version
+<i>file</i>.<i>1</i>, and version <i>file</i> is deleted.
+Both compressed names and uncompressed names are cycled,
+regardless of <b>-l</b>. Missing version files are
+ignored.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>2)</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>The new <i>file</i>.<i>1</i> is compressed unless the
+<b>-l</b> flag was given. It is changed subject to the
+<b>-m</b>, <b>-u</b>, and <b>-g</b> flags.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>3)</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>The main <i>file</i> is moved to
+<i>file</i>.<i>0</i>.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>4)</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>If the <b>-m</b>, <b>-u</b>, <b>-g</b>, <b>-t</b>, or
+<b>-p</b> flags are given, then an empty <i>file</i> is
+created subject to the given flags. With the <b>-p</b> flag,
+the file is created with the same owner, group, and
+permissions as before.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>5)</p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>The new <i>file</i>.<i>0</i> is changed subject to the
+<b>-m</b>, <b>-u</b>, and <b>-g</b> flags.</p></td></tr>
+</table>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-m
+mode</b></p>
+
+<p style="margin-left:22%;">chmod the log files to mode,
+implies <b>-t</b></p>
+
+<p style="margin-left:11%;"><b>-u user</b></p>
+
+<p style="margin-left:22%;">chown log files to user,
+implies <b>-t</b></p>
+
+<p style="margin-left:11%;"><b>-g group</b></p>
+
+<p style="margin-left:22%;">chgrp log files to group,
+implies <b>-t</b></p>
+
+<p style="margin-left:11%;"><b>-c cycle</b></p>
+
+<p style="margin-left:22%;">Save cycle versions of the
+logfile (default: 7). The <i>cycle</i> count must be at
+least 2.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-t</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>touch new logfile into existence</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-l</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>don&rsquo;t compress any log files (default: do
+compress)</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-p</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>preserve owner, group, and permissions of logfile</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-j</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>compress with bzip2 instead of gzip</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-J</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>compress with xz instead of gzip</p></td></tr>
+</table>
+
+<p style="margin-left:22%; margin-top: 1em">For xz no
+strength option is set, and xz decides on the default based
+on the total amount of physical RAM. Note that xz can use a
+very large amount of memory for the higher compression
+levels.</p>
+
+<p style="margin-left:11%;"><b>-1&nbsp;..&nbsp;-9</b></p>
+
+<p style="margin-left:22%;">compression strength or memory
+usage (default: 9, except for xz)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-C</b></p></td>
+<td width="8%"></td>
+<td width="49%">
+
+
+<p>force cleanup of cycled logfiles</p></td>
+<td width="29%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-d</b></p></td>
+<td width="8%"></td>
+<td width="49%">
+
+
+<p>use standard date for rolling</p></td>
+<td width="29%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-D dateformat</b></p>
+
+<p style="margin-left:22%;">override date format, in the
+syntax understood by the <b>date</b>(1) command</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-r</b></p></td>
+<td width="8%"></td>
+<td width="58%">
+
+
+<p>use <i>rolldir</i> instead of . to roll files</p></td>
+<td width="20%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-n</b></p></td>
+<td width="8%"></td>
+<td width="58%">
+
+
+<p>do not rotate empty files</p></td>
+<td width="20%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-q</b></p></td>
+<td width="8%"></td>
+<td width="58%">
+
+
+<p>be quiet</p></td>
+<td width="20%">
+</td></tr>
+</table>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">If a process is
+still writing to <i>file.0</i>, and savelog moves it to
+<i>file.1</i> and compresses it, data could be lost.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>logrotate</b>(8)</p>
+<hr>
+</body>
+</html>

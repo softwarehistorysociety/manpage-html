@@ -1,0 +1,126 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:39:16 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>E2MMPSTATUS</title>
+
+</head>
+<body>
+
+<h1 align="center">E2MMPSTATUS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#EXIT CODE">EXIT CODE</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">e2mmpstatus -
+Check MMP status of an ext4 filesystem</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>e2mmpstatus</b>
+[<b>-i</b>] &lt;<i>filesystem</i>&gt;</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em"><b>-i</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em">prints out the MMP information
+rather than check it.</p></td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>e2mmpstatus</b>
+is used to check Multiple-Mount Protection (MMP) status of
+an ext4 filesystem with the <b>mmp</b> feature enabled. The
+specified <i>filesystem</i> can be a device name (e.g.
+<i>/dev/hdc1</i>, <i>/dev/sdb2</i>), or an ext4 filesystem
+label or UUID, for example
+<b>UUID=8868abf6-88c5-4a83-98b8-bfc24057f7bd</b> or
+<b>LABEL=root</b>. By default, the <b>e2mmpstatus</b>
+program checks whether it is safe to mount the filesystem
+without taking the risk of mounting it more than once.</p>
+
+<p style="margin-left:11%; margin-top: 1em">MMP
+(multiple-mount protection) is a feature that adds
+protection against the filesystem being modified
+simultaneously by more than one node. It is NOT safe to
+mount a filesystem when one of the following conditions is
+true: <br>
+1. e2fsck is running on the filesystem. <br>
+2. the filesystem is in use by another node. <br>
+3. The MMP block is corrupted or cannot be read for some
+reason. <br>
+The <b>e2mmpstatus</b> program might wait for some time to
+see whether the MMP block is being updated by any node
+during this period. The time taken depends on how frequently
+the MMP block is being written by the other node.</p>
+
+<h2>EXIT CODE
+<a name="EXIT CODE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The exit code
+returned by <b>e2mmpstatus</b> is 0 when it is safe to mount
+the filesystem, 1 when the MMP block shows the filesystem is
+in use on another node and it is NOT safe to mount the
+filesystem, and 2 if some other failure occurred that
+prevents the check from properly detecting the current MMP
+status.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>dumpe2fs</b>(8),
+<b>e2fsck</b>(8), <b>fstab</b>(5), <b>fsck</b>(8),</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:35:41 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>CLOUD-INIT-PER</title>
+
+</head>
+<body>
+
+<h1 align="center">CLOUD-INIT-PER</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">cloud-init-per
+- Run a command with arguments at a specific frequency</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>cloud-init-per</b>
+&lt;frequency&gt; &lt;name&gt; &lt;cmd&gt; [ arg1 [ arg2
+[...]]]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Run a command
+with arguments at a specific frequency.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This utility
+can make it easier to use boothooks or bootcmd on a per
+&quot;once&quot; or &quot;always&quot; basis. For
+example:</p>
+
+<p style="margin-left:11%; margin-top: 1em">- [
+cloud-init-per, once, mymkfs, mkfs, /dev/vdb ]</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+cloud-init-per command replaced the cloud-init-run-module
+command.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>frequency</b></p>
+
+<p style="margin-left:22%;">This can be one of the
+following values:</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>once</b>:
+run only once and do not re-run for new instance-id</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>instance</b>:
+run only the first boot for a given instance-id</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>always</b>:
+run every boot</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>name</b></p></td>
+<td width="5%"></td>
+<td width="78%">
+
+
+<p>A name to give the command to run to show up in
+logs.</p> </td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>cmd [ arg1 [ arg2
+[...]]]</b></p>
+
+<p style="margin-left:22%;">The actual command to run
+followed by any additional arguments.</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright (C)
+2020 Canonical Ltd. License GPL-3 or Apache-2.0</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Full
+documentation at:
+&lt;https://cloudinit.readthedocs.io&gt;</p>
+<hr>
+</body>
+</html>

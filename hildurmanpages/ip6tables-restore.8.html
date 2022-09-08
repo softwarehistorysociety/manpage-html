@@ -1,0 +1,174 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:50:25 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>IPTABLES-RESTORE</title>
+
+</head>
+<body>
+
+<h1 align="center">IPTABLES-RESTORE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">iptables-restore
+&mdash; Restore IP Tables</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">ip6tables-restore
+&mdash; Restore IPv6 Tables</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>iptables-restore</b>
+[<b>-chntvV</b>] [<b>-w</b> <i>secs</i>] [<b>-W</b>
+<i>usecs</i>] [<b>-M</b> <i>modprobe</i>] [<b>-T</b>
+<i>name</i>] [<b>file</b>]</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ip6tables-restore</b>
+[<b>-chntvV</b>] [<b>-w</b> <i>secs</i>] [<b>-W</b>
+<i>usecs</i>] [<b>-M</b> <i>modprobe</i>] [<b>-T</b>
+<i>name</i>] [<b>file</b>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>iptables-restore</b>
+and <b>ip6tables-restore</b> are used to restore IP and IPv6
+Tables from data specified on STDIN or in <i>file</i>. Use
+I/O redirection provided by your shell to read from a file
+or specify <i>file</i> as an argument. <b><br>
+-c</b>, <b>--counters</b></p>
+
+<p style="margin-left:22%;">restore the values of all
+packet and byte counters</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Print a short option
+summary.</p>
+
+<p style="margin-left:11%;"><b>-n</b>, <b>--noflush</b></p>
+
+<p style="margin-left:22%;">don&rsquo;t flush the previous
+contents of the table. If not specified, both commands flush
+(delete) all previous contents of the respective table.</p>
+
+<p style="margin-left:11%;"><b>-t</b>, <b>--test</b></p>
+
+<p style="margin-left:22%;">Only parse and construct the
+ruleset, but do not commit it.</p>
+
+<p style="margin-left:11%;"><b>-v</b>, <b>--verbose</b></p>
+
+<p style="margin-left:22%;">Print additional debug info
+during ruleset processing.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Print the program version
+number.</p>
+
+<p style="margin-left:11%;"><b>-w</b>, <b>--wait</b>
+[<i>seconds</i>]</p>
+
+<p style="margin-left:22%;">Wait for the xtables lock. To
+prevent multiple instances of the program from running
+concurrently, an attempt will be made to obtain an exclusive
+lock at launch. By default, the program will exit if the
+lock cannot be obtained. This option will make the program
+wait (indefinitely or for optional <i>seconds</i>) until the
+exclusive lock can be obtained.</p>
+
+<p style="margin-left:11%;"><b>-W</b>,
+<b>--wait-interval</b> <i>microseconds</i></p>
+
+<p style="margin-left:22%;">Interval to wait per each
+iteration. When running latency sensitive applications,
+waiting for the xtables lock for extended durations may not
+be acceptable. This option will make each iteration take the
+amount of time specified. The default interval is 1 second.
+This option only works with <b>-w</b>.</p>
+
+<p style="margin-left:11%;"><b>-M</b>, <b>--modprobe</b>
+<i>modprobe_program</i></p>
+
+<p style="margin-left:22%;">Specify the path to the
+modprobe program. By default, iptables-restore will inspect
+/proc/sys/kernel/modprobe to determine the
+executable&rsquo;s path.</p>
+
+<p style="margin-left:11%;"><b>-T</b>, <b>--table</b>
+<i>name</i></p>
+
+<p style="margin-left:22%;">Restore only the named table
+even if the input stream contains other ones.</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">None known as
+of iptables-1.2.1 release</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Harald Welte
+&lt;laforge@gnumonks.org&gt; wrote iptables-restore based on
+code from Rusty Russell. <br>
+Andras Kis-Szabo &lt;kisza@sch.bme.hu&gt; contributed
+ip6tables-restore.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>iptables-apply</b>(8),<b>iptables-save</b>(8),
+<b>iptables</b>(8)</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+iptables-HOWTO, which details more iptables usage, the
+NAT-HOWTO, which details NAT, and the
+netfilter-hacking-HOWTO which details the internals.</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,3408 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:56:00 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>MULTIPATH.CONF</title>
+
+</head>
+<body>
+
+<h1 align="center">MULTIPATH.CONF</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SYNTAX">SYNTAX</a><br>
+<a href="#defaults section">defaults section</a><br>
+<a href="#blacklist and blacklist_exceptions sections">blacklist and blacklist_exceptions sections</a><br>
+<a href="#multipaths section">multipaths section</a><br>
+<a href="#devices section">devices section</a><br>
+<a href="#overrides section">overrides section</a><br>
+<a href="#WWID generation">WWID generation</a><br>
+<a href="#Shaky paths detection">Shaky paths detection</a><br>
+<a href="#FOREIGN MULTIPATH SUPPORT">FOREIGN MULTIPATH SUPPORT</a><br>
+<a href="#KNOWN ISSUES">KNOWN ISSUES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">multipath.conf
+- multipath daemon configuration file.</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>/etc/multipath.conf</b>
+is the configuration file for the multipath daemon. It is
+used to overwrite the built-in configuration table of
+<b>multipathd</b>. Any line whose first non-white-space
+character is a &rsquo;#&rsquo; is considered a comment line.
+Empty lines are ignored.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Currently used
+multipathd configuration can be displayed with the
+<b>multipath -t</b> or <b>multipathd show config</b>
+command.</p>
+
+<h2>SYNTAX
+<a name="SYNTAX"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+configuration file contains entries of the form:</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>&lt;section&gt;
+{</b></p>
+
+<p style="margin-left:32%;"><b>&lt;attribute&gt;
+&lt;value&gt;</b> <i><br>
+...</i> <b><br>
+&lt;subsection&gt; {</b></p>
+
+<p style="margin-left:43%;"><b>&lt;attribute&gt;
+&lt;value&gt;</b> <i><br>
+...</i></p>
+
+<p style="margin-left:32%;"><b>}</b></p>
+
+<p style="margin-left:22%;"><b>}</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Each
+<i>section</i> contains one or more attributes or
+subsections. The recognized keywords for attributes or
+subsections depend on the section in which they occur.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>&lt;attribute&gt;</b>
+and <b>&lt;value&gt;</b> must be on a single line.
+<b>&lt;attribute&gt;</b> is one of the keywords listed in
+this man page. <b>&lt;value&gt;</b> is either a simple word
+(containing no whitespace and none of the characters
+&rsquo;&quot;&rsquo;, &rsquo;#&rsquo;, and &rsquo;!&rsquo;)
+or <i>one</i> string enclosed in double quotes
+(&quot;...&quot;). Outside a quoted string, text starting
+with &rsquo;#&rsquo;, and &rsquo;!&rsquo; is regarded as a
+comment and ignored until the end of the line. Inside a
+quoted string, &rsquo;#&rsquo; and &rsquo;!&rsquo; are
+normal characters, and whitespace is preserved. To represent
+a double quote character inside a double quoted string, use
+two consecutive double quotes (&rsquo;&quot;&quot;&rsquo;).
+Thus &rsquo;2.5&quot; SSD&rsquo; can be written as
+&quot;2.5&quot;&quot; SSD&quot;.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Opening braces
+(&rsquo;{&rsquo;) must follow the (sub)section name on the
+same line. Closing braces (&rsquo;}&rsquo;) that mark the
+end of a (sub)section must be the only non-whitespace
+character on the line. Whitespace is ignored except inside
+double quotes, thus the indentation shown in the above
+example is helpful for human readers but not mandatory.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Note on
+regular expressions:</b> The <i>multipath.conf</i> syntax
+allows many attribute values to be specified as POSIX
+Extended Regular Expressions (see <b>regex</b>(7)). These
+regular expressions are <b>case sensitive</b> and <b>not
+anchored</b>, thus the expression &quot;bar&quot; matches
+&quot;barbie&quot;, &quot;rhabarber&quot;, and
+&quot;wunderbar&quot;, but not &quot;Barbie&quot;. To avoid
+unwanted substring matches, standard regular expression
+syntax using the special characters &quot;^&quot; and
+&quot;$&quot; can be used.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The following
+<i>section</i> keywords are recognized:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p><b>defaults</b></p></td>
+<td width="12%"></td>
+<td width="63%">
+
+
+<p>This section defines default values for attributes which
+are used whenever no values are given in the appropriate
+device or multipath sections.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p><b>blacklist</b></p></td>
+<td width="12%"></td>
+<td width="63%">
+
+
+<p>This section defines which devices should be excluded
+from the multipath topology discovery.</p></td></tr>
+</table>
+
+
+<p style="margin-left:11%;"><b>blacklist_exceptions</b></p>
+
+<p style="margin-left:37%;">This section defines which
+devices should be included in the multipath topology
+discovery, despite being listed in the <i>blacklist</i>
+section.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="15%">
+
+
+<p><b>multipaths</b></p></td>
+<td width="11%"></td>
+<td width="63%">
+
+
+<p>This section defines the multipath topologies. They are
+indexed by a <i>World Wide Identifier</i>(WWID). For details
+on the WWID generation see section <i>WWID generation</i>
+below. Attributes set in this section take precedence over
+all others.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="15%">
+
+
+<p><b>devices</b></p></td>
+<td width="11%"></td>
+<td width="63%">
+
+
+<p>This section defines the device-specific settings.
+Devices are identified by vendor, product, and revision.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="15%">
+
+
+<p><b>overrides</b></p></td>
+<td width="11%"></td>
+<td width="63%">
+
+
+<p>This section defines values for attributes that should
+override the device-specific settings for all devices.</p></td></tr>
+</table>
+
+<h2>defaults section
+<a name="defaults section"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>defaults</i> section recognizes the following
+keywords:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p style="margin-top: 1em"><b>verbosity</b></p></td>
+<td width="12%"></td>
+<td width="63%">
+
+
+<p style="margin-top: 1em">Default verbosity. Higher values
+increase the verbosity level. Valid levels are between 0 and
+6.</p> </td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>2</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="24%">
+
+
+<p><b>polling_interval</b></p></td>
+<td width="2%"></td>
+<td width="63%">
+
+
+<p>Interval between two path checks in seconds. For
+properly functioning paths, the interval between checks will
+gradually increase to <i>max_polling_interval</i>. This
+value will be overridden by the <i>WatchdogSec</i> setting
+in the multipathd.service definition if systemd is used.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>5</b></p>
+
+
+<p style="margin-left:11%;"><b>max_polling_interval</b></p>
+
+<p style="margin-left:37%;">Maximal interval between two
+path checks in seconds. <br>
+The default is: <b>4 * polling_interval</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p><b>reassign_maps</b></p></td>
+<td width="6%"></td>
+<td width="63%">
+
+
+<p>Enable reassigning of device-mapper maps. With this
+option multipathd will remap existing device-mapper maps to
+always point to multipath device, not the underlying block
+devices. Possible values are <i>yes</i> and <i>no</i>.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>no</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p><b>multipath_dir</b></p></td>
+<td width="6%"></td>
+<td width="63%">
+
+
+<p>Directory where the dynamic shared objects are stored.
+Defined at compile time, commonly <i>/lib64/multipath/</i>
+or <i>/lib/multipath/</i>.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>&lt;system
+dependent&gt;</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p><b>path_selector</b></p></td>
+<td width="6%"></td>
+<td width="63%">
+
+
+<p>The default path selector algorithm to use; they are
+offered by the kernel multipath target. There are three
+selector algorithms:</p></td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>round-robin 0</i></p>
+
+<p style="margin-left:55%;">Loop through every path in the
+path group, sending the same amount of I/O to each. Some
+aspects of behavior can be controlled with the attributes:
+<i>rr_min_io</i>, <i>rr_min_io_rq</i> and
+<i>rr_weight</i>.</p>
+
+<p style="margin-left:37%;"><i>queue-length 0</i></p>
+
+<p style="margin-left:55%;">(Since 2.6.31 kernel) Choose
+the path for the next bunch of I/O based on the amount of
+outstanding I/O to the path.</p>
+
+<p style="margin-left:37%;"><i>service-time 0</i></p>
+
+<p style="margin-left:55%;">(Since 2.6.31 kernel) Choose
+the path for the next bunch of I/O based on the amount of
+outstanding I/O to the path and its relative throughput.</p>
+
+<p style="margin-left:37%;">The default is: <b>service-time
+0</b></p>
+
+
+<p style="margin-left:11%;"><b>path_grouping_policy</b></p>
+
+<p style="margin-left:37%;">The default path grouping
+policy to apply to unspecified multipaths. Possible values
+are:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="12%">
+
+
+<p><i>failover</i></p></td>
+<td width="6%"></td>
+<td width="45%">
+
+
+<p>One path per priority group.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="12%">
+
+
+<p><i>multibus</i></p></td>
+<td width="6%"></td>
+<td width="45%">
+
+
+<p>All paths in one priority group.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>group_by_serial</i></p>
+
+<p style="margin-left:55%;">One priority group per serial
+number.</p>
+
+<p style="margin-left:37%;"><i>group_by_prio</i></p>
+
+<p style="margin-left:55%;">One priority group per priority
+value. Priorities are determined by callout programs
+specified as a global, per-controller or per-multipath
+option in the configuration file.</p>
+
+<p style="margin-left:37%;"><i>group_by_node_name</i></p>
+
+<p style="margin-left:55%;">One priority group per target
+node name. Target node names are fetched in
+<i>/sys/class/fc_transport/target*/node_name</i>.</p>
+
+<p style="margin-left:37%;">The default is:
+<b>failover</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p><b>uid_attrs</b></p></td>
+<td width="12%"></td>
+<td width="63%">
+
+
+<p>Setting this option activates <b>merging uevents</b> by
+WWID, which may improve uevent processing effiency.
+Moreover, it&rsquo;s an alternative method to configure the
+udev properties to use for determining unique path
+identifiers (WWIDs).</p></td></tr>
+</table>
+
+<p style="margin-left:37%; margin-top: 1em">The value of
+this option is a space separated list of records like
+&quot;<i>type:ATTR</i>&quot;, where <i>type</i> is matched
+against the beginning of the device node name (e.g.
+<i>sd:ATTR</i> matches <i>sda</i>), and <i>ATTR</i> is the
+name of the udev property to use for matching devices.</p>
+
+<p style="margin-left:37%; margin-top: 1em">If this option
+is configured and matches the device node name of a device,
+it overrides any other configured methods for determining
+the WWID for this device.</p>
+
+<p style="margin-left:37%; margin-top: 1em">The default is:
+<b>&lt;unset&gt;</b>. To enable uevent merging, set it e.g.
+to &quot;sd:ID_SERIAL dasd:ID_UID nvme:ID_WWN&quot;.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p style="margin-top: 1em"><b>uid_attribute</b></p></td>
+<td width="6%"></td>
+<td width="63%">
+
+
+<p style="margin-top: 1em">The udev attribute providing a
+unique path identifier (WWID). If <i>uid_attribute</i> is
+set to the empty string, WWID determination is done using
+the <i>sysfs</i> method rather then using udev (not
+recommended in production; see <b>WWID generation</b>
+below).</p> </td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>ID_SERIAL</b>, for SCSI devices <br>
+The default is: <b>ID_UID</b>, for DASD devices <br>
+The default is: <b>ID_WWN</b>, for NVMe devices</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p><b>getuid_callout</b></p></td>
+<td width="5%"></td>
+<td width="63%">
+
+
+<p>(Superseded by <i>uid_attribute</i>) The default program
+and args to callout to obtain a unique path identifier.
+Should be specified with an absolute path.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>&lt;unset&gt;</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>prio</b></p></td>
+<td width="20%"></td>
+<td width="63%">
+
+
+<p>The name of the path priority routine. The specified
+routine should return a numeric value specifying the
+relative priority of this path. Higher number have a higher
+priority. <i>&quot;none&quot;</i> is a valid value.
+Currently the following path priority routines are
+implemented:</p> </td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>const</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%"></td>
+<td width="9%"></td>
+<td width="45%">
+
+
+<p style="margin-top: 1em">Return a constant priority of
+<i>1</i>.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>sysfs</i></p></td>
+<td width="9%"></td>
+<td width="45%">
+
+
+<p>Use the sysfs attributes <i>access_state</i> and
+<i>preferred_path</i> to generate the path priority. This
+prioritizer accepts the optional prio_arg
+<i>exclusive_pref_bit</i>.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>emc</i></p></td>
+<td width="9%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Generate the path priority for DGC
+class arrays as CLARiiON CX/AX and EMC VNX and Unity
+families.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>alua</i></p></td>
+<td width="9%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Generate the path priority based on
+the SCSI-3 ALUA settings. This prioritizer accepts the
+optional prio_arg <i>exclusive_pref_bit</i>.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>ontap</i></p></td>
+<td width="9%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Generate the path priority for
+NetApp ONTAP class and OEM arrays as IBM NSeries.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>rdac</i></p></td>
+<td width="9%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Generate the path priority for
+LSI/Engenio/NetApp RDAC class as NetApp SANtricity E/EF
+Series, and OEM arrays from IBM DELL SGI STK and SUN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>hp_sw</i></p></td>
+<td width="9%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Generate the path priority for
+HP/COMPAQ/DEC HSG80 and MSA/HSV arrays with Active/Standby
+mode exclusively.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>hds</i></p></td>
+<td width="9%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Generate the path priority for
+Hitachi AMS families of arrays other than AMS 2000.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>random</i></p></td>
+<td width="9%"></td>
+<td width="45%">
+
+
+<p>Generate a random priority between 1 and 10.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>weightedpath</i></p>
+
+<p style="margin-left:55%;">Generate the path priority
+based on the regular expression and the priority provided as
+argument. Requires prio_args keyword.</p>
+
+<p style="margin-left:37%;"><i>path_latency</i></p>
+
+<p style="margin-left:55%;">Generate the path priority
+based on a latency algorithm. Requires prio_args
+keyword.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="12%">
+
+
+<p><i>ana</i></p></td>
+<td width="6%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Generate the path priority based on
+the NVMe ANA settings.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="12%">
+
+
+<p><i>datacore</i></p></td>
+<td width="6%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Generate the path priority for some
+DataCore storage arrays. Requires prio_args keyword.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="12%">
+
+
+<p><i>iet</i></p></td>
+<td width="6%"></td>
+<td width="45%">
+
+
+<p>(iSCSI only) Generate path priority for iSCSI targets
+based on IP address. Requires prio_args keyword.</p></td></tr>
+</table>
+
+<p style="margin-left:37%; margin-top: 1em">The default
+depends on the <b>detect_prio</b> setting: If
+<b>detect_prio</b> is <b>yes</b> (default), the default
+priority algorithm is <b>sysfs</b> (except for NetAPP
+E-Series, where it is <b>alua</b>). If <b>detect_prio</b> is
+<b>no</b>, the default priority algorithm is
+<b>const</b>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p style="margin-top: 1em"><b>prio_args</b></p></td>
+<td width="12%"></td>
+<td width="63%">
+
+
+<p style="margin-top: 1em">Arguments to pass to to the prio
+function. This only applies to certain prioritizers:</p></td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>weighted</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="55%"></td>
+<td width="45%">
+
+
+<p style="margin-top: 1em">Needs a value of the form
+<i>&quot;&lt;hbtl|devname|serial|wwn&gt; &lt;regex1&gt;
+&lt;prio1&gt; &lt;regex2&gt; &lt;prio2&gt; ...&quot;</i></p></td></tr>
+</table>
+
+<p style="margin-left:55%;"><i>hbtl</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="55%"></td>
+<td width="11%"></td>
+<td width="2%"></td>
+<td width="32%">
+
+
+<p style="margin-top: 1em">Regex can be of SCSI H:B:T:L
+format. For example: 1:0:.:. , *:0:0:.</p></td></tr>
+<tr valign="top" align="left">
+<td width="55%"></td>
+<td width="11%">
+
+
+<p><i>devname</i></p></td>
+<td width="2%"></td>
+<td width="32%">
+
+
+<p>Regex can be of device name format. For example: sda ,
+sd.e</p> </td></tr>
+<tr valign="top" align="left">
+<td width="55%"></td>
+<td width="11%">
+
+
+<p><i>serial</i></p></td>
+<td width="2%"></td>
+<td width="32%">
+
+
+<p>Regex can be of serial number format. For example:
+.*J1FR.*324 . The serial can be looked up through sysfs or
+by running multipathd show paths format &quot;%z&quot;. For
+example: 0395J1FR904324</p></td></tr>
+<tr valign="top" align="left">
+<td width="55%"></td>
+<td width="11%">
+
+
+<p><i>wwn</i></p></td>
+<td width="2%"></td>
+<td width="32%">
+
+
+<p>Regex can be of the form
+<i>&quot;host_wwnn:host_wwpn:target_wwnn:target_wwpn&quot;</i>
+these values can be looked up through sysfs or by running
+<i>multipathd show paths format &quot;%N:%R:%n:%r&quot;</i>.
+For example: 0x200100e08ba0aea0:0x210100e08ba0aea0:.*:.* ,
+.*:.*:iqn.2009-10.com.redhat.msp.lab.ask-06:.*</p> </td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>path_latency</i></p>
+
+<p style="margin-left:55%;">Needs a value of the form
+&quot;io_num=<i>&lt;20&gt;</i>
+base_num=<i>&lt;10&gt;</i>&quot;</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="55%"></td>
+<td width="10%">
+
+
+<p><i>io_num</i></p></td>
+<td width="3%"></td>
+<td width="32%">
+
+
+<p>The number of read IOs sent to the current path
+continuously, used to calculate the average path latency.
+Valid Values: Integer, [2, 200].</p></td></tr>
+</table>
+
+<p style="margin-left:55%;"><i>base_num</i></p>
+
+<p style="margin-left:68%;">The base number value of
+logarithmic scale, used to partition different priority
+ranks. Valid Values: Integer, [2, 10]. And Max average
+latency value is 100s, min average latency value is 1us. For
+example: If base_num=10, the paths will be grouped in
+priority groups with path latency &lt;=1us, (1us, 10us],
+(10us, 100us], (100us, 1ms], (1ms, 10ms], (10ms, 100ms],
+(100ms, 1s], (1s, 10s], (10s, 100s], &gt;100s.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="12%">
+
+
+<p><i>alua</i></p></td>
+<td width="6%"></td>
+<td width="45%">
+
+
+<p>If <i>exclusive_pref_bit</i> is set, paths with the
+<i>preferred path</i> bit set will always be in their own
+path group.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="12%">
+
+
+<p><i>sysfs</i></p></td>
+<td width="6%"></td>
+<td width="45%">
+
+
+<p>If <i>exclusive_pref_bit</i> is set, paths with the
+<i>preferred path</i> bit set will always be in their own
+path group.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="12%">
+
+
+<p><i>datacore</i></p></td>
+<td width="6%"></td>
+<td width="45%">
+
+
+<p><i>preferredsds</i></p></td></tr>
+</table>
+
+<p style="margin-left:68%;">(Mandatory) The preferred
+&quot;SDS name&quot;.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="29%">
+
+
+<p><i>timeout</i></p></td>
+<td width="2%"></td>
+<td width="32%">
+
+
+<p>(Optional) The timeout for the INQUIRY, in ms.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="29%">
+
+
+<p><i>iet</i></p></td>
+<td width="2%"></td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:55%;"><i>preferredip=...</i></p>
+
+<p style="margin-left:68%;">(Mandatory) Th preferred IP
+address, in dotted decimal notation, for iSCSI targets.</p>
+
+<p style="margin-left:37%;">The default is:
+<b>&lt;unset&gt;</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p><b>features</b></p></td>
+<td width="14%"></td>
+<td width="63%">
+
+
+<p>Specify any device-mapper features to be used. Syntax is
+<i>num list</i> where <i>num</i> is the number, between 0
+and 8, of features in <i>list</i>. Possible values for the
+feature list are:</p></td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>queue_if_no_path</i></p>
+
+<p style="margin-left:55%;">(Deprecated, superseded by
+<i>no_path_retry</i>) Queue I/O if no path is active.
+Identical to the <i>no_path_retry</i> with <i>queue</i>
+value. If both this feature and <i>no_path_retry</i> are
+set, the latter value takes precedence. See KNOWN
+ISSUES.</p>
+
+<p style="margin-left:37%;"><i>pg_init_retries
+&lt;times&gt;</i></p>
+
+<p style="margin-left:55%;">(Since kernel 2.6.24) Number of
+times to retry pg_init, it must be between 1 and 50.</p>
+
+<p style="margin-left:37%;"><i>pg_init_delay_msecs
+&lt;msecs&gt;</i></p>
+
+<p style="margin-left:55%;">(Since kernel 2.6.38) Number of
+msecs before pg_init retry, it must be between 0 and
+60000.</p>
+
+<p style="margin-left:37%;"><i>queue_mode
+&lt;mode&gt;</i></p>
+
+<p style="margin-left:55%;">(Since kernel 4.8) Select the
+the queueing mode per multipath device. &lt;mode&gt; can be
+<i>bio</i>, <i>rq</i> or <i>mq</i>, which corresponds to
+bio-based, request-based, and block-multiqueue (blk-mq)
+request-based, respectively. The default depends on the
+kernel parameter <b>dm_mod.use_blk_mq</b>. It is <i>mq</i>
+if the latter is set, and <i>rq</i> otherwise.</p>
+
+<p style="margin-left:37%;">The default is:
+<b>&lt;unset&gt;</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="18%">
+
+
+<p><b>path_checker</b></p></td>
+<td width="8%"></td>
+<td width="63%">
+
+
+<p>The default method used to determine the paths state.
+Possible values are:</p></td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>readsector0</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="5%"></td>
+<td width="13%"></td>
+<td width="45%">
+
+
+<p style="margin-top: 1em">(Deprecated) Read the first
+sector of the device. This checker is being deprecated,
+please use <i>tur</i> instead.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="5%">
+
+
+<p><i>tur</i></p></td>
+<td width="13%"></td>
+<td width="45%">
+
+
+<p>Issue a <i>TEST UNIT READY</i> command to the
+device.</p> </td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>emc_clariion</i></p>
+
+<p style="margin-left:55%;">(Hardware-dependent) Query the
+DGC/EMC specific EVPD page 0xC0 to determine the path state
+for CLARiiON CX/AX and EMC VNX and Unity arrays
+families.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="14%">
+
+
+<p><i>hp_sw</i></p></td>
+<td width="4%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Check the path state for
+HP/COMPAQ/DEC HSG80 and MSA/HSV arrays with Active/Standby
+mode exclusively.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="14%">
+
+
+<p><i>rdac</i></p></td>
+<td width="4%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Check the path state for
+LSI/Engenio/NetApp RDAC class as NetApp SANtricity E/EF
+Series, and OEM arrays from IBM DELL SGI STK and SUN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="14%">
+
+
+<p><i>directio</i></p></td>
+<td width="4%"></td>
+<td width="45%">
+
+
+<p>(Deprecated) Read the first sector with direct I/O. This
+checker is being deprecated, it could cause spurious path
+failures under high load. Please use <i>tur</i> instead.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="14%">
+
+
+<p><i>cciss_tur</i></p></td>
+<td width="4%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Check the path state for HP/COMPAQ
+Smart Array(CCISS) controllers.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="14%">
+
+
+<p><i>none</i></p></td>
+<td width="4%"></td>
+<td width="45%">
+
+
+<p>Do not check the device, fallback to use the values
+retrieved from sysfs</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>tur</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="18%">
+
+
+<p><b>alias_prefix</b></p></td>
+<td width="8%"></td>
+<td width="48%">
+
+
+<p>The <i>user_friendly_names</i> prefix.</p></td>
+<td width="15%">
+</td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>mpath</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p><b>failback</b></p></td>
+<td width="14%"></td>
+<td width="63%">
+
+
+<p>Tell multipathd how to manage path group failback. To
+select <i>immediate</i> or a <i>value</i>, it&rsquo;s
+mandatory that the device has support for a working
+prioritizer.</p> </td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>immediate</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="15%"></td>
+<td width="3%"></td>
+<td width="45%">
+
+
+<p style="margin-top: 1em">Immediately failback to the
+highest priority pathgroup that contains active paths.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="15%">
+
+
+<p><i>manual</i></p></td>
+<td width="3%"></td>
+<td width="45%">
+
+
+<p>Do not perform automatic failback.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="15%">
+
+
+<p><i>followover</i></p></td>
+<td width="3%"></td>
+<td width="45%">
+
+
+<p>Used to deal with multiple computers accessing the same
+Active/Passive storage devices. Only perform automatic
+failback when the first path of a pathgroup becomes active.
+This keeps a cluster node from automatically failing back
+when another node requested the failover.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="15%">
+
+
+<p><i>values &gt; 0</i></p></td>
+<td width="3%"></td>
+<td width="45%">
+
+
+<p>Deferred failback (time to defer in seconds).</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>manual</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p><b>rr_min_io</b></p></td>
+<td width="12%"></td>
+<td width="63%">
+
+
+<p>Number of I/O requests to route to a path before
+switching to the next in the same path group. This is only
+for <i>Block I/O</i>(BIO) based multipath and only apply to
+<i>round-robin</i> path_selector.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>1000</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="18%">
+
+
+<p><b>rr_min_io_rq</b></p></td>
+<td width="8%"></td>
+<td width="63%">
+
+
+<p>Number of I/O requests to route to a path before
+switching to the next in the same path group. This is only
+for <i>Request</i> based multipath and only apply to
+<i>round-robin</i> path_selector.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>1</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="11%">
+
+
+<p><b>max_fds</b></p></td>
+<td width="15%"></td>
+<td width="63%">
+
+
+<p>Specify the maximum number of file descriptors that can
+be opened by multipath and multipathd. This is equivalent to
+ulimit -n. A value of <i>max</i> will set this to the system
+limit from <i>/proc/sys/fs/nr_open</i>. If this is not set,
+the maximum number of open fds is taken from the calling
+process. It is usually 1024. To be safe, this should be set
+to the maximum number of paths plus 32, if that number is
+greated than 1024.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>max</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p><b>rr_weight</b></p></td>
+<td width="12%"></td>
+<td width="63%">
+
+
+<p>If set to <i>priorities</i> the multipath configurator
+will assign path weights as &quot;path prio *
+rr_min_io&quot;. Possible values are <i>priorities</i> or
+<i>uniform .</i> Only apply to <i>round-robin</i>
+path_selector.</p> </td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>uniform</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p><b>no_path_retry</b></p></td>
+<td width="6%"></td>
+<td width="63%">
+
+
+<p>Specify what to do when all paths are down. Possible
+values are:</p></td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>value &gt; 0</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="8%"></td>
+<td width="10%"></td>
+<td width="45%">
+
+
+<p style="margin-top: 1em">Number of retries until disable
+I/O queueing.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="8%">
+
+
+<p><i>fail</i></p></td>
+<td width="10%"></td>
+<td width="45%">
+
+
+<p>For immediate failure (no I/O queueing).</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="8%">
+
+
+<p><i>queue</i></p></td>
+<td width="10%"></td>
+<td width="45%">
+
+
+<p>For never stop I/O queueing, similar to
+<i>queue_if_no_path</i>. See KNOWN ISSUES.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>fail</b></p>
+
+
+<p style="margin-left:11%;"><b>queue_without_daemon</b></p>
+
+<p style="margin-left:37%;">If set to <i>no</i> , when
+multipathd stops, queueing will be turned off for all
+devices. This is useful for devices that set no_path_retry.
+If a machine is shut down while all paths to a device are
+down, it is possible to hang waiting for I/O to return from
+the device after multipathd has been stopped. Without
+multipathd running, access to the paths cannot be restored,
+and the kernel cannot be told to stop queueing I/O. Setting
+queue_without_daemon to <i>no</i> , avoids this problem.
+<br>
+The default is: <b>no</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p><b>checker_timeout</b></p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>Specify the timeout to use for path checkers and
+prioritizers that issue SCSI commands with an explicit
+timeout, in seconds.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: in
+<b>/sys/block/sd&lt;x&gt;/device/timeout</b></p>
+
+<p style="margin-left:11%;"><b>flush_on_last_del</b></p>
+
+<p style="margin-left:37%;">If set to <i>yes</i> ,
+multipathd will disable queueing when the last path to a
+device has been deleted. <br>
+The default is: <b>no</b></p>
+
+<p style="margin-left:11%;"><b>user_friendly_names</b></p>
+
+<p style="margin-left:37%;">If set to <i>yes</i> , using
+the bindings file <i>/etc/multipath/bindings</i> to assign a
+persistent and unique alias to the multipath, in the form of
+mpath&lt;n&gt;. If set to <i>no</i> use the WWID as the
+alias. In either case this be will be overridden by any
+specific aliases in the <i>multipaths</i> section. <br>
+The default is: <b>no</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="24%">
+
+
+<p><b>fast_io_fail_tmo</b></p></td>
+<td width="2%"></td>
+<td width="63%">
+
+
+<p>Specify the number of seconds the SCSI layer will wait
+after a problem has been detected on a FC remote port before
+failing I/O to devices on that remote port. This should be
+smaller than dev_loss_tmo. Setting this to <i>off</i> will
+disable the timeout.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>5</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="18%">
+
+
+<p><b>dev_loss_tmo</b></p></td>
+<td width="8%"></td>
+<td width="63%">
+
+
+<p>Specify the number of seconds the SCSI layer will wait
+after a problem has been detected on a FC remote port before
+removing it from the system. This can be set to
+&quot;infinity&quot; which sets it to the max value of
+2147483647 seconds, or 68 years. It will be automatically
+adjusted to the overall retry interval <i>no_path_retry</i>
+* <i>polling_interval</i> if a number of retries is given
+with <i>no_path_retry</i> and the overall retry interval is
+longer than the specified <i>dev_loss_tmo</i> value. The
+Linux kernel will cap this value to <i>600</i> if
+<i>fast_io_fail_tmo</i> is not set. See KNOWN ISSUES.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>600</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p><b>bindings_file</b></p></td>
+<td width="6%"></td>
+<td width="63%">
+
+
+<p>The full pathname of the binding file to be used when
+the user_friendly_names option is set.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>/etc/multipath/bindings</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="15%">
+
+
+<p><b>wwids_file</b></p></td>
+<td width="11%"></td>
+<td width="63%">
+
+
+<p>The full pathname of the WWIDs file, which is used by
+multipath to keep track of the WWIDs for LUNs it has created
+multipath devices on in the past.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>/etc/multipath/wwids</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="17%">
+
+
+<p><b>prkeys_file</b></p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>The full pathname of the prkeys file, which is used by
+multipathd to keep track of the persistent reservation key
+used for a specific WWID, when <i>reservation_key</i> is set
+to <b>file</b>.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>/etc/multipath/prkeys</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p><b>log_checker_err</b></p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>If set to <i>once</i> , multipathd logs the first path
+checker error at logging level 2. Any later errors are
+logged at level 3 until the device is restored. If set to
+<i>always</i> , multipathd always logs the path checker
+error at logging level 2.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>always</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p><b>reservation_key</b></p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>This is the service action reservation key used by
+mpathpersist. It must be set for all multipath devices using
+persistent reservations, and it must be the same as the
+RESERVATION KEY field of the PERSISTENT RESERVE OUT
+parameter list which contains an 8-byte value provided by
+the application client to the device server to identify the
+I_T nexus. If the <i>--param-aptpl</i> option is used when
+registering the key with mpathpersist, <b>:aptpl</b> must be
+appended to the end of the reservation key.</p></td></tr>
+</table>
+
+<p style="margin-left:37%; margin-top: 1em">Alternatively,
+this can be set to <b>file</b>, which will store the
+RESERVATION KEY registered by mpathpersist in the
+<i>prkeys_file</i>. multipathd will then use this key to
+register additional paths as they appear. When the
+registration is removed, the RESERVATION KEY is removed from
+the <i>prkeys_file</i>. The prkeys file will automatically
+keep track of whether the key was registered with
+<i>--param-aptpl</i>. <br>
+The default is: <b>&lt;unset&gt;</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="14%">
+
+
+<p><b>all_tg_pt</b></p></td>
+<td width="12%"></td>
+<td width="63%">
+
+
+<p>Set the &rsquo;all targets ports&rsquo; flag when
+registering keys with mpathpersist. Some arrays
+automatically set and clear registration keys on all target
+ports from a host, instead of per target port per host. The
+ALL_TG_PT flag must be set to successfully use mpathpersist
+on these arrays. Setting this option is identical to calling
+mpathpersist with <i>--param-alltgpt</i></p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>no</b></p>
+
+
+<p style="margin-left:11%;"><b>retain_attached_hw_handler</b></p>
+
+<p style="margin-left:37%;">(Obsolete for kernels &gt;=
+4.3) If set to <i>yes</i> and the SCSI layer has already
+attached a hardware_handler to the device, multipath will
+not force the device to use the hardware_handler specified
+by mutipath.conf. If the SCSI layer has not attached a
+hardware handler, multipath will continue to use its
+configured hardware handler.</p>
+
+<p style="margin-left:37%; margin-top: 1em">The default is:
+<b>yes</b></p>
+
+<p style="margin-left:37%; margin-top: 1em"><b>Important
+Note:</b> Linux kernel 4.3 or newer always behaves as if
+<b>&quot;retain_attached_hw_handler yes&quot;</b> was
+set.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="17%">
+
+
+<p><b>detect_prio</b></p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>If set to <i>yes</i> , multipath will try to detect if
+the device supports SCSI-3 ALUA. If so, the device will
+automatically use the <i>sysfs</i> prioritizer if the
+required sysf attributes <i>access_state</i> and
+<i>preferred_path</i> are supported, or the <i>alua</i>
+prioritizer if not. If set to <i>no</i> , the prioritizer
+will be selected as usual.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>yes</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p><b>detect_checker</b></p></td>
+<td width="5%"></td>
+<td width="63%">
+
+
+<p>if set to <i>yes</i> , multipath will try to detect if
+the device supports SCSI-3 ALUA. If so, the device will
+automatically use the <i>tur</i> checker. If set to
+<i>no</i> , the checker will be selected as usual.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>yes</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="15%">
+
+
+<p><b>force_sync</b></p></td>
+<td width="11%"></td>
+<td width="63%">
+
+
+<p>If set to <i>yes</i> , multipathd will call the path
+checkers in sync mode only. This means that only one checker
+will run at a time. This is useful in the case where many
+multipathd checkers running in parallel causes significant
+CPU pressure.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>no</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="20%">
+
+
+<p><b>strict_timing</b></p></td>
+<td width="6%"></td>
+<td width="63%">
+
+
+<p>If set to <i>yes</i> , multipathd will start a new path
+checker loop after exactly one second, so that each path
+check will occur at exactly <i>polling_interval</i> seconds.
+On busy systems path checks might take longer than one
+second; here the missing ticks will be accounted for on the
+next round. A warning will be printed if path checks take
+longer than <i>polling_interval</i> seconds.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>no</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p><b>deferred_remove</b></p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>If set to <i>yes</i> , multipathd will do a deferred
+remove instead of a regular remove when the last path device
+has been deleted. This means that if the multipath device is
+still in use, it will be freed when the last user closes it.
+If path is added to the multipath device before the last
+user closes it, the deferred remove will be canceled.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>no</b></p>
+
+<p style="margin-left:11%;"><b>partition_delimiter</b></p>
+
+<p style="margin-left:37%;">This parameter controls how
+multipath chooses the names of partition devices of
+multipath maps if a multipath map is renamed (e.g. if a map
+alias is added or changed). If this parameter is set to a
+string other than &quot;/UNSET/&quot; (even the empty
+string), multipath inserts that string between device name
+and partition number to construct the partition device name.
+Otherwise (i.e. if this parameter is unset or has the value
+&quot;/UNSET/&quot;), the behavior depends on the map name:
+if it ends in a digit, a <i>&quot;p&quot;</i> is inserted
+between name and partition number; otherwise, the partition
+number is simply appended. Distributions may use a non-null
+default value for this option; in this case, the user must
+set it to &quot;/UNSET/&quot; to obtain the original
+<b>&lt;unset&gt;</b> behavior. Use <i>multipath -T</i> to
+check the current settings. <br>
+The default is: <b>&lt;unset&gt;</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="15%">
+
+
+<p><b>config_dir</b></p></td>
+<td width="11%"></td>
+<td width="63%">
+
+
+<p>If set to anything other than &quot;&quot;, multipath
+will search this directory alphabetically for file ending in
+&quot;.conf&quot; and it will read configuration information
+from them, just as if it was in <i>/etc/multipath.conf</i>.
+config_dir must either be &quot;&quot; or a fully qualified
+directory name.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>/etc/multipath/conf.d/</b></p>
+
+
+<p style="margin-left:11%;"><b>san_path_err_threshold</b></p>
+
+<p style="margin-left:37%;">If set to a value greater than
+0, multipathd will watch paths and check how many times a
+path has been failed due to errors.If the number of failures
+on a particular path is greater then the
+san_path_err_threshold, then the path will not reinstate
+till san_path_err_recovery_time. These path failures should
+occur within a san_path_err_forget_rate checks, if not we
+will consider the path is good enough to reinstantate. See
+&quot;Shaky paths detection&quot; below. <br>
+The default is: <b>no</b></p>
+
+
+<p style="margin-left:11%;"><b>san_path_err_forget_rate</b></p>
+
+<p style="margin-left:37%;">If set to a value greater than
+0, multipathd will check whether the path failures has
+exceeded the san_path_err_threshold within this many checks
+i.e san_path_err_forget_rate . If so we will not reinstante
+the path till san_path_err_recovery_time. See &quot;Shaky
+paths detection&quot; below. <br>
+The default is: <b>no</b></p>
+
+
+<p style="margin-left:11%;"><b>san_path_err_recovery_time</b></p>
+
+<p style="margin-left:37%;">If set to a value greater than
+0, multipathd will make sure that when path failures has
+exceeded the san_path_err_threshold within
+san_path_err_forget_rate then the path will be placed in
+failed state for san_path_err_recovery_time duration.Once
+san_path_err_recovery_time has timeout we will reinstante
+the failed path . san_path_err_recovery_time value should be
+in secs. See &quot;Shaky paths detection&quot; below. <br>
+The default is: <b>no</b></p>
+
+
+<p style="margin-left:11%;"><b>marginal_path_double_failed_time</b></p>
+
+<p style="margin-left:37%;">One of the four parameters of
+supporting path check based on accounting IO error such as
+intermittent error. When a path failed event occurs twice in
+<i>marginal_path_double_failed_time</i> seconds due to an IO
+error and all the other three parameters are set, multipathd
+will fail the path and enqueue this path into a queue of
+which members are sent a couple of continuous direct reading
+asynchronous IOs at a fixed sample rate of 10HZ to start IO
+error accounting process. See &quot;Shaky paths
+detection&quot; below. <br>
+The default is: <b>no</b></p>
+
+
+<p style="margin-left:11%;"><b>marginal_path_err_sample_time</b></p>
+
+<p style="margin-left:37%;">One of the four parameters of
+supporting path check based on accounting IO error such as
+intermittent error. If it is set to a value no less than
+120, when a path fail event occurs twice in
+<i>marginal_path_double_failed_time</i> second due to an IO
+error, multipathd will fail the path and enqueue this path
+into a queue of which members are sent a couple of
+continuous direct reading asynchronous IOs at a fixed sample
+rate of 10HZ to start the IO accounting process for the path
+will last for <i>marginal_path_err_sample_time</i>. If the
+rate of IO error on a particular path is greater than the
+<i>marginal_path_err_rate_threshold</i>, then the path will
+not reinstate for <i>marginal_path_err_recheck_gap_time</i>
+seconds unless there is only one active path. After
+<i>marginal_path_err_recheck_gap_time</i> expires, the path
+will be requeueed for rechecking. If checking result is good
+enough, the path will be reinstated. See &quot;Shaky paths
+detection&quot; below. <br>
+The default is: <b>no</b></p>
+
+
+<p style="margin-left:11%;"><b>marginal_path_err_rate_threshold</b></p>
+
+<p style="margin-left:37%;">The error rate threshold as a
+permillage (1/1000). One of the four parameters of
+supporting path check based on accounting IO error such as
+intermittent error. Refer to
+<i>marginal_path_err_sample_time</i>. If the rate of IO
+errors on a particular path is greater than this parameter,
+then the path will not reinstate for
+<i>marginal_path_err_recheck_gap_time</i> seconds unless
+there is only one active path. See &quot;Shaky paths
+detection&quot; below. <br>
+The default is: <b>no</b></p>
+
+
+<p style="margin-left:11%;"><b>marginal_path_err_recheck_gap_time</b></p>
+
+<p style="margin-left:37%;">One of the four parameters of
+supporting path check based on accounting IO error such as
+intermittent error. Refer to
+<i>marginal_path_err_sample_time</i>. If this parameter is
+set to a positive value, the failed path of which the IO
+error rate is larger than
+<i>marginal_path_err_rate_threshold</i> will be kept in
+failed state for <i>marginal_path_err_recheck_gap_time</i>
+seconds. When <i>marginal_path_err_recheck_gap_time</i>
+seconds expires, the path will be requeueed for checking. If
+checking result is good enough, the path will be reinstated,
+or else it will keep failed. See &quot;Shaky paths
+detection&quot; below. <br>
+The default is: <b>no</b></p>
+
+<p style="margin-left:11%;"><b>delay_watch_checks</b></p>
+
+<p style="margin-left:37%;">This option is
+<b>deprecated</b>, and mapped to
+<i>san_path_err_forget_rate</i>. If this is set to a value
+greater than 0 and no <i>san_path_err</i> options are set,
+<i>san_path_err_forget_rate</i> will be set to the value of
+<i>delay_watch_checks</i> and <i>san_path_err_threshold</i>
+will be set to 1. See the <i>san_path_err_forget_rate</i>
+and <i>san_path_err_threshold</i> options, and &quot;Shaky
+paths detection&quot; below for more information. <br>
+The default is: <b>no</b></p>
+
+<p style="margin-left:11%;"><b>delay_wait_checks</b></p>
+
+<p style="margin-left:37%;">This option is
+<b>deprecated</b>, and mapped to
+<i>san_path_err_recovery_time</i>. If this is set to a value
+greater than 0 and no <i>san_path_err</i> options are set,
+<i>san_path_err_recovery_time</i> will be set to the value
+of <i>delay_wait_checks</i> times
+<i>max_polling_interval</i>. This will give approximately
+the same wait time as delay_wait_checks previously did.
+Also, <i>san_path_err_threshold</i> will be set to 1. See
+the <i>san_path_err_recovery_time</i> and
+<i>san_path_err_threshold</i> options, and &quot;Shaky paths
+detection&quot; below for more information. <br>
+The default is: <b>no</b></p>
+
+<p style="margin-left:11%;"><b>marginal_pathgroups</b></p>
+
+<p style="margin-left:37%;">If set to <i>no</i>, the
+<i>delay_*_checks</i>, <i>marginal_path_*</i>, and
+<i>san_path_err_*</i> options will keep marginal, or
+&quot;shaky&quot;, paths from being reinstated until they
+have been monitored for some time. This can cause situations
+where all non-marginal paths are down, and no paths are
+usable until multipathd detects this and reinstates a
+marginal path. If the multipath device is not configured to
+queue IO in this case, it can cause IO errors to occur, even
+though there are marginal paths available. However, if this
+option is set to <i>yes</i>, when one of the marginal path
+detecting methods determines that a path is marginal, it
+will be reinstated and placed in a seperate pathgroup that
+will only be used after all the non-marginal pathgroups have
+been tried first. This prevents the possibility of IO errors
+occuring while marginal paths are still usable. After the
+path has been monitored for the configured time, and is
+declared healthy, it will be returned to its normal
+pathgroup. See &quot;Shaky paths detection&quot; below for
+more information. <br>
+The default is: <b>no</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p><b>find_multipaths</b></p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>This option controls whether multipath and multipathd
+try to create multipath maps over non-blacklisted devices
+they encounter. This matters a) when a device is encountered
+by <b>multipath -u</b> during udev rule processing (a device
+is blocked from further processing by higher layers - such
+as LVM - if and only if it&acute;s considered a valid
+multipath device path), and b) when multipathd detects a new
+device. The following values are possible:</p></td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>strict</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%"></td>
+<td width="6%"></td>
+<td width="48%">
+
+
+<p style="margin-top: 1em">Both multipath and multipathd
+treat only such devices as multipath devices which have been
+part of a multipath map previously, and which are therefore
+listed in the <b>wwids_file</b>. Users can manually set up
+multipath maps using the <b>multipathd add map</b> command.
+Once set up manually, the map is remembered in the wwids
+file and will be set up automatically in the future.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>no</i></p></td>
+<td width="6%"></td>
+<td width="48%">
+
+
+<p>Multipath behaves like <b>strict</b>. Multipathd behaves
+like <b>greedy</b>.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>yes</i></p></td>
+<td width="6%"></td>
+<td width="48%">
+
+
+<p>Both multipathd and multipath treat a device as
+multipath device if the conditions for <b>strict</b> are
+met, or if at least two non-blacklisted paths with the same
+WWID have been detected.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>greedy</i></p></td>
+<td width="6%"></td>
+<td width="48%">
+
+
+<p>Both multipathd and multipath treat every
+non-blacklisted device as multipath device path.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="9%">
+
+
+<p><i>smart</i></p></td>
+<td width="6%"></td>
+<td width="48%">
+
+
+<p>This differs from <i>find_multipaths yes</i> only in the
+way it treats new devices for which only one path has been
+detected yet. When such a device is first encounted in udev
+rules, it is treated as a multipath device. multipathd waits
+whether additional paths with the same WWID appears. If that
+happens, it sets up a multipath map. If it doesn&acute;t
+happen until a timeout expires, or if setting up the map
+fails, a new uevent is triggered for the device; at second
+encounter in the udev rules, the device will be treated as
+non-multipath and passed on to upper layers. <b>Note:</b>
+this may cause delays during device detection if there are
+single-path devices which aren&acute;t blacklisted.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>strict</b></p>
+
+
+<p style="margin-left:11%;"><b>find_multipaths_timeout</b></p>
+
+<p style="margin-left:37%;">Timeout, in seconds, to wait
+for additional paths after detecting the first one, if
+<i>find_multipaths &quot;smart&quot;</i> (see above) is set.
+If the value is <b>positive</b>, this timeout is used for
+all unknown, non-blacklisted devices encountered. If the
+value is <b>negative</b> (recommended), it&rsquo;s only
+applied to &quot;known&quot; devices that have an entry in
+multipath&rsquo;s hardware table, either in the built-in
+table or in a <i>device</i> section; other
+(&quot;unknown&quot;) devices will use a timeout of only 1
+second to avoid booting delays. The value 0 means &quot;use
+the built-in default&quot;. If <i>find_multipath</i> has a
+value other than <i>smart</i>, this option has no effect.
+<br>
+The default is: <b>-10</b> (10s for known and 1s for unknown
+<br>
+hardware)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p><b>uxsock_timeout</b></p></td>
+<td width="5%"></td>
+<td width="63%">
+
+
+<p>CLI receive timeout in milliseconds. For larger systems
+CLI commands might timeout before the multipathd lock is
+released and the CLI command can be processed. This will
+result in errors like &quot;timeout receiving packet&quot;
+to be returned from CLI commands. In these cases it is
+recommended to increase the CLI timeout to avoid those
+issues.</p> </td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>1000</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p><b>retrigger_tries</b></p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>Sets the number of times multipathd will try to
+retrigger a uevent to get the WWID.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>3</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p><b>retrigger_delay</b></p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>Sets the amount of time, in seconds, to wait between
+retriggers.</p> </td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>10</b></p>
+
+
+<p style="margin-left:11%;"><b>missing_uev_wait_timeout</b></p>
+
+<p style="margin-left:37%;">Controls how many seconds
+multipathd will wait, after a new multipath device is
+created, to receive a change event from udev for the device,
+before automatically enabling device reloads. Usually
+multipathd will delay reloads on a device until it receives
+a change uevent from the initial table load. <br>
+The default is: <b>30</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="17%">
+
+
+<p><b>skip_kpartx</b></p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>If set to <i>yes</i> , kpartx will not automatically
+create partitions on the device.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>no</b></p>
+
+
+<p style="margin-left:11%;"><b>disable_changed_wwids</b></p>
+
+<p style="margin-left:37%;">This option is deprecated and
+ignored. If the WWID of a path suddenly changes, multipathd
+handles it as if it was removed and then added again.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p><b>remove_retries</b></p></td>
+<td width="5%"></td>
+<td width="63%">
+
+
+<p>This sets how may times multipath will retry removing a
+device that is in-use. Between each attempt, multipath will
+sleep 1 second.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>0</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p><b>max_sectors_kb</b></p></td>
+<td width="5%"></td>
+<td width="63%">
+
+
+<p>Sets the max_sectors_kb device parameter on all path
+devices and the multipath device to the specified value.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>&lt;device
+dependent&gt;</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="17%">
+
+
+<p><b>ghost_delay</b></p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>Sets the number of seconds that multipath will wait
+after creating a device with only ghost paths before marking
+it ready for use in systemd. This gives the active paths
+time to appear before the multipath runs the hardware
+handler to switch the ghost paths to active ones. Setting
+this to <i>0</i> or <i>on</i> makes multipath immediately
+mark a device with only ghost paths as ready.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is: <b>no</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p><b>enable_foreign</b></p></td>
+<td width="5%"></td>
+<td width="63%">
+
+
+<p>Enables or disables foreign libraries (see section
+<i>FOREIGN MULTIPATH SUPPORT</i> below). The value is a
+regular expression; foreign libraries are loaded if their
+name (e.g. &quot;nvme&quot;) matches the expression. By
+default, all foreign libraries are enabled.</p></td></tr>
+</table>
+
+<p style="margin-left:37%;">The default is:
+<b>&quot;&quot;</b> (the empty regular expression)</p>
+
+<h2>blacklist and blacklist_exceptions sections
+<a name="blacklist and blacklist_exceptions sections"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>blacklist</i> section is used to exclude specific devices
+from the multipath topology. It is most commonly used to
+exclude local disks or non-disk devices (such as LUNs for
+the storage array controller) from being handled by
+multipath-tools.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>blacklist_exceptions</i> section is used to revert the
+actions of the <i>blacklist</i> section. This allows one to
+selectively include (&quot;whitelist&quot;) devices which
+would normally be excluded via the <i>blacklist</i> section.
+A common usage is to blacklist &quot;everything&quot; using
+a catch-all regular expression, and create specific
+blacklist_exceptions entries for those devices that should
+be handled by multipath-tools.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The following
+keywords are recognized in both sections. The defaults are
+empty unless explicitly stated.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="11%">
+
+
+<p><b>devnode</b></p></td>
+<td width="15%"></td>
+<td width="63%">
+
+
+<p>Regular expression matching the device nodes to be
+excluded/included.</p> </td></tr>
+</table>
+
+<p style="margin-left:37%; margin-top: 1em">The default
+<i>blacklist</i> consists of the regular expressions
+&quot;^(ram|zram|raw|loop|fd|md|dm-|sr|scd|st|dcssblk)[0-9]&quot;
+and &quot;^(td|hd|vd)[a-z]&quot;. This causes virtual
+devices, non-disk devices, and some other device types to be
+excluded from multipath handling by default.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p style="margin-top: 1em"><b>wwid</b></p></td>
+<td width="14%"></td>
+<td width="63%">
+
+
+<p style="margin-top: 1em">Regular expression for the
+<i>World Wide Identifier</i> of a device to be
+excluded/included.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p><b>device</b></p></td>
+<td width="14%"></td>
+<td width="63%">
+
+
+<p>Subsection for the device description. This subsection
+recognizes the <b>vendor</b> and <b>product</b> keywords.
+Both are regular expressions. For a full description of
+these keywords please see the <i>devices</i> section
+description.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p><b>property</b></p></td>
+<td width="14%"></td>
+<td width="63%">
+
+
+<p>Regular expression for an udev property. All devices
+that have matching udev properties will be
+excluded/included. The handling of the <i>property</i>
+keyword is special, because devices <b>must</b> have at
+least one whitelisted udev property; otherwise they&rsquo;re
+treated as blacklisted, and the message
+&quot;<i>blacklisted, udev property missing</i>&quot; is
+displayed in the logs.</p></td></tr>
+</table>
+
+<p style="margin-left:37%; margin-top: 1em"><b>Note:</b>
+The behavior of this option has changed in
+<b>multipath-tools</b> 0.8.2 compared to previous versions.
+Blacklisting by missing properties is only applied to
+devices which do have the property specified by
+<i>uid_attribute</i> (e.g. <i>ID_SERIAL</i>) set.
+Previously, it was applied to every device, possibly causing
+devices to be blacklisted because of temporary I/O error
+conditions.</p>
+
+<p style="margin-left:37%; margin-top: 1em">The default
+<i>blacklist exception</i> is: <b>(SCSI_IDENT_|ID_WWN)</b>,
+causing well-behaved SCSI devices and devices that provide a
+WWN (World Wide Number) to be included, and all others to be
+excluded.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p style="margin-top: 1em"><b>protocol</b></p></td>
+<td width="14%"></td>
+<td width="63%">
+
+
+<p style="margin-top: 1em">Regular expression for the
+protocol of a device to be excluded/included.</p></td></tr>
+</table>
+
+<p style="margin-left:37%; margin-top: 1em">The protocol
+strings that multipath recognizes are <i>scsi:fcp</i>,
+<i>scsi:spi</i>, <i>scsi:ssa</i>, <i>scsi:sbp</i>,
+<i>scsi:srp</i>, <i>scsi:iscsi</i>, <i>scsi:sas</i>,
+<i>scsi:adt</i>, <i>scsi:ata</i>, <i>scsi:unspec</i>,
+<i>ccw</i>, <i>cciss</i>, <i>nvme</i>, and <i>undef</i>. The
+protocol that a path is using can be viewed by running
+<b>multipathd show paths format &quot;%d %P&quot;</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">For every
+device, these 5 blacklist criteria are evaluated in the the
+order &quot;property, devnode, device, protocol, wwid&quot;.
+If a device turns out to be blacklisted by any criterion,
+it&rsquo;s excluded from handling by multipathd, and the
+later criteria aren&rsquo;t evaluated any more. For each
+criterion, the whitelist takes precedence over the blacklist
+if a device matches both.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Note:</b>
+Besides the blacklist and whitelist, other configuration
+options such as <i>find_multipaths</i> have an impact on
+whether or not a given device is handled by
+multipath-tools.</p>
+
+<h2>multipaths section
+<a name="multipaths section"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>multipaths</i> section allows setting attributes of
+multipath maps. The attributes that are set via the
+multipaths section (see list below) take precedence over all
+other configuration settings, including those from the
+<i>overrides</i> section.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The only
+recognized attribute for the <i>multipaths</i> section is
+the <i>multipath</i> subsection. If there are multiple
+<i>multipath</i> subsections matching a given WWID, the
+contents of these sections are merged, and settings from
+later entries take precedence.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>multipath</i> subsection recognizes the following
+attributes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p style="margin-top: 1em"><b>wwid</b></p></td>
+<td width="19%"></td>
+<td width="63%">
+
+
+<p style="margin-top: 1em">(Mandatory) World Wide
+Identifier. Detected multipath maps are matched agains this
+attribute. Note that, unlike the <i>wwid</i> attribute in
+the <i>blacklist</i> section, this is <b>not</b> a regular
+expression or a substring; WWIDs must match exactly inside
+the multipaths section.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p><b>alias</b></p></td>
+<td width="19%"></td>
+<td width="63%">
+
+
+<p>Symbolic name for the multipath map. This takes
+precedence over a an entry for the same WWID in the
+<i>bindings_file</i>.</p> </td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">The following
+attributes are optional; if not set the default values are
+taken from the <i>overrides</i>, <i>devices</i>, or
+<i>defaults</i> section:</p>
+
+
+<p style="margin-left:22%;"><b>path_grouping_policy</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>path_selector</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>prio</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>prio_args</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>failback</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>rr_weight</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>no_path_retry</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>rr_min_io</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>rr_min_io_rq</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>flush_on_last_del</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>features</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>reservation_key</b></p></td>
+<td width="52%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;"><b>user_friendly_names</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="23%">
+
+
+<p><b>deferred_remove</b></p></td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;"><b>san_path_err_threshold <br>
+san_path_err_forget_rate <br>
+san_path_err_recovery_time <br>
+marginal_path_err_sample_time <br>
+marginal_path_err_rate_threshold <br>
+marginal_path_err_recheck_gap_time <br>
+marginal_path_double_failed_time <br>
+delay_watch_checks</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>delay_wait_checks</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>skip_kpartx</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>max_sectors_kb</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>ghost_delay</b></p></td>
+<td width="52%">
+</td></tr>
+</table>
+
+<h2>devices section
+<a name="devices section"></a>
+</h2>
+
+
+<p style="margin-left:11%;"><b><i>multipath-tools</i></b>
+have a built-in device table with reasonable defaults for
+more than 100 known multipath-capable storage devices. The
+devices section can be used to override these settings. If
+there are multiple matches for a given device, the
+attributes of all matching entries are applied to it. If an
+attribute is specified in several matching device
+subsections, later entries take precedence. Thus, entries in
+files under <i>config_dir</i> (in reverse alphabetical
+order) have the highest precedence, followed by entries in
+<i>multipath.conf</i>; the built-in hardware table has the
+lowest precedence. Inside a configuration file, later
+entries have higher precedence than earlier ones.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The only
+recognized attribute for the <i>devices</i> section is the
+<i>device</i> subsection. Devices detected in the system are
+matched against the device entries using the <b>vendor</b>,
+<b>product</b>, and <b>revision</b> fields, which are all
+POSIX Extended regular expressions (see
+<b>regex</b>(7)).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The vendor,
+product, and revision fields that multipath or multipathd
+detect for devices in a system depend on the device type.
+For SCSI devices, they correspond to the respective fields
+of the SCSI INQUIRY page. In general, the command
+&rsquo;<i>multipathd show paths format &quot;%d
+%s&quot;</i>&rsquo; command can be used to see the detected
+properties for all devices in the system.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>device</i> subsection recognizes the following
+attributes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p style="margin-top: 1em"><b>vendor</b></p></td>
+<td width="14%"></td>
+<td width="63%">
+
+
+<p style="margin-top: 1em">(Mandatory) Regular expression
+to match the vendor name.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p><b>product</b></p></td>
+<td width="14%"></td>
+<td width="63%">
+
+
+<p>(Mandatory) Regular expression to match the product
+name.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="12%">
+
+
+<p><b>revision</b></p></td>
+<td width="14%"></td>
+<td width="63%">
+
+
+<p>Regular expression to match the product revision. If not
+specified, any revision matches.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>product_blacklist</b></p>
+
+<p style="margin-left:37%;">Products with the given
+<b>vendor</b> matching this string are blacklisted. This is
+equivalent to a <b>device</b> entry in the <i>blacklist</i>
+section with the <i>vendor</i> attribute set to this
+entry&rsquo;s <i>vendor</i>, and the <i>product</i>
+attribute set to the value of <i>product_blacklist</i>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="24%">
+
+
+<p><b>alias_prefix</b></p></td>
+<td width="2%"></td>
+<td width="63%">
+
+
+<p>The user_friendly_names prefix to use for this device
+type, instead of the default &quot;mpath&quot;.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="24%">
+
+
+<p><b>hardware_handler</b></p></td>
+<td width="2%"></td>
+<td width="63%">
+
+
+<p>The hardware handler to use for this device type. The
+following hardware handler are implemented:</p></td></tr>
+</table>
+
+<p style="margin-left:37%;"><i>1 emc</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="11%"></td>
+<td width="7%"></td>
+<td width="45%">
+
+
+<p style="margin-top: 1em">(Hardware-dependent) Hardware
+handler for DGC class arrays as CLARiiON CX/AX and EMC VNX
+and Unity families.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="11%">
+
+
+<p><i>1 rdac</i></p></td>
+<td width="7%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Hardware handler for
+LSI/Engenio/NetApp RDAC class as NetApp SANtricity E/EF
+Series, and OEM arrays from IBM DELL SGI STK and SUN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="11%">
+
+
+<p><i>1 hp_sw</i></p></td>
+<td width="7%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Hardware handler for HP/COMPAQ/DEC
+HSG80 and MSA/HSV arrays with Active/Standby mode
+exclusively.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="11%">
+
+
+<p><i>1 alua</i></p></td>
+<td width="7%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Hardware handler for SCSI-3 ALUA
+compatible arrays.</p></td></tr>
+<tr valign="top" align="left">
+<td width="37%"></td>
+<td width="11%">
+
+
+<p><i>1 ana</i></p></td>
+<td width="7%"></td>
+<td width="45%">
+
+
+<p>(Hardware-dependent) Hardware handler for NVMe ANA
+compatible arrays.</p></td></tr>
+</table>
+
+<p style="margin-left:37%; margin-top: 1em">The default is:
+<b>&lt;unset&gt;</b></p>
+
+<p style="margin-left:37%; margin-top: 1em"><b>Important
+Note:</b> Linux kernels 4.3 and newer automatically attach a
+device handler to known devices (which includes all devices
+supporting SCSI-3 ALUA) and disallow changing the handler
+afterwards. Setting <b>hardware_handler</b> for such devices
+on these kernels has no effect.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The following
+attributes are optional; if not set the default values are
+taken from the <i>defaults</i> section:</p>
+
+
+<p style="margin-left:22%;"><b>path_grouping_policy</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>uid_attribute</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>getuid_callout</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>path_selector</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>path_checker</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>prio</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>prio_args</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>features</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>failback</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>rr_weight</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>no_path_retry</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>rr_min_io</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>rr_min_io_rq</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>fast_io_fail_tmo</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>dev_loss_tmo</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>flush_on_last_del</b></p></td>
+<td width="52%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;"><b>user_friendly_names <br>
+retain_attached_hw_handler</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="23%">
+
+
+<p><b>detect_prio</b></p></td>
+<td width="55%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="23%">
+
+
+<p><b>detect_checker</b></p></td>
+<td width="55%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="23%">
+
+
+<p><b>deferred_remove</b></p></td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;"><b>san_path_err_threshold <br>
+san_path_err_forget_rate <br>
+san_path_err_recovery_time <br>
+marginal_path_err_sample_time <br>
+marginal_path_err_rate_threshold <br>
+marginal_path_err_recheck_gap_time <br>
+marginal_path_double_failed_time <br>
+delay_watch_checks</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>delay_wait_checks</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>skip_kpartx</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>max_sectors_kb</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>ghost_delay</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>all_tg_pt</b></p></td>
+<td width="52%">
+</td></tr>
+</table>
+
+<h2>overrides section
+<a name="overrides section"></a>
+</h2>
+
+
+<p style="margin-left:11%;">The overrides section
+recognizes the following optional attributes; if not set the
+values are taken from the <i>devices</i> or <i>defaults</i>
+sections:</p>
+
+
+<p style="margin-left:22%;"><b>path_grouping_policy</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>uid_attribute</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>getuid_callout</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>path_selector</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>path_checker</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>alias_prefix</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>features</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>prio</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>prio_args</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>failback</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>rr_weight</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>no_path_retry</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>rr_min_io</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>rr_min_io_rq</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>flush_on_last_del</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>fast_io_fail_tmo</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>dev_loss_tmo</b></p></td>
+<td width="52%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;"><b>user_friendly_names <br>
+retain_attached_hw_handler</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="23%">
+
+
+<p><b>detect_prio</b></p></td>
+<td width="55%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="23%">
+
+
+<p><b>detect_checker</b></p></td>
+<td width="55%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="23%">
+
+
+<p><b>deferred_remove</b></p></td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:22%;"><b>san_path_err_threshold <br>
+san_path_err_forget_rate <br>
+san_path_err_recovery_time <br>
+marginal_path_err_sample_time <br>
+marginal_path_err_rate_threshold <br>
+marginal_path_err_recheck_gap_time <br>
+marginal_path_double_failed_time <br>
+delay_watch_checks</b></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>delay_wait_checks</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>skip_kpartx</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>max_sectors_kb</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>ghost_delay</b></p></td>
+<td width="52%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="22%"></td>
+<td width="26%">
+
+
+<p><b>all_tg_pt</b></p></td>
+<td width="52%">
+</td></tr>
+</table>
+
+<h2>WWID generation
+<a name="WWID generation"></a>
+</h2>
+
+
+<p style="margin-left:11%;">Multipath uses a <i>World Wide
+Identification</i> (WWID) to determine which paths belong to
+the same device. Each path presenting the same WWID is
+assumed to point to the same device.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The WWID is
+generated by four methods (in the order of preference):</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p style="margin-top: 1em"><b>uid_attrs</b></p></td>
+<td width="5%"></td>
+<td width="63%">
+
+
+<p style="margin-top: 1em">The WWID is derived from udev
+attributes by matching the device node name; cf
+<i>uid_attrs</i> above.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p><b>getuid_callout</b></p></td>
+<td width="5%"></td>
+<td width="63%">
+
+
+<p>Use the specified external program; cf
+<i>getuid_callout</i> above. Care should be taken when using
+this method; the external program needs to be loaded from
+disk for execution, which might lead to deadlock situations
+in an all-paths-down scenario.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p><b>uid_attribute</b></p></td>
+<td width="5%"></td>
+<td width="63%">
+
+
+<p>Use the value of the specified udev attribute; cf
+<i>uid_attribute</i> above. This method is preferred to
+<i>getuid_callout</i> as multipath does not need to call any
+external programs here. However, under certain circumstances
+udev might not be able to generate the requested
+variable.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="21%">
+
+
+<p><b>sysfs</b></p></td>
+<td width="5%"></td>
+<td width="63%">
+
+
+<p>Try to determine the WWID from sysfs attributes. For
+SCSI devices, this means reading the Vital Product Data
+(VPD) page &quot;Device Identification&quot; (0x83).</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">The default
+settings (using udev and <b>uid_attribute</b> configured
+from the built-in hardware table) should work fine in most
+scenarios. Users who want to enable uevent merging must set
+<b>uid_attrs</b>.</p>
+
+<h2>Shaky paths detection
+<a name="Shaky paths detection"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">A common
+problem in SAN setups is the occurence of intermittent
+errors: a path is unreachable, then reachable again for a
+short time, disappears again, and so forth. This happens
+typically on unstable interconnects. It is undesirable to
+switch pathgroups unnecessarily on such frequent, unreliable
+events. <i>multipathd</i> supports three different methods
+for detecting this situation and dealing with it. All
+methods share the same basic mode of operation: If a path is
+found to be &quot;shaky&quot; or &quot;flipping&quot;, and
+appears to be in healthy status, it is not reinstated (put
+back to use) immediately. Instead, it is placed in the
+&quot;delayed&quot; state and watched for some time, and
+only reinstated if the healthy state appears to be stable.
+If the <i>marginal_pathgroups</i> option is set, the path
+will reinstated immediately, but placed in a special
+pathgroup for marginal paths. Marginal pathgroups will not
+be used until all other pathgroups have been tried. At the
+time when the path would normally be reinstated, it will be
+returned to its normal pathgroup. The logic of determining
+&quot;shaky&quot; condition, as well as the logic when to
+reinstate, differs between the three methods. <b><br>
+&quot;delay_checks&quot; failure tracking</b></p>
+
+<p style="margin-left:23%;">This method is
+<b>deprecated</b> and mapped to the &quot;san_path_err&quot;
+method. See the <i>delay_watch_checks</i> and
+<i>delay_wait_checks</i> options above for more
+information.</p>
+
+<p style="margin-left:11%;"><b>&quot;marginal_path&quot;
+failure tracking</b></p>
+
+<p style="margin-left:23%;">If a second failure event
+(good-&gt;bad transition) occurs within
+<i>marginal_path_double_failed_time</i> seconds after a
+failure, high-frequency monitoring is started for the
+affected path: I/O is sent at a rate of 10 per second. This
+is done for <i>marginal_path_err_sample_time</i> seconds.
+During this period, the path is not reinstated. If the rate
+of errors remains below
+<i>marginal_path_err_rate_threshold</i> during the
+monitoring period, the path is reinstated. Otherwise, it is
+kept in failed state for
+<i>marginal_path_err_recheck_gap_time</i>, and after that,
+it is monitored again. For this method, time intervals are
+measured in seconds.</p>
+
+<p style="margin-left:11%;"><b>&quot;san_path_err&quot;
+failure tracking</b></p>
+
+<p style="margin-left:23%;">multipathd counts path failures
+for each path. Once the number of failures exceeds the value
+given by <i>san_path_err_threshold</i>, the path is not
+reinstated for <i>san_path_err_recovery_time</i> seconds.
+While counting failures, multipathd &quot;forgets&quot; one
+past failure every &quot;san_path_err_forget_rate&quot;
+ticks; thus if errors don&rsquo;t occur more often then once
+in the forget rate interval, the failure count doesn&rsquo;t
+increase and the threshold is never reached. Ticks are the
+time between path checks by multipathd, which is variable
+and controlled by the <i>polling_interval</i> and
+<i>max_polling_interval</i> parameters.</p>
+
+<p style="margin-left:23%; margin-top: 1em">This method is
+<b>deprecated</b> in favor of the &quot;marginal_path&quot;
+failure tracking method, and only offered for backward
+compatibility.</p>
+
+<p style="margin-left:11%; margin-top: 1em">See the
+documentation of the individual options above for details.
+It is <b>strongly discouraged</b> to use more than one of
+these methods for any given multipath map, because the two
+concurrent methods may interact in unpredictable ways. If
+the &quot;marginal_path&quot; method is active, the
+&quot;san_path_err&quot; parameters are implicitly set to
+0.</p>
+
+<h2>FOREIGN MULTIPATH SUPPORT
+<a name="FOREIGN MULTIPATH SUPPORT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">multipath and
+multipathd can load &quot;foreign&quot; libraries to add
+support for other multipathing technologies besides the
+Linux device mapper. Currently this support is limited to
+printing detected information about multipath setup. In
+topology output, the names of foreign maps are prefixed by
+the foreign library name in square brackets, as in this
+example:</p>
+
+<p style="margin-left:11%; margin-top: 1em"># multipath -ll
+<br>
+uuid.fedcba98-3579-4567-8765-123456789abc [nvme]:nvme4n9
+NVMe,Some NVMe controller,FFFFFFFF <br>
+size=167772160 features=&rsquo;n/a&rsquo;
+hwhandler=&rsquo;ANA&rsquo; wp=rw <br>
+|-+- policy=&rsquo;n/a&rsquo; prio=50 status=optimized <br>
+| &rsquo;- 4:38:1 nvme4c38n1 0:0 n/a optimized live <br>
+&rsquo;-+- policy=&rsquo;n/a&rsquo; prio=50 status=optimized
+<br>
+&rsquo;- 4:39:1 nvme4c39n1 0:0 n/a optimized live</p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+&quot;nvme&quot; foreign library provides support for NVMe
+native multipathing in the kernel. It is part of the
+standard multipath package.</p>
+
+<h2>KNOWN ISSUES
+<a name="KNOWN ISSUES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The usage of
+<i>queue_if_no_path</i> option can lead to <i>D state</i>
+processes being hung and not killable in situations where
+all the paths to the LUN go offline. It is advisable to use
+the <i>no_path_retry</i> option instead.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The use of
+<i>queue_if_no_path</i> or <i>no_path_retry</i> might lead
+to a deadlock if the <i>dev_loss_tmo</i> setting results in
+a device being removed while I/O is still queued. The
+multipath daemon will update the <i>dev_loss_tmo</i> setting
+accordingly to avoid this deadlock. Hence if both values are
+specified the order of precedence is <i>no_path_retry,
+queue_if_no_path, dev_loss_tmo</i>.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>udev</b>(8),
+<b>dmsetup</b>(8), <b>multipath</b>(8),
+<b>multipathd</b>(8).</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>multipath-tools</i>
+was developed by Christophe Varoqui,
+&lt;christophe.varoqui@opensvc.com&gt; and others.</p>
+<hr>
+</body>
+</html>

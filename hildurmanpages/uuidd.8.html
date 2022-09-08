@@ -1,0 +1,196 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:12:14 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>UUIDD</title>
+
+</head>
+<body>
+
+<h1 align="center">UUIDD</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXAMPLE">EXAMPLE</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">uuidd - UUID
+generation daemon</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>uuidd</b>
+[options]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>uuidd</b> daemon is used by the UUID library to generate
+universally unique identifiers (UUIDs), especially
+time-based UUIDs, in a secure and guaranteed-unique fashion,
+even in the face of large numbers of threads running on
+different CPUs trying to grab UUIDs.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-d</b>,
+<b>--debug</b></p>
+
+<p style="margin-left:22%;">Run uuidd in debugging mode.
+This prevents uuidd from running as a daemon.</p>
+
+<p style="margin-left:11%;"><b>-F</b>, <b>--no-fork</b></p>
+
+<p style="margin-left:22%;">Do not daemonize using a
+double-fork.</p>
+
+<p style="margin-left:11%;"><b>-k</b>, <b>--kill</b></p>
+
+<p style="margin-left:22%;">If currently a uuidd daemon is
+running, kill it.</p>
+
+<p style="margin-left:11%;"><b>-n</b>, <b>--uuids</b>
+<i>number</i></p>
+
+<p style="margin-left:22%;">When issuing a test request to
+a running uuidd, request a bulk response of <i>number</i>
+UUIDs.</p>
+
+<p style="margin-left:11%;"><b>-P</b>, <b>--no-pid</b></p>
+
+<p style="margin-left:22%;">Do not create a pid file.</p>
+
+<p style="margin-left:11%;"><b>-p</b>, <b>--pid</b>
+<i>path</i></p>
+
+<p style="margin-left:22%;">Specify the pathname where the
+pid file should be written. By default, the pid file is
+written to /run/uuidd/uuidd.pid.</p>
+
+<p style="margin-left:11%;"><b>-q</b>, <b>--quiet</b></p>
+
+<p style="margin-left:22%;">Suppress some failure
+messages.</p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--random</b></p>
+
+<p style="margin-left:22%;">Test uuidd by trying to connect
+to a running uuidd daemon and request it to return a
+random-based UUID.</p>
+
+<p style="margin-left:11%;"><b>-S</b>,
+<b>--socket-activation</b></p>
+
+<p style="margin-left:22%;">Do not create a socket but
+instead expect it to be provided by the calling process.
+This implies <b>--no-fork</b> and <b>--no-pid</b>. This
+option is intended to be used only with <b>systemd</b>(1).
+It needs to be enabled with a configure option.</p>
+
+<p style="margin-left:11%;"><b>-s</b>, <b>--socket</b>
+<i>path</i></p>
+
+<p style="margin-left:22%;">Make uuidd use this pathname
+for the unix-domain socket. By default, the pathname used is
+/run/uuidd/request. This option is primarily for debugging
+purposes, since the pathname is hard-coded in the libuuid
+library.</p>
+
+<p style="margin-left:11%;"><b>-T</b>, <b>--timeout</b>
+<i>number</i></p>
+
+<p style="margin-left:22%;">Make uuidd exit after
+<i>number</i> seconds of inactivity.</p>
+
+<p style="margin-left:11%;"><b>-t</b>, <b>--time</b></p>
+
+<p style="margin-left:22%;">Test uuidd by trying to connect
+to a running uuidd daemon and request it to return a
+time-based UUID.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Output version information and
+exit.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help screen and
+exit.</p>
+
+<h2>EXAMPLE
+<a name="EXAMPLE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Start up a
+daemon, print 42 random keys, and then stop the daemon:</p>
+
+<p style="margin-left:22%; margin-top: 1em">uuidd -p
+/tmp/uuidd.pid -s /tmp/uuidd.socket <br>
+uuidd -d -r -n 42 -s /tmp/uuidd.socket <br>
+uuidd -d -k -s /tmp/uuidd.socket</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>uuidd</b> daemon was written by Theodore Ts&rsquo;o
+&lt;tytso@mit.edu&gt;.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>uuid</b>(3),
+<b>uuidgen</b>(1)</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The uuidd
+daemon is part of the util-linux package and is available
+from the
+<a href="https://www.kernel.org/pub/linux/utils/util-linux/">Linux
+Kernel Archive</a>.</p>
+<hr>
+</body>
+</html>

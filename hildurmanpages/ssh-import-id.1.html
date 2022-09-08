@@ -1,0 +1,203 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:07:00 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>ssh-import-id</title>
+
+</head>
+<body>
+
+<h1 align="center">ssh-import-id</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ssh-import-id</b>
+- retrieve one or more public keys from a public keyserver
+and append them to the current user&rsquo;s authorized_keys
+file (or some other specified file)</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ssh-import-id
+[options] USER_ID_1 [gh:USER_ID_2] ...
+[lp:USER_ID_n]</b></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ssh-import-id-lp
+USER_ID_1 [USER_ID_2] ... [USER_ID_n]</b></p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ssh-import-id-gh
+USER_ID_1 [USER_ID_2] ... [USER_ID_n]</b></p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+
+
+<p>-h | --help</p><td width="12%"></td>
+<td width="-4%"></td>
+<td width="15%"></td>
+<td width="8%"></td>
+<td width="7%">
+</td>
+<td width="62%">
+
+
+<p>usage <br>
+-o | --output F</p></td></tr>
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="-4%"></td>
+<td width="15%"></td>
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="62%">
+
+
+<p>write output to file &rsquo;F&rsquo; (default
+~/.ssh/authorized_keys, use &quot;-&quot; for standard out)
+<br>
+-r | --remove</p></td></tr>
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="-4%"></td>
+<td width="15%"></td>
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="62%">
+
+
+<p>remove keys from authorized keys file &rsquo;F&rsquo;
+<br>
+-u | --useragent U</p></td></tr>
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="-4%"></td>
+<td width="15%"></td>
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="62%">
+
+
+<p>append U to the user agent string <br>
+PROTO:USER_ID</p></td></tr>
+<tr valign="top" align="left">
+<td width="12%"></td>
+<td width="-4%"></td>
+<td width="15%"></td>
+<td width="8%"></td>
+<td width="7%">
+</td>
+<td width="62%">
+
+
+<p>Protocol can be &rsquo;lp&rsquo; for Launchpad.net, or
+&rsquo;gh&rsquo; for Github.com</p></td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This utility
+will securely contact a public keyserver and retrieve one or
+more user&rsquo;s public keys, and append these to the
+current user&rsquo;s <i>~/.ssh/authorized_keys</i> file,
+standard output or any other specified output file.</p>
+
+<p style="margin-left:11%; margin-top: 1em">User IDs can be
+prepended by a protocol:</p>
+
+<p style="margin-left:11%; margin-top: 1em">- <b>lp:</b> to
+use <i>https://launchpad.net/~%s/+sshkeys</i> <br>
+- <b>gh:</b> to use
+<i>https://api.github.com/users/%s/keys</i></p>
+
+<p style="margin-left:11%; margin-top: 1em">If the protocol
+is not explicitly specified, then <b>ssh-import-id</b> will
+read a URL variable string from
+<i>/etc/ssh/ssh_import_id</i> as installed by your package
+manager and configured by your system administrator. You can
+override this locally by exporting the string you want in a
+URL environment variable. If all of these are empty, then
+the protocol is assumed to be &quot;lp:&quot;, which was the
+original target implementation of this tool.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Any keys added
+will be &quot;labled&quot; with a trailing comment, &quot;#
+ssh-import-id PROTO:USER_ID&quot;. Revoking keys will first
+look for lines in the authorized keys file ending with that
+label.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>ssh</i>(1)</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/etc/ssh/ssh_import_id</i></p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This manpage
+and the utility was written by Dustin Kirkland
+&lt;dustin.kirkland@gmail.com&gt; for Ubuntu systems (but
+may be used by others). Permission is granted to copy,
+distribute and/or modify this document under the terms of
+the GNU General Public License, Version 3 published by the
+Free Software Foundation.</p>
+
+<p style="margin-left:11%; margin-top: 1em">On Debian
+systems, the complete text of the GNU General Public License
+can be found in /usr/share/common-licenses/GPL.</p>
+<hr>
+</body>
+</html>

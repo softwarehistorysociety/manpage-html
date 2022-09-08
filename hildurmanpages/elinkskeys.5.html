@@ -1,0 +1,1962 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:39:32 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>ELINKSKEYS</title>
+
+</head>
+<body>
+
+<h1 align="center">ELINKSKEYS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#EXAMPLE BINDINGS">EXAMPLE BINDINGS</a><br>
+<a href="#KEYS">KEYS</a><br>
+<a href="#KEYMAP ACTIONS">KEYMAP ACTIONS</a><br>
+<a href="#DEFAULT BINDINGS">DEFAULT BINDINGS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">elinkskeys -
+keybindings for ELinks</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Information on
+how to configure keybinding and overview of the default
+keybindings.</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Key binding for
+elinks should be placed in the file ~/.elinks/elinks.conf.
+Note that any information regarding their format/structure
+may not be up-to-date. If you will discover that, please
+feed us with a patch.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Key binding
+statements are of the form:</p>
+
+<p style="margin-left:17%; margin-top: 1em">bind
+&lt;keymap&gt; &lt;keystroke&gt; = &lt;action&gt;</p>
+
+<p style="margin-left:11%;">where:</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">&lt;keymap&gt;</p>
+
+<p style="margin-left:17%;">is <i>main</i>, <i>edit</i>, or
+<i>menu</i>. The main keymap is used for general browsing.
+The edit keymap is used for editing text fields. The menu
+keymap is used for navigating menus.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">&lt;keystroke&gt;</p>
+
+<p style="margin-left:17%;">is a case sensitive key, which
+you can prefix with <i>Ctrl-</i>, <i>Alt-</i>, or both.
+<i>Ctrl-</i> must be followed by an uppercase key. See below
+for a list of valid keys.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">&lt;action&gt;</p>
+
+<p style="margin-left:17%;">is what the key should do. The
+actions available are dependent on the keymap, and are
+listed separately below.</p>
+
+<p style="margin-left:11%;">All words/strings may all be
+quoted &quot;like so&quot;. Backslashes are escape
+characters, even if not between quotes. Lines beginning with
+a hash character (#) are comments.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Keys can be
+unbound just by binding them to the special <i>none</i>
+action. It may be of use if you accidentally type a key
+often.</p>
+
+<h2>EXAMPLE BINDINGS
+<a name="EXAMPLE BINDINGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Some sample
+keybindings:</p>
+
+<p style="margin-left:17%; margin-top: 1em">bind
+&quot;main&quot; &quot;v&quot; = &quot;view-image&quot; <br>
+bind &quot;main&quot; &quot;l&quot; =
+&quot;jump-to-link&quot; <br>
+bind &quot;main&quot; &quot;L&quot; = &quot;link-menu&quot;
+<br>
+bind &quot;main&quot; &quot;F10&quot; =
+&quot;file-menu&quot; <br>
+bind &quot;main&quot; &quot;F9&quot; = &quot;menu&quot; <br>
+bind &quot;main&quot; &quot;Escape&quot; = &quot;menu&quot;
+<br>
+bind &quot;edit&quot; &quot;Ctrl-R&quot; =
+&quot;auto-complete-unambiguous&quot; <br>
+bind &quot;edit&quot; &quot;Ctrl-W&quot; =
+&quot;auto-complete&quot; <br>
+bind &quot;edit&quot; &quot;Ctrl-K&quot; =
+&quot;kill-to-eol&quot; <br>
+bind &quot;menu&quot; &quot;Ctrl-B&quot; =
+&quot;page-up&quot; <br>
+bind &quot;menu&quot; &quot;PageUp&quot; =
+&quot;page-up&quot; <br>
+bind &quot;menu&quot; &quot;Ctrl-F&quot; =
+&quot;page-down&quot; <br>
+bind &quot;menu&quot; &quot;PageDown&quot; =
+&quot;page-down&quot; <br>
+# ELinks with Lua support <br>
+bind &quot;main&quot; &quot;,&quot; =
+&quot;lua-console&quot;</p>
+
+<h2>KEYS
+<a name="KEYS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Valid keys are:
+alphanumeric characters, punctuation, <i>Enter</i>,
+<i>Backspace</i>, <i>Tab</i>, <i>Escape</i>, <i>Left</i>,
+<i>Right</i>, <i>Up</i>, <i>Down</i>, <i>Insert</i>,
+<i>Delete</i>, <i>Home</i>, <i>End</i>, <i>PageUp</i>,
+<i>PageDown</i>, <i>F1</i> to <i>F12</i>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Some keys will
+need to be quoted or escaped. For example, space can be
+written as &quot; &quot; (quote space quote), and the quote
+itself as \&quot; (backslash quote). Backslash can be
+written as \\ (double backslash).</p>
+
+<h2>KEYMAP ACTIONS
+<a name="KEYMAP ACTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>MAIN
+ACTIONS</b> <br>
+abort-connection</p>
+
+<p style="margin-left:17%;">Abort connection.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">add-bookmark</p>
+
+<p style="margin-left:17%;">Add a new bookmark.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">add-bookmark-link</p>
+
+<p style="margin-left:17%;">Add a new bookmark using
+current link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">add-bookmark-tabs</p>
+
+<p style="margin-left:17%;">Bookmark all open tabs.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">auth-manager</p>
+
+<p style="margin-left:17%;">Open authentication
+manager.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">backspace-prefix</p>
+
+<p style="margin-left:17%;">Backspace the last entered
+digit of the current prefix.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">bookmark-manager</p>
+
+<p style="margin-left:17%;">Open bookmark manager.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">cache-manager</p>
+
+<p style="margin-left:17%;">Open cache manager.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">cache-minimize</p>
+
+<p style="margin-left:17%;">Free unused cache entries.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">cookie-manager</p>
+
+<p style="margin-left:17%;">Open cookie manager.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">cookies-load</p>
+
+<p style="margin-left:17%;">Reload cookies file.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">copy-clipboard</p>
+
+<p style="margin-left:17%;">Copy text to clipboard.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">document-info</p>
+
+<p style="margin-left:17%;">Show information about the
+current page.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">download-manager</p>
+
+<p style="margin-left:17%;">Open download manager.</p>
+
+<p style="margin-left:11%; margin-top: 1em">exmode</p>
+
+<p style="margin-left:17%;">Enter ex-mode (command
+line).</p>
+
+<p style="margin-left:11%; margin-top: 1em">file-menu</p>
+
+<p style="margin-left:17%;">Open the File menu.</p>
+
+<p style="margin-left:11%; margin-top: 1em">find-next</p>
+
+<p style="margin-left:17%;">Find the next occurrence of the
+current search text.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">find-next-back</p>
+
+<p style="margin-left:17%;">Find the previous occurrence of
+the current search text.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">forget-credentials</p>
+
+<p style="margin-left:17%;">Forget authentication
+credentials.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">formhist-manager</p>
+
+<p style="margin-left:17%;">Open form history manager.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">frame-external-command</p>
+
+<p style="margin-left:17%;">Pass URI of current frame to
+external command.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">frame-maximize</p>
+
+<p style="margin-left:17%;">Maximize the current frame.</p>
+
+<p style="margin-left:11%; margin-top: 1em">frame-next</p>
+
+<p style="margin-left:17%;">Move to the next frame.</p>
+
+<p style="margin-left:11%; margin-top: 1em">frame-prev</p>
+
+<p style="margin-left:17%;">Move to the previous frame.</p>
+
+<p style="margin-left:11%; margin-top: 1em">goto-url</p>
+
+<p style="margin-left:17%;">Open &quot;Go to URL&quot;
+dialog box.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">goto-url-current</p>
+
+<p style="margin-left:17%;">Open &quot;Go to URL&quot;
+dialog box containing the current URL.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">goto-url-current-link</p>
+
+<p style="margin-left:17%;">Open &quot;Go to URL&quot;
+dialog box containing the current link URL.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">goto-url-home</p>
+
+<p style="margin-left:17%;">Go to the homepage.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">header-info</p>
+
+<p style="margin-left:17%;">Show information about the
+current page protocol headers.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">history-manager</p>
+
+<p style="margin-left:17%;">Open history manager.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">history-move-back</p>
+
+<p style="margin-left:17%;">Return to the previous document
+in history.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">history-move-forward</p>
+
+<p style="margin-left:17%;">Go forward in history.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">jump-to-link</p>
+
+<p style="margin-left:17%;">Jump to link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">keybinding-manager</p>
+
+<p style="margin-left:17%;">Open keybinding manager.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">kill-backgrounded-connections</p>
+
+<p style="margin-left:17%;">Kill all backgrounded
+connections.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">link-download</p>
+
+<p style="margin-left:17%;">Download the current link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">link-download-image</p>
+
+<p style="margin-left:17%;">Download the current image.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">link-download-resume</p>
+
+<p style="margin-left:17%;">Attempt to resume download of
+the current link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">link-external-command</p>
+
+<p style="margin-left:17%;">Pass URI of current link to
+external command.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">link-follow</p>
+
+<p style="margin-left:17%;">Follow the current link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">link-follow-reload</p>
+
+<p style="margin-left:17%;">Follow the current link,
+forcing reload of the target.</p>
+
+<p style="margin-left:11%; margin-top: 1em">link-info</p>
+
+<p style="margin-left:17%;">Show information about current
+link.</p>
+
+<p style="margin-left:11%; margin-top: 1em">link-menu</p>
+
+<p style="margin-left:17%;">Open the link context menu.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">link-form-menu</p>
+
+<p style="margin-left:17%;">Open the form fields menu.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">lua-console</p>
+
+<p style="margin-left:17%;">Open a Lua console.</p>
+
+<p style="margin-left:11%; margin-top: 1em">mark-goto</p>
+
+<p style="margin-left:17%;">Go at a specified mark.</p>
+
+<p style="margin-left:11%; margin-top: 1em">mark-set</p>
+
+<p style="margin-left:17%;">Set a mark.</p>
+
+<p style="margin-left:11%; margin-top: 1em">menu</p>
+
+<p style="margin-left:17%;">Activate the menu.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-current-top</p>
+
+<p style="margin-left:17%;">Move downwards to put the
+current line at the top of the screen.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-cursor-down</p>
+
+<p style="margin-left:17%;">Move cursor down.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-cursor-left</p>
+
+<p style="margin-left:17%;">Move cursor left.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-cursor-line-start</p>
+
+<p style="margin-left:17%;">Move cursor to the start of the
+line.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-cursor-right</p>
+
+<p style="margin-left:17%;">Move cursor right.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-cursor-up</p>
+
+<p style="margin-left:17%;">Move cursor up.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-document-end</p>
+
+<p style="margin-left:17%;">Move to the end of the
+document.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-document-start</p>
+
+<p style="margin-left:17%;">Move to the start of the
+document.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-half-page-down</p>
+
+<p style="margin-left:17%;">Move downwards by half a
+page.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-half-page-up</p>
+
+<p style="margin-left:17%;">Move upwards by half a
+page.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-link-down</p>
+
+<p style="margin-left:17%;">Move one link down.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-link-down-line</p>
+
+<p style="margin-left:17%;">Move to the next line with a
+link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-link-left</p>
+
+<p style="margin-left:17%;">Move one link left.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-link-left-line</p>
+
+<p style="margin-left:17%;">Move one link left or to the
+previous link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-link-next</p>
+
+<p style="margin-left:17%;">Move to the next link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-link-prev</p>
+
+<p style="margin-left:17%;">Move to the previous link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-link-right</p>
+
+<p style="margin-left:17%;">Move one link right.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-link-right-line</p>
+
+<p style="margin-left:17%;">Move one link right or to the
+next link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-link-up</p>
+
+<p style="margin-left:17%;">Move one link up.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-link-up-line</p>
+
+<p style="margin-left:17%;">Move to the previous line with
+a link.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-page-down</p>
+
+<p style="margin-left:17%;">Move downwards by a page.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-page-up</p>
+
+<p style="margin-left:17%;">Move upwards by a page.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">open-link-in-new-tab</p>
+
+<p style="margin-left:17%;">Open the current link in a new
+tab.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">open-link-in-new-tab-in-background</p>
+
+<p style="margin-left:17%;">Open the current link in a new
+tab in the background.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">open-link-in-new-window</p>
+
+<p style="margin-left:17%;">Open the current link in a new
+window.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">open-new-tab</p>
+
+<p style="margin-left:17%;">Open a new tab.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">open-new-tab-in-background</p>
+
+<p style="margin-left:17%;">Open a new tab in the
+background.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">open-new-window</p>
+
+<p style="margin-left:17%;">Open a new window.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">open-os-shell</p>
+
+<p style="margin-left:17%;">Open an OS shell.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">options-manager</p>
+
+<p style="margin-left:17%;">Open options manager.</p>
+
+<p style="margin-left:11%; margin-top: 1em">quit</p>
+
+<p style="margin-left:17%;">Open a quit confirmation dialog
+box.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">really-quit</p>
+
+<p style="margin-left:17%;">Quit without confirmation.</p>
+
+<p style="margin-left:11%; margin-top: 1em">redraw</p>
+
+<p style="margin-left:17%;">Redraw the terminal.</p>
+
+<p style="margin-left:11%; margin-top: 1em">reload</p>
+
+<p style="margin-left:17%;">Reload the current page.</p>
+
+<p style="margin-left:11%; margin-top: 1em">rerender</p>
+
+<p style="margin-left:17%;">Re-render the current page.</p>
+
+<p style="margin-left:11%; margin-top: 1em">reset-form</p>
+
+<p style="margin-left:17%;">Reset form items to their
+initial values.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">resource-info</p>
+
+<p style="margin-left:17%;">Show information about the
+currently used resources.</p>
+
+<p style="margin-left:11%; margin-top: 1em">save-as</p>
+
+<p style="margin-left:17%;">Save the current document in
+source form.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">save-formatted</p>
+
+<p style="margin-left:17%;">Save the current document in
+formatted form.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">save-options</p>
+
+<p style="margin-left:17%;">Save options.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">save-url-as</p>
+
+<p style="margin-left:17%;">Save URL as.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">scroll-down</p>
+
+<p style="margin-left:17%;">Scroll down.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">scroll-left</p>
+
+<p style="margin-left:17%;">Scroll left.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">scroll-right</p>
+
+<p style="margin-left:17%;">Scroll right.</p>
+
+<p style="margin-left:11%; margin-top: 1em">scroll-up</p>
+
+<p style="margin-left:17%;">Scroll up.</p>
+
+<p style="margin-left:11%; margin-top: 1em">search</p>
+
+<p style="margin-left:17%;">Search for a text pattern.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">search-back</p>
+
+<p style="margin-left:17%;">Search backwards for a text
+pattern.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">search-typeahead</p>
+
+<p style="margin-left:17%;">Search link text by typing
+ahead.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">search-typeahead-link</p>
+
+<p style="margin-left:17%;">Search link text by typing
+ahead.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">search-typeahead-text</p>
+
+<p style="margin-left:17%;">Search document text by typing
+ahead.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">search-typeahead-text-back</p>
+
+<p style="margin-left:17%;">Search document text backwards
+by typing ahead.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">show-term-options</p>
+
+<p style="margin-left:17%;">Show terminal options
+dialog.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">submit-form</p>
+
+<p style="margin-left:17%;">Submit form.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">submit-form-reload</p>
+
+<p style="margin-left:17%;">Submit form and reload.</p>
+
+<p style="margin-left:11%; margin-top: 1em">tab-close</p>
+
+<p style="margin-left:17%;">Close tab.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">tab-close-all-but-current</p>
+
+<p style="margin-left:17%;">Close all tabs but the current
+one.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">tab-external-command</p>
+
+<p style="margin-left:17%;">Pass URI of current tab to
+external command.</p>
+
+<p style="margin-left:11%; margin-top: 1em">tab-menu</p>
+
+<p style="margin-left:17%;">Open the tab menu.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">tab-move-left</p>
+
+<p style="margin-left:17%;">Move the current tab to the
+left.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">tab-move-right</p>
+
+<p style="margin-left:17%;">Move the current tab to the
+right.</p>
+
+<p style="margin-left:11%; margin-top: 1em">tab-next</p>
+
+<p style="margin-left:17%;">Next tab.</p>
+
+<p style="margin-left:11%; margin-top: 1em">tab-prev</p>
+
+<p style="margin-left:17%;">Previous tab.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">terminal-resize</p>
+
+<p style="margin-left:17%;">Open the terminal resize
+dialog.</p>
+
+<p style="margin-left:11%; margin-top: 1em">toggle-css</p>
+
+<p style="margin-left:17%;">Toggle rendering of page using
+CSS.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">toggle-display-images</p>
+
+<p style="margin-left:17%;">Toggle displaying of links to
+images.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">toggle-display-tables</p>
+
+<p style="margin-left:17%;">Toggle rendering of tables.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">toggle-document-colors</p>
+
+<p style="margin-left:17%;">Toggle usage of document
+specific colors.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">toggle-html-plain</p>
+
+<p style="margin-left:17%;">Toggle rendering page as HTML /
+plain text.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">toggle-mouse</p>
+
+<p style="margin-left:17%;">Toggle mouse handling.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">toggle-numbered-links</p>
+
+<p style="margin-left:17%;">Toggle displaying of links
+numbers.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">toggle-plain-compress-empty-lines</p>
+
+<p style="margin-left:17%;">Toggle plain renderer
+compression of empty lines.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">toggle-wrap-text</p>
+
+<p style="margin-left:17%;">Toggle wrapping of text.</p>
+
+<p style="margin-left:11%; margin-top: 1em">view-image</p>
+
+<p style="margin-left:17%;">View the current image.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>EDIT
+ACTIONS</b> <br>
+auto-complete</p>
+
+<p style="margin-left:17%;">Attempt to auto-complete the
+input.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">auto-complete-file</p>
+
+<p style="margin-left:17%;">Attempt to auto-complete a
+local file.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">auto-complete-unambiguous</p>
+
+<p style="margin-left:17%;">Attempt to unambiguously
+auto-complete the input.</p>
+
+<p style="margin-left:11%; margin-top: 1em">backspace</p>
+
+<p style="margin-left:17%;">Delete character in front of
+the cursor.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">beginning-of-buffer</p>
+
+<p style="margin-left:17%;">Go to the first line of the
+buffer.</p>
+
+<p style="margin-left:11%; margin-top: 1em">cancel</p>
+
+<p style="margin-left:17%;">Cancel current state.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">copy-clipboard</p>
+
+<p style="margin-left:17%;">Copy text to clipboard.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">cut-clipboard</p>
+
+<p style="margin-left:17%;">Cut text to clipboard.</p>
+
+<p style="margin-left:11%; margin-top: 1em">delete</p>
+
+<p style="margin-left:17%;">Delete character under
+cursor.</p>
+
+<p style="margin-left:11%; margin-top: 1em">down</p>
+
+<p style="margin-left:17%;">Move cursor downwards.</p>
+
+<p style="margin-left:11%; margin-top: 1em">end</p>
+
+<p style="margin-left:17%;">Go to the end of the
+page/line.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">end-of-buffer</p>
+
+<p style="margin-left:17%;">Go to the last line of the
+buffer.</p>
+
+<p style="margin-left:11%; margin-top: 1em">enter</p>
+
+<p style="margin-left:17%;">Follow the current link.</p>
+
+<p style="margin-left:11%; margin-top: 1em">home</p>
+
+<p style="margin-left:17%;">Go to the start of the
+page/line.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">kill-to-bol</p>
+
+<p style="margin-left:17%;">Delete to beginning of
+line.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">kill-to-eol</p>
+
+<p style="margin-left:17%;">Delete to end of line.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">kill-word-back</p>
+
+<p style="margin-left:17%;">Delete backwards to start of
+word.</p>
+
+<p style="margin-left:11%; margin-top: 1em">left</p>
+
+<p style="margin-left:17%;">Move the cursor left.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-backward-word</p>
+
+<p style="margin-left:17%;">Move cursor before current
+word.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">move-forward-word</p>
+
+<p style="margin-left:17%;">Move cursor after current
+word.</p>
+
+<p style="margin-left:11%; margin-top: 1em">next-item</p>
+
+<p style="margin-left:17%;">Move to the next item.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">open-external</p>
+
+<p style="margin-left:17%;">Open in external editor.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">paste-clipboard</p>
+
+<p style="margin-left:17%;">Paste text from the
+clipboard.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">previous-item</p>
+
+<p style="margin-left:17%;">Move to the previous item.</p>
+
+<p style="margin-left:11%; margin-top: 1em">redraw</p>
+
+<p style="margin-left:17%;">Redraw the terminal.</p>
+
+<p style="margin-left:11%; margin-top: 1em">right</p>
+
+<p style="margin-left:17%;">Move the cursor right.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">search-toggle-regex</p>
+
+<p style="margin-left:17%;">Toggle regex matching
+(type-ahead searching).</p>
+
+<p style="margin-left:11%; margin-top: 1em">up</p>
+
+<p style="margin-left:17%;">Move cursor upwards.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>MENU
+ACTIONS</b> <br>
+cancel</p>
+
+<p style="margin-left:17%;">Cancel current state.</p>
+
+<p style="margin-left:11%; margin-top: 1em">delete</p>
+
+<p style="margin-left:17%;">Delete character under
+cursor.</p>
+
+<p style="margin-left:11%; margin-top: 1em">down</p>
+
+<p style="margin-left:17%;">Move cursor downwards.</p>
+
+<p style="margin-left:11%; margin-top: 1em">end</p>
+
+<p style="margin-left:17%;">Go to the end of the
+page/line.</p>
+
+<p style="margin-left:11%; margin-top: 1em">enter</p>
+
+<p style="margin-left:17%;">Follow the current link.</p>
+
+<p style="margin-left:11%; margin-top: 1em">expand</p>
+
+<p style="margin-left:17%;">Expand item.</p>
+
+<p style="margin-left:11%; margin-top: 1em">home</p>
+
+<p style="margin-left:17%;">Go to the start of the
+page/line.</p>
+
+<p style="margin-left:11%; margin-top: 1em">left</p>
+
+<p style="margin-left:17%;">Move the cursor left.</p>
+
+<p style="margin-left:11%; margin-top: 1em">mark-item</p>
+
+<p style="margin-left:17%;">Mark item.</p>
+
+<p style="margin-left:11%; margin-top: 1em">next-item</p>
+
+<p style="margin-left:17%;">Move to the next item.</p>
+
+<p style="margin-left:11%; margin-top: 1em">page-down</p>
+
+<p style="margin-left:17%;">Move downwards by a page.</p>
+
+<p style="margin-left:11%; margin-top: 1em">page-up</p>
+
+<p style="margin-left:17%;">Move upwards by a page.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">previous-item</p>
+
+<p style="margin-left:17%;">Move to the previous item.</p>
+
+<p style="margin-left:11%; margin-top: 1em">redraw</p>
+
+<p style="margin-left:17%;">Redraw the terminal.</p>
+
+<p style="margin-left:11%; margin-top: 1em">right</p>
+
+<p style="margin-left:17%;">Move the cursor right.</p>
+
+<p style="margin-left:11%; margin-top: 1em">search</p>
+
+<p style="margin-left:17%;">Search for a text pattern.</p>
+
+<p style="margin-left:11%; margin-top: 1em">select</p>
+
+<p style="margin-left:17%;">Select current highlighted
+item.</p>
+
+<p style="margin-left:11%; margin-top: 1em">unexpand</p>
+
+<p style="margin-left:17%;">Collapse item.</p>
+
+<p style="margin-left:11%; margin-top: 1em">up</p>
+
+<p style="margin-left:17%;">Move cursor upwards.</p>
+
+<h2>DEFAULT BINDINGS
+<a name="DEFAULT BINDINGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The default
+bindings are shown below. Any bindings in
+~/.elinks/elinks.conf will override these.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>MAIN
+KEYS</b> <i><br>
+Space</i></p>
+
+<p style="margin-left:17%;">Move downwards by a page
+(<i>move-page-down</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;#&quot;</i></p>
+
+<p style="margin-left:17%;">Search link text by typing
+ahead (<i>search-typeahead</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;%&quot;</i></p>
+
+<p style="margin-left:17%;">Toggle usage of document
+specific colors (<i>toggle-document-colors</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;*&quot;</i></p>
+
+<p style="margin-left:17%;">Toggle displaying of links to
+images (<i>toggle-display-images</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;,&quot;</i></p>
+
+<p style="margin-left:17%;">Open a Lua console
+(<i>lua-console</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;.&quot;</i></p>
+
+<p style="margin-left:17%;">Toggle displaying of links
+numbers (<i>toggle-numbered-links</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;/&quot;</i></p>
+
+<p style="margin-left:17%;">Search for a text pattern
+(<i>search</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;:&quot;</i></p>
+
+<p style="margin-left:17%;">Enter ex-mode (command line)
+(<i>exmode</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;&lt;&quot;</i></p>
+
+<p style="margin-left:17%;">Previous tab
+(<i>tab-prev</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Alt-&quot;&lt;&quot;</i></p>
+
+<p style="margin-left:17%;">Move the current tab to the
+left (<i>tab-move-left</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;=&quot;</i></p>
+
+<p style="margin-left:17%;">Show information about the
+current page (<i>document-info</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;&gt;&quot;</i></p>
+
+<p style="margin-left:17%;">Next tab (<i>tab-next</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Alt-&quot;&gt;&quot;</i></p>
+
+<p style="margin-left:17%;">Move the current tab to the
+right (<i>tab-move-right</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;?&quot;</i></p>
+
+<p style="margin-left:17%;">Search backwards for a text
+pattern (<i>search-back</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;A&quot;</i></p>
+
+<p style="margin-left:17%;">Add a new bookmark using
+current link (<i>add-bookmark-link</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;A&quot;</i></p>
+
+<p style="margin-left:17%;">Move to the start of the
+document (<i>move-document-start</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;B&quot;</i></p>
+
+<p style="margin-left:17%;">Move upwards by a page
+(<i>move-page-up</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;C&quot;</i></p>
+
+<p style="margin-left:17%;">Open cache manager
+(<i>cache-manager</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;D&quot;</i></p>
+
+<p style="margin-left:17%;">Open download manager
+(<i>download-manager</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;E&quot;</i></p>
+
+<p style="margin-left:17%;">Open &quot;Go to URL&quot;
+dialog box containing the current link URL
+(<i>goto-url-current-link</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;E&quot;</i></p>
+
+<p style="margin-left:17%;">Move to the end of the document
+(<i>move-document-end</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;F&quot;</i></p>
+
+<p style="margin-left:17%;">Open form history manager
+(<i>formhist-manager</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;F&quot;</i></p>
+
+<p style="margin-left:17%;">Move downwards by a page
+(<i>move-page-down</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;G&quot;</i></p>
+
+<p style="margin-left:17%;">Open &quot;Go to URL&quot;
+dialog box containing the current URL
+(<i>goto-url-current</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;H&quot;</i></p>
+
+<p style="margin-left:17%;">Go to the homepage
+(<i>goto-url-home</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;K&quot;</i></p>
+
+<p style="margin-left:17%;">Open cookie manager
+(<i>cookie-manager</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;K&quot;</i></p>
+
+<p style="margin-left:17%;">Reload cookies file
+(<i>cookies-load</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;L&quot;</i></p>
+
+<p style="margin-left:17%;">Open the link context menu
+(<i>link-menu</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;L&quot;</i></p>
+
+<p style="margin-left:17%;">Redraw the terminal
+(<i>redraw</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;N&quot;</i></p>
+
+<p style="margin-left:17%;">Find the previous occurrence of
+the current search text (<i>find-next-back</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;N&quot;</i></p>
+
+<p style="margin-left:17%;">Scroll down
+(<i>scroll-down</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;P&quot;</i></p>
+
+<p style="margin-left:17%;">Scroll up
+(<i>scroll-up</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;Q&quot;</i></p>
+
+<p style="margin-left:17%;">Quit without confirmation
+(<i>really-quit</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;R&quot;</i></p>
+
+<p style="margin-left:17%;">Reload the current page
+(<i>reload</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;T&quot;</i></p>
+
+<p style="margin-left:17%;">Open the current link in a new
+tab in the background
+(<i>open-link-in-new-tab-in-background</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;W&quot;</i></p>
+
+<p style="margin-left:17%;">Toggle wrapping of text
+(<i>toggle-wrap-text</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;[&quot;</i></p>
+
+<p style="margin-left:17%;">Scroll left
+(<i>scroll-left</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;&acute;&quot;</i></p>
+
+<p style="margin-left:17%;">Go at a specified mark
+(<i>mark-goto</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;\&quot;</i></p>
+
+<p style="margin-left:17%;">Toggle rendering page as HTML /
+plain text (<i>toggle-html-plain</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;]&quot;</i></p>
+
+<p style="margin-left:17%;">Scroll right
+(<i>scroll-right</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;a&quot;</i></p>
+
+<p style="margin-left:17%;">Add a new bookmark
+(<i>add-bookmark</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;b&quot;</i></p>
+
+<p style="margin-left:17%;">Move upwards by a page
+(<i>move-page-up</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;c&quot;</i></p>
+
+<p style="margin-left:17%;">Close tab
+(<i>tab-close</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;d&quot;</i></p>
+
+<p style="margin-left:17%;">Download the current link
+(<i>link-download</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;e&quot;</i></p>
+
+<p style="margin-left:17%;">Open the tab menu
+(<i>tab-menu</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;f&quot;</i></p>
+
+<p style="margin-left:17%;">Maximize the current frame
+(<i>frame-maximize</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;g&quot;</i></p>
+
+<p style="margin-left:17%;">Open &quot;Go to URL&quot;
+dialog box (<i>goto-url</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;h&quot;</i></p>
+
+<p style="margin-left:17%;">Open history manager
+(<i>history-manager</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;k&quot;</i></p>
+
+<p style="margin-left:17%;">Open keybinding manager
+(<i>keybinding-manager</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;l&quot;</i></p>
+
+<p style="margin-left:17%;">Jump to link
+(<i>jump-to-link</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;m&quot;</i></p>
+
+<p style="margin-left:17%;">Set a mark
+(<i>mark-set</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;n&quot;</i></p>
+
+<p style="margin-left:17%;">Find the next occurrence of the
+current search text (<i>find-next</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;o&quot;</i></p>
+
+<p style="margin-left:17%;">Open options manager
+(<i>options-manager</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;q&quot;</i></p>
+
+<p style="margin-left:17%;">Open a quit confirmation dialog
+box (<i>quit</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;r&quot;</i></p>
+
+<p style="margin-left:17%;">Attempt to resume download of
+the current link (<i>link-download-resume</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;s&quot;</i></p>
+
+<p style="margin-left:17%;">Open bookmark manager
+(<i>bookmark-manager</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;t&quot;</i></p>
+
+<p style="margin-left:17%;">Open a new tab
+(<i>open-new-tab</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;u&quot;</i></p>
+
+<p style="margin-left:17%;">Go forward in history
+(<i>history-move-forward</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;v&quot;</i></p>
+
+<p style="margin-left:17%;">View the current image
+(<i>view-image</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;x&quot;</i></p>
+
+<p style="margin-left:17%;">Follow the current link,
+forcing reload of the target (<i>link-follow-reload</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;z&quot;</i></p>
+
+<p style="margin-left:17%;">Abort connection
+(<i>abort-connection</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;{&quot;</i></p>
+
+<p style="margin-left:17%;">Scroll left
+(<i>scroll-left</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;|&quot;</i></p>
+
+<p style="margin-left:17%;">Show information about the
+current page protocol headers (<i>header-info</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;}&quot;</i></p>
+
+<p style="margin-left:17%;">Scroll right
+(<i>scroll-right</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Backspace</i></p>
+
+<p style="margin-left:17%;">Backspace the last entered
+digit of the current prefix (<i>backspace-prefix</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Delete</i></p>
+
+<p style="margin-left:17%;">Scroll down
+(<i>scroll-down</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Down</i></p>
+
+<p style="margin-left:17%;">Move to the next link
+(<i>move-link-next</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>End</i></p>
+
+<p style="margin-left:17%;">Move to the end of the document
+(<i>move-document-end</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Enter</i></p>
+
+<p style="margin-left:17%;">Follow the current link
+(<i>link-follow</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-Enter</i></p>
+
+<p style="margin-left:17%;">Follow the current link,
+forcing reload of the target (<i>link-follow-reload</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Escape</i></p>
+
+<p style="margin-left:17%;">Activate the menu
+(<i>menu</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>F10</i></p>
+
+<p style="margin-left:17%;">Open the File menu
+(<i>file-menu</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>F9</i></p>
+
+<p style="margin-left:17%;">Activate the menu
+(<i>menu</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Home</i></p>
+
+<p style="margin-left:17%;">Move to the start of the
+document (<i>move-document-start</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Insert</i></p>
+
+<p style="margin-left:17%;">Scroll up
+(<i>scroll-up</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-Insert</i></p>
+
+<p style="margin-left:17%;">Copy text to clipboard
+(<i>copy-clipboard</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Left</i></p>
+
+<p style="margin-left:17%;">Return to the previous document
+in history (<i>history-move-back</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>PageDown</i></p>
+
+<p style="margin-left:17%;">Move downwards by a page
+(<i>move-page-down</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>PageUp</i></p>
+
+<p style="margin-left:17%;">Move upwards by a page
+(<i>move-page-up</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Right</i></p>
+
+<p style="margin-left:17%;">Follow the current link
+(<i>link-follow</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-Right</i></p>
+
+<p style="margin-left:17%;">Follow the current link,
+forcing reload of the target (<i>link-follow-reload</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>Tab</i></p>
+
+<p style="margin-left:17%;">Move to the next frame
+(<i>frame-next</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Alt-Tab</i></p>
+
+<p style="margin-left:17%;">Move to the previous frame
+(<i>frame-prev</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Shift-Tab</i></p>
+
+<p style="margin-left:17%;">Move to the previous frame
+(<i>frame-prev</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>Up</i></p>
+
+<p style="margin-left:17%;">Move to the previous link
+(<i>move-link-prev</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>EDIT
+KEYS</b> <i><br>
+Alt-&quot;&lt;&quot;</i></p>
+
+<p style="margin-left:17%;">Go to the first line of the
+buffer (<i>beginning-of-buffer</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Alt-&quot;&gt;&quot;</i></p>
+
+<p style="margin-left:17%;">Go to the last line of the
+buffer (<i>end-of-buffer</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;A&quot;</i></p>
+
+<p style="margin-left:17%;">Go to the start of the
+page/line (<i>home</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Alt-&quot;b&quot;</i></p>
+
+<p style="margin-left:17%;">Move cursor before current word
+(<i>move-backward-word</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;D&quot;</i></p>
+
+<p style="margin-left:17%;">Delete character under cursor
+(<i>delete</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;E&quot;</i></p>
+
+<p style="margin-left:17%;">Go to the end of the page/line
+(<i>end</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Alt-&quot;f&quot;</i></p>
+
+<p style="margin-left:17%;">Move cursor after current word
+(<i>move-forward-word</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;H&quot;</i></p>
+
+<p style="margin-left:17%;">Delete character in front of
+the cursor (<i>backspace</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;K&quot;</i></p>
+
+<p style="margin-left:17%;">Delete to end of line
+(<i>kill-to-eol</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;L&quot;</i></p>
+
+<p style="margin-left:17%;">Redraw the terminal
+(<i>redraw</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Alt-&quot;r&quot;</i></p>
+
+<p style="margin-left:17%;">Toggle regex matching
+(type-ahead searching) (<i>search-toggle-regex</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;F&quot;</i></p>
+
+<p style="margin-left:17%;">Attempt to auto-complete a
+local file (<i>auto-complete-file</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;R&quot;</i></p>
+
+<p style="margin-left:17%;">Attempt to unambiguously
+auto-complete the input
+(<i>auto-complete-unambiguous</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;T&quot;</i></p>
+
+<p style="margin-left:17%;">Open in external editor
+(<i>open-external</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;U&quot;</i></p>
+
+<p style="margin-left:17%;">Delete to beginning of line
+(<i>kill-to-bol</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;V&quot;</i></p>
+
+<p style="margin-left:17%;">Paste text from the clipboard
+(<i>paste-clipboard</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;W&quot;</i></p>
+
+<p style="margin-left:17%;">Attempt to auto-complete the
+input (<i>auto-complete</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;X&quot;</i></p>
+
+<p style="margin-left:17%;">Cut text to clipboard
+(<i>cut-clipboard</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Alt-Backspace</i></p>
+
+<p style="margin-left:17%;">Delete backwards to start of
+word (<i>kill-word-back</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Backspace</i></p>
+
+<p style="margin-left:17%;">Delete character in front of
+the cursor (<i>backspace</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Delete</i></p>
+
+<p style="margin-left:17%;">Delete character under cursor
+(<i>delete</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Down</i></p>
+
+<p style="margin-left:17%;">Move cursor downwards
+(<i>down</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>End</i></p>
+
+<p style="margin-left:17%;">Go to the end of the page/line
+(<i>end</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Enter</i></p>
+
+<p style="margin-left:17%;">Follow the current link
+(<i>enter</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Escape</i></p>
+
+<p style="margin-left:17%;">Cancel current state
+(<i>cancel</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>F4</i></p>
+
+<p style="margin-left:17%;">Open in external editor
+(<i>open-external</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Home</i></p>
+
+<p style="margin-left:17%;">Go to the start of the
+page/line (<i>home</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-Insert</i></p>
+
+<p style="margin-left:17%;">Copy text to clipboard
+(<i>copy-clipboard</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Left</i></p>
+
+<p style="margin-left:17%;">Move the cursor left
+(<i>left</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Right</i></p>
+
+<p style="margin-left:17%;">Move the cursor right
+(<i>right</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>Tab</i></p>
+
+<p style="margin-left:17%;">Move to the next item
+(<i>next-item</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Alt-Tab</i></p>
+
+<p style="margin-left:17%;">Move to the previous item
+(<i>previous-item</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Shift-Tab</i></p>
+
+<p style="margin-left:17%;">Move to the previous item
+(<i>previous-item</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>Up</i></p>
+
+<p style="margin-left:17%;">Move cursor upwards
+(<i>up</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>MENU
+KEYS</b> <i><br>
+Space</i></p>
+
+<p style="margin-left:17%;">Select current highlighted item
+(<i>select</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;*&quot;</i></p>
+
+<p style="margin-left:17%;">Mark item
+(<i>mark-item</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;+&quot;</i></p>
+
+<p style="margin-left:17%;">Expand item (<i>expand</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;-&quot;</i></p>
+
+<p style="margin-left:17%;">Collapse item
+(<i>unexpand</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;/&quot;</i></p>
+
+<p style="margin-left:17%;">Search for a text pattern
+(<i>search</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;=&quot;</i></p>
+
+<p style="margin-left:17%;">Expand item (<i>expand</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;A&quot;</i></p>
+
+<p style="margin-left:17%;">Go to the start of the
+page/line (<i>home</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;B&quot;</i></p>
+
+<p style="margin-left:17%;">Move upwards by a page
+(<i>page-up</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;E&quot;</i></p>
+
+<p style="margin-left:17%;">Go to the end of the page/line
+(<i>end</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;F&quot;</i></p>
+
+<p style="margin-left:17%;">Move downwards by a page
+(<i>page-down</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;L&quot;</i></p>
+
+<p style="margin-left:17%;">Redraw the terminal
+(<i>redraw</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;N&quot;</i></p>
+
+<p style="margin-left:17%;">Move cursor downwards
+(<i>down</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;P&quot;</i></p>
+
+<p style="margin-left:17%;">Move cursor upwards
+(<i>up</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Alt-&quot;V&quot;</i></p>
+
+<p style="margin-left:17%;">Move upwards by a page
+(<i>page-up</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Ctrl-&quot;V&quot;</i></p>
+
+<p style="margin-left:17%;">Move downwards by a page
+(<i>page-down</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;[&quot;</i></p>
+
+<p style="margin-left:17%;">Expand item (<i>expand</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;]&quot;</i></p>
+
+<p style="margin-left:17%;">Collapse item
+(<i>unexpand</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&quot;_&quot;</i></p>
+
+<p style="margin-left:17%;">Collapse item
+(<i>unexpand</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Delete</i></p>
+
+<p style="margin-left:17%;">Delete character under cursor
+(<i>delete</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Down</i></p>
+
+<p style="margin-left:17%;">Move cursor downwards
+(<i>down</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>End</i></p>
+
+<p style="margin-left:17%;">Go to the end of the page/line
+(<i>end</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Enter</i></p>
+
+<p style="margin-left:17%;">Follow the current link
+(<i>enter</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Escape</i></p>
+
+<p style="margin-left:17%;">Cancel current state
+(<i>cancel</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Home</i></p>
+
+<p style="margin-left:17%;">Go to the start of the
+page/line (<i>home</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Insert</i></p>
+
+<p style="margin-left:17%;">Mark item
+(<i>mark-item</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Left</i></p>
+
+<p style="margin-left:17%;">Move the cursor left
+(<i>left</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>PageDown</i></p>
+
+<p style="margin-left:17%;">Move downwards by a page
+(<i>page-down</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>PageUp</i></p>
+
+<p style="margin-left:17%;">Move upwards by a page
+(<i>page-up</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Right</i></p>
+
+<p style="margin-left:17%;">Move the cursor right
+(<i>right</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>Tab</i></p>
+
+<p style="margin-left:17%;">Move to the next item
+(<i>next-item</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Alt-Tab</i></p>
+
+<p style="margin-left:17%;">Move to the previous item
+(<i>previous-item</i>)</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>Shift-Tab</i></p>
+
+<p style="margin-left:17%;">Move to the previous item
+(<i>previous-item</i>)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><i>Up</i></p>
+
+<p style="margin-left:17%;">Move cursor upwards
+(<i>up</i>)</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This manual
+page was finally written by Peter Wang (one and a half years
+after writing the binding code), using excerpts by David
+Mediavilla. You can thank Petr Baudis for the subtle
+requests for documentation. Updated by Zas. Moved to
+asciidoc format and cleaned up by Jonas Fonseca.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>elinks</b>(1),
+<b>elinks.conf</b>(5)</p>
+<hr>
+</body>
+</html>

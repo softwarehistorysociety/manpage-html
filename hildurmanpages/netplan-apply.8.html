@@ -1,0 +1,197 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:56:37 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>netplan-apply</title>
+
+</head>
+<body>
+
+<h1 align="center">netplan-apply</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#KNOWN ISSUES">KNOWN ISSUES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">netplan-apply -
+apply configuration from netplan YAML files to a running
+system</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>
+[&ndash;debug] <b>apply</b> -h | &ndash;help</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>
+[&ndash;debug] <b>apply</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan
+apply</b> applies the current netplan configuration to a
+running system.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The process
+works as follows:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>1.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p>The backend configuration is generated from netplan YAML
+files.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>2.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p>The appropriate backends (<b>systemd-networkd</b>(8) or
+<b>NetworkManager</b>(8)) are invoked to bring up configured
+interfaces.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>3.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p><b>netplan apply</b> iterates through interfaces that
+are still down, unbinding them from their drivers, and
+rebinding them. This gives <b>udev</b>(7) renaming rules the
+opportunity to run.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>4.</p></td>
+<td width="1%"></td>
+<td width="85%">
+
+
+<p>If any devices have been rebound, the appropriate
+backends are re-invoked in case more matches can be
+done.</p> </td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">For information
+about the generation step, see <b>netplan-generate</b>(8).
+For details of the configuration file format, see
+<b>netplan</b>(5).</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h,
+&ndash;help</b></p>
+
+<p style="margin-left:22%;">Print basic help.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>&ndash;debug</b></p></td>
+<td width="2%"></td>
+<td width="64%">
+
+
+<p>Print debugging output during the process.</p></td>
+<td width="14%">
+</td></tr>
+</table>
+
+<h2>KNOWN ISSUES
+<a name="KNOWN ISSUES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan
+apply</b> will not remove virtual devices such as bridges
+and bonds that have been created, even if they are no longer
+described in the netplan configuration. That is due to the
+fact that netplan operates statelessly and is not aware of
+the previously defined virtal devices.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This can be
+resolved by manually removing the virtual device (for
+example <tt>ip link delete dev bond0</tt>) and then running
+<b>netplan apply</b>, by rebooting, or by creating a
+temporary backup of the YAML state in <tt>/etc/netplan</tt>
+before modifying the configuration and passing this state to
+netplan (e.g. <tt>mkdir -p /tmp/netplan_state_backup/etc
+&amp;&amp; cp -r /etc/netplan
+/tmp/netplan_state_backup/etc/</tt> then running <b>netplan
+apply &ndash;state /tmp/netplan_state_backup</b>)</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>netplan</b>(5),
+<b>netplan-generate</b>(8), <b>netplan-try</b>(8),
+<b>udev</b>(7), <b>systemd-networkd.service</b>(8),
+<b>NetworkManager</b>(8)</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Daniel Axtens
+(&lt;daniel.axtens@canonical.com&gt;).</p>
+<hr>
+</body>
+</html>

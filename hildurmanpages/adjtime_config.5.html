@@ -1,0 +1,148 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:31:30 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>ADJTIME_CONFIG</title>
+
+</head>
+<body>
+
+<h1 align="center">ADJTIME_CONFIG</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">adjtime -
+information about hardware clock setting and drift
+factor</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/etc/adjtime</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The file
+<b>/etc/adjtime</b> contains descriptive information about
+the hardware mode clock setting and clock drift factor. The
+file is read and write by hwclock; and read by programs like
+rtcwake to get RTC time mode.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The file is
+usually located in /etc, but tools like <b>hwclock</b>(8) or
+<b>rtcwake</b>(8) allow to use alternative location by
+command line options if write access to /etc is unwanted.
+The default clock mode is &quot;UTC&quot; if the file is
+missing.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The Hardware
+Clock is usually not very accurate. However, much of its
+inaccuracy is completely predictable - it gains or loses the
+same amount of time every day. This is called systematic
+drift. The util hwclock keeps the file /etc/adjtime, that
+keeps some historical information. For more details see
+&quot;<b>The Adjust Function</b>&quot; and &quot;<b>The
+Adjtime File</b>&quot; sections from <b>hwckock</b>(8) man
+page.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The format of
+the adjtime file is, in ASCII.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>First
+line</b> <br>
+Three numbers, separated by blanks: <b><br>
+drift factor</b></p>
+
+<p style="margin-left:22%;">the systematic drift rate in
+seconds per day (floating point decimal)</p>
+
+<p style="margin-left:11%;"><b>last adjust time</b></p>
+
+<p style="margin-left:22%;">the resulting number of seconds
+since 1969 UTC of most recent adjustment or calibration
+(decimal integer)</p>
+
+<p style="margin-left:11%;"><b>adjustment status</b></p>
+
+<p style="margin-left:22%;">zero (for compatibility with
+clock(8)) as a decimal integer.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Second line
+<br>
+last calibration time</b></p>
+
+<p style="margin-left:22%;">The resulting number of seconds
+since 1969 UTC of most recent calibration. Zero if there has
+been no calibration yet or it is known that any previous
+calibration is moot (for example, because the Hardware Clock
+has been found, since that calibration, not to contain a
+valid time). This is a decimal integer.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Third line
+<br>
+clock mode</b></p>
+
+<p style="margin-left:22%;">Supported values are
+&quot;UTC&quot; or &quot;LOCAL&quot;. Tells whether the
+Hardware Clock is set to Coordinated Universal Time or local
+time. You can always override this value with options on the
+hwclock command line.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/etc/adjtime</i></p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>hwclock</b></i>(8),
+<b>rtcwake</b>(8)</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This man page
+is part of the util-linux package and is available from
+https://www.kernel.org/pub/linux/utils/util-linux/.</p>
+<hr>
+</body>
+</html>

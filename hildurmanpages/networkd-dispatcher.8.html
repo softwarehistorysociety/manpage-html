@@ -1,0 +1,162 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:56:41 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>NETWORKD-DISPATCHER</title>
+
+</head>
+<body>
+
+<h1 align="center">NETWORKD-DISPATCHER</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#CONFIGURATION FILES">CONFIGURATION FILES</a><br>
+<a href="#RESOURCES">RESOURCES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">networkd-dispatcher
+- Dispatcher service for systemd-networkd connection status
+changes</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>networkd-dispatcher</b>
+[-h] [-S <i>SCRIPT_DIR</i>] [-T] [-v] [-q]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Dispatcher
+daemon for systemd-networkd connection status changes. This
+daemon is similar to NetworkManager-dispatcher, but is much
+more limited in the types of events it supports due to the
+limited nature of <i>systemd-networkd(8)</i>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Desired actions
+(scripts) are placed into directories that reflect
+systemd-networkd operational states under <i>SCRIPT_DIR</i>
+and are executed when the daemon receives the relevant event
+from systemd-networkd.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The daemon
+listens for signals from systemd-networkd over dbus, so it
+should be very light on resources (e.g. no polling). It is
+meant to be run as a system-wide daemon (as root). This
+allows it to be used for tasks such as starting a VPN after
+a connection is established.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h,
+--help</b></p>
+
+<p style="margin-left:17%;">Print command-line syntax and
+program options to stdout.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-S,
+--script-dir=</b><i>SCRIPT_DIR</i></p>
+
+<p style="margin-left:17%;">Location under which to look
+for scripts. Like the <i>PATH</i> environment variable, this
+may contain multiple directories separated by : and in case
+multiple directories have scripts with the same name, the
+earliest directory wins. Defaults to
+/etc/networkd-dispatcher:/usr/lib/networkd-dispatcher.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-T,
+--run-startup-triggers</b></p>
+
+<p style="margin-left:17%;">Generate events reflecting
+preexisting state and behavior on startup. This can be used
+to ensure that triggers are belatedly run even if
+networkd-dispatcher is invoked after systemd-networkd has
+already started an interface.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-v,
+--verbose</b></p>
+
+<p style="margin-left:17%;">Increase verbosity by one
+level. The default level is <i>WARNING</i>. Each use of
+<i>-v</i> will increment the log level (towards <i>INFO</i>
+or <i>DEBUG</i>), and each use of <i>-q</i> will decrement
+it (towards <i>ERROR</i> or <i>CRITICAL</i>).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-q,
+--quiet</b></p>
+
+<p style="margin-left:17%;">Decrease verbosity by one
+level.</p>
+
+<h2>CONFIGURATION FILES
+<a name="CONFIGURATION FILES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The systemd
+service reads <i>/etc/default/networkd-dispatcher</i> as an
+environment file for additional daemon arguments.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The scripts to
+be run on network changes are in subdirectories
+<i>routable.d/</i>, <i>dormant.d/</i>, <i>no-carrier.d/</i>,
+<i>off.d/</i>, <i>carrier.d/</i>, <i>degraded.d/</i>,
+<i>configured.d</i>, <i>configuring.d/</i> inside
+<i>SCRIPT_DIR</i>. The default value for <i>SCRIPT_DIR</i>
+is
+<i>/etc/networkd-dispatcher:/usr/lib/networkd-dispatcher</i>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For information
+about the network operational states exposed by systemd, see
+networkctl(1).</p>
+
+<h2>RESOURCES
+<a name="RESOURCES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">GitHub:
+https://github.com/craftyguy/networkd-dispatcher</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-networkd(8),
+networkctl(1)</p>
+<hr>
+</body>
+</html>

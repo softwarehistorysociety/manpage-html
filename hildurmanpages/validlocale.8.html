@@ -1,0 +1,125 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:12:18 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>validlocale</title>
+
+</head>
+<body>
+
+<h1 align="center">validlocale</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNTAX">SYNTAX</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#ENVIRONMENT VARIABLES">ENVIRONMENT VARIABLES</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">validlocale -
+Test if a given locale is available</p>
+
+<h2>SYNTAX
+<a name="SYNTAX"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">validlocale
+&lt;<i>locale</i>&gt;</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Test if the
+locale given as argument is a valid locale. If it
+isn&rsquo;t, print on stdout the string to add to
+/etc/locale.gen to make locale-gen generate the locale (if
+it exists at all).</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/usr/sbin/validlocale
+<br>
+/usr/share/i18n/SUPPORTED</i></p>
+
+<h2>ENVIRONMENT VARIABLES
+<a name="ENVIRONMENT VARIABLES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i><b>DEFAULTCHARSET</b></i></p>
+
+<p style="margin-left:22%;">Which charset to assume if the
+given locale is missing from the list of supported
+locales.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">If you give a
+valid locale as parameter, it outputs a string specifying
+this on stderr:</p>
+
+<p style="margin-left:22%; margin-top: 1em">% validlocale C
+<br>
+locale &rsquo;C&rsquo; valid and available</p>
+
+<p style="margin-left:11%; margin-top: 1em">When given a
+invalid (not generated or just nonexistent), it outputs a
+string on stderr telling that this is an invalid locale, and
+a string to stdout with the string to add to /etc/locale.gen
+to have this locale generated:</p>
+
+<p style="margin-left:22%; margin-top: 1em">% validlocale
+de_AU@euro <br>
+locale &rsquo;de_AU@euro&rsquo; not available <br>
+de_AU@euro ISO-8859-15</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Petter
+Reinholdtsen &lt;pere@hungry.com&gt;</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">locale-gen(8),
+localedef(1), locale(1)</p>
+<hr>
+</body>
+</html>

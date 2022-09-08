@@ -1,0 +1,97 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:09:19 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SYSTEMD-TIME-WAIT-SYNC.SERVICE</title>
+
+</head>
+<body>
+
+<h1 align="center">SYSTEMD-TIME-WAIT-SYNC.SERVICE</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-time-wait-sync.service,
+systemd-time-wait-sync - Wait Until Kernel Time
+Synchronized</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-time-wait-sync.service</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">/lib/systemd/systemd-time-wait-sync</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-time-wait-sync
+is a system service that delays the start of units that
+depend on time-sync.target until the system time has been
+synchronized with an accurate time source by
+systemd-timesyncd.service.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-timesyncd.service
+notifies on successful synchronization.
+systemd-time-wait-sync also tries to detect when the kernel
+marks the time as synchronized, but this detection is not
+reliable and is intended only as a fallback for other
+services that can be used to synchronize time (e.g., ntpd,
+chronyd).</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">/run/systemd/timesync/synchronized</p>
+
+<p style="margin-left:17%;">The presence of this file
+indicates to this service that the system clock has been
+synchronized.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>systemd</b>(1),
+<b>systemd.special</b>(7),
+<b>systemd-timesyncd.service</b>(8),</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:39:29 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>EJECT</title>
+
+</head>
+<body>
+
+<h1 align="center">EJECT</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#COMMAND-LINE OPTIONS">COMMAND-LINE OPTIONS</a><br>
+<a href="#LONG OPTIONS">LONG OPTIONS</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">eject - eject
+removable media</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">eject -h <br>
+eject [-vnrsfmqp] [&lt;name&gt;] <br>
+eject [-vn] -d <br>
+eject [-vn] -a on|off|1|0 [&lt;name&gt;] <br>
+eject [-vn] -c slot [&lt;name&gt;] <br>
+eject [-vn] -i on|off|1|0 [&lt;name&gt;] <br>
+eject [-vn] -t [&lt;name&gt;] <br>
+eject [-vn] -T [&lt;name&gt;] <br>
+eject [-vn] -x &lt;speed&gt; [&lt;name&gt;] <br>
+eject [-vn] -X [&lt;name&gt;] <br>
+eject -V</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Eject</b>
+allows removable media (typically a CD-ROM, floppy disk,
+tape, or JAZ or ZIP disk) to be ejected under software
+control. The command can also control some multi-disc CD-ROM
+changers, the auto-eject feature supported by some devices,
+and close the disc tray of some CD-ROM drives.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The device
+corresponding to &lt;name&gt; is ejected. The name can be a
+device file or mount point, either a full path or with the
+leading &quot;/dev&quot;, &quot;/media&quot; or
+&quot;/mnt&quot; omitted. If no name is specified, the
+default name &quot;cdrom&quot; is used.</p>
+
+<p style="margin-left:11%; margin-top: 1em">There are four
+different methods of ejecting, depending on whether the
+device is a CD-ROM, SCSI device, removable floppy, or tape.
+By default eject tries all four methods in order until it
+succeeds.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the device
+is currently mounted, it is unmounted before ejecting.</p>
+
+<h2>COMMAND-LINE OPTIONS
+<a name="COMMAND-LINE OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em"><b>-h</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p style="margin-top: 1em">This option causes <b>eject</b>
+to display a brief description of the command options.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-v</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>This makes <b>eject</b> run in verbose mode; more
+information is displayed about what the command is
+doing.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-d</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>If invoked with this option, <b>eject</b> lists the
+default device name.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-a on|1|off|0</b></p>
+
+<p style="margin-left:18%;">This option controls the
+auto-eject mode, supported by some devices. When enabled,
+the drive automatically ejects when the device is
+closed.</p>
+
+<p style="margin-left:11%;"><b>-c &lt;slot&gt;</b></p>
+
+<p style="margin-left:18%;">With this option a CD slot can
+be selected from an ATAPI/IDE CD-ROM changer. Linux 2.0 or
+higher is required to use this feature. The CD-ROM drive can
+not be in use (mounted data CD or playing a music CD) for a
+change request to work. Please also note that the first slot
+of the changer is referred to as 0, not 1.</p>
+
+<p style="margin-left:11%;"><b>-i on|1|off|0</b></p>
+
+<p style="margin-left:18%;">This option controls locking of
+the hardware eject button. When enabled, the drive will not
+be ejected when the button is pressed. This is useful when
+you are carrying a laptop in a bag or case and don&rsquo;t
+want it to eject if the button is inadvertently pressed.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-t</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>With this option the drive is given a CD-ROM tray close
+command. Not all devices support this command.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-T</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>With this option the drive is given a CD-ROM tray close
+command if it&rsquo;s opened, and a CD-ROM tray eject
+command if it&rsquo;s closed. Not all devices support this
+command, because it uses the above CD-ROM tray close
+command.</p> </td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-x &lt;speed&gt;</b></p>
+
+<p style="margin-left:18%;">With this option the drive is
+given a CD-ROM select speed command. The speed argument is a
+number indicating the desired speed (e.g. 8 for 8X speed),
+or 0 for maximum data rate. Not all devices support this
+command and you can only specify speeds that the drive is
+capable of. Every time the media is changed this option is
+cleared. This option can be used alone, or with the -t and
+-c options.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-X</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>With this option the CD-ROM drive will be probed to
+detect the available speeds. The output is a list of speeds
+which can be used as an argument of the -x option. This only
+works with Linux 2.6.13 or higher, on previous versions
+solely the maximum speed will be reported. Also note that
+some drive may not correctly report the speed and therefore
+this option does not work with them.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-n</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>With this option the selected device is displayed but no
+action is performed.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-r</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>This option specifies that the drive should be ejected
+using a CDROM eject command.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-s</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>This option specifies that the drive should be ejected
+using SCSI commands.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-f</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>This option specifies that the drive should be ejected
+using a removable floppy disk eject command.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-q</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>This option specifies that the drive should be ejected
+using a tape drive offline command.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-p</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>This option allow you to use /proc/mounts instead
+/etc/mtab. It also passes the -n option to umount(1).</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-m</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>This option allows eject to work with device drivers
+which automatically mount removable media and therefore must
+be always mount(1)ed. The option tells eject to not try to
+unmount the given device, even if it is mounted according to
+/etc/mtab or /proc/mounts.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-V</b></p></td>
+<td width="4%"></td>
+<td width="82%">
+
+
+<p>This option causes <b>eject</b> to display the program
+version and exit.</p></td></tr>
+</table>
+
+<h2>LONG OPTIONS
+<a name="LONG OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">All options
+have corresponding long names, as listed below. The long
+names can be abbreviated as long as they are unique.</p>
+
+<p style="margin-left:11%; margin-top: 1em">-h --help <br>
+-v --verbose <br>
+-d --default <br>
+-a --auto <br>
+-c --changerslot <br>
+-t --trayclose <br>
+-T --traytoggle <br>
+-x --cdspeed <br>
+-X --listspeed <br>
+-n --noop <br>
+-r --cdrom <br>
+-s --scsi <br>
+-f --floppy <br>
+-q --tape <br>
+-V --version <br>
+-p --proc <br>
+-m --no-unmount</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Eject the
+default device:</p>
+
+<p style="margin-left:22%; margin-top: 1em">eject</p>
+
+<p style="margin-left:11%; margin-top: 1em">Eject a device
+or mount point named cdrom:</p>
+
+<p style="margin-left:22%; margin-top: 1em">eject cdrom</p>
+
+<p style="margin-left:11%; margin-top: 1em">Eject using
+device name:</p>
+
+<p style="margin-left:22%; margin-top: 1em">eject
+/dev/cdrom</p>
+
+<p style="margin-left:11%; margin-top: 1em">Eject using
+mount point:</p>
+
+<p style="margin-left:22%; margin-top: 1em">eject
+/mnt/cdrom/</p>
+
+<p style="margin-left:11%; margin-top: 1em">Eject 4th IDE
+device:</p>
+
+<p style="margin-left:22%; margin-top: 1em">eject hdd</p>
+
+<p style="margin-left:11%; margin-top: 1em">Eject first
+SCSI device:</p>
+
+<p style="margin-left:22%; margin-top: 1em">eject sda</p>
+
+<p style="margin-left:11%; margin-top: 1em">Eject using
+SCSI partition name (e.g. a ZIP drive):</p>
+
+<p style="margin-left:22%; margin-top: 1em">eject sda4</p>
+
+<p style="margin-left:11%; margin-top: 1em">Select 5th disc
+on multi-disc changer:</p>
+
+<p style="margin-left:22%; margin-top: 1em">eject -v -c4
+/dev/cdrom</p>
+
+<p style="margin-left:11%; margin-top: 1em">Turn on
+auto-eject on a SoundBlaster CD-ROM drive:</p>
+
+<p style="margin-left:22%; margin-top: 1em">eject -a on
+/dev/sbpcd</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Returns 0 if
+operation was successful, 1 if operation failed or command
+syntax was not valid.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Eject</b>
+only works with devices that support one or more of the four
+methods of ejecting. This includes most CD-ROM drives (IDE,
+SCSI, and proprietary), some SCSI tape drives, JAZ drives,
+ZIP drives (parallel port, SCSI, and IDE versions), and
+LS120 removable floppies. Users have also reported success
+with floppy drives on Sun SPARC and Apple Macintosh systems.
+If <b>eject</b> does not work, it is most likely a
+limitation of the kernel driver for the device and not the
+<b>eject</b> program itself.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The -r, -s, -f,
+and -q options allow controlling which methods are used to
+eject. More than one method can be specified. If none of
+these options are specified, it tries all four (this works
+fine in most cases).</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Eject</b>
+may not always be able to determine if the device is mounted
+(e.g. if it has several names). If the device name is a
+symbolic link, <b>eject</b> will follow the link and use the
+device that it points to.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If <b>eject</b>
+determines that the device can have multiple partitions, it
+will attempt to unmount all mounted partitions of the device
+before ejecting. If an unmount fails, the program will not
+attempt to eject the media.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You can eject
+an audio CD. Some CD-ROM drives will refuse to open the tray
+if the drive is empty. Some devices do not support the tray
+close command.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the
+auto-eject feature is enabled, then the drive will always be
+ejected after running this command. Not all Linux kernel
+CD-ROM drivers support the auto-eject mode. There is no way
+to find out the state of the auto-eject mode.</p>
+
+<p style="margin-left:11%; margin-top: 1em">You need
+appropriate privileges to access the device files. Running
+as root or setuid root is required to eject some devices
+(e.g. SCSI devices).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The heuristic
+used to find a device, given a name, is as follows. If the
+name ends in a trailing slash, it is removed (this is to
+support filenames generated using shell file name
+completion). If the name starts with &rsquo;.&rsquo; or
+&rsquo;/&rsquo;, it tries to open it as a device file or
+mount point. If that fails, it tries prepending
+&rsquo;/dev/&rsquo;, &rsquo;/media/&rsquo;
+,&rsquo;/mnt/&rsquo;, &rsquo;/dev/cdroms&rsquo;,
+&rsquo;/dev/rdsk/&rsquo;, &rsquo;/dev/dsk/&rsquo;, and
+finally &rsquo;./&rsquo; to the name, until a device file or
+mount point is found that can be opened. The program checks
+/etc/mtab for mounted devices. If that fails, it also checks
+/etc/fstab for mount points of currently unmounted
+devices.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Creating
+symbolic links such as /dev/cdrom or /dev/zip is recommended
+so that <b>eject</b> can determine the appropriate devices
+using easily remembered names.</p>
+
+<p style="margin-left:11%; margin-top: 1em">To save typing
+you can create a shell alias for the eject options that work
+for your particular setup.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>Eject</b>
+was written by Jeff Tranter (tranter@pobox.com) and is
+released under the conditions of the GNU General Public
+License. See the file COPYING and notes in the source code
+for details.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The -x option
+was added by Nobuyuki Tsuchimura (tutimura@nn.iij4u.or.jp),
+with thanks to Roland Krivanek (krivanek@fmph.uniba.sk) and
+his cdrom_speed command.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The -T option
+was added by Sybren Stuvel (sybren@thirdtower.com), with big
+thanks to Benjamin Schwenk (benjaminschwenk@yahoo.de).</p>
+
+<p style="margin-left:11%; margin-top: 1em">The -X option
+was added by Eric Piel (Eric.Piel@tremplin-utc.net).</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">mount(2),
+umount(2), mount(8), umount(8) <br>
+ /usr/src/linux/Documentation/cdrom/</p>
+<hr>
+</body>
+</html>

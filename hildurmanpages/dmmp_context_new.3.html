@@ -1,0 +1,96 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:38:15 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>dmmp_context_new</title>
+
+</head>
+<body>
+
+<h1 align="center">dmmp_context_new</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#ARGUMENTS">ARGUMENTS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#RETURN">RETURN</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">dmmp_context_new
+- Create struct dmmp_context.</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>struct
+dmmp_context * dmmp_context_new
+(</b><i>void</i><b>);</b></p>
+
+<h2>ARGUMENTS
+<a name="ARGUMENTS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p style="margin-top: 1em">void</p></td>
+<td width="12%"></td>
+<td width="19%">
+
+
+<p style="margin-top: 1em">no arguments</p></td>
+<td width="52%">
+</td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The default
+logging level (DMMP_LOG_PRIORITY_DEFAULT) is
+DMMP_LOG_PRIORITY_WARNING which means only warning and error
+message will be forward to log handler function. The default
+log handler function will print log message to STDERR, to
+change so, please use <b>dmmp_context_log_func_set</b> to
+set your own log handler, check manpage libdmmp.h(3) for
+detail.</p>
+
+<h2>RETURN
+<a name="RETURN"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Pointer of
+&rsquo;struct dmmp_context&rsquo;. Should be freed by
+<b>dmmp_context_free</b>.</p>
+<hr>
+</body>
+</html>

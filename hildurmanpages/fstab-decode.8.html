@@ -1,0 +1,122 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:43:19 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>fstab-decode</title>
+
+</head>
+<body>
+
+<h1 align="center">fstab-decode</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">fstab-decode -
+run a command with fstab-encoded arguments</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fstab-decode</b>
+<i>COMMAND</i> [<i>ARGUMENT</i>]...</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fstab-decode</b>
+decodes escapes (such as newline characters and other
+whitespace) in the specified <i>ARGUMENT</i>s and uses them
+to run <i>COMMAND</i>. The argument escaping uses the same
+rules as path escaping in <b>/etc/fstab</b>,
+<b>/etc/mtab</b> and <b>/proc/mtab</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In essence
+fstab-decode can be used anytime we want to pass multiple
+parameters to a command as a list of command line arguments.
+It turns output like this:</p>
+
+<p style="margin-left:11%; margin-top: 1em">/root <br>
+/mnt/remote-disk <br>
+/home</p>
+
+<p style="margin-left:11%; margin-top: 1em">Into one long
+list of parameters, &quot;/root /mnt/remote-disk
+/home&quot;. This <br>
+can be useful when trying to work with multiple filesystems
+at once. For <br>
+instance, we can use it to unmount multiple NFS shares. This
+program also <br>
+removes whitespace and other characters which might cause
+programs such <br>
+as mount or umount to fail.</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fstab-decode</b>
+exits with status 127 if <i>COMMAND</i> can&rsquo;t be run.
+Otherwise it exits with the status returned by
+<i>COMMAND</i>.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+example reads fstab, finds all instances of VFAT filesystems
+and <br>
+prints their mount points (argument 2 in the fstab file).
+fstab-decode then runs <br>
+the specified program, umount, and passes it the list of
+VFAT mountpoints. <br>
+This unmounts all VFAT partitions.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fstab-decode
+umount $(awk '$3 == &quot;vfat&quot; { print $2 }'
+/etc/fstab)</b></p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>fstab</b>(5)</p>
+<hr>
+</body>
+</html>

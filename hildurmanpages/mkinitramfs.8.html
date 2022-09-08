@@ -1,0 +1,245 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:55:11 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>MKINITRAMFS</title>
+
+</head>
+<body>
+
+<h1 align="center">MKINITRAMFS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">mkinitramfs -
+low-level tool for generating an initramfs image</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mkinitramfs</b>
+[<i>option</i>]... <b>-o</b> <i>outfile</i> [<i>version</i>]
+<b><br>
+mkinitramfs -h</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>mkinitramfs</b> script generates an initramfs image. The
+initramfs is a compressed cpio archive. The archive can be
+used on a different box of the same arch with the
+corresponding Linux kernel. <b>mkinitramfs</b> is meant for
+advanced usage. On your local box <b>update-initramfs</b>
+calls <b>mkinitramfs</b> with the relevant parameters.
+<b>update-initramfs</b> keeps sha1sum of generated
+initramfs. It takes care to generate backups and eventually
+runs the bootloader.</p>
+
+<p style="margin-left:11%; margin-top: 1em">At boot time,
+the kernel unpacks that archive into RAM disk, mounts and
+uses it as initial root file system. All finding of the root
+device happens in this early userspace.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-c</b>
+<i>compress</i></p>
+
+<p style="margin-left:22%;">Override the <b>COMPRESS</b>
+setting in <i>initramfs.conf</i>.</p>
+
+<p style="margin-left:11%;"><b>-d</b> <i>confdir</i></p>
+
+<p style="margin-left:22%;">Set an alternate configuration
+directory.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-k</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Keep the temporary directory used to make the image.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-o</b> <i>outfile</i></p>
+
+<p style="margin-left:22%;">Write the image to
+<i>outfile</i>.</p>
+
+<p style="margin-left:11%;"><b>-r</b> <i>root</i></p>
+
+<p style="margin-left:22%;">Override the <b>ROOT</b>
+setting in <i>initramfs.conf</i>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-v</b></p></td>
+<td width="8%"></td>
+<td width="43%">
+
+
+<p>Set the verbose mode output.</p></td>
+<td width="35%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><i>version</i></p>
+
+<p style="margin-left:22%;">Set the kernel version of the
+initramfs image (defaults to the running kernel).</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display usage information and
+exit.</p>
+
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mkinitramfs</b>
+honours the <b>TMPDIR</b> environment variable. If set, it
+uses subdirectories in the given directory to create its
+temporary working directories. Else it uses <i>/var/tmp</i>
+as default value for that purpose. The given directory
+should be on a filesystem which allows the execution of
+files stored there, i.e. should not be mounted with the
+<b>noexec</b> mount option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If
+<b>SOURCE_DATE_EPOCH</b> is set, <b>mkinitramfs</b> attempts
+to generate a reproducible initramfs image.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/etc/initramfs-tools/initramfs.conf</i></p>
+
+<p style="margin-left:22%;">The default configuration file
+for the script. See <b>initramfs.conf</b>(5) for a
+description of the available configuration parameter.</p>
+
+
+<p style="margin-left:11%;"><i>/etc/initramfs-tools/modules</i></p>
+
+<p style="margin-left:22%;">Specified modules will be put
+in the generated image and loaded when the system boots. The
+format - one per line - is identical to that of
+<i>/etc/modules,</i> which is described in
+<b>modules</b>(5).</p>
+
+
+<p style="margin-left:11%;"><i>/etc/initramfs-tools/conf.d</i></p>
+
+<p style="margin-left:22%;">The conf.d directory allows one
+to hardcode bootargs at initramfs build time via config
+snippets. This allows one to set ROOT or RESUME. This is
+especially useful for bootloaders, which do not pass an root
+bootarg.</p>
+
+
+<p style="margin-left:11%;"><i>/etc/initramfs-tools/DSDT.aml</i></p>
+
+<p style="margin-left:22%;">If this file exists, it will be
+appended to the initramfs in a way that causes it to be
+loaded by ACPI.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Create an
+initramfs for current running kernel:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>mkinitramfs
+-o ~/tmp/initramfs-$(uname -r)</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Create an
+initramfs for specific kernel and keep builddirs:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>mkinitramfs
+-k -o ~/tmp/initramfs-2.6.21-686 2.6.21-686</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Debug initramfs
+creation (check out written logfile)</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>sh -x
+mkinitramfs -o ~/tmp/initramfs-$(uname -r) 2&gt;
+~/tmp/log</b></p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+initramfs-tools are written by Maximilian Attems
+&lt;maks@debian.org&gt;, Jeff Bailey
+&lt;jbailey@raspberryginger.com&gt; and numerous others.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>initramfs.conf</i>(5),
+<i>initramfs-tools</i>(7), <i>update-initramfs</i>(8),
+<i>lsinitramfs</i>(8), <i>unmkinitramfs</i>(8).</p>
+<hr>
+</body>
+</html>

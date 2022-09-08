@@ -1,0 +1,468 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:11:05 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>TRIAL</title>
+
+</head>
+<body>
+
+<h1 align="center">TRIAL</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#REPORTING BUGS">REPORTING BUGS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">trial - run
+unit tests</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>trial</b> [
+<i>options</i> ] [ <i>file</i> | <i>package</i> |
+<i>module</i> | <i>TestCase</i> | <i>testmethod</i> ]
+...</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>trial
+--help</b> | <b>-h</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">trial loads and
+executes a suite of unit tests, obtained from modules,
+packages and files listed on the command line.</p>
+
+<p style="margin-left:11%; margin-top: 1em">trial will take
+either filenames or fully qualified Python names as
+arguments. Thus &rsquo;trial myproject/foo.py&rsquo;,
+&rsquo;trial myproject.foo&rsquo; and &rsquo;trial
+myproject.foo.SomeTestCase.test_method&rsquo; are all valid
+ways to invoke trial. Multiple such arguments are also
+accepted, and their order will determine the order in which
+the corresponding tests are run.</p>
+
+<p style="margin-left:11%; margin-top: 1em">After running
+the given test suite, the default test reporter prints a
+summary of the test run. This consists of the word
+&quot;PASSED&quot; (if all tests ran as expected) or
+&quot;FAILED&quot; (if any test behaved unexpectedly)
+followed by a count of the different kinds of test results
+encountered. The possible kinds of test results includes:
+<br>
+successes</p>
+
+<p style="margin-left:22%;">Tests that passed all their
+assertions and completed without error. These are marked
+&quot;PASSED&quot; in the normal test output.</p>
+
+<p style="margin-left:11%;">failures</p>
+
+<p style="margin-left:22%;">Tests that failed an assertion,
+called self.fail() or explicitly raised
+self.failureException for some reason. These are marked
+&quot;FAILED&quot; in the normal test output.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p>errors</p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Tests that raised an unexpected exception (including
+AssertionError), tests that caused the tearDown() method to
+raise an exception, tests that run for longer than the
+timeout interval, tests that caused something to call
+twisted.python.log.err() without subsequently calling
+self.flushLoggedErrors(), tests that leave the reactor in an
+unclean state, etc. These are marked &quot;ERROR&quot; in
+the normal test output.</p></td></tr>
+</table>
+
+<p style="margin-left:22%; margin-top: 1em">Note that
+because errors can be caused after the actual test method
+returns, it is possible for a single test to be reported as
+both an error and a failure, and hence the total number of
+test results can be greater than the total number of tests
+executed.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p style="margin-top: 1em">skips</p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em">Tests that were skipped, usually
+because of missing dependencies. These are marked
+&quot;SKIPPED&quot; in the normal test output.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;">expectedFailures</p>
+
+<p style="margin-left:22%;">Tests that failed, but were
+expected to fail, usually because the test is for a feature
+that hasn&rsquo;t been implemented yet. These are marked
+&quot;TODO&quot; in the normal test output.</p>
+
+<p style="margin-left:11%;">unexpectedSuccesses</p>
+
+<p style="margin-left:22%;">Tests that should have been
+listed under expectedFailures, except that for some reason
+the test succeeded. These are marked &quot;SUCCESS!?!&quot;
+in the normal test output.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-j</b>,
+<b>--jobs</b> <i>number</i></p>
+
+<p style="margin-left:22%;">Set the number of process
+workers to run. It conflicts with the debug, exitfirst and
+profile options.</p>
+
+<p style="margin-left:11%;"><b>-b</b>, <b>--debug</b></p>
+
+<p style="margin-left:22%;">Run the tests in a debugger. If
+that debugger is &rsquo;pdb&rsquo; (which is the default if
+unspecified), a &rsquo;.pdbrc&rsquo; will be loaded from the
+current directory if it exists. Also does post-mortem
+debugging on exceptions.</p>
+
+<p style="margin-left:11%;"><b>-B</b>,
+<b>--debug-stacktraces</b></p>
+
+<p style="margin-left:22%;">Report Deferred creation and
+callback stack traces.</p>
+
+<p style="margin-left:11%;"><b>--coverage</b></p>
+
+<p style="margin-left:22%;">Generate coverage information
+in the &rsquo;coverage&rsquo; subdirectory of the trial temp
+directory (&rsquo;_trial_temp&rsquo; by default). For each
+Python module touched by the execution of the given tests, a
+file will be created in the coverage directory named for the
+module&rsquo;s fully-qualified name with the suffix
+&rsquo;.cover&rsquo;. For example, because the trial test
+runner is written in Python, the coverage directory will
+almost always contain a file named
+&rsquo;twisted.trial.runner.cover&rsquo;.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Each
+&rsquo;.cover&rsquo; file contains a copy of the Python
+source of the module in question, with a prefix at the
+beginning of each line containing coverage information. For
+lines that are not executable (blank lines, comments, etc.)
+the prefix is blank. For executable lines that were run in
+the course of the test suite, the prefix is a number
+indicating the number of times that line was executed. The
+string &rsquo;&gt;&gt;&gt;&gt;&gt;&gt;&rsquo; prefixes
+executable lines that were not executed in the course of the
+test suite.</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that this
+functionality uses Python&rsquo;s sys.settrace() function,
+so tests that call sys.settrace() themselves are likely to
+break trial&rsquo;s coverage functionality.</p>
+
+<p style="margin-left:11%;"><b>--debugger</b></p>
+
+<p style="margin-left:22%;">Specifies the debugger to use
+when the --debug option is passed. The argument should be
+the fully qualified name of an object that implements the
+same interface as the standard library&rsquo;s
+&rsquo;pdb&rsquo;.</p>
+
+<p style="margin-left:11%;"><b>--disablegc</b></p>
+
+<p style="margin-left:22%;">Disable the garbage collector
+for the duration of the test run. As each test is run, trial
+saves the TestResult objects, which means that
+Python&rsquo;s garbage collector has more non-garbage
+objects to wade through, making each garbage-collection run
+slightly slower. Disabling garbage collection entirely will
+make some test suites complete faster (contrast --force-gc,
+below), at the cost of increasing (possibly greatly) memory
+consumption. This option also makes tests slightly more
+deterministic, which might help debugging in extreme
+circumstances.</p>
+
+<p style="margin-left:11%;"><b>-e</b>,
+<b>--rterrors</b></p>
+
+<p style="margin-left:22%;">Print tracebacks to standard
+output as soon as they occur.</p>
+
+<p style="margin-left:11%;"><b>--force-gc</b></p>
+
+<p style="margin-left:22%;">Run gc.collect() before and
+after each test case. This can be used to isolate errors
+that occur when objects get collected. This option would be
+the default, except it makes tests run about ten times
+slower.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Print a usage message to
+standard output, then exit.</p>
+
+<p style="margin-left:11%;"><b>--help-order</b></p>
+
+<p style="margin-left:22%;">Print a list of possible orders
+that TestCase test methods can be run in, then exit. The
+orders can be used with the --order option described
+below.</p>
+
+<p style="margin-left:11%;"><b>--help-reporters</b></p>
+
+<p style="margin-left:22%;">Print a list of valid reporters
+to standard output, then exit. Reporters can be selected
+with the --reporter option described below.</p>
+
+<p style="margin-left:11%;"><b>--help-reactors</b></p>
+
+<p style="margin-left:22%;">Print a list of possible
+reactors to standard output, then exit. Not all listed
+reactors are available on every platform. Reactors can be
+selected with the --reactor option described below.</p>
+
+<p style="margin-left:11%;"><b>-l</b>, <b>--logfile</b>
+<i>logfile</i></p>
+
+<p style="margin-left:22%;">Direct the log to a different
+file. The default file is &rsquo;test.log&rsquo;.
+<i>logfile</i> is relative to _trial_temp.</p>
+
+<p style="margin-left:11%;"><b>-n</b>, <b>--dry-run</b></p>
+
+<p style="margin-left:22%;">Go through all the tests and
+make them pass without running.</p>
+
+<p style="margin-left:11%;"><b>-N</b>,
+<b>--no-recurse</b></p>
+
+<p style="margin-left:22%;">By default, trial recurses
+through packages to find every module inside every
+subpackage. Unless, that is, you specify this option.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--nopm</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Don&rsquo;t automatically jump into debugger for
+post-mortem analysis of exceptions. Only usable in
+conjunction with --debug.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>--order</b> <i>order</i></p>
+
+<p style="margin-left:22%;">Specify what order to run the
+individual test methods within the given TestCases. By
+default, they are run alphabetically. See --help-order for a
+list of other valid values.</p>
+
+<p style="margin-left:11%;"><b>--profile</b></p>
+
+<p style="margin-left:22%;">Run tests under the Python
+profiler.</p>
+
+<p style="margin-left:11%;"><b>-r</b>, <b>--reactor</b>
+<i>reactor</i></p>
+
+<p style="margin-left:22%;">Choose which reactor to use.
+See --help-reactors for a list.</p>
+
+<p style="margin-left:11%;"><b>--recursionlimit</b>
+<i>limit</i></p>
+
+<p style="margin-left:22%;">Set Python&rsquo;s recursion
+limit. See sys.setrecursionlimit().</p>
+
+<p style="margin-left:11%;"><b>--reporter</b>
+<i>reporter</i></p>
+
+<p style="margin-left:22%;">Select the reporter to use for
+trial&rsquo;s output. Use the --help-reporters option to see
+a list of valid reporters.</p>
+
+<p style="margin-left:11%;"><b>-x</b>,
+<b>--exitfirst</b></p>
+
+<p style="margin-left:22%;">Stop the test run after the
+first test which does not succeed. This includes failures,
+errors, or unexpected successes. Won&rsquo;t work with the
+--jobs option currently.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--spew</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Print an insanely verbose log of everything that
+happens. Useful when debugging freezes or locks in complex
+code.</p> </td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>--tbformat</b>
+<i>format</i></p>
+
+<p style="margin-left:22%;">Format to display tracebacks
+with. Acceptable values are &rsquo;default&rsquo;,
+&rsquo;brief&rsquo; and &rsquo;verbose&rsquo;.
+&rsquo;brief&rsquo; produces tracebacks that play nicely
+with Emacs&rsquo; GUD.</p>
+
+<p style="margin-left:11%;"><b>--temp-directory</b>
+<i>directory</i></p>
+
+<p style="margin-left:22%;">WARNING: Do not use this option
+unless you know what you are doing. By default, trial
+creates a directory called _trial_temp under the current
+working directory. When trial runs, it first <i>deletes</i>
+this directory, then creates it, then changes into the
+directory to run the tests. The log file and any coverage
+files are stored here. Use this option if you wish to have
+trial run in a directory other than _trial_temp. Be warned,
+trial will <i>delete</i> the directory before re-creating
+it.</p>
+
+<p style="margin-left:11%;"><b>--testmodule</b>
+<i>filename</i></p>
+
+<p style="margin-left:22%;">Ask trial to look into
+<i>filename</i> and run any tests specified using the
+Emacs-style buffer variable
+&rsquo;test-case-name&rsquo;.</p>
+
+<p style="margin-left:11%;"><b>--unclean-warnings</b></p>
+
+<p style="margin-left:22%;">As of Twisted 8.0, trial will
+report an error if the reactor is left unclean at the end of
+the test. This option is provided to assist in migrating
+from Twisted 2.5 to Twisted 8.0 and later. Enabling this
+option will turn the errors into warnings.</p>
+
+<p style="margin-left:11%;"><b>-u</b>,
+<b>--until-failure</b></p>
+
+<p style="margin-left:22%;">Keep looping the tests until
+one of them raises an error or a failure. This is
+particularly useful for reproducing intermittent
+failures.</p>
+
+<p style="margin-left:11%;"><b>--version</b></p>
+
+<p style="margin-left:22%;">Prints the Twisted version
+number and exit.</p>
+
+<p style="margin-left:11%;"><b>--without-module</b>
+<i>modulenames</i></p>
+
+<p style="margin-left:22%;">Simulate the lack of the
+specified comma-separated list of modules. This makes it
+look like the modules are not present in the system, causing
+tests to check the behavior for that configuration.</p>
+
+<p style="margin-left:11%;"><b>-z</b>, <b>--random</b>
+<i>seed</i></p>
+
+<p style="margin-left:22%;">Run the tests in random order
+using the specified seed. Don&rsquo;t pass this option if
+you also are passing --order.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The latest
+version of the trial documentation can be found at
+http://twistedmatrix.com/documents/current/core/howto/testing.html</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Written by
+Jonathan M. Lange</p>
+
+<h2>REPORTING BUGS
+<a name="REPORTING BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">To report a
+bug, visit http://twistedmatrix.com/trac/newticket</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+&copy; 2003-2013 Twisted Matrix Laboratories <br>
+This is free software; see the source for copying
+conditions. There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
+<hr>
+</body>
+</html>

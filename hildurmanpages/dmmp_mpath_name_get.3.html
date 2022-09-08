@@ -1,0 +1,93 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:38:20 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>dmmp_mpath_name_get</title>
+
+</head>
+<body>
+
+<h1 align="center">dmmp_mpath_name_get</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#ARGUMENTS">ARGUMENTS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#RETURN">RETURN</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">dmmp_mpath_name_get
+- Retrieve name(alias) of certain mpath.</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>const char *
+dmmp_mpath_name_get (struct dmmp_mpath
+*</b><i>dmmp_mp</i><b>);</b></p>
+
+<h2>ARGUMENTS
+<a name="ARGUMENTS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="11%">
+
+
+<p style="margin-top: 1em">dmmp_mp</p></td>
+<td width="7%"></td>
+<td width="71%">
+
+
+<p style="margin-top: 1em">Pointer of &rsquo;struct
+dmmp_mpath&rsquo;. If this pointer is NULL, your program
+will be terminated by assert.</p></td></tr>
+</table>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Retrieve the
+name (also known as alias) of certain mpath. When the config
+&rsquo;user_friendly_names&rsquo; been set &rsquo;no&rsquo;,
+the name will be identical to WWID retrieved by
+<b>dmmp_mpath_wwid_get</b>.</p>
+
+<h2>RETURN
+<a name="RETURN"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">const char *.
+No need to free this memory, the resources will get freed
+when <b>dmmp_mpath_array_free</b>.</p>
+<hr>
+</body>
+</html>

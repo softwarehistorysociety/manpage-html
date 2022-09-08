@@ -1,0 +1,111 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:06:43 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SOS</title>
+
+</head>
+<body>
+
+<h1 align="center">SOS</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#REQUIRED ARGUMENTS">REQUIRED ARGUMENTS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">sos help - get
+detailed help information on sos commands and components</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sos help
+TOPIC</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sos help</b>
+is used to retrieve more detailed information on the various
+SoS commands and components than is directly available in
+either other manpages or --help output.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This
+information could for example be investigating a specific
+plugin to learn more about its purpose, use case,
+collections, available plugin options, edge cases, and
+more.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Most aspects of
+SoS&rsquo; operation can be investigated this way - the top
+level functions such as <b>report, clean,</b> and
+<b>collect</b>, as well as constructs that allow those
+functions to work; e.g. <b>transports</b> within <b>sos
+collect</b> that define how that function connects to remote
+nodes.</p>
+
+<h2>REQUIRED ARGUMENTS
+<a name="REQUIRED ARGUMENTS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>TOPIC</b>
+<br>
+The section or topic to retrieve detailed help information
+for. TOPIC <br>
+takes the general</p>
+
+<p style="margin-left:22%;">form of
+<b>command.component.entity</b>, with <b>component</b> and
+<b>entity</b> being optional.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Top-level
+<b>command</b> help sections will often direct users to
+<b>component</b> sections which in turn may point to further
+<b>entity</b> subsections.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Some of the
+more useful or interesting sections are listed below:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>Topic
+Description</b></p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>report</b>
+The <b>sos report</b> command <b><br>
+report.plugins</b> Information on what report plugins are
+<b><br>
+report.plugins.$plugin</b> Information on a specific plugin
+<b><br>
+clean</b> or <b>mask</b> The <b>sos clean|mask</b> command
+<b><br>
+collect</b> The <b>sos collect</b> command <b><br>
+collect.clusters</b> How <b>collect</b> enumerates nodes in
+a cluster <b><br>
+policies</b> How SoS behaves on different distributions</p>
+<hr>
+</body>
+</html>

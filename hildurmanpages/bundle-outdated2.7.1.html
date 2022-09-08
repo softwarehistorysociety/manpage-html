@@ -1,0 +1,274 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:33:30 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>BUNDLE-OUTDATED</title>
+
+</head>
+<body>
+
+<h1 align="center">BUNDLE-OUTDATED</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#PATCH LEVEL OPTIONS">PATCH LEVEL OPTIONS</a><br>
+<a href="#FILTERING OUTPUT">FILTERING OUTPUT</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>bundle-outdated</b>
+- List installed gems with newer versions available</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>bundle
+outdated</b> [GEM] [--local] [--pre] [--source] [--strict]
+[--parseable | --porcelain] [--group=GROUP] [--groups]
+[--update-strict] [--patch|--minor|--major] [--filter-major]
+[--filter-minor] [--filter-patch] [--only-explicit]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Outdated lists
+the names and versions of gems that have a newer version
+available in the given source. Calling outdated with [GEM
+[GEM]] will only check for newer versions of the given gems.
+Prerelease gems are ignored by default. If your gems are up
+to date, Bundler will exit with a status of 0. Otherwise, it
+will exit 1.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--local</b></p>
+
+<p style="margin-left:22%;">Do not attempt to fetch gems
+remotely and use the gem cache instead.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p><b>--pre</b></p></td>
+<td width="4%"></td>
+<td width="50%">
+
+
+<p>Check for newer pre-release gems.</p></td>
+<td width="28%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>--source</b></p>
+
+<p style="margin-left:22%;">Check against a specific
+source.</p>
+
+<p style="margin-left:11%;"><b>--strict</b></p>
+
+<p style="margin-left:22%;">Only list newer versions
+allowed by your Gemfile requirements.</p>
+
+<p style="margin-left:11%;"><b>--parseable</b>,
+<b>--porcelain</b></p>
+
+<p style="margin-left:22%;">Use minimal formatting for more
+parseable output.</p>
+
+<p style="margin-left:11%;"><b>--group</b></p>
+
+<p style="margin-left:22%;">List gems from a specific
+group.</p>
+
+<p style="margin-left:11%;"><b>--groups</b></p>
+
+<p style="margin-left:22%;">List gems organized by
+groups.</p>
+
+<p style="margin-left:11%;"><b>--update-strict</b></p>
+
+<p style="margin-left:22%;">Strict conservative resolution,
+do not allow any gem to be updated past latest --patch |
+--minor| --major.</p>
+
+<p style="margin-left:11%;"><b>--minor</b></p>
+
+<p style="margin-left:22%;">Prefer updating only to next
+minor version.</p>
+
+<p style="margin-left:11%;"><b>--major</b></p>
+
+<p style="margin-left:22%;">Prefer updating to next major
+version (default).</p>
+
+<p style="margin-left:11%;"><b>--patch</b></p>
+
+<p style="margin-left:22%;">Prefer updating only to next
+patch version.</p>
+
+<p style="margin-left:11%;"><b>--filter-major</b></p>
+
+<p style="margin-left:22%;">Only list major newer
+versions.</p>
+
+<p style="margin-left:11%;"><b>--filter-minor</b></p>
+
+<p style="margin-left:22%;">Only list minor newer
+versions.</p>
+
+<p style="margin-left:11%;"><b>--filter-patch</b></p>
+
+<p style="margin-left:22%;">Only list patch newer
+versions.</p>
+
+<p style="margin-left:11%;"><b>--only-explicit</b></p>
+
+<p style="margin-left:22%;">Only list gems specified in
+your Gemfile, not their dependencies.</p>
+
+<h2>PATCH LEVEL OPTIONS
+<a name="PATCH LEVEL OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">See bundle
+update(1) <i>bundle-update.1.html</i> for details.</p>
+
+<p style="margin-left:11%; margin-top: 1em">One difference
+between the patch level options in <b>bundle update</b> and
+here is the <b>--strict</b> option. <b>--strict</b> was
+already an option on outdated before the patch level options
+were added. <b>--strict</b> wasn&acute;t altered, and the
+<b>--update-strict</b> option on <b>outdated</b> reflects
+what <b>--strict</b> does on <b>bundle update</b>.</p>
+
+<h2>FILTERING OUTPUT
+<a name="FILTERING OUTPUT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The 3 filtering
+options do not affect the resolution of versions, merely
+what versions are shown in the output.</p>
+
+<p style="margin-left:11%; margin-top: 1em">If the regular
+output shows the following:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>* faker (newest 1.6.6, installed 1.6.5, requested ~&gt;
+1.4) in groups &quot;development, test&quot;</p></td></tr>
+</table>
+
+<p style="margin-left:17%;">* hashie (newest 3.4.6,
+installed 1.2.0, requested = 1.2.0) in groups
+&quot;default&quot; <br>
+* headless (newest 2.3.1, installed 2.2.3) in groups
+&quot;test&quot;</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--filter-major</b>
+would only show:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>* hashie (newest 3.4.6, installed 1.2.0, requested =
+1.2.0) in groups &quot;default&quot;</p></td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--filter-minor</b>
+would only show:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>* headless (newest 2.3.1, installed 2.2.3) in groups
+&quot;test&quot;</p> </td></tr>
+</table>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>--filter-patch</b>
+would only show:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>* faker (newest 1.6.6, installed 1.6.5, requested ~&gt;
+1.4) in groups &quot;development, test&quot;</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em">Filter options
+can be combined. <b>--filter-minor</b> and
+<b>--filter-patch</b> would show:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%"></td>
+<td width="83%">
+
+
+<p>* faker (newest 1.6.6, installed 1.6.5, requested ~&gt;
+1.4) in groups &quot;development, test&quot;</p></td></tr>
+</table>
+
+<p style="margin-left:17%;">* headless (newest 2.3.1,
+installed 2.2.3) in groups &quot;test&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">Combining all
+three <b>filter</b> options would be the same result as
+providing none of them.</p>
+<hr>
+</body>
+</html>

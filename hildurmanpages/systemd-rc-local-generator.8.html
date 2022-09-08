@@ -1,0 +1,87 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:09:08 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SYSTEMD-RC-LOCAL-GENERATOR</title>
+
+</head>
+<body>
+
+<h1 align="center">SYSTEMD-RC-LOCAL-GENERATOR</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-rc-local-generator
+- Compatibility generator for starting /etc/rc.local during
+boot</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">/lib/systemd/system-generators/systemd-rc-local-generator</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-rc-local-generator
+is a generator that checks whether /etc/rc.local exists and
+is executable, and if it is pulls the rc-local.service unit
+into the boot process. This unit is responsible for running
+this script during late boot. Note that the script will be
+run with slightly different semantics than the original
+System V version, which was run &quot;last&quot; in the boot
+process, which is a concept that does not translate to
+systemd. The script is run after network.target, but in
+parallel with most other regular system services.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Support for
+/etc/rc.local is provided for compatibility with specific
+System V systems only. However, it is strongly recommended
+to avoid making use of this script today, and instead
+provide proper unit files with appropriate dependencies for
+any scripts to run during the boot process.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em">systemd-rc-local-generator
+implements <b>systemd.generator</b>(7).</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>systemd</b>(1),
+<b>systemctl</b>(1)</p>
+<hr>
+</body>
+</html>

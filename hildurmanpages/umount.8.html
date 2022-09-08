@@ -1,0 +1,401 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:11:31 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>UMOUNT</title>
+
+</head>
+<body>
+
+<h1 align="center">UMOUNT</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#LOOP DEVICE">LOOP DEVICE</a><br>
+<a href="#EXTERNAL HELPERS">EXTERNAL HELPERS</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#HISTORY">HISTORY</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">umount -
+unmount file systems</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>umount
+-a</b> [<b>-dflnrv</b>] [<b>-t</b> <i>fstype</i>] [<b>-O</b>
+<i>option</i>...]</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>umount</b>
+[<b>-dflnrv</b>] {<i>directory</i>|<i>device</i>}...</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>umount
+-h</b>|<b>-V</b></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>umount</b> command detaches the mentioned file system(s)
+from the file hierarchy. A file system is specified by
+giving the directory where it has been mounted. Giving the
+special device on which the file system lives may also work,
+but is obsolete, mainly because it will fail in case this
+device was mounted on more than one directory.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that a
+file system cannot be unmounted when it is
+&rsquo;busy&rsquo; - for example, when there are open files
+on it, or when some process has its working directory there,
+or when a swap file on it is in use. The offending process
+could even be <b>umount</b> itself - it opens libc, and libc
+in its turn may open for example locale files. A lazy
+unmount avoids this problem, but it may introduce another
+issues. See <b>--lazy</b> description below.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-a</b>,
+<b>--all</b></p>
+
+<p style="margin-left:22%;">All of the filesystems
+described in <i>/proc/self/mountinfo</i> (or in deprecated
+/etc/mtab) are unmounted, except the proc, devfs, devpts,
+sysfs, rpc_pipefs and nfsd filesystems. This list of the
+filesystems may be replaced by <b>--types</b> umount
+option.</p>
+
+<p style="margin-left:11%;"><b>-A</b>,
+<b>--all-targets</b></p>
+
+<p style="margin-left:22%;">Unmount all mountpoints in the
+current namespace for the specified filesystem. The
+filesystem can be specified by one of the mountpoints or the
+device name (or UUID, etc.). When this option is used
+together with <b>--recursive</b>, then all nested mounts
+within the filesystem are recursively unmounted. This option
+is only supported on systems where /etc/mtab is a symlink to
+/proc/mounts.</p>
+
+<p style="margin-left:11%;"><b>-c</b>,
+<b>--no-canonicalize</b></p>
+
+<p style="margin-left:22%;">Do not canonicalize paths. The
+paths canonicalization is based on <b>stat</b>(2) and
+<b>readlink</b>(2) system calls. These system calls may hang
+in some cases (for example on NFS if server is not
+available). The option has to be used with canonical path to
+the mount point.</p>
+
+<p style="margin-left:22%; margin-top: 1em">For more
+details about this option see the <b>mount</b>(8) man page.
+Note that <b>umount</b> does not pass this option to the
+<b>/sbin/umount.</b><i>type</i> helpers.</p>
+
+<p style="margin-left:11%;"><b>-d</b>,
+<b>--detach-loop</b></p>
+
+<p style="margin-left:22%;">When the unmounted device was a
+loop device, also free this loop device. This option is
+unnecessary for devices initialized by <b>mount</b>(8), in
+this case &quot;autoclear&quot; functionality is enabled by
+default.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>--fake</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Causes everything to be done except for the actual
+system call or umount helper execution; this
+&rsquo;fakes&rsquo; unmounting the filesystem. It can be
+used to remove entries from the deprecated <i>/etc/mtab</i>
+that were unmounted earlier with the <b>-n</b> option.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-f</b>, <b>--force</b></p>
+
+<p style="margin-left:22%;">Force an unmount (in case of an
+unreachable NFS system).</p>
+
+<p style="margin-left:22%; margin-top: 1em">Note that this
+option does not guarantee that umount command does not hang.
+It&rsquo;s strongly recommended to use absolute paths
+without symlinks to avoid unwanted readlink and stat system
+calls on unreachable NFS in umount.</p>
+
+<p style="margin-left:11%;"><b>-i</b>,
+<b>--internal-only</b></p>
+
+<p style="margin-left:22%;">Do not call the
+<b>/sbin/umount.</b><i>filesystem</i> helper even if it
+exists. By default such a helper program is called if it
+exists.</p>
+
+<p style="margin-left:11%;"><b>-l</b>, <b>--lazy</b></p>
+
+<p style="margin-left:22%;">Lazy unmount. Detach the
+filesystem from the file hierarchy now, and clean up all
+references to this filesystem as soon as it is not busy
+anymore.</p>
+
+<p style="margin-left:22%; margin-top: 1em">A system reboot
+would be expected in near future if you&rsquo;re going to
+use this option for network filesystem or local filesystem
+with submounts. The recommended use-case for <b>umount
+-l</b> is to prevent hangs on shutdown due to an unreachable
+network share where a normal umount will hang due to a
+downed server or a network partition. Remounts of the share
+will not be possible.</p>
+
+<p style="margin-left:11%;"><b>-N</b>, <b>--namespace</b>
+<i>ns</i></p>
+
+<p style="margin-left:22%;">Perform umount in namespace
+specified by <i>ns</i>. <i>ns</i> is either PID of process
+running in that namespace or special file representing that
+namespace.</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>umount</b>(8)
+switches to the namespace when it reads /etc/fstab, writes
+/etc/mtab (or writes to /run/mount) and calls
+<b>umount</b>(2) system call, otherwise it runs in the
+original namespace. It means that the target namespace does
+not have to contain any libraries or another requirements
+necessary to execute <b>umount</b>(2) command.</p>
+
+<p style="margin-left:22%; margin-top: 1em">See
+<b>namespaces</b>(7) for more information.</p>
+
+<p style="margin-left:11%;"><b>-n</b>, <b>--no-mtab</b></p>
+
+<p style="margin-left:22%;">Unmount without writing in
+<i>/etc/mtab</i>.</p>
+
+<p style="margin-left:11%;"><b>-O</b>, <b>--test-opts</b>
+<i>option</i>...</p>
+
+<p style="margin-left:22%;">Unmount only the filesystems
+that have the specified option set in <i>/etc/fstab</i>.
+More than one option may be specified in a comma-separated
+list. Each option can be prefixed with <b>no</b> to indicate
+that no action should be taken for this option.</p>
+
+<p style="margin-left:11%;"><b>-q</b>, <b>--quiet</b></p>
+
+<p style="margin-left:22%;">Suppress &quot;not
+mounted&quot; error messages.</p>
+
+<p style="margin-left:11%;"><b>-R</b>,
+<b>--recursive</b></p>
+
+<p style="margin-left:22%;">Recursively unmount each
+specified directory. Recursion for each directory will stop
+if any unmount operation in the chain fails for any reason.
+The relationship between mountpoints is determined by
+/proc/self/mountinfo entries. The filesystem must be
+specified by mountpoint path; a recursive unmount by device
+name (or UUID) is unsupported.</p>
+
+<p style="margin-left:11%;"><b>-r</b>,
+<b>--read-only</b></p>
+
+<p style="margin-left:22%;">When an unmount fails, try to
+remount the filesystem read-only.</p>
+
+<p style="margin-left:11%;"><b>-t</b>, <b>--types</b>
+<i>type</i>...</p>
+
+<p style="margin-left:22%;">Indicate that the actions
+should only be taken on filesystems of the specified
+<i>type</i>. More than one type may be specified in a
+comma-separated list. The list of filesystem types can be
+prefixed with <b>no</b> to indicate that no action should be
+taken for all of the mentioned types. Note that
+<b>umount</b> reads information about mounted filesystems
+from kernel (/proc/mounts) and filesystem names may be
+different than filesystem names used in the /etc/fstab (e.g.
+&quot;nfs4&quot; vs. &quot;nfs&quot;).</p>
+
+<p style="margin-left:11%;"><b>-v</b>, <b>--verbose</b></p>
+
+<p style="margin-left:22%;">Verbose mode.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<h2>LOOP DEVICE
+<a name="LOOP DEVICE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The
+<b>umount</b> command will automatically detach loop device
+previously initialized by <b>mount</b>(8) command
+independently of /etc/mtab.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In this case
+the device is initialized with &quot;autoclear&quot; flag
+(see <b>losetup</b>(8) output for more details), otherwise
+it&rsquo;s necessary to use the option <b>--detach-loop</b>
+or call <b>losetup -d &lt;device&gt;</b>. The autoclear
+feature is supported since Linux 2.6.25.</p>
+
+<h2>EXTERNAL HELPERS
+<a name="EXTERNAL HELPERS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The syntax of
+external unmount helpers is:</p>
+
+
+<p style="margin-left:22%; margin-top: 1em"><b>umount.</b><i>suffix</i>
+{<i>directory</i>|<i>device</i>} [<b>-flnrv</b>] [<b>-N</b>
+<i>namespace</i>] [<b>-t</b> <i>type</i>.<i>subtype</i>]</p>
+
+<p style="margin-left:11%; margin-top: 1em">where
+<i>suffix</i> is the filesystem type (or the value from a
+<b>uhelper=</b> or <b>helper=</b> marker in the mtab file).
+The <b>-t</b> option can be used for filesystems that have
+subtype support. For example:</p>
+
+<p style="margin-left:22%; margin-top: 1em"><b>umount.fuse
+-t fuse.sshfs</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">A
+<b>uhelper=</b><i>something</i> marker (unprivileged helper)
+can appear in the <i>/etc/mtab</i> file when ordinary users
+need to be able to unmount a mountpoint that is not defined
+in <i>/etc/fstab</i> (for example for a device that was
+mounted by <b>udisks</b>(1)).</p>
+
+<p style="margin-left:11%; margin-top: 1em">A
+<b>helper=</b><i>type</i> marker in the mtab file will
+redirect all unmount requests to the
+<b>/sbin/umount.</b><i>type</i> helper independently of
+UID.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Note that
+<i>/etc/mtab</i> is currently deprecated and helper= and
+another userspace mount options are maintained by
+libmount.</p>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>/etc/mtab</i></p>
+
+<p style="margin-left:22%;">table of mounted filesystems
+(deprecated and usually replaced by symlink to
+/proc/mounts)</p>
+
+<p style="margin-left:11%;"><i>/etc/fstab</i></p>
+
+<p style="margin-left:22%;">table of known filesystems</p>
+
+
+<p style="margin-left:11%;"><i>/proc/self/mountinfo</i></p>
+
+<p style="margin-left:22%;">table of mounted filesystems
+generated by kernel.</p>
+
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">LIBMOUNT_FSTAB=&lt;path&gt;</p>
+
+<p style="margin-left:22%;">overrides the default location
+of the fstab file (ignored for suid)</p>
+
+<p style="margin-left:11%;">LIBMOUNT_MTAB=&lt;path&gt;</p>
+
+<p style="margin-left:22%;">overrides the default location
+of the mtab file (ignored for suid)</p>
+
+<p style="margin-left:11%;">LIBMOUNT_DEBUG=all</p>
+
+<p style="margin-left:22%;">enables libmount debug
+output</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>umount</b>(2),
+<b>losetup</b>(8), <b>mount</b>(8)</p>
+
+<h2>HISTORY
+<a name="HISTORY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">A <b>umount</b>
+command appeared in Version 6 AT&amp;T UNIX.</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The umount
+command is part of the util-linux package and is available
+from
+<a href="https://www.kernel.org/pub/linux/utils/util-linux/">Linux
+Kernel Archive</a>.</p>
+<hr>
+</body>
+</html>

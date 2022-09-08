@@ -1,0 +1,508 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:07:53 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SU</title>
+
+</head>
+<body>
+
+<h1 align="center">SU</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SIGNALS">SIGNALS</a><br>
+<a href="#CONFIG FILES">CONFIG FILES</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#HISTORY">HISTORY</a><br>
+<a href="#AVAILABILITY">AVAILABILITY</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">su - run a
+command with substitute user and group ID</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>su</b>
+[options] [<b>-</b>] [<i>user</i> [<i>argument</i>...]]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>su</b>
+allows to run commands with a substitute user and group
+ID.</p>
+
+<p style="margin-left:11%; margin-top: 1em">When called
+without arguments, <b>su</b> defaults to running an
+interactive shell as <i>root</i>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">For backward
+compatibility, <b>su</b> defaults to not change the current
+directory and to only set the environment variables
+<b>HOME</b> and <b>SHELL</b> (plus <b>USER</b> and
+<b>LOGNAME</b> if the target <i>user</i> is not root). It is
+recommended to always use the <b>--login</b> option (instead
+of its shortcut <b>-</b>) to avoid side effects caused by
+mixing environments.</p>
+
+<p style="margin-left:11%; margin-top: 1em">This version of
+<b>su</b> uses PAM for authentication, account and session
+management. Some configuration options found in other
+<b>su</b> implementations, such as support for a wheel
+group, have to be configured via PAM.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>su</b> is
+mostly designed for unprivileged users, the recommended
+solution for privileged users (e.g. scripts executed by
+root) is to use non-set-user-ID command <b>runuser</b>(1)
+that does not require authentication and provide separate
+PAM configuration. If the PAM session is not required at all
+then the recommend solution is to use command
+<b>setpriv</b>(1).</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-c</b>,
+<b>--command</b>=<i>command</i></p>
+
+<p style="margin-left:22%;">Pass <i>command</i> to the
+shell with the <b>-c</b> option.</p>
+
+<p style="margin-left:11%;"><b>-f</b>, <b>--fast</b></p>
+
+<p style="margin-left:22%;">Pass <b>-f</b> to the shell,
+which may or may not be useful, depending on the shell.</p>
+
+<p style="margin-left:11%;"><b>-g</b>,
+<b>--group</b>=<i>group</i></p>
+
+<p style="margin-left:22%;">Specify the primary group. This
+option is available to the root user only.</p>
+
+<p style="margin-left:11%;"><b>-G</b>,
+<b>--supp-group</b>=<i>group</i></p>
+
+<p style="margin-left:22%;">Specify a supplemental group.
+This option is available to the root user only. The first
+specified supplementary group is also used as a primary
+group if the option <b>--group</b> is unspecified.</p>
+
+<p style="margin-left:11%;"><b>-</b>, <b>-l</b>,
+<b>--login</b></p>
+
+<p style="margin-left:22%;">Start the shell as a login
+shell with an environment similar to a real login:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="26%"></td>
+<td width="2%">
+
+
+<p>o</p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>clears all the environment variables except <b>TERM</b>
+and variables specified by
+<b>--whitelist-environment</b></p> </td></tr>
+<tr valign="top" align="left">
+<td width="26%"></td>
+<td width="2%">
+
+
+<p>o</p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>initializes the environment variables <b>HOME</b>,
+<b>SHELL</b>, <b>USER</b>, <b>LOGNAME</b>, and
+<b>PATH</b></p> </td></tr>
+<tr valign="top" align="left">
+<td width="26%"></td>
+<td width="2%">
+
+
+<p>o</p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>changes to the target user&rsquo;s home directory</p></td></tr>
+<tr valign="top" align="left">
+<td width="26%"></td>
+<td width="2%">
+
+
+<p>o</p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>sets argv[0] of the shell to &rsquo;<b>-</b>&rsquo; in
+order to make the shell a login shell</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-m</b>, <b>-p</b>,
+<b>--preserve-environment</b></p>
+
+<p style="margin-left:22%;">Preserve the entire
+environment, i.e. it does not set <b>HOME</b>, <b>SHELL</b>,
+<b>USER</b> nor <b>LOGNAME</b>. This option is ignored if
+the option <b>--login</b> is specified.</p>
+
+<p style="margin-left:11%;"><b>-P</b>, <b>--pty</b></p>
+
+<p style="margin-left:22%;">Create pseudo-terminal for the
+session. The independent terminal provides better security
+as user does not share terminal with the original session.
+This allow to avoid TIOCSTI ioctl terminal injection and
+another security attacks against terminal file descriptors.
+The all session is also possible to move to background (e.g.
+&quot;su --pty - username -c application &amp;&quot;). If
+the pseudo-terminal is enabled then su command works as a
+proxy between the sessions (copy stdin and stdout).</p>
+
+<p style="margin-left:22%; margin-top: 1em">This feature is
+mostly designed for interactive sessions. If the standard
+input is not a terminal, but for example pipe (e.g. echo
+&quot;date&quot; | su --pty) than ECHO flag for the
+pseudo-terminal is disabled to avoid messy output.</p>
+
+<p style="margin-left:11%;"><b>-s</b>,
+<b>--shell</b>=<i>shell</i></p>
+
+<p style="margin-left:22%;">Run the specified <i>shell</i>
+instead of the default. The shell to run is selected
+according to the following rules, in order:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="26%"></td>
+<td width="2%">
+
+
+<p>o</p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>the shell specified with <b>--shell</b></p></td></tr>
+<tr valign="top" align="left">
+<td width="26%"></td>
+<td width="2%">
+
+
+<p>o</p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>the shell specified in the environment variable
+<b>SHELL</b>, if the <b>--preserve-environment</b> option is
+used</p> </td></tr>
+<tr valign="top" align="left">
+<td width="26%"></td>
+<td width="2%">
+
+
+<p>o</p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>the shell listed in the passwd entry of the target
+user</p> </td></tr>
+<tr valign="top" align="left">
+<td width="26%"></td>
+<td width="2%">
+
+
+<p>o</p></td>
+<td width="9%"></td>
+<td width="63%">
+
+
+<p>/bin/sh</p></td></tr>
+</table>
+
+<p style="margin-left:22%; margin-top: 1em">If the target
+user has a restricted shell (i.e. not listed in
+/etc/shells), the <b>--shell</b> option and the <b>SHELL</b>
+environment variables are ignored unless the calling user is
+root.</p>
+
+
+<p style="margin-left:11%;"><b>--session-command=</b><i>command</i></p>
+
+<p style="margin-left:22%;">Same as <b>-c</b> but do not
+create a new session. (Discouraged.)</p>
+
+<p style="margin-left:11%;"><b>-w</b>,
+<b>--whitelist-environment</b>=<i>list</i></p>
+
+<p style="margin-left:22%;">Don&rsquo;t reset environment
+variables specified in comma separated <i>list</i> when
+clears environment for <b>--login</b>. The whitelist is
+ignored for the environment variables <b>HOME</b>,
+<b>SHELL</b>, <b>USER</b>, <b>LOGNAME</b>, and
+<b>PATH</b>.</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">Display version information and
+exit.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">Display help text and exit.</p>
+
+<h2>SIGNALS
+<a name="SIGNALS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Upon receiving
+either <b>SIGINT</b>, <b>SIGQUIT</b> or <b>SIGTERM</b>,
+<b>su</b> terminates its child and afterwards terminates
+itself with the received signal. The child is terminated by
+SIGTERM, after unsuccessful attempt and 2 seconds of delay
+the child is killed by SIGKILL.</p>
+
+<h2>CONFIG FILES
+<a name="CONFIG FILES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>su</b> reads
+the <i>/etc/default/su</i> and <i>/etc/login.defs</i>
+configuration files. The following configuration items are
+relevant for <b>su</b>(1):</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>FAIL_DELAY</b>
+(number)</p>
+
+<p style="margin-left:17%;">Delay in seconds in case of an
+authentication failure. The number must be a non-negative
+integer.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ENV_PATH</b>
+(string)</p>
+
+<p style="margin-left:17%;">Defines the PATH environment
+variable for a regular user. The default value is
+<i>/usr/local/bin:/bin:/usr/bin</i>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ENV_ROOTPATH</b>
+(string) <b><br>
+ENV_SUPATH</b> (string)</p>
+
+<p style="margin-left:17%;">Defines the PATH environment
+variable for root. ENV_SUPATH takes precedence. The default
+value is <i>/usr/local/sbin:/usr/local/bin:
+/sbin:/bin:/usr/sbin:/usr/bin</i>.</p>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>ALWAYS_SET_PATH</b>
+(boolean)</p>
+
+<p style="margin-left:17%;">If set to <i>yes</i> and
+--login and --preserve-environment were not specified
+<b>su</b> initializes <b>PATH</b>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The environment
+variable PATH may be different on systems where /bin and
+/sbin are merged into /usr.</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>su</b>
+normally returns the exit status of the command it executed.
+If the command was killed by a signal, <b>su</b> returns the
+number of the signal plus 128.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Exit status
+generated by <b>su</b> itself:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="26%"></td>
+<td width="5%">
+
+
+<p>1</p></td>
+<td width="6%"></td>
+<td width="63%">
+
+
+<p>Generic error before executing the requested command</p></td></tr>
+<tr valign="top" align="left">
+<td width="26%"></td>
+<td width="5%">
+
+
+<p>126</p></td>
+<td width="6%"></td>
+<td width="63%">
+
+
+<p>The requested command could not be executed</p></td></tr>
+<tr valign="top" align="left">
+<td width="26%"></td>
+<td width="5%">
+
+
+<p>127</p></td>
+<td width="6%"></td>
+<td width="63%">
+
+
+<p>The requested command was not found</p></td></tr>
+</table>
+
+<h2>FILES
+<a name="FILES"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p style="margin-top: 1em">/etc/pam.d/su</p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p style="margin-top: 1em">default PAM configuration
+file</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p>/etc/pam.d/su-l</p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>PAM configuration file if --login is specified</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p>/etc/default/su</p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>command specific logindef config file</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="23%">
+
+
+<p>/etc/login.defs</p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>global logindef config file</p></td></tr>
+</table>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">For security
+reasons <b>su</b> always logs failed log-in attempts to the
+btmp file, but it does not write to the lastlog file at all.
+This solution allows to control <b>su</b> behavior by PAM
+configuration. If you want to use the pam_lastlog module to
+print warning message about failed log-in attempts then the
+pam_lastlog has to be configured to update the lastlog file
+as well. For example by:</p>
+
+<p style="margin-left:22%; margin-top: 1em">session
+required pam_lastlog.so nowtmp</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>setpriv</b>(1),
+<b>login.defs</b>(5), <b>shells</b>(5), <b>pam</b>(8),
+<b>runuser</b>(8)</p>
+
+<h2>HISTORY
+<a name="HISTORY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">This <b>su</b>
+command was derived from coreutils&rsquo; <b>su</b>, which
+was based on an implementation by David MacKenzie. The
+util-linux has been refactored by Karel Zak.</p>
+
+<h2>AVAILABILITY
+<a name="AVAILABILITY"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The su command
+is part of the util-linux package and is available from
+<a href="https://www.kernel.org/pub/linux/utils/util-linux/">Linux
+Kernel Archive</a>.</p>
+<hr>
+</body>
+</html>

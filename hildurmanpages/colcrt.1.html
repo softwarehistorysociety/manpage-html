@@ -1,0 +1,123 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:35:51 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<hr>
+
+
+<p>COLCRT(1) BSD General Commands Manual COLCRT(1)</p>
+
+<p style="margin-top: 1em"><b>NAME</b></p>
+
+<p style="margin-left:6%;"><b>colcrt</b> &mdash; filter
+nroff output for CRT previewing</p>
+
+<p style="margin-top: 1em"><b>SYNOPSIS</b></p>
+
+<p style="margin-left:15%;"><b>colcrt</b> [<b>-</b>]
+[<b>-2</b>] [<i>file&nbsp;...</i>]</p>
+
+<p style="margin-top: 1em"><b>DESCRIPTION</b></p>
+
+<p style="margin-left:6%;">The <b>colcrt</b> utility
+provides virtual half-line and reverse line feed sequences
+for terminals without such capability, and on which
+overstriking is destructive. Half-line characters and
+underlining (changed to dashing &rsquo;-&rsquo;) are placed
+on new lines in between the normal output lines.</p>
+
+<p style="margin-left:6%; margin-top: 1em">The following
+options are available:</p>
+
+<p style="margin-top: 1em"><b>-</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Suppress all
+underlining. This option is especially useful for previewing
+<i>allboxed</i> tables from tbl(1).</p>
+
+<p style="margin-top: 1em"><b>-2</b></p>
+
+<p style="margin-left:17%; margin-top: 1em">Cause all
+half-lines to be printed, effectively double spacing the
+output. Normally, a minimal space output format is used
+which will suppress empty lines. The program never
+suppresses two consecutive empty lines, however. The
+<b>-2</b> option is useful for sending output to the line
+printer when the output contains superscripts and subscripts
+which would otherwise be invisible.</p>
+
+<p style="margin-top: 1em"><b>ENVIRONMENT</b></p>
+
+<p style="margin-left:6%;">The LANG, LC_ALL and LC_CTYPE
+environment variables affect the execution of <b>colcrt</b>
+as described in environ(7).</p>
+
+<p style="margin-top: 1em"><b>EXIT STATUS</b></p>
+
+<p style="margin-left:6%;">The <b>colcrt</b> utility
+exits&nbsp;0 on success, and&nbsp;&gt;0 if an error
+occurs.</p>
+
+<p style="margin-top: 1em"><b>EXAMPLES</b></p>
+
+<p style="margin-left:6%;">A typical use of <b>colcrt</b>
+would be</p>
+
+<p style="margin-left:6%; margin-top: 1em">tbl exum2.n |
+nroff -ms | colcrt - | more</p>
+
+<p style="margin-top: 1em"><b>SEE ALSO</b></p>
+
+<p style="margin-left:6%;">col(1), more(1), nroff(1),
+troff(1), ul(1)</p>
+
+<p style="margin-top: 1em"><b>HISTORY</b></p>
+
+<p style="margin-left:6%;">The <b>colcrt</b> command
+appeared in 3.0BSD.</p>
+
+<p style="margin-top: 1em"><b>BUGS</b></p>
+
+<p style="margin-left:6%;">Should fold underlines onto
+blanks even with the &rsquo;<b>-</b>&rsquo; option so that a
+true underline character would show.</p>
+
+<p style="margin-left:6%; margin-top: 1em">Cannot back up
+more than 102 lines.</p>
+
+<p style="margin-left:6%; margin-top: 1em">General
+overstriking is lost; as a special case &rsquo;|&rsquo;
+overstruck with &rsquo;-&rsquo; or underline becomes
+&rsquo;+&rsquo;.</p>
+
+<p style="margin-left:6%; margin-top: 1em">Lines are
+trimmed to 132 characters.</p>
+
+<p style="margin-left:6%; margin-top: 1em">Some provision
+should be made for processing superscripts and subscripts in
+documents which are already double-spaced.</p>
+
+<p style="margin-left:6%; margin-top: 1em">Characters that
+take up more than one column position may not be underlined
+correctly.</p>
+
+<p style="margin-left:6%; margin-top: 1em">BSD
+July&nbsp;31, 2004 BSD</p>
+<hr>
+</body>
+</html>

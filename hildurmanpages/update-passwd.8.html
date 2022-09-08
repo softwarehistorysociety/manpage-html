@@ -1,0 +1,186 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:11:52 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>UPDATE-PASSWD</title>
+
+</head>
+<body>
+
+<h1 align="center">UPDATE-PASSWD</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">update-passwd -
+safely update /etc/passwd, /etc/shadow and /etc/group</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-passwd</b>
+[<i>options</i>]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-passwd</b>
+handles updates of /etc/passwd, /etc/shadow and /etc/group
+on running Debian systems. It compares the current files to
+master copies, distributed in the base-passwd package, and
+updates all entries in the global system range (that is,
+0&ndash;99).</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>update-passwd</b>
+follows the usual GNU command line syntax, with long options
+starting with two dashes (&rsquo;-&rsquo;). <b><br>
+-p</b>,&nbsp;<b>--passwd-master=FILE</b></p>
+
+<p style="margin-left:22%;">Use FILE as the master copy of
+the passwd database. The default value is
+<i>/usr/share/base-passwd/passwd.master</i>.</p>
+
+
+<p style="margin-left:11%;"><b>-g</b>,&nbsp;<b>--group-master=FILE</b></p>
+
+<p style="margin-left:22%;">Use FILE as the master copy of
+the group database. The default value is
+<i>/usr/share/base-passwd/group.master</i>.</p>
+
+
+<p style="margin-left:11%;"><b>-P</b>,&nbsp;<b>--passwd=FILE</b></p>
+
+<p style="margin-left:22%;">Use FILE as the system passwd
+database. The default value is <i>/etc/passwd</i>.</p>
+
+
+<p style="margin-left:11%;"><b>-S</b>,&nbsp;<b>--shadow=FILE</b></p>
+
+<p style="margin-left:22%;">Use FILE as the system shadow
+database. The default value is <i>/etc/shadow</i>.</p>
+
+
+<p style="margin-left:11%;"><b>-G</b>,&nbsp;<b>--group=FILE</b></p>
+
+<p style="margin-left:22%;">Use FILE as the system group
+database. The default value is <i>/etc/group</i>.</p>
+
+
+<p style="margin-left:11%;"><b>-s</b>,&nbsp;<b>--sanity-check</b></p>
+
+<p style="margin-left:22%;">Only perform sanity-checks but
+don&rsquo;t do anything.</p>
+
+
+<p style="margin-left:11%;"><b>-v</b>,&nbsp;<b>--verbose</b></p>
+
+<p style="margin-left:22%;">Give detailed information about
+what we are doing. A second -v gives additional detail.</p>
+
+
+<p style="margin-left:11%;"><b>-n</b>,&nbsp;<b>--dry-run</b></p>
+
+<p style="margin-left:22%;">Don&rsquo;t do anything but
+only show what we would do.</p>
+
+
+<p style="margin-left:11%;"><b>-L</b>,&nbsp;<b>--no-locking</b></p>
+
+<p style="margin-left:22%;">Don&rsquo;t attempt to lock the
+account database. This should only be used for debugging
+purposes. <b>I repeat: do not do this unless you are really
+sure you need this!</b></p>
+
+
+<p style="margin-left:11%;"><b>-h</b>,&nbsp;<b>--help</b></p>
+
+<p style="margin-left:22%;">Show a summary of how to use
+<b>update-passwd</b>.</p>
+
+
+<p style="margin-left:11%;"><b>-V</b>,&nbsp;<b>--version</b></p>
+
+<p style="margin-left:22%;">Show the version number</p>
+
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em">DEBIAN_HAS_FRONTEND</p>
+
+<p style="margin-left:22%;">If this environment variable is
+sent and the <b>--dry-run</b> flag was not given,
+<b>update-passwd</b> uses debconf to prompt for whether to
+make changes. Each proposed change will produce a separate
+prompt. User or group removals, UID or GID changes, and home
+directory changes will be asked with high priority. User or
+group additions and shell changes will be asked with medium
+priority. Questions about whether to move entries above the
+NIS compat inclusion entry or whether to change the GECOS of
+a user are asked at low priority.</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">At this moment
+<b>update-passwd</b> does not verify the shadow-file. It
+should check if the entries in the passwd are also in shadow
+and vice versa, and that passwords are not present in both
+files.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Wichert
+Akkerman &lt;wakkerma@debian.org&gt;</p>
+
+<p style="margin-left:11%; margin-top: 1em">This program
+was written for the Debian project, and is copyright
+1999&ndash;2002 Wichert Akkerman and copyright 2002, 2003
+Colin Watson. It is distributed under version 2 of the GNU
+General Public License.</p>
+<hr>
+</body>
+</html>

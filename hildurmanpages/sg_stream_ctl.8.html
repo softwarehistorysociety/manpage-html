@@ -1,0 +1,257 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 03:05:33 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>SG_STREAM_CTL</title>
+
+</head>
+<body>
+
+<h1 align="center">SG_STREAM_CTL</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#NOTES">NOTES</a><br>
+<a href="#EXIT STATUS">EXIT STATUS</a><br>
+<a href="#AUTHORS">AUTHORS</a><br>
+<a href="#REPORTING BUGS">REPORTING BUGS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">sg_stream_ctl -
+send SCSI STREAM CONTROL or GET STREAM STATUS command</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sg_stream_ctl</b>
+[<i>--brief</i>] [<i>--close</i>] [<i>--ctl=CTL</i>]
+[<i>--get</i>] [<i>--help</i>] [<i>--id=SID</i>]
+[<i>--maxlen=LEN</i>] [<i>--open</i>] [<i>--readonly</i>]
+[<i>--verbose</i>] [<i>--version</i>] <i>DEVICE</i></p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Sends a SCSI
+STREAM CONTROL or GET STREAM STATUS command to the
+<i>DEVICE</i>. These commands, together with WRITE STREAM(16
+and 32) and several fields in the Block Limits Extension VPD
+page [0xb7] support the streams concept. The stream commands
+were added in SBC-4 draft 8 (September 2015).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Both STREAM
+CONTROL and GET STREAM STATUS commands expect data from the
+<i>DEVICE</i> (referred to as &rsquo;data-in&rsquo;). In the
+case of STREAM CONTROL only the &rsquo;open&rsquo;
+(STR_CTL&lt;--0x1) actually needs the data-in as it contains
+the &quot;Assigned stream id&quot; if the open was
+successful. The assigned stream id should be used by
+subsequent WRITE STREAM commands and ultimately by the
+STREAM CONTROL close (STR_CTL&lt;--0x2). Valid stream ids
+are between 1 and 65535 inclusive.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Arguments to
+long options are mandatory for short options as well.
+<b><br>
+-b</b>, <b>--brief</b></p>
+
+<p style="margin-left:22%;">this option reduces the output
+of the GET STREAM STATUS command to just one number (in
+decimal) per line sent to stdout. Those numbers are the
+currently open stream ids. If an error occurs then -1 is
+sent to stdout and error related messages are sent to
+stderr. The default is to print more words (and fields) from
+the GET STREAM STATUS response.</p>
+
+<p style="margin-left:11%;"><b>-c</b>, <b>--close</b></p>
+
+<p style="margin-left:22%;">selects the STREAM CONTROL
+command and sets STR_CTL&lt;--0x2 (i.e.
+&rsquo;close&rsquo;). The <i>--id=SID</i> option should also
+be given because it defaults to 0 which is not a valid
+stream id.</p>
+
+<p style="margin-left:11%;"><b>-C</b>,
+<b>--ctl</b>=<i>CTL</i></p>
+
+<p style="margin-left:22%;"><i>CTL</i> is the value placed
+in the STR_CTL field of the STREAM CONTROL command (cdb). It
+is a two bit field so has 4 variants: 0 and 3 are reserved;
+1 opens are new stream and 2 closes the given stream id.
+&rsquo;--ctl=1&rsquo; is equivalent to &rsquo;--open&rsquo;
+while &rsquo;--ctl=2&rsquo; is equivalent to
+&rsquo;--close&rsquo;.</p>
+
+<p style="margin-left:11%;"><b>-g</b>, <b>--get</b></p>
+
+<p style="margin-left:22%;">selects the GET STREAM STATUS
+command. If the <i>--id=SID</i> option is also given the the
+response starts lists open stream ids from and including
+<i>SID</i>. If the <i>--id=SID</i> option is not given (or
+<i>SID</i> is 0) then all open stream id will be returned in
+the response (data-in) as long as the allocation length
+(defaults to 248 bytes which can be overridden by the
+<i>--maxlen=LEN</i> option) is long enough. This is the
+default action of this utility (i.e. GET STREAM STATUS
+command) if no &quot;selecting&quot; options are given.</p>
+
+<p style="margin-left:11%;"><b>-h</b>, <b>--help</b></p>
+
+<p style="margin-left:22%;">output the usage message then
+exit.</p>
+
+<p style="margin-left:11%;"><b>-i</b>,
+<b>--id</b>=<i>SID</i></p>
+
+<p style="margin-left:22%;"><i>SID</i> is a stream id, a
+value between 1 and 65535. It is used by STREAM CONTROL
+(close) to identify the stream to close. It is used by the
+GET STREAM STATUS command as the starting stream id (from
+and including); so stream ids that are less than <i>SID</i>
+will not appear in the response.</p>
+
+<p style="margin-left:11%;"><b>-m</b>,
+<b>--maxlen</b>=<i>LEN</i></p>
+
+<p style="margin-left:22%;"><i>LEN</i> is the maximum
+length the response can be. It becomes the ALLOCATION LENGTH
+field in both commands. The default (in the absence of this
+option) is 8 bytes for STREAM CONTROL and 248 bytes for GET
+STREAM STATUS.</p>
+
+<p style="margin-left:11%;"><b>-o</b>, <b>--open</b></p>
+
+<p style="margin-left:22%;">selects the STREAM CONTROL
+command and sets STR_CTL&lt;--0x1 (i.e. &rsquo;open&rsquo;).
+If the <i>--id=SID</i> option is given then it is ignored.
+The user should observe the response as the &quot;Assigned
+stream id&quot; is printed on stdout if the open is
+successful, if not &rsquo;-1&rsquo; is sent to stdout and
+error messages are sent to stderr. If the <i>--brief</i>
+option is also given then the only thing sent to stdout is a
+number of the assigned stream id (1 to 65535 inclusive) or
+&rsquo;-1&rsquo; if there is an error.</p>
+
+<p style="margin-left:11%;"><b>-r</b>,
+<b>--readonly</b></p>
+
+<p style="margin-left:22%;">this option sets a
+&rsquo;read-only&rsquo; flag when the underlying operating
+system opens the given <i>DEVICE</i>. This may not work
+since operating systems can not easily determine whether a
+pass-through command is a logical read or write operation on
+the media (or its metadata) so they take a risk averse
+stance and require read-write type permissions on the
+<i>DEVICE</i> open irrespective of what is performed by the
+pass-through.</p>
+
+<p style="margin-left:11%;"><b>-v</b>, <b>--verbose</b></p>
+
+<p style="margin-left:22%;">increase the level of
+verbosity, (i.e. debug output).</p>
+
+<p style="margin-left:11%;"><b>-V</b>, <b>--version</b></p>
+
+<p style="margin-left:22%;">print the version string and
+then exit.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">There are no
+special read commands for streams. This implies that
+&quot;normal&quot; READs (6, 10, 12, 16 or 32) can be used.
+Note that when a stream is closed, all resources associated
+with that stream id are removed, apart from the data in the
+written LBAs. To make sure the reading back data is not
+delayed too much by error recovery (in the presence of media
+errors) the user may set the RECOVERY TIME LIMIT field (RTL,
+units for non-zero values: milliseconds) in the
+&rsquo;Read-write error recovery&rsquo; mode page. This can
+be done with the sdparm utility.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The SCSI WRITE
+STREAM (16 and 32) commands can be found in the sg_write_x
+utility in this package.</p>
+
+<h2>EXIT STATUS
+<a name="EXIT STATUS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The exit status
+of sg_stream_ctl is 0 when it is successful. Otherwise see
+the sg3_utils(8) man page.</p>
+
+<h2>AUTHORS
+<a name="AUTHORS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Written by
+Douglas Gilbert.</p>
+
+<h2>REPORTING BUGS
+<a name="REPORTING BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Report bugs to
+&lt;dgilbert at interlog dot com&gt;.</p>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright
+&copy; 2018 Douglas Gilbert <br>
+This software is distributed under a FreeBSD license. There
+is NO warranty; not even for MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE.</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>sg_vpd,sg_write_x(sg3_utils);
+sdparm(sdparm)</b></p>
+<hr>
+</body>
+</html>

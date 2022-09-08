@@ -1,0 +1,241 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:35:40 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>CLOUD-INIT</title>
+
+</head>
+<body>
+
+<h1 align="center">CLOUD-INIT</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#SUBCOMMANDS">SUBCOMMANDS</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">cloud-init -
+Cloud instance initialization</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>cloud-init</b>
+[-h] [-d] [-f FILES] [--force] [-v] [SUBCOMMAND]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Cloud-init
+provides a mechanism for cloud instance initialization. This
+is done by identifying the cloud platform that is in use,
+reading provided cloud metadata and optional vendor and user
+data, and then initializing the instance as requested.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Generally, this
+command is not normally meant to be run directly by the
+user. However, some subcommands may useful for development
+or debug of deployments.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>-h,
+--help</b></p>
+
+<p style="margin-left:22%;">Show help message and exit.</p>
+
+<p style="margin-left:11%;"><b>-d, --debug</b></p>
+
+<p style="margin-left:22%;">Show additional pre-action
+logging (default: False).</p>
+
+<p style="margin-left:11%;"><b>-f &lt;files&gt;, --files
+&lt;files&gt;</b></p>
+
+<p style="margin-left:22%;">Use additional YAML
+configuration files.</p>
+
+<p style="margin-left:11%;"><b>--force</b></p>
+
+<p style="margin-left:22%;">Force running even if no
+datasource is found (use at your own risk).</p>
+
+<p style="margin-left:11%;"><b>-v, --version</b></p>
+
+<p style="margin-left:22%;">Show program&rsquo;s version
+number and exit.</p>
+
+<h2>SUBCOMMANDS
+<a name="SUBCOMMANDS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Please see the
+help output for each subcommand for additional details,
+flags, and subcommands. <b><br>
+analyze</b></p>
+
+<p style="margin-left:22%;">Analyze cloud-init logs and
+data.</p>
+
+<p style="margin-left:11%;"><b>collect-logs</b></p>
+
+<p style="margin-left:22%;">Collect and tar all cloud-init
+debug info.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p><b>clean</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p>Remove logs and artifacts so cloud-init can re-run.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p><b>devel</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p>Run development tools. See help output for subcommand
+details.</p> </td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>dhclient-hook</b></p>
+
+<p style="margin-left:22%;">Run the dhclient hook to record
+network info.</p>
+
+<p style="margin-left:11%;"><b>features</b></p>
+
+<p style="margin-left:22%;">List defined features.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>init</b></p></td>
+<td width="5%"></td>
+<td width="76%">
+
+
+<p>Initialize cloud-init and execute initial modules.</p></td>
+<td width="2%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>modules</b></p>
+
+<p style="margin-left:22%;">Activate modules using a given
+configuration key.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>query</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Query standardized instance metadata from the command
+line.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>schema</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Validate cloud-config files using jsonschema.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>single</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Run a single module.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>status</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Report cloud-init status or wait on completion.</p></td></tr>
+</table>
+
+<h2>COPYRIGHT
+<a name="COPYRIGHT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Copyright (C)
+2020 Canonical Ltd. License GPL-3 or Apache-2.0</p>
+
+<h2>SEE ALSO
+<a name="SEE ALSO"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Full
+documentation at:
+&lt;https://cloudinit.readthedocs.io&gt;</p>
+<hr>
+</body>
+</html>

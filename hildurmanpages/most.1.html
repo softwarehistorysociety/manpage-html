@@ -1,0 +1,880 @@
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Thu Sep  8 02:55:30 2022 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>MOST</title>
+
+</head>
+<body>
+
+<h1 align="center">MOST</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#COMMAND USAGE">COMMAND USAGE</a><br>
+<a href="#HINTS">HINTS</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
+<a href="#CONFIGURATION FILE SYNTAX">CONFIGURATION FILE SYNTAX</a><br>
+<a href="#BUGS">BUGS</a><br>
+<a href="#AUTHOR">AUTHOR</a><br>
+<a href="#ACKNOWLEDGEMENTS">ACKNOWLEDGEMENTS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">most - browse
+or page through a text file</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>most</b>
+[<b>-1bCcdMstuvwz</b>] [<b>+</b><i>lineno</i>] [<b>+c</b>]
+[<b>+d</b>] [<b>+s</b>] [<b>+u</b>] [<b>+/</b><i>string</i>]
+[<i>filename</i>...]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>most</i> is
+a paging program that displays, one windowful at a time, the
+contents of a file on a terminal. It pauses after each
+windowful and prints on the window status line the screen
+the file name, current line number, and the percentage of
+the file so far displayed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Unlike other
+paging programs, <i>most</i> is capable of displaying an
+arbitrary number of windows as long as each window occupies
+at least two screen lines. Each window may contain the same
+file or a different file. In addition, each window has its
+own mode. For example, one window may display a file with
+its lines wrapped while another may be truncating the lines.
+Windows may be &rsquo;locked&rsquo; together in the sense
+that if one of the locked windows scrolls, all locked
+windows will scroll. <i>most</i> is also capable of ignoring
+lines that are indented beyond a user specified value. This
+is useful when viewing computer programs to pick out gross
+features of the code. See the &rsquo;<b>:o</b>&rsquo;
+command for a description of this feature.</p>
+
+<p style="margin-left:11%; margin-top: 1em">In addition to
+displaying ordinary text files, <i>most</i> can also display
+binary files as well as files with arbitrary ascii
+characters. When a file is read into a buffer, <i>most</i>
+examines the first 32 bytes of the file to determine if the
+file is a binary file and then switches to the appropriate
+mode. However, this feature may be disabled with the
+<b>-k</b> option. See the description of the <b>-b</b>,
+<b>-k</b>, <b>-v</b>, and <b>-t</b> options for further
+details.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Text files may
+contain combinations of underscore and backspace characters
+causing a printer to underline or overstrike. When
+<i>most</i> recognizes this, it inserts the appropriate
+escape sequences to achieve the desired effect. In addition,
+some files cause the printer to overstrike some characters
+by embedding carriage return characters in the middle of a
+line. When this occurs, <i>most</i> displays the overstruck
+character with a bold attribute. This feature facilitates
+the reading of UNIX man pages or a document produced by
+<i>runoff</i>. In particular, viewing this document with
+<i>most</i> should illustrate this behavior provided that
+the underline characters have not been stripped. This may be
+turned off with the <b>-v</b> option.</p>
+
+<p style="margin-left:11%; margin-top: 1em">By default,
+lines with more characters than the terminal width are not
+wrapped but are instead truncated. When truncation occurs,
+this is indicated by a &rsquo;$&rsquo; in the far right
+column of the terminal screen. The RIGHT and LEFT arrow keys
+may be used to view lines which extend past the margins of
+the screen. The <b>-w</b> option may be used to override
+this feature. When a window is wrapped, the character
+&rsquo;\&rsquo; will appear at the right edge of the
+window.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Commands are
+listed below.</p>
+
+<h2>OPTIONS
+<a name="OPTIONS"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em"><b>-1</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em">VT100 mode. This is meaningful
+only on VMS systems. This option should be used if the
+terminal is strictly a VT100. This implies that the terminal
+does not have the ability to delete and insert multiple
+lines. VT102s and above have this ability.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-b</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Binary mode. Use this switch when you want to view files
+containing 8 bit characters. <i>most</i> will display the
+file 16 bytes per line in hexadecimal notation. A typical
+line looks like:</p></td></tr>
+</table>
+
+<p style="margin-left:29%; margin-top: 1em">01000000
+40001575 9C23A020 4000168D ....@..u.#. @...</p>
+
+<p style="margin-left:22%; margin-top: 1em">When used with
+the <b>-v</b> option, the same line looks like:</p>
+
+<p style="margin-left:29%; margin-top: 1em">^A^@^@^@ @^@^U
+u 9C #A0 @^@^V8D ....@..u.#. @...</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p style="margin-top: 1em"><b>-C</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em">Disable color support.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-d</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Omit the backslash mark used to denote a wrapped
+line.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-M</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Disable the use of mmap.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-s</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Squeeze. Replace multiple blank lines with a single
+blank line.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-z</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>option turns off gunzip-on-the-fly.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-v</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Display control characters as in &rsquo;^A&rsquo; for
+control A. Normally <i>most</i> does not interpret control
+characters.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-t</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Display tabs as &rsquo;^I&rsquo;. This option is
+meaningful only when used with the <b>-v</b> option.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>+</b><i>lineno</i></p>
+
+<p style="margin-left:22%;">Start up at <i>lineno</i>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-c</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Make searches case sensitive. By default, they are
+not.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>-u</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Disable UTF-8 mode even if the locale dictates it.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>+u</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>Force UTF-8 mode. By default most will use the current
+locale to determine if UTF-8 mode should be used. The
+<b>+u</b> and <b>-u</b> switches allow the behavior to be
+overridden.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p><b>+d</b></p></td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p>This switch should only be used if you want the option
+to delete a file while viewing it. This makes it easier to
+clean unwanted files out of a directory. The file is deleted
+with the interactive key sequence &rsquo;<b>:D</b>&rsquo;
+and then confirming with &rsquo;<b>y</b>&rsquo;.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>+/</b><i>string</i></p>
+
+<p style="margin-left:22%;">Start up at the line containing
+the first occurrence of <i>string</i>.</p>
+
+<h2>COMMAND USAGE
+<a name="COMMAND USAGE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Some commands
+have an optional numeric argument <i>id</i> ,entered before
+the command. If not given, the default value of <i>i</i> is
+1.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Commands take
+effect immediately; typing a <i>RETURN</i> after isn&rsquo;t
+necessary or correct. (Besides, <i>RETURN</i> itself is a
+command.)</p>
+
+<p style="margin-left:11%; margin-top: 1em">Example: to go
+down one line, press the <i>DOWN_ARROW</i> key. To go down
+20 lines, press <i>2</i> then <i>0</i> then the
+<i>DOWN_ARROW</i> key. <b><br>
+RETURN</b>, <b>DOWN_ARROW</b>, <b>V</b>, <b>CTRL-N</b></p>
+
+<p style="margin-left:22%;">Display another line, or
+<i>i</i> more lines, if specified.</p>
+
+<p style="margin-left:11%;"><b>UP_ARROW</b>, <b>^</b>,
+<b>CTRL-P</b></p>
+
+<p style="margin-left:22%;">Display previous line, or
+<i>i</i> previous lines, if specified.</p>
+
+<p style="margin-left:11%;"><b>T</b>, <b>ESCAPE</b>&lt;</p>
+
+<p style="margin-left:22%;">Move to top of buffer.</p>
+
+<p style="margin-left:11%;"><b>B</b>, <b>ESCAPE</b>&gt;</p>
+
+<p style="margin-left:22%;">Move to bottom of buffer.</p>
+
+<p style="margin-left:11%;"><b>RIGHT_ARROW</b>, <b>TAB</b>,
+<b>&gt;</b></p>
+
+<p style="margin-left:22%;">Scroll window left 60<i>i</i>
+columns to view lines that are beyond the right margin of
+the window.</p>
+
+<p style="margin-left:11%;"><b>LEFT_ARROW</b>,
+<b>CTRL-B</b>, <b>&lt;</b></p>
+
+<p style="margin-left:22%;">Scroll window right 60<i>i</i>
+columns to view lines that are beyond the left margin of the
+window.</p>
+
+<p style="margin-left:11%;"><b>U</b>, <b>CTRL-U</b>,
+<b>DELETE</b>, <b>PREV_SCREEN</b></p>
+
+<p style="margin-left:22%;">Skip back <i>i</i> windowfuls
+and then print a windowful.</p>
+
+<p style="margin-left:11%;"><b>R</b>, <b>CTRL-R</b></p>
+
+<p style="margin-left:22%;">Redraw the window.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>J</b>, <b>G</b></p></td>
+<td width="5%"></td>
+<td width="78%">
+
+
+<p>If <i>i</i> is not specified, then prompt for a line
+number then jump to that line otherwise just jump to line
+<i>i</i>.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>%</b></p></td>
+<td width="5%"></td>
+<td width="78%">
+
+
+<p>If <i>i</i> is not specified, then prompt for a percent
+number then jump to that percent of the file otherwise just
+jump to <i>i</i> percent of the file.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>W</b>, <b>w</b></p></td>
+<td width="5%"></td>
+<td width="78%">
+
+
+<p>If the current screen width is 80, make it 132 and
+vice-versa. For other values, this command is ignored.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>Q</b>, <b>CTRL-X CTRL-C</b>,
+<b>CTRL-K E</b></p>
+
+<p style="margin-left:22%;">Exit from <i>most</i>. On VMS,
+^Z also exits.</p>
+
+<p style="margin-left:11%;"><b>h</b>, <b>CTRL-H</b>,
+<b>HELP</b>, <b>PF2</b></p>
+
+<p style="margin-left:22%;">Help. Give a description of all
+the <i>most</i> commands. The <i>most</i> environment
+variable <b>MOST_HELP</b> must be set for this to be
+meaningful.</p>
+
+<p style="margin-left:11%;"><b>f</b>, <b>/</b>,
+<b>CTRL-F</b>, <b>FIND</b>, <b>GOLD PF3</b></p>
+
+<p style="margin-left:22%;">Prompt for a string and search
+forward from the current line for <i>i</i>th distinct line
+containing the string. <b>CTRL-G</b> aborts.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>?</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>Prompt for a string and search backward for the
+<i>i</i>th distinct line containing the string.
+<b>CTRL-G</b> aborts.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p><b>n</b></p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>Search for the next <i>i</i> lines containing an
+occurrence of the last search string in the direction of the
+previous search.</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em"><b>m</b>,
+<b>SELECT</b>, <b>CTRL-@</b>, <b>CTRL-K M</b>,
+<b>PERIOD</b></p>
+
+<p style="margin-left:22%;">Set a mark on the current line
+for later reference.</p>
+
+<p style="margin-left:11%;"><b>INSERT_HERE</b>, <b>CTRL-X
+CTRL-X</b>, <b>COMMA</b>, <b>CTRL-K RETURN</b>, <b>GOLD
+PERIOD</b></p>
+
+<p style="margin-left:22%;">Set a mark on the current line
+but return to previous mark. This allows the user to toggle
+back and forth between two positions in the file.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>l</b>, <b>L</b></p></td>
+<td width="5%"></td>
+<td width="78%">
+
+
+<p>Toggle locking for this window. The window is locked if
+there is a &rsquo;*&rsquo; at the left edge of the status
+line. Windows locked together, scroll together.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>CTRL-X 2</b>, <b>CTRL-W
+2</b>, <b>GOLD X</b></p>
+
+<p style="margin-left:22%;">Split this window in half.</p>
+
+<p style="margin-left:11%;"><b>CTRL-X o</b>, <b>CTRL-W
+o</b>, <b>o</b>, <b>GOLD UP</b>, <b>GOLD DOWN</b></p>
+
+<p style="margin-left:22%;">Move to other window.</p>
+
+<p style="margin-left:11%;"><b>CTRL-X 0</b>, <b>CTRL-W
+0</b>, <b>GOLD V</b></p>
+
+<p style="margin-left:22%;">Delete this window.</p>
+
+<p style="margin-left:11%;"><b>CTRL-X 1</b>, <b>CTRL-W
+1</b>, <b>GOLD O</b></p>
+
+<p style="margin-left:22%;">Delete all other windows,
+leaving only one window.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p><b>E</b>, <b>e</b></p></td>
+<td width="5%"></td>
+<td width="23%">
+
+
+<p>Edit this file.</p></td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>$</b>, <b>ESC $</b></p>
+
+<p style="margin-left:22%;">This is system dependent. On
+VMS, this causes <i>most</i> to spawn a subprocess. When the
+user exits the process, <i>most</i> is resumed. On UNIX
+systems, <i>most</i> simply suspends itself.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>:n</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Skip to the next filename given in the command line. Use
+the arrow keys to scroll forward or backward through the
+file list. &rsquo;<b>Q</b>&rsquo; quits <i>most</i> and any
+other key selects the given file.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>:c</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Toggle case sensitive search.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>:D</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Delete current file. This command is only meaningful
+with the <b>+d</b> switch.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p><b>:o</b>, <b>:O</b></p></td>
+<td width="2%"></td>
+<td width="78%">
+
+
+<p>Toggle various options. With this key sequence,
+<i>most</i> displays a prompt asking the user to hit one of:
+<b>bdtvw</b>. The &rsquo;<b>b</b>&rsquo;,
+&rsquo;<b>t</b>&rsquo;, &rsquo;<b>v</b>&rsquo;, and
+&rsquo;<b>w</b>&rsquo; options have the same meaning as the
+command line switches. For example, the
+&rsquo;<b>w</b>&rsquo; option will toggle wrapping on and
+off for the current window.</p></td></tr>
+</table>
+
+<p style="margin-left:22%; margin-top: 1em">The
+&rsquo;<b>d</b>&rsquo; option must be used with a prefix
+integer <i>i</i>. All lines indented beyond <i>i</i> columns
+will not be displayed. For example, consider the
+fragment:</p>
+
+<p style="margin-left:29%; margin-top: 1em">int main(int
+argc, char **argv) <br>
+{</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="8%"></td>
+<td width="77%">
+
+
+<p>int i;</p></td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="8%"></td>
+<td width="77%">
+
+
+<p>for (i = 0; i &lt; argc, i++)</p></td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="8%"></td>
+<td width="77%">
+
+
+<p>{</p></td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="8%"></td>
+<td width="77%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="8%"></td>
+<td width="77%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="8%"></td>
+<td width="77%">
+
+
+<p>fprintf(stdout,&quot;%i: %s\n&quot;,i,argv[i]);</p></td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="8%"></td>
+<td width="77%">
+
+
+<p>}</p></td></tr>
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="7%"></td>
+<td width="8%"></td>
+<td width="77%">
+
+
+<p>return 0;</p></td></tr>
+</table>
+
+<p style="margin-left:29%;">}</p>
+
+<p style="margin-left:22%; margin-top: 1em">The key
+sequence &rsquo;<b>1:od</b>&rsquo; will cause <i>most</i> to
+display the file ignoring all lines indented beyond the
+first column. So for the example above, <i>most</i> would
+display:</p>
+
+<p style="margin-left:29%; margin-top: 1em">int main(int
+argc, char **argv)... <br>
+}</p>
+
+<p style="margin-left:22%; margin-top: 1em">where the
+&rsquo;...&rsquo; indicates lines follow are not
+displayed.</p>
+
+<h2>HINTS
+<a name="HINTS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>CTRL-G</b>
+aborts the commands requiring the user to type something in
+at a prompt. The backquote key has a special meaning here.
+It is used to quote certain characters. This is useful when
+search for the occurrence of a string with a control
+character or a string at the beginning of a line. In the
+latter case, to find the occurrence of &rsquo;The&rsquo; at
+the beginning of a line, enter <b>&rsquo;^JThe</b> where
+<b>&rsquo;</b> quotes the <b>CTRL-J</b>.</p>
+
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>most</i>
+uses the following environment variables: <b><br>
+MOST_SWITCHES</b></p>
+
+<p style="margin-left:22%;">This variable sets commonly
+used switches. For example, some people prefer to use
+<i>most</i> with the <b>-s</b> option so that excess blank
+lines are not displayed. On VMS this is normally done done
+in the login.com through the line:</p>
+
+<p style="margin-left:29%; margin-top: 1em">$ define
+MOST_SWITCHES &quot;-s&quot;</p>
+
+<p style="margin-left:11%;"><b>MOST_EDITOR</b>,
+<b>SLANG_EDITOR</b></p>
+
+<p style="margin-left:22%;">Either of these environment
+variables specify an editor for <i>most</i> to invoke to
+edit a file. The value can contain %s and %d formatting
+descriptors that represent the file name and line number,
+respectively. For example, if JED is your editor, then set
+<b>MOST_EDITOR</b> to &rsquo;jed %s -g %d&rsquo;.</p>
+
+<p style="margin-left:11%;"><b>MOST_HELP</b></p>
+
+<p style="margin-left:22%;">This variable may be used to
+specify an alternate help file.</p>
+
+<p style="margin-left:11%;"><b>MOST_INITFILE</b></p>
+
+<p style="margin-left:22%;">Set this variable to specify
+the initialization file to load during startup. The default
+action is to load the system configuration file from
+<i>/etc/most.conf</i> and then a personal configuration file
+located at <i>$HOME/.mostrc</i></p>
+
+<h2>CONFIGURATION FILE SYNTAX
+<a name="CONFIGURATION FILE SYNTAX"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">When
+<i>most</i> starts up, it tries to read a system
+configuration file and then a personal configuration file.
+These files may be used to specify keybindings and
+colors.</p>
+
+<p style="margin-left:11%; margin-top: 1em">To bind a key
+to a particular function use the syntax:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>setkey
+function-name key-sequence</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">The
+<i>setkey</i> command requires two arguments. The
+<i>function-name</i> argument specifies the function that is
+to be executed as a response to the keys specified by the
+<i>key-sequence</i> argument are pressed. For example,</p>
+
+<p style="margin-left:11%; margin-top: 1em">setkey
+&quot;up&quot; &quot;^P&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">indicates that
+when <i>Ctrl-P</i> is pressed then the function <i>up</i> is
+to be executed.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Sometimes, it
+is necessary to first unbind a key-sequence before rebinding
+it in order via the <i>unsetkey</i> function:</p>
+
+<p style="margin-left:11%; margin-top: 1em">unsetkey
+&quot;^F&quot;</p>
+
+<p style="margin-left:11%; margin-top: 1em">Colors may be
+defined through the use of the <i>color</i> keyword in the
+configuration file using the syntax:</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>color
+OBJECT-NAME FOREGROUND-COLOR BACKGROUND-COLOR</b></p>
+
+<p style="margin-left:11%; margin-top: 1em">Here,
+OBJECT-NAME can be any one of the following items:</p>
+
+<p style="margin-left:11%; margin-top: 1em">status -- the
+status line <br>
+underline -- underlined text <br>
+overstrike -- overstriked text <br>
+normal -- anything else</p>
+
+<p style="margin-left:11%; margin-top: 1em">See the sample
+configuration files for more information.</p>
+
+<h2>BUGS
+<a name="BUGS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Almost all of
+the known bugs or limitations of <i>most</i> are due to a
+desire to read and interpret control characters in files.
+One problem concerns the use of backspace characters to
+underscore or overstrike other characters. <i>most</i> makes
+an attempt to use terminal escape sequences to simulate this
+behavior. One side effect is the one does not always get
+what one expects when scrolling right and left through a
+file. When in doubt, use the <b>-v</b> and <b>-b</b> options
+of <i>most</i>.</p>
+
+<h2>AUTHOR
+<a name="AUTHOR"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">John E. Davis
+<br>
+davis@space.mit.edu</p>
+
+<h2>ACKNOWLEDGEMENTS
+<a name="ACKNOWLEDGEMENTS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">I would like to
+thank the users of <i>most</i> for valuable comments and
+criticisms. I would especially like to thank those
+individuals who have contributed code to <i>most</i>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Mats Akerberg,
+Henk D. Davids, Rex O. Livingston, and Mark Pizzolato
+contributed to the early VMS versions of <i>most</i>. In
+particular, Mark worked on it to get it ready for DECUS.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Foteos Macrides
+&lt;MACRIDES@SCI.WFEB.EDU&gt; adapted <i>most</i> for use in
+<i>cswing</i> and <i>gopher</i>. A few features of the
+present version of <i>most</i> was inspired from his
+work.</p>
+
+<p style="margin-left:11%; margin-top: 1em">I am grateful
+to Robert Mills &lt;robert@jna.com.au&gt; for re-writing the
+search routines to use regular expressions.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Sven Oliver
+Moll &lt;smol0075@rz.uni-hildesheim.de&gt; came up with the
+idea of automatic detection of zipped files.</p>
+
+<p style="margin-left:11%; margin-top: 1em">I would also
+like to thank Shinichi Hama for his valuable criticisms of
+<i>most</i>.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Javier Kohen
+was instrumental in the support for UTF-8.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Thanks to David
+W. Sanderson (dws@cs.wisc.edu) for adapting the
+documentation to nroff man page source format.</p>
+<hr>
+</body>
+</html>
